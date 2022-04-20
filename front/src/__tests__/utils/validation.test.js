@@ -31,7 +31,7 @@ describe("Register validation", () => {
     expect(validation("register", registerInfo)).toBeFalsy();
   });
 
-  it("Pass validation", () => {
+  it("Pass register validation", () => {
     const registerInfo = {
       email: "test@test.com",
       password: "test1234",
@@ -57,5 +57,13 @@ describe("Login validation", () => {
       password: "test12",
     };
     expect(validation("login", loginInfo)).toBeFalsy();
+  });
+
+  it("Pass login validation", () => {
+    const loginInfo = {
+      email: "test@test.com",
+      password: "test1234",
+    };
+    expect(validation("login", loginInfo)).toBeTruthy();
   });
 });
