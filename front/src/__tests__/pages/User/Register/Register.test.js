@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Register from "../../../../pages/User/Register/Register";
+import userEvent from "@testing-library/user-event";
 
 describe("Check the form required for register", () => {
   it("Check service Logo", () => {
@@ -36,5 +37,32 @@ describe("Check the form required for register", () => {
     render(<Register />);
     const submitButton = screen.getByRole("button");
     expect(submitButton).toHaveTextContent("회원가입");
+  });
+});
+
+describe("Active button when enter required information", () => {
+  it("Input email info", () => {
+    render(<Register />);
+    const submitButton = screen.getByRole("button", { name: "회원가입" });
+
+    const emailForm = screen.getByLabelText("이메일");
+    userEvent.clear(emailForm);
+    userEvent.type(emailForm, "abcd@naver.com");
+    expect(submitButton).toBeDisabled();
+
+    const passwordForm = screen.getByLabelText("비밀번호");
+    userEvent.clear(passwordForm);
+    userEvent.type(passwordForm, "test1234");
+    expect(submitButton).toBeDisabled();
+
+    const confirmPasswordForm = screen.getByLabelText("비밀번호 확인");
+    userEvent.clear(confirmPasswordForm);
+    userEvent.type(confirmPasswordForm, "test1234");
+    expect(submitButton).toBeDisabled();
+
+    const nicknameForm = screen.getByLabelText("닉네임");
+    userEvent.clear(nicknameForm);
+    userEvent.type(nicknameForm, "테스트닉네임");
+    expect(submitButton).toBeEnabled();
   });
 });
