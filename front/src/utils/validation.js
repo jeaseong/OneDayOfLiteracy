@@ -12,22 +12,26 @@ function passwordValidate(type, passwordInfo) {
   const isSame = password === confirmPassword;
   const isPass =
     passwordRule.test(password) && passwordRule.test(confirmPassword);
+
   return isPass && isSame;
 }
 
-function registerValidation(info) {
+function registerValidation(type, info) {
   const { email, password, confirmPassword, nickName } = info;
 
   return (
     emailValidate(email) &&
-    passwordValidate("register", { password, confirmPassword }) &&
+    passwordValidate(type, { password, confirmPassword }) &&
     nickName.length >= 2
   );
 }
 
-function loginValidation(info) {}
+function loginValidation(type, info) {
+  const { email, password } = info;
+  return emailValidate(email) && passwordValidate(type, password);
+}
 
 export const validation = (type, info) => {
-  if (type === "register") return registerValidation(info);
-  return loginValidation(info);
+  if (type === "register") return registerValidation(type, info);
+  return loginValidation(type, info);
 };
