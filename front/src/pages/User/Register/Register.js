@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
+import { post } from "../../../utils/api";
 
-function Register() {
+function Register({ onSubmit = () => {} }) {
   const initialInfo = {
     email: "",
     password: "",
@@ -15,10 +16,22 @@ function Register() {
     setRegisterInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };
 
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    onSubmit();
+
+    try {
+      await post("user/register", registerInfo);
+      setRegisterInfo(initialInfo);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <h2>문해한 하루</h2>
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <label htmlFor="register-email">이메일</label>
         <input
           id="register-email"
