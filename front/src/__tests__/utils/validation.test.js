@@ -41,3 +41,21 @@ describe("Register validation", () => {
     expect(validation("register", registerInfo)).toBeTruthy();
   });
 });
+
+describe("Login validation", () => {
+  it("email validation", () => {
+    const loginInfo = {
+      email: "abcde",
+      password: "test1234",
+    };
+    expect(validation("login", loginInfo)).toBeFalsy();
+  });
+
+  it("password validation", () => {
+    const loginInfo = {
+      email: "test@test.com",
+      password: "test12",
+    };
+    expect(validation("login", loginInfo)).toBeFalsy();
+  });
+});
