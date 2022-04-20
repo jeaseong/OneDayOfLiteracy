@@ -43,6 +43,7 @@ describe("Check the form required for register", () => {
 describe("Register button's action", () => {
   it("Active button when input register info", () => {
     render(<Register />);
+    const onSubmit = jest.fn();
     const submitButton = screen.getByRole("button", { name: "회원가입" });
 
     const emailForm = screen.getByLabelText("이메일");
@@ -64,5 +65,8 @@ describe("Register button's action", () => {
     userEvent.clear(nicknameForm);
     userEvent.type(nicknameForm, "테스트닉네임");
     expect(submitButton).toBeEnabled();
+
+    userEvent.click(submitButton);
+    expect(onSubmit).toBeCalledTimes(1);
   });
 });
