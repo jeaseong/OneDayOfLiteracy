@@ -40,8 +40,8 @@ describe("Check the form required for register", () => {
   });
 });
 
-describe("Active button when enter required information", () => {
-  it("Input email info", () => {
+describe("Register button's action", () => {
+  it("Active button when input register info", () => {
     render(<Register />);
     const submitButton = screen.getByRole("button", { name: "회원가입" });
 
