@@ -1,6 +1,6 @@
 import { validation } from "../../utils/validation";
 
-describe("Register validation", () => {
+describe("Auth validation", () => {
   it("email validation", () => {
     const registerInfo = {
       email: "abcde",

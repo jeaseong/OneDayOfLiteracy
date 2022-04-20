@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Register from "../../../../pages/User/Register/Register";
+import Register from "../../../../pages/User/Auth/Register";
 import userEvent from "@testing-library/user-event";
 
 describe("Check the form required for register", () => {
@@ -40,7 +40,7 @@ describe("Check the form required for register", () => {
   });
 });
 
-describe("Register button's action", () => {
+describe("Auth button's action", () => {
   it("Active button when input register info", async () => {
     const onSubmit = jest.fn();
     render(<Register onSubmit={onSubmit} />);
