@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validation } from "../../../utils/validation";
 
 function Register() {
   const initialInfo = {
@@ -8,17 +9,11 @@ function Register() {
     nickName: "",
   };
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
+  const isActive = validation("register", registerInfo);
 
   const handleOnChange = (e) => {
     setRegisterInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };
-
-  const checkEmail = registerInfo.email.length > 0;
-  const checkPassword = registerInfo.password.length > 0;
-  const checkConfirmPassword = registerInfo.confirmPassword.length > 0;
-  const checkNickName = registerInfo.nickName.length > 0;
-  const isActive =
-    checkEmail && checkPassword && checkConfirmPassword && checkNickName;
 
   return (
     <div>
