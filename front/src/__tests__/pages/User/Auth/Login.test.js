@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Login from "../../../../pages/User/Auth/Login";
 import userEvent from "@testing-library/user-event";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -12,8 +12,8 @@ describe("Check the form required for login", () => {
         <Login />
       </QueryClientProvider>
     );
-    const serviceLogo = screen.getByRole("heading", { name: "문해한 하루" });
-    expect(serviceLogo).toBeInTheDocument();
+    const loginLogo = screen.getByRole("heading", { name: "Sign in" });
+    expect(loginLogo).toBeInTheDocument();
   });
 
   it("Check email form", () => {
@@ -22,7 +22,7 @@ describe("Check the form required for login", () => {
         <Login />
       </QueryClientProvider>
     );
-    const emailForm = screen.getByLabelText("이메일");
+    const emailForm = screen.getByRole("textbox", "Email Address");
     expect(emailForm).toBeInTheDocument();
   });
 
@@ -32,7 +32,7 @@ describe("Check the form required for login", () => {
         <Login />
       </QueryClientProvider>
     );
-    const passwordForm = screen.getByLabelText("비밀번호");
+    const passwordForm = screen.getByRole("textbox", "Password");
     expect(passwordForm).toBeInTheDocument();
   });
 
@@ -43,7 +43,7 @@ describe("Check the form required for login", () => {
       </QueryClientProvider>
     );
     const submitButton = screen.getByRole("button");
-    expect(submitButton).toHaveTextContent("로그인");
+    expect(submitButton).toHaveTextContent("Sign In");
   });
 });
 
@@ -56,21 +56,19 @@ describe("Auth login button's action", () => {
       </QueryClientProvider>
     );
 
-    const submitButton = screen.getByRole("button", { name: "로그인" });
+    const submitButton = screen.getByRole("button", { name: /sign in/i });
 
-    const emailForm = screen.getByLabelText("이메일");
-    userEvent.clear(emailForm);
-    userEvent.type(emailForm, "abcd@naver.com");
-    expect(submitButton).toBeDisabled();
+    const emailSelector = document.querySelector("#email");
+    userEvent.type(emailSelector, "abcd@naver.com");
+    expect(submitButton).toHaveClass("Mui-disabled");
 
-    const passwordForm = screen.getByLabelText("비밀번호");
-    userEvent.clear(passwordForm);
-    userEvent.type(passwordForm, "test1234");
-    expect(submitButton).toBeEnabled();
+    const passwordSelector = document.querySelector("#password");
+    userEvent.type(passwordSelector, "test1234");
+    expect(submitButton).not.toHaveClass("Mui-disabled");
 
     userEvent.click(submitButton);
     expect(onSubmit).toBeCalled();
 
-    await screen.findByRole("button", { name: "로그인" });
+    await screen.findByRole("button", { name: "Sign In" });
   });
 });

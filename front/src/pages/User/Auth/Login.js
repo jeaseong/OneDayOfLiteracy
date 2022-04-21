@@ -45,9 +45,7 @@ function Login({ onSubmit = () => {} }) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     onSubmit();
-
     mutationLogin.mutate(loginInfo);
-    setLoginInfo(initialInfo);
   };
 
   return (
