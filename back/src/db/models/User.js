@@ -7,7 +7,7 @@ class User {
   }
 
   static async findById({ userId }) {
-    const user = await UserModel.findOne({ _id: userId });
+    const user = await UserModel.findOne({ _id: userId }, {password: 0, __v: 0});
     return user;
   }
 
@@ -24,12 +24,12 @@ class User {
   }
 
   static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }, {password: 0, __v: 0});
     return user;
   }
 
   static async findAll() {
-    const users = await UserModel.find({});
+    const users = await UserModel.find({}, {password: 0, __v: 0});
     return users;
   }
 
