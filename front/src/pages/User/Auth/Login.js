@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
 import { post } from "../../../utils/api";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 function Login({ onSubmit = () => {} }) {
+  const queryClient = useQueryClient();
   const initialInfo = {
     email: "",
     password: "",
@@ -15,7 +16,8 @@ function Login({ onSubmit = () => {} }) {
     {
       onSuccess: (data) => {
         const jwtToken = data.token;
-        sessionStorage.setItem("userState", jwtToken);
+        sessionStorage.setItem("userToken", jwtToken);
+        queryClient.invalidateQueries("userState");
       },
       onError: (err) => console.log(err),
     }
