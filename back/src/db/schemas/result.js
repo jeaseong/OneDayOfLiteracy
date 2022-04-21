@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const ResultSchema = new Schema(
   {
-    user_id: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+    userId: { type: Schema.Types.ObjectId, required: true, ref: "User" },
     result: { type: Number, required: true, },
   },
   {
