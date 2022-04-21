@@ -20,8 +20,22 @@ function App() {
 
   const fetchCurrentUser = async () => {
     try {
-    } catch {}
+      const res = await Api.get("user/current");
+      const currentUser = res.data;
+
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: currentUser,
+      });
+    } catch {
+      console.log("%c SessionStorage에 토큰 없음.");
+    }
+    setIsFetchCommpleted(true);
   };
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   return (
     <div className="App">
