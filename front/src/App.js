@@ -5,9 +5,10 @@ import * as Api from "./utils/api";
 import { loginReducer } from "./utils/reducer";
 
 import Header from "./components/Header";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 // import Example from "./components/Query";
 // import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import Facebook from "./utils/Loading";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -48,6 +49,8 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
+          <Facebook />
+          <Footer />
         </Router>
       </UserStateContext.Provider>
     </DispatchContext.Provider>
