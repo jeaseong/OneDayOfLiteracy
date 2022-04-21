@@ -3,6 +3,6 @@
 
 # production
 /build
-*/.DS_Store
-.DS_Store
+**/.DS_Store
 /public
+**/.env
