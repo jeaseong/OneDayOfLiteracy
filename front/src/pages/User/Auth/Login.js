@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
 import { post } from "../../../utils/api";
+import { useMutation } from "react-query";
 
 function Login({ onSubmit = () => {} }) {
   const initialInfo = {
@@ -9,21 +10,27 @@ function Login({ onSubmit = () => {} }) {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const isActive = validation("login", loginInfo);
+  const mutationLogin = useMutation(
+    async (loginData) => await post("user/login", loginData),
+    {
+      onSuccess: (data) => {
+        const jwtToken = data.token;
+        sessionStorage.setItem("userState", jwtToken);
+      },
+      onError: (err) => console.log(err),
+    }
+  );
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };
 
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     onSubmit();
 
-    try {
-      await post("user/login", loginInfo);
-      setLoginInfo(initialInfo);
-    } catch (err) {
-      console.log(err);
-    }
+    mutationLogin.mutate(loginInfo);
+    setLoginInfo(initialInfo);
   };
 
   return (
