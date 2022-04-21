@@ -35,7 +35,7 @@ class Subject {
     }
 
     static async delete({ subjectId }) {
-        const deletedSubject = await SubjectModel.delete({ _id: subjectId });
+        const deletedSubject = await SubjectModel.deleteOne({ _id: subjectId });
         return deletedSubject;
     }
 }

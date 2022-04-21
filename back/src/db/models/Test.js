@@ -30,7 +30,7 @@ class Test {
     }
 
     static async delete({ testId }) {
-        const deletedTest = await TestModel.delete({ _id: testId });
+        const deletedTest = await TestModel.deleteOne({ _id: testId });
         return deletedTest;
     }
 }
