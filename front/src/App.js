@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "reaact-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import * as Api from "./utils/api";
 import { loginReducer } from "./reducer";
@@ -27,6 +27,8 @@ function App() {
         type: "LOGIN_SUCCESS",
         payload: currentUser,
       });
+
+      console.log("%c sessionStorage에 토큰 있음.");
     } catch {
       console.log("%c SessionStorage에 토큰 없음.");
     }
@@ -37,12 +39,18 @@ function App() {
     fetchCurrentUser();
   }, []);
 
+  if (!isFetchCompleted) {
+    return "loading...";
+  }
+
   return (
-    <div className="App">
-      {/* <QueryClientProvider client={queryClient}>
-        <Header />
-      </QueryClientProvider> */}
-    </div>
+    <DispatchContext.Provider value={dispatch}>
+      <UserStateContext.Provider value={userState}>
+        <Router>
+          <Header />
+        </Router>
+      </UserStateContext.Provider>
+    </DispatchContext.Provider>
   );
 }
 

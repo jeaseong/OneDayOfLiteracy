@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 // import { useQueryClient, useQuery } from "react-query";
 import { useNavigate, uselocation } from "react-router-dom";
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -12,8 +13,8 @@ function Header() {
     setValue(newValue);
   };
 
-  const queryClient = useQueryClient();
-  const query = useQuery();
+  // const queryClient = useQueryClient();
+  // const query = useQuery();
 
   return (
     <>
