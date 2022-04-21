@@ -6,19 +6,9 @@ class User {
     return createdNewUser;
   }
 
-  static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
-    return user;
-  }
-
   static async findById({ userId }) {
     const user = await UserModel.findOne({ _id: userId });
     return user;
-  }
-
-  static async findAll() {
-    const users = await UserModel.find({});
-    return users;
   }
 
   static async update({ userId, toUpdate }) {
@@ -31,6 +21,16 @@ class User {
       option
     );
     return updatedUser;
+  }
+
+  static async findByEmail({ email }) {
+    const user = await UserModel.findOne({ email });
+    return user;
+  }
+
+  static async findAll() {
+    const users = await UserModel.find({});
+    return users;
   }
 
   static async delete({ userId }) {
