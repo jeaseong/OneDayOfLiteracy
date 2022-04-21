@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Login from "../../../../pages/User/Auth/Login";
 import userEvent from "@testing-library/user-event";
 import { QueryClientProvider, QueryClient } from "react-query";
