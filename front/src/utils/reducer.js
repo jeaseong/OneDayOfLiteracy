@@ -1,4 +1,4 @@
-const loginReducer = (userState, action) => {
+export function loginReducer(userState, action) {
   switch (action.type) {
     case "LOGIN_SUCCESS":
       return {
@@ -13,6 +13,4 @@ const loginReducer = (userState, action) => {
     default:
       return userState;
   }
-};
-
-export default loginReducer;
+}

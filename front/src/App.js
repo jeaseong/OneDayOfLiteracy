@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import * as Api from "./utils/api";
-import { loginReducer } from "./reducer";
+import { loginReducer } from "./utils/reducer";
 
 import Header from "./components/Header";
 // import Footer from "./components/Footer";
