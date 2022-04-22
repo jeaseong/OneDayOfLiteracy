@@ -6,10 +6,11 @@ import Stack from "@mui/material/Stack";
 import { palette } from "@mui/system";
 import { cyan } from "@mui/material/colors";
 
-export default function Loading() {
+function Loading() {
   const one = cyan[50];
   const two = cyan[100];
   const three = cyan[200];
+  const four = cyan[300];
   return (
     <Stack
       direction="row"
@@ -25,22 +26,21 @@ export default function Loading() {
       {/* <Skeleton variant="text" /> */}
       <Skeleton
         variant="circular"
-        width={40}
-        height={40}
-        sx={{ bgcolor: one }}
+        sx={{ bgcolor: one, width: 40, height: 40 }}
       />
       <Skeleton
         variant="circular"
-        width={40}
-        height={40}
-        sx={{ bgcolor: two }}
+        sx={{ bgcolor: two, width: 40, height: 40 }}
       />
       <Skeleton
         variant="circular"
-        width={40}
-        height={40}
-        sx={{ bgcolor: three }}
+        sx={{ bgcolor: three, width: 40, height: 40 }}
       />
+      <Skeleton
+        variant="circular"
+        sx={{ bgcolor: four, width: 40, height: 40 }}
+      />
+
       {/* <Skeleton variant="rectangular" width={210} height={118} /> */}
     </Stack>
     // <Box sx={{ width: 100 }}>
@@ -50,3 +50,4 @@ export default function Loading() {
     // </Box>
   );
 }
+export default Loading;
