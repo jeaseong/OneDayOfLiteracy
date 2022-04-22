@@ -3,17 +3,21 @@ import { get, post } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export function useCurrentUser() {
+  const queryclient = useQueryClient();
   const { isLoading, error, data } = useQuery(
     "userState",
     () => get("user/current").then((res) => res.data),
     {
       staleTime: Infinity,
-      onSuccess: () => console.log("userToken 있음"),
-      onError: () => console.log("userToken 없음"),
+      onSuccess: () => console.log("userToken이 없으면 userState는 false"),
+      onError: () => {
+        console.log("userToken 없음");
+        queryclient.setQueryData("userState", false);
+      },
     }
   );
 
-  return { userState: data, isLoading, error };
+  return { userState: data, isLoading, isLogin: data, error };
 }
 
 export const useUserLogin = () => {

@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useState } from "react";
 
 function Home() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const userState = queryClient.getQueryData("userState");
-  const [isLogin, setIsLogin] = useState(!!userState);
 
   return (
     <div>
@@ -32,12 +29,11 @@ function Home() {
         onClick={() => {
           sessionStorage.removeItem("userToken");
           queryClient.removeQueries("userState");
-          setIsLogin(false);
+          window.location.reload();
         }}
       >
         로그아웃
       </button>
-      {isLogin && <h2>로그인 중</h2>}
     </div>
   );
 }
