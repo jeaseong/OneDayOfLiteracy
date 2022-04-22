@@ -72,3 +72,16 @@ describe("Auth login button's action", () => {
     await screen.findByRole("button", { name: "Sign In" });
   });
 });
+
+describe("KaKao Login test", () => {
+  it("KaKao login button is on the screen", () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Login />
+      </QueryClientProvider>
+    );
+
+    const kakaoLoginButton = screen.getByRole("img");
+    expect(kakaoLoginButton).toHaveAttribute("alt", "kakaoLogin");
+  });
+});
