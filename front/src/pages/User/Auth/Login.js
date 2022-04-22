@@ -14,10 +14,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
 import { useUserLogin } from "../../../queries/userQuery";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 function Login({ onSubmit = () => {} }) {
+  const navigate = useNavigate();
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
     email: "",
@@ -117,14 +119,12 @@ function Login({ onSubmit = () => {} }) {
               </div>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    비밀번호 찾기
-                  </Link>
+                  <Button>비밀번호 찾기</Button>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Button onClick={() => navigate("/user/register")}>
                     아직 계정이 없으신가요?
-                  </Link>
+                  </Button>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

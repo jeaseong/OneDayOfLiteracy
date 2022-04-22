@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
 import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
@@ -12,11 +13,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<Login />} />
+        <Route path="/" exact element={<Home />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/oauth/callback/kakao" element={<KakaoLoginHandler />} />
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </Router>
   );
