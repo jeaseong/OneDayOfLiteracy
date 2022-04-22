@@ -13,13 +13,11 @@ import { Copyright } from "../../../components/Copyright";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
-import { post } from "../../../utils/api";
-import { useMutation, useQueryClient } from "react-query";
+import { useUserLogin } from "../../../queries/userQuery";
 
 const theme = createTheme();
 
 function Login({ onSubmit = () => {} }) {
-  const queryClient = useQueryClient();
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
     email: "",
@@ -27,17 +25,7 @@ function Login({ onSubmit = () => {} }) {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const isActive = validation("login", loginInfo);
-  const mutationLogin = useMutation(
-    async (loginData) => await post("user/login", loginData),
-    {
-      onSuccess: (res) => {
-        const jwtToken = res.data.token;
-        sessionStorage.setItem("userToken", jwtToken);
-        queryClient.invalidateQueries("userState");
-      },
-      onError: (err) => console.log("onError", err),
-    }
-  );
+  const mutation = useUserLogin();
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
@@ -46,7 +34,7 @@ function Login({ onSubmit = () => {} }) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     onSubmit();
-    mutationLogin.mutate(loginInfo);
+    mutation.mutate(loginInfo);
   };
 
   return (

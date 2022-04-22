@@ -17,7 +17,7 @@ function KakaoLoginHandler() {
         const jwtToken = res.data.access_token;
         sessionStorage.setItem("userToken", jwtToken);
 
-        await queryClient.invalidateQueries("userState");
+        queryClient.invalidateQueries("userState");
         navigate("/");
       } catch (err) {
         console.log("카카오 로그인에 실패하였습니다.", err);

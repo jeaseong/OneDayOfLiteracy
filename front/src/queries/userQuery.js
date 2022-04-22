@@ -1,5 +1,5 @@
-import { useQuery } from "react-query";
-import { get } from "../utils/api";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { get, post } from "../utils/api";
 
 export function useCurrentUser() {
   let isLogin = false;
@@ -19,3 +19,16 @@ export function useCurrentUser() {
 
   return { userState: data, isLoading, isLogin, error, isFetching };
 }
+
+export const useUserLogin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(async (loginData) => await post("user/login", loginData), {
+    onSuccess: (res) => {
+      const jwtToken = res.data.token;
+      sessionStorage.setItem("userToken", jwtToken);
+      queryClient.invalidateQueries("userState");
+    },
+    onError: (err) => console.log("onError", err),
+  });
+};
