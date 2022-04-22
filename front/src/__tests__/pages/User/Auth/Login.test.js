@@ -1,47 +1,28 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../../../../test-utils";
 import Login from "../../../../pages/User/Auth/Login";
 import userEvent from "@testing-library/user-event";
-import { QueryClientProvider, QueryClient } from "react-query";
-
-const queryClient = new QueryClient();
 
 describe("Check the form required for login", () => {
   it("Check service Logo", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login />
-      </QueryClientProvider>
-    );
+    render(<Login />);
     const loginLogo = screen.getByRole("heading", { name: "Sign in" });
     expect(loginLogo).toBeInTheDocument();
   });
 
   it("Check email form", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login />
-      </QueryClientProvider>
-    );
+    render(<Login />);
     const emailForm = screen.getByRole("textbox", "Email Address");
     expect(emailForm).toBeInTheDocument();
   });
 
   it("Check password form", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login />
-      </QueryClientProvider>
-    );
+    render(<Login />);
     const passwordForm = screen.getByRole("textbox", "Password");
     expect(passwordForm).toBeInTheDocument();
   });
 
   it("Check submit button", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login />
-      </QueryClientProvider>
-    );
+    render(<Login />);
     const submitButton = screen.getByRole("button");
     expect(submitButton).toHaveTextContent("Sign In");
   });
@@ -50,11 +31,7 @@ describe("Check the form required for login", () => {
 describe("Auth login button's action", () => {
   it("Active button when input login info", async () => {
     const onSubmit = jest.fn();
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login onSubmit={onSubmit} />
-      </QueryClientProvider>
-    );
+    render(<Login />);
 
     const submitButton = screen.getByRole("button", { name: /sign in/i });
 
@@ -75,12 +52,7 @@ describe("Auth login button's action", () => {
 
 describe("KaKao Login test", () => {
   it("KaKao login button is on the screen", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Login />
-      </QueryClientProvider>
-    );
-
+    render(<Login />);
     const kakaoLoginButton = screen.getByRole("img");
     expect(kakaoLoginButton).toHaveAttribute("alt", "kakaoLogin");
   });
