@@ -121,6 +121,11 @@ function Login({ onSubmit = () => {} }) {
               >
                 Sign In
               </Button>
+              <div style={{ textAlign: "center" }}>
+                <Link href="#">
+                  <img src="/kakao_login_medium_narrow.png" alt="kakaoLogin" />
+                </Link>
+              </div>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
