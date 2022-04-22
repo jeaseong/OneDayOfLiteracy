@@ -7,8 +7,6 @@ export function useCurrentUser() {
     "userState",
     () => get("user/current").then((res) => res.data),
     {
-      refetchOnWindowFocus: false,
-      retry: 0,
       staleTime: Infinity,
       onSuccess: () => console.log("userToken 있음"),
       onError: () => console.log("userToken 없음"),
