@@ -6,10 +6,11 @@ import { loginReducer } from "./utils/reducer";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Errorpage from "./components/Errorpage";
 // import Example from "./components/Query";
 // import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import Loading from "./components/Loading";
-import { palette } from "@mui/system";
+
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -49,7 +50,7 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
-
+          <Errorpage />
           <Footer />
         </Router>
       </UserStateContext.Provider>
