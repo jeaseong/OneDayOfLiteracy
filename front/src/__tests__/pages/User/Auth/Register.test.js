@@ -2,6 +2,15 @@ import { render, screen } from "@testing-library/react";
 import Register from "../../../../pages/User/Auth/Register";
 import userEvent from "@testing-library/user-event";
 
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => ({
+    navigate: mockNavigate.mockImplementation(() => ({})),
+  }),
+}));
+
 describe("Check the form required for register", () => {
   it("Check service Logo", () => {
     render(<Register />);
@@ -39,8 +48,8 @@ describe("Check the form required for register", () => {
 
   it("Check submit button", () => {
     render(<Register />);
-    const submitButton = screen.getByRole("button");
-    expect(submitButton).toHaveTextContent(/sign up/i);
+    const submitButton = screen.getByRole("button", { name: /sign up/i });
+    expect(submitButton).toBeInTheDocument();
   });
 });
 

@@ -6,7 +6,7 @@ describe("Auth validation", () => {
       email: "abcde",
       password: "test1234",
       confirmPassword: "test1234",
-      nickName: "테스트",
+      nickname: "테스트",
     };
     expect(validation("register", registerInfo)).toBeFalsy();
   });
@@ -16,7 +16,7 @@ describe("Auth validation", () => {
       email: "test@test.com",
       password: "test1222",
       confirmPassword: "test1234",
-      nickName: "테스트",
+      nickname: "테스트",
     };
     expect(validation("register", registerInfo)).toBeFalsy();
   });
@@ -26,7 +26,7 @@ describe("Auth validation", () => {
       email: "test@test.com",
       password: "test1234",
       confirmPassword: "test1234",
-      nickName: "a",
+      nickname: "a",
     };
     expect(validation("register", registerInfo)).toBeFalsy();
   });
@@ -36,7 +36,7 @@ describe("Auth validation", () => {
       email: "test@test.com",
       password: "test1234",
       confirmPassword: "test1234",
-      nickName: "test",
+      nickname: "test",
     };
     expect(validation("register", registerInfo)).toBeTruthy();
   });

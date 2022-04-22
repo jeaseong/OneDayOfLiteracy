@@ -5,7 +5,7 @@ const queryClient = new QueryClient({
 });
 
 const customRender = (ui, options) => {
-  render(<QueryClientProvider client={queryClient}>ui</QueryClientProvider>, {
+  render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>, {
     ...options,
   });
 };

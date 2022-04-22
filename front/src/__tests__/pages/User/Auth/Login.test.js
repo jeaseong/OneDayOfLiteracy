@@ -2,6 +2,15 @@ import { render, screen } from "../../../../test-utils";
 import Login from "../../../../pages/User/Auth/Login";
 import userEvent from "@testing-library/user-event";
 
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => ({
+    navigate: mockNavigate.mockImplementation(() => ({})),
+  }),
+}));
+
 describe("Check the form required for login", () => {
   it("Check service Logo", () => {
     render(<Login />);
@@ -23,15 +32,15 @@ describe("Check the form required for login", () => {
 
   it("Check submit button", () => {
     render(<Login />);
-    const submitButton = screen.getByRole("button");
-    expect(submitButton).toHaveTextContent("Sign In");
+    const submitButton = screen.getByRole("button", { name: /Sign In/i });
+    expect(submitButton).toBeInTheDocument();
   });
 });
 
 describe("Auth login button's action", () => {
   it("Active button when input login info", async () => {
     const onSubmit = jest.fn();
-    render(<Login />);
+    render(<Login onSubmit={onSubmit} />);
 
     const submitButton = screen.getByRole("button", { name: /sign in/i });
 
