@@ -13,7 +13,7 @@ function Errorpage() {
       fixed
       sx={{
         textAlign: "center",
-        mt: "20%",
+        mt: "5%",
       }}
     >
       <Box sx={{ boxShadow: 3, padding: 20 }}>
@@ -29,6 +29,10 @@ function Errorpage() {
         </Typography>
         <Typography variant="h5" gutterBottom component="div">
           THE PAGE YOU REQUESTED COULD NOT FOUND
+        </Typography>
+        <br />
+        <Typography variant="h5" gutterBottom component="div">
+          3초 후 홈페이지로 이동합니다.
         </Typography>
       </Box>
     </Container>

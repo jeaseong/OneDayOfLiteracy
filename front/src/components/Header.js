@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { UserStateContext, DispatchContext } from "../App";
-
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -55,7 +53,7 @@ function Header() {
             indicatorColor="primary"
             aria-label="primary tabs example"
           >
-            <LinkTab href="/" label="서비스 소개" />
+            <LinkTab onClick={() => navigate("/")} label="서비스 소개" />
             <LinkTab href="/logout" label="로그아웃" />
           </Tabs>
         ) : (
