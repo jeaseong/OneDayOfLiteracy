@@ -120,6 +120,12 @@ export const testQuestion = [
       },
     ],
   },
+  {
+    id: 6,
+    question: "테스트 종료!",
+    content: "결과가 궁금하신가요?",
+    choices: [],
+  },
 ];
 
 export const answerSheet = [
