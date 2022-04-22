@@ -8,8 +8,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import Example from "./components/Query";
 // import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import Facebook from "./utils/Loading";
-
+import Loading from "./components/Loading";
+import { palette } from "@mui/system";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -49,7 +49,7 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
-          <Facebook />
+
           <Footer />
         </Router>
       </UserStateContext.Provider>
