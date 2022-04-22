@@ -11,6 +11,7 @@ export function useCurrentUser() {
       retry: 0,
       onSuccess: (data) => {
         if (!data) isLogin = true;
+        console.log("userToken 있음");
       },
       onError: () => console.log("userToken 없음"),
     }

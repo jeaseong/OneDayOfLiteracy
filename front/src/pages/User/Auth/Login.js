@@ -30,12 +30,12 @@ function Login({ onSubmit = () => {} }) {
   const mutationLogin = useMutation(
     async (loginData) => await post("user/login", loginData),
     {
-      onSuccess: (data) => {
-        const jwtToken = data.token;
+      onSuccess: (res) => {
+        const jwtToken = res.data.token;
         sessionStorage.setItem("userToken", jwtToken);
         queryClient.invalidateQueries("userState");
       },
-      onError: (err) => console.log(err),
+      onError: (err) => console.log("onError", err),
     }
   );
 
