@@ -17,10 +17,15 @@ export const TestSheetContainer = () => {
   //   async () => await Api.get("test")
   // );
   const [isTesting, setIsTesting] = useState(false);
+  const [curAnswer, setCurAnswer] = useState({
+    questionId: null,
+    answerId: null,
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("", answer);
+    // await axios.post("", answer);
+    // 결과 페이지로 다이렉트하기
   };
   const startTest = async () => {
     // const res = await axios.get("");
@@ -32,11 +37,17 @@ export const TestSheetContainer = () => {
   const nextTest = (nextId) => {
     const nextTestQuestion = testQuestion.find((t) => nextId === t.id);
     testDispatch({ type: "setTest", payload: nextTestQuestion });
+    selectAnswer(curAnswer);
+    setCurAnswer((cur) => {
+      return {
+        questionId: null,
+        answerId: null,
+      };
+    });
   };
-  const handleClickAnswer = (answerId) => {
-    selectAnswer({
-      questionId: test.id,
-      answerId: answerId,
+  const handleClickAnswer = (questionId, answerId) => {
+    setCurAnswer((cur) => {
+      return { questionId, answerId };
     });
   };
   return (
@@ -46,8 +57,7 @@ export const TestSheetContainer = () => {
           test={test}
           onSubmit={onSubmit}
           nextTest={nextTest}
-          // selectedAnswer={selectedAnswer}
-          selectAnswer={selectAnswer}
+          selectedAnswer={curAnswer.answerId}
           handleClickAnswer={handleClickAnswer}
         />
       )}
@@ -64,7 +74,7 @@ export const TestSheetContainer = () => {
         </button>
       )}
       {isTesting && test && (
-        <ButtonContainer nextTest={nextTest} id={test.id} />
+        <ButtonContainer onSubmit={onSubmit} nextTest={nextTest} id={test.id} />
       )}
     </div>
   );

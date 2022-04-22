@@ -5,9 +5,7 @@ import { AnswerButtons } from "./AnswerButtons";
 
 export const TestSheet = ({
   test,
-  nextTest,
   onSubmit,
-  selectAnswer,
   selectedAnswer,
   handleClickAnswer,
 }) => {
@@ -21,6 +19,7 @@ export const TestSheet = ({
             content={test.content}
           />
           <AnswerButtons
+            testId={test.id}
             choices={test.choices}
             handleClickAnswer={handleClickAnswer}
             selectedAnswer={selectedAnswer}
