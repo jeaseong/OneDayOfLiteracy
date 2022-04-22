@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const backendPortNumber = "5001";
+const backendPortNumber = "5000";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
 export async function get(endpoint, params = "") {
-  return axios.get(serverUrl + endpoint + "/" + params, {
+  return axios.get(serverUrl + endpoint + params, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
@@ -33,7 +33,7 @@ export async function put(endpoint, data) {
 }
 
 export async function del(endpoint, params = "") {
-  return axios.delete(serverUrl + endpoint + "/" + params, {
+  return axios.delete(serverUrl + endpoint + params, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },

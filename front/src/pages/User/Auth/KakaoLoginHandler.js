@@ -1,7 +1,7 @@
-import { get } from "../../../utils/api";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { get } from "../../../utils/api";
 
 function KakaoLoginHandler() {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ function KakaoLoginHandler() {
   useEffect(() => {
     const getKakaoToken = async () => {
       try {
-        const res = await get("/oauth/kakao?code=" + kakaoCode);
+        const res = await get("oauth/kakao?code=" + kakaoCode);
         const jwtToken = res.data.access_token;
-        sessionStorage.setItem("userState", jwtToken);
-        await queryClient.invalidateQueries("userState");
+        sessionStorage.setItem("userToken", jwtToken);
 
+        await queryClient.invalidateQueries("userState");
         navigate("/");
       } catch (err) {
         console.log("카카오 로그인에 실패하였습니다.", err);
@@ -26,7 +26,7 @@ function KakaoLoginHandler() {
     };
 
     getKakaoToken();
-  }, []);
+  }, [kakaoCode, navigate, queryClient]);
 
   return null;
 }

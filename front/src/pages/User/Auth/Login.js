@@ -20,6 +20,7 @@ const theme = createTheme();
 
 function Login({ onSubmit = () => {} }) {
   const queryClient = useQueryClient();
+  const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
     email: "",
     password: "",
@@ -122,7 +123,7 @@ function Login({ onSubmit = () => {} }) {
                 Sign In
               </Button>
               <div style={{ textAlign: "center" }}>
-                <Link href="#">
+                <Link href={kakaoAuthUrl}>
                   <img src="/kakao_login_medium_narrow.png" alt="kakaoLogin" />
                 </Link>
               </div>
