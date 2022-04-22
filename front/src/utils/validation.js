@@ -17,12 +17,12 @@ function passwordValidate(type, passwordInfo) {
 }
 
 function registerValidation(type, info) {
-  const { email, password, confirmPassword, nickName } = info;
+  const { email, password, confirmPassword, nickname } = info;
 
   return (
     emailValidate(email) &&
     passwordValidate(type, { password, confirmPassword }) &&
-    nickName.length >= 2
+    nickname.length >= 2
   );
 }
 

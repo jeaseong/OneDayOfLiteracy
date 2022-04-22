@@ -22,7 +22,7 @@ function Register({ onSubmit = () => {} }) {
     email: "",
     password: "",
     confirmPassword: "",
-    nickName: "",
+    nickname: "",
   };
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const isActive = validation("register", registerInfo);
@@ -35,12 +35,12 @@ function Register({ onSubmit = () => {} }) {
     e.preventDefault();
     onSubmit();
 
-    const { email, password, nickName } = registerInfo;
+    const { email, password, nickname } = registerInfo;
     try {
-      await post("user/register", { email, password, nickName });
+      await post("user/register", { email, password, nickname });
       setRegisterInfo(initialInfo);
     } catch (err) {
-      console.log(err);
+      console.log("register", err);
     }
   };
 
@@ -109,7 +109,7 @@ function Register({ onSubmit = () => {} }) {
                 <TextField
                   required
                   fullWidth
-                  name="nickName"
+                  name="nickname"
                   label="Nickname"
                   type="text"
                   id="nickName"
