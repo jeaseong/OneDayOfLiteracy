@@ -1,15 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { testQuestion } from "./Utils";
-import { TestContext } from "../../context/TestContext";
 
-export const ButtonContainer = ({ nextTest, id, onSubmit }) => {
-  const { test, testDispatch } = useContext(TestContext);
+export const ButtonContainer = ({ nextTest, id, onSubmit, selectedAnswer }) => {
   return (
     <div>
-      {testQuestion.length + 1 !== id ? (
-        <button onClick={() => nextTest(id + 1)}>next</button>
+      {testQuestion.length !== id ? (
+        <button disabled={!selectedAnswer} onClick={() => nextTest(id + 1)}>
+          next
+        </button>
       ) : (
-        <button onClick={onSubmit}>결과보기</button>
+        <button disabled={false} onClick={onSubmit}>
+          결과보기
+        </button>
       )}
     </div>
   );
