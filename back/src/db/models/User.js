@@ -7,7 +7,7 @@ class User {
   }
 
   static async findById({ userId }) {
-    const user = await UserModel.findOne({ _id: userId }, {password: 0, __v: 0});
+    const user = await UserModel.findOne({ _id: userId }, { __v: 0});
     return user;
   }
 

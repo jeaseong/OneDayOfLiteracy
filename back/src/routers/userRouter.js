@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-// import { login_required } from "../middlewares/login_required";
+import { loginRequired } from "../middlewares/loginRequired";
 import { userAuthService } from "../services/userService";
 
 const userAuthRouter = Router();
@@ -65,7 +65,7 @@ userAuthRouter.get("/users", async (req, res, next) => {
 
 // GET /user/current : 현재 로그인 user 조회
 userAuthRouter.get("/user/current", 
-  //login_required,
+  loginRequired,
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
@@ -87,7 +87,7 @@ userAuthRouter.get("/user/current",
 // PUT /user/:userId : user 정보 수정
 userAuthRouter.put(
   "/user/:userId",
-  //login_required,
+  loginRequired,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
@@ -113,7 +113,7 @@ userAuthRouter.put(
 // GET /users/:userId : user 조회
 userAuthRouter.get(
   "/users/:userId",
-  //login_required,
+  loginRequired,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
@@ -133,7 +133,7 @@ userAuthRouter.get(
 // DELETE /user/:userId : user 삭제 (회원 탈퇴)
 userAuthRouter.delete(
   "/user/:userId",
-  //login_required,
+  loginRequired,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
