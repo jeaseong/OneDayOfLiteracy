@@ -64,7 +64,7 @@ class userAuthService {
     const token = jwt.sign({ userId: user._id, type: "general" }, secretKey);
 
     const loginUser = {
-      ...user._docs,
+      ...user._doc,
       token,
       errorMessage: null,
     };
@@ -86,7 +86,7 @@ class userAuthService {
     const token = jwt.sign({ userId: kakaoUser._id, type: "kakao" }, secretKey);
 
     const loginUser = {
-      ...kakaoUser._docs,
+      ...kakaoUser._doc,
       token,
       errorMessage: null,
     };

@@ -27,7 +27,7 @@ class User {
   }
 
   static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email }, { password: 0, __v: 0 });
+    const user = await UserModel.findOne({ email });
     return user;
   }
 

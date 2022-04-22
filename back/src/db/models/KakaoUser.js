@@ -7,10 +7,7 @@ class KakaoUser {
   }
 
   static async findById({ userId }) {
-    const user = await KakaoUserModel.findOne(
-      { _id: userId },
-      { password: 0, __v: 0 }
-    );
+    const user = await KakaoUserModel.findOne({ _id: userId });
     return user;
   }
 
@@ -27,15 +24,12 @@ class KakaoUser {
   }
 
   static async findByEmail({ email }) {
-    const user = await KakaoUserModel.findOne(
-      { email },
-      { password: 0, __v: 0 }
-    );
+    const user = await KakaoUserModel.findOne({ email });
     return user;
   }
 
   static async findAll() {
-    const users = await KakaoUserModel.find({}, { password: 0, __v: 0 });
+    const users = await KakaoUserModel.find({});
     return users;
   }
 
