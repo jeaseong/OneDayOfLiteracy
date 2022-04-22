@@ -12,7 +12,7 @@ function loginRequired(req, res, next) {
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
+    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
     //전자 서명에 사용한 secretKey로 accessToken 검증
     const jwtDecoded = jwt.verify(accessToken, secretKey);

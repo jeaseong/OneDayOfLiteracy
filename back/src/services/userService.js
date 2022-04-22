@@ -35,7 +35,16 @@ class userAuthService {
     // db에 저장
     const createdNewUser = await KakaoUser.create({ newKakaoUser });
 
-    return createdNewUser;
+    const secretKey = config.jwtKey || "jwt-secret-key";
+    const token = jwt.sign({ userId: createdNewUser._id, type: "kakao" }, secretKey);
+    
+    const loginUser = {
+      ...createdNewUser._doc,
+      token,
+      errorMessage: null,
+    };
+
+    return loginUser;
   }
 
   // 로그인
@@ -84,6 +93,12 @@ class userAuthService {
 
     const secretKey = config.jwtKey || "jwt-secret-key";
     const token = jwt.sign({ userId: kakaoUser._id, type: "kakao" }, secretKey);
+
+       
+    //console.log(kakaoUser._id, typeof kakaoUser._id);
+    // new ObjectId("6262cf120e7a8939fcb51bf0") object 
+    // 위처럼 userId 픨드 값에 new ObjectId 형식의 object가 저장되는데
+    // 디코딩으로 jwt.verify(token, secretKey) 한 [ 결과.userId ] 값은 [ string ]!! 이다!
 
     const loginUser = {
       ...kakaoUser._doc,
@@ -149,7 +164,7 @@ class userAuthService {
 
     // 수정해야하는 필드에 맞는 값을 업데이트
     const toUpdateField = Object.keys(toUpdate);
-
+    
     toUpdateField.forEach((key) => {
       if (!toUpdate[key]) delete toUpdate[key];
     });

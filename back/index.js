@@ -2,7 +2,7 @@ import config from "./src/config";
 import { app } from "./src/app";
 import mongoose from "mongoose";
 
-const PORT = config.PORT || 5000;
+const PORT = config.port || 5000;
 
 const DB_URL =
   config.mongodbUrl ||

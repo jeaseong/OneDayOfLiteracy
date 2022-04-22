@@ -7,7 +7,10 @@ class KakaoUser {
   }
 
   static async findById({ userId }) {
-    const user = await KakaoUserModel.findOne({ _id: userId });
+    const user = await KakaoUserModel.findOne(
+      { _id: userId },
+      { __v: 0 }
+    );
     return user;
   }
 
@@ -29,7 +32,7 @@ class KakaoUser {
   }
 
   static async findAll() {
-    const users = await KakaoUserModel.find({});
+    const users = await KakaoUserModel.find({}, { __v: 0 });
     return users;
   }
 

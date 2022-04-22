@@ -3,6 +3,7 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { userAuthService } from "../services/userService";
 import config from "../config";
+import axios from "axios";
 
 const userAuthRouter = Router();
 
@@ -70,18 +71,27 @@ userAuthRouter.get("/oauth/kakao", (req, res, next) => {
       )
       .then((result) => {
         const accessToken = result.data.access_token;
-
+        console.log(accessToken);
         axios
-          .post(`https://kapi.kakao.com/v2/user/me`, {
+          ({
+            url: `https://kapi.kakao.com/v2/user/me`, 
+            method: 'POST',
             // 토큰으로 유저(나) 정보 얻기
             headers: {
               Authorization: `Bearer ${accessToken}`,
+              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
             },
           })
           .then(async (result) => {
+          
             const kakaoAccount = result.data.kakao_account;
             const nickname = kakaoAccount.profile.nickname;
-            const email = kakaoAccount.email;
+            const email = kakaoAccount.email ?? null;
+
+            if(email === null){ 
+              // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
+              throw new Error('카카오 email 제공을 꼭 체크해주세요!');
+            }
 
             const user = await userAuthService.getKakaoUser({ email });
 
@@ -91,8 +101,10 @@ userAuthRouter.get("/oauth/kakao", (req, res, next) => {
                 email,
               });
 
+              
               res.status(200).json(newUser);
             } else {
+              console.log(user);
               res.status(200).json(user);
             }
           })
@@ -130,6 +142,7 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
   try {
     const userType = req.currentUserType;
     const userId = req.currentUserId;
+    
 
     let currentUserInfo = null;
     if (userType === "general") {
@@ -160,8 +173,13 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
 userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
   try {
     const userType = req.currentUserType;
+    const currentUserId = req.currentUserId;
     const { userId } = req.params;
     const { nickname, password } = req.body;
+    
+    if(userId !== currentUserId) {
+      throw new Error('path parameter로 보낸 userId와 로그인한 userId가 달라서 수정을 제한합니다.');
+    }
 
     let updatedUser = null;
     if (userType === "general") {
@@ -177,9 +195,10 @@ userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
       updatedUser = await userAuthService.setKakaoUser({ userId, toUpdate });
     }
 
-    if (currentUserInfo?.errorMessage) {
-      throw new Error(currentUserInfo.errorMessage);
-    } else if (currentUserInfo === null) {
+    if (updatedUser?.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    } else if (updatedUser === null) {
+      //그럴 일은 없지만, 혹시 currentUserType이 잘못 저장되어 찾기 불가능한 상태
       throw new Error("userType이 잘못되었습니다.");
     }
 
