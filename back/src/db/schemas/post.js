@@ -5,7 +5,7 @@ const PostSchema = new Schema(
     title: { type: String, required: true, },
     content: { type: String, required: true,},
     subject: { type: String, required: true, },
-    user_id: { type: Schema.Types.ObjectId, required: true, ref: "User"},
+    userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
   },
   {
     timestamps: true,
@@ -16,7 +16,7 @@ const PostSchema = new Schema(
 
 PostSchema.virtual('user', {
   ref: 'User',
-  localField: 'user_id',
+  localField: 'userId',
   foreignField: '_id',
   justOne: true,
 });
@@ -24,7 +24,7 @@ PostSchema.virtual('user', {
 PostSchema.virtual('likes', {
   ref: 'Like',
   localField: '_id',
-  foreignField: 'project_id',
+  foreignField: 'postId',
   count: true,
 });
 
