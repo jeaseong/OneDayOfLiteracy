@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CheckIcon from "@mui/icons-material/Check";
 
 const Button = styled.button`
   display: flex;
@@ -17,18 +18,23 @@ const AnswerText = styled.div`
 `;
 
 export const AnswerButtons = ({
+  testId,
   choices,
   handleClickAnswer,
   selectedAnswer,
 }) => {
-  const isSelected = (id) => id === selectedAnswer;
   return (
     <div>
       {choices.map((option, index) => (
-        <Button onClick={() => handleClickAnswer(option.id)}>
+        <Button
+          onClick={() => {
+            handleClickAnswer(testId, option.id);
+          }}
+        >
           <AnswerText>
             {index + 1}. {option.choice}
           </AnswerText>
+          {selectedAnswer === option.id && <CheckIcon />}
         </Button>
       ))}
     </div>
