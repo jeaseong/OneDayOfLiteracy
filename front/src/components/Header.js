@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { UserStateContext, DispatchContext } from "../App";
+// import { UserStateContext, DispatchContext } from "../App";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -41,10 +41,12 @@ function Header() {
         }}
       >
         <img
+          onClick={() => navigate("/")}
           src={`${process.env.PUBLIC_URL}/moonhaeday.png`}
           alt="logo"
           width="100"
         ></img>
+
         {isLogin ? (
           <Tabs
             value={value}
