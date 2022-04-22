@@ -22,8 +22,8 @@ export const TestSheetContainer = () => {
     answerId: null,
   });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async () => {
+    console.log(answer);
     // await axios.post("", answer);
     // 결과 페이지로 다이렉트하기
   };
@@ -37,6 +37,9 @@ export const TestSheetContainer = () => {
   const nextTest = (nextId) => {
     const nextTestQuestion = testQuestion.find((t) => nextId === t.id);
     testDispatch({ type: "setTest", payload: nextTestQuestion });
+    setAnswer();
+  };
+  const setAnswer = () => {
     selectAnswer(curAnswer);
     setCurAnswer((cur) => {
       return {
@@ -50,6 +53,7 @@ export const TestSheetContainer = () => {
       return { questionId, answerId };
     });
   };
+  const selectedAnswer = curAnswer.answerId;
   return (
     <div>
       {isTesting && (
@@ -57,7 +61,7 @@ export const TestSheetContainer = () => {
           test={test}
           onSubmit={onSubmit}
           nextTest={nextTest}
-          selectedAnswer={curAnswer.answerId}
+          selectedAnswer={selectedAnswer}
           handleClickAnswer={handleClickAnswer}
         />
       )}
@@ -74,7 +78,12 @@ export const TestSheetContainer = () => {
         </button>
       )}
       {isTesting && test && (
-        <ButtonContainer onSubmit={onSubmit} nextTest={nextTest} id={test.id} />
+        <ButtonContainer
+          selectedAnswer={selectedAnswer}
+          onSubmit={onSubmit}
+          nextTest={nextTest}
+          id={test.id}
+        />
       )}
     </div>
   );
