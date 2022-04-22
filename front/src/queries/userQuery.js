@@ -3,7 +3,7 @@ import { get, post } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export function useCurrentUser() {
-  const { isLoading, error, data, isFetching } = useQuery(
+  const { isLoading, error, data } = useQuery(
     "userState",
     () => get("user/current").then((res) => res.data),
     {
@@ -15,9 +15,7 @@ export function useCurrentUser() {
     }
   );
 
-  const isLogin = !data && !isLoading && !error;
-
-  return { userState: data, isLoading, isLogin, error, isFetching };
+  return { userState: data, isLoading, error };
 }
 
 export const useUserLogin = () => {
