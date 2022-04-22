@@ -50,13 +50,14 @@ class userAuthService {
   // 로그인
   static async getUser({ email, password }) {
     // 이메일 db에 존재 여부 확인
-    const user = await User.findByEmail({ email });
+    let user = await User.findByEmail({ email });
     if (!user) {
       const errorMessage =
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
+    user = await User.findById({ userId: user._id })
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
     const isPasswordCorrect = await bcrypt.compare(
@@ -119,6 +120,7 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
+    delete user._doc['password']
     return user;
   }
 
