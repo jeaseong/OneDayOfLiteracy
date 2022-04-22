@@ -17,6 +17,10 @@ import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
+/**
+ * 유저의 회원가입을 담당하는 컴포넌트 입니다.
+ * @param {function} onSubmit - 테스트를 위한 모의함수입니다.
+ **/
 function Register({ onSubmit = () => {} }) {
   const navigate = useNavigate();
   const initialInfo = {
