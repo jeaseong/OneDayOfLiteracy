@@ -23,7 +23,11 @@ class userAuthService {
     const createdNewUser = await User.create({ newUser });
     createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
-    return createdNewUser;
+    try {
+      delete createdNewUser._doc["password"];
+    } finally {
+      return createdNewUser;
+    }
   }
 
   // 카카오 계정 추가
@@ -73,7 +77,7 @@ class userAuthService {
     const secretKey = config.jwtKey || "jwt-secret-key";
     const token = jwt.sign({ userId: user._id, type: "general" }, secretKey);
 
-    delete user._doc['password'];
+    
 
     const loginUser = {
       ...user._doc,
@@ -81,7 +85,11 @@ class userAuthService {
       errorMessage: null,
     };
 
-    return loginUser;
+    try {
+      delete loginUser["password"];
+    } finally {
+      return loginUser;
+    }
   }
 
   // 카카오 로그인
@@ -102,7 +110,7 @@ class userAuthService {
     // new ObjectId("6262cf120e7a8939fcb51bf0") object 
     // 위처럼 userId 픨드 값에 new ObjectId 형식의 object가 저장되는데
     // 디코딩으로 jwt.verify(token, secretKey) 한 [ 결과.userId ] 값은 [ string ]!! 이다!
-    delete kakaoUser._doc["password"];
+    
     
     const loginUser = {
       ...kakaoUser._doc,
@@ -123,8 +131,11 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
-    delete user._doc['password'];
-    return user;
+    try {
+      delete user._doc["password"];
+    } finally {
+      return user;
+    }
   }
 
   // 카카오 유저 조회
@@ -175,8 +186,11 @@ class userAuthService {
     });
 
     user = await User.update({ userId, toUpdate });
-    delete user._doc['password'];
-    return user;
+    try {
+      delete user._doc["password"];
+    } finally {
+      return user;
+    }
   }
 
   // 카카오 유저 정보 수정
