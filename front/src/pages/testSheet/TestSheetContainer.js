@@ -1,52 +1,36 @@
 import React, { useContext, useState } from "react";
-import { useQuery } from "react-query";
-import axios from "axios";
 
 import { testQuestion } from "./Utils";
 import { TestSheet } from "./TestSheet";
 import { TestContext } from "../../context/TestContext";
 import { ButtonContainer } from "./ButtonContainer";
 
-import * as Api from "../../api";
+import { useTestSheet } from "../../queries/TestQuery";
 
 export const TestSheetContainer = () => {
   const { test, answer, testDispatch, answerDispatch } =
     useContext(TestContext);
-  // const { data, isLoading } = useQuery(
-  //   "test",
-  //   async () => await Api.get("test")
-  // );
-  const [isTesting, setIsTesting] = useState(false);
-  const [curAnswer, setCurAnswer] = useState({
+  const initAnswer = {
     questionId: null,
-    answerId: null,
-  });
+  };
+  const [isTesting, setIsTesting] = useState(false);
+  const [curAnswer, setCurAnswer] = useState(initAnswer);
+  const { data } = useTestSheet();
+  const [step, setStep] = useState(0);
 
   const onSubmit = async () => {
-    console.log(answer);
     // await axios.post("", answer);
     // 결과 페이지로 다이렉트하기
   };
-  const startTest = async () => {
-    // const res = await axios.get("");
-    testDispatch({ type: "setTest", payload: testQuestion[0] });
-  };
-  const selectAnswer = (id) => {
-    answerDispatch({ type: "setAnswer", payload: id });
-  };
-  const nextTest = (nextId) => {
-    const nextTestQuestion = testQuestion.find((t) => nextId === t.id);
-    testDispatch({ type: "setTest", payload: nextTestQuestion });
+  const startTest = async () => {};
+  const selectAnswer = (id) => {};
+  const nextTest = () => {
+    setStep((cur) => cur + 1);
     setAnswer();
   };
   const setAnswer = () => {
     selectAnswer(curAnswer);
-    setCurAnswer((cur) => {
-      return {
-        questionId: null,
-        answerId: null,
-      };
-    });
+    setCurAnswer((cur) => initAnswer);
   };
   const handleClickAnswer = (questionId, answerId) => {
     setCurAnswer((cur) => {
@@ -58,7 +42,7 @@ export const TestSheetContainer = () => {
     <div>
       {isTesting && (
         <TestSheet
-          test={test}
+          test={data[step]}
           onSubmit={onSubmit}
           nextTest={nextTest}
           selectedAnswer={selectedAnswer}
@@ -70,7 +54,6 @@ export const TestSheetContainer = () => {
       {!isTesting && (
         <button
           onClick={() => {
-            startTest();
             setIsTesting((cur) => true);
           }}
         >
