@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,15 +13,21 @@ import { Copyright } from "../../../components/Copyright";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
 import { post } from "../../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
+/**
+ * 유저의 회원가입을 담당하는 컴포넌트 입니다.
+ * @param {function} onSubmit - 테스트를 위한 모의함수입니다.
+ **/
 function Register({ onSubmit = () => {} }) {
+  const navigate = useNavigate();
   const initialInfo = {
     email: "",
     password: "",
     confirmPassword: "",
-    nickName: "",
+    nickname: "",
   };
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const isActive = validation("register", registerInfo);
@@ -35,12 +40,13 @@ function Register({ onSubmit = () => {} }) {
     e.preventDefault();
     onSubmit();
 
-    const { email, password, nickName } = registerInfo;
+    const { email, password, nickname } = registerInfo;
     try {
-      await post("user/register", { email, password, nickName });
+      await post("user/register", { email, password, nickname });
       setRegisterInfo(initialInfo);
+      navigate("/user/login");
     } catch (err) {
-      console.log(err);
+      alert("회원가입에 실패하였습니다.");
     }
   };
 
@@ -109,7 +115,7 @@ function Register({ onSubmit = () => {} }) {
                 <TextField
                   required
                   fullWidth
-                  name="nickName"
+                  name="nickname"
                   label="Nickname"
                   type="text"
                   id="nickName"
@@ -129,9 +135,9 @@ function Register({ onSubmit = () => {} }) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Button onClick={() => navigate("/user/login")}>
                   이미 계정이 있으신가요?
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </Box>

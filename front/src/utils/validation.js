@@ -17,12 +17,12 @@ function passwordValidate(type, passwordInfo) {
 }
 
 function registerValidation(type, info) {
-  const { email, password, confirmPassword, nickName } = info;
+  const { email, password, confirmPassword, nickname } = info;
 
   return (
     emailValidate(email) &&
     passwordValidate(type, { password, confirmPassword }) &&
-    nickName.length >= 2
+    nickname.length >= 2
   );
 }
 
@@ -31,6 +31,12 @@ function loginValidation(type, info) {
   return emailValidate(email) && passwordValidate(type, password);
 }
 
+/**
+ * 로그인 및 회원가입 시 type에 따라 formData 유효성 검사를 진행합니다.
+ * @constructor
+ * @param {string} type 로그인인지 회원가입인지 구분하기 위한 type입니다.
+ * @param {object} info 유효성 검사를 진행 할 formData입니다.
+ **/
 export const validation = (type, info) => {
   if (type === "register") return registerValidation(type, info);
   return loginValidation(type, info);

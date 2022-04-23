@@ -13,30 +13,25 @@ import { Copyright } from "../../../components/Copyright";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
-import { post } from "../../../utils/api";
-import { useMutation, useQueryClient } from "react-query";
+import { useUserLogin } from "../../../queries/userQuery";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
+/**
+ * 유저의 로그인을 담당하는 컴포넌트 입니다.
+ * @param {function} onSubmit - 테스트를 위한 모의함수입니다.
+ **/
 function Login({ onSubmit = () => {} }) {
-  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
     email: "",
     password: "",
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const isActive = validation("login", loginInfo);
-  const mutationLogin = useMutation(
-    async (loginData) => await post("user/login", loginData),
-    {
-      onSuccess: (data) => {
-        const jwtToken = data.token;
-        sessionStorage.setItem("userToken", jwtToken);
-        queryClient.invalidateQueries("userState");
-      },
-      onError: (err) => console.log(err),
-    }
-  );
+  const mutation = useUserLogin();
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
@@ -45,7 +40,7 @@ function Login({ onSubmit = () => {} }) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     onSubmit();
-    mutationLogin.mutate(loginInfo);
+    mutation.mutate(loginInfo);
   };
 
   return (
@@ -121,16 +116,19 @@ function Login({ onSubmit = () => {} }) {
               >
                 Sign In
               </Button>
+              <div style={{ textAlign: "center" }}>
+                <Link href={kakaoAuthUrl}>
+                  <img src="/kakao_login_medium_narrow.png" alt="kakaoLogin" />
+                </Link>
+              </div>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    비밀번호 찾기
-                  </Link>
+                  <Button>비밀번호 찾기</Button>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Button onClick={() => navigate("/user/register")}>
                     아직 계정이 없으신가요?
-                  </Link>
+                  </Button>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />
