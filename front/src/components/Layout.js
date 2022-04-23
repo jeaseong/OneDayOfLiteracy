@@ -2,8 +2,6 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Container from "@material-ui/core/Container";
-import { withStyles } from "@material-ui/core/styles";
-import { getThemeProps } from "@mui/system";
 
 function Layout() {
   const HeaderStyle = {
