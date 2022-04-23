@@ -1,6 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import Header from "../../components/Header";
 
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useLocation: () => ({
+    pathname: "/",
+  }),
+  useNavigate: () => ({
+    navigate: mockNavigate.mockImplementation(() => ({})),
+  }),
+}));
+
 // test("Header를 렌더했어요", () => {
 //   render(<Header />);
 //   const headerElement = screen.getByRole("img");
