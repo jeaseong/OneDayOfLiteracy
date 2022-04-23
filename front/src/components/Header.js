@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 
 function LinkTab(props) {
@@ -18,9 +19,10 @@ function LinkTab(props) {
 }
 
 function Header() {
-  const [value, setValue] = useState("one");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { isLogin } = useCurrentUser();
+  const [value, setValue] = useState("one");
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
       <LinkTab
@@ -38,6 +40,12 @@ function Header() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleUserLogout = () => {
+    sessionStorage.removeItem("userToken");
+    queryClient.removeQueries("userState");
+    navigate("/");
   };
 
   return (
@@ -68,7 +76,7 @@ function Header() {
           label="서비스 소개"
         />
         {isLogin ? (
-          <LinkTab onClick={() => navigate("/logout")} label="로그아웃" />
+          <LinkTab value={false} onClick={handleUserLogout} label="로그아웃" />
         ) : (
           LoginRegisterTab
         )}

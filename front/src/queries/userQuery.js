@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
  * @returns {(object|boolean|boolean|string)} {userState, isLoading, isLogin, error}
  **/
 export function useCurrentUser() {
-  const queryclient = useQueryClient();
   const { isLoading, error, data } = useQuery(
     "userState",
     () => get("user/current").then((res) => res.data),
     {
+      initialData: false,
       staleTime: Infinity,
-      onSuccess: () => console.log("userToken이 없으면 userState는 false"),
-      onError: () => queryclient.setQueryData("userState", false),
+      onSuccess: () => console.log("로그인 성공!"),
+      onError: () => console.log("로그인 실패"),
     }
   );
 
