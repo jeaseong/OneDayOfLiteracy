@@ -5,21 +5,40 @@ import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import { getThemeProps } from "@mui/system";
 
-const StyledContainer = withStyles({
-  maxWidthXs: {
-    paddingRight: "0",
-    paddingLeft: "0",
-    paddingTop: "0",
-    paddingBottom: "0",
-  },
-  root: {},
-})(Container);
-
 function Layout() {
+  const HeaderStyle = {
+    position: "fixed",
+    top: 0,
+    padding: "100px",
+    backgroundColor: "yellow",
+    minHeight: "50vh",
+  };
+
+  const LayoutStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    minHeight: "100vh",
+  };
+
+  const FooterStyle = {
+    backgroundColor: "red",
+  };
+
   return (
-    <Container maxWidth="xl" disableGutters={true}>
-      <Header />
-      <Footer />
+    <Container style={LayoutStyle} maxWidth="xl" disableGutters={true}>
+      <Header
+        style={{
+          color: "red",
+          position: "fixed",
+          top: 0,
+          padding: "100px",
+          backgroundColor: "yellow",
+          minHeight: "50vh",
+        }}
+      />
+
+      <Footer style={FooterStyle} />
     </Container>
   );
 }

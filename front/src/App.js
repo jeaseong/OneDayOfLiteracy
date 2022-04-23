@@ -10,13 +10,13 @@ import Layout from "./components/Layout";
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="*" element={<Errorpage />} />
-          <Route path="/" exact element={<Loading />} />
-          <Route path="/loading" element={<Loading />} />
-        </Routes>
-      </Layout>
+      <Header />
+      <Routes>
+        <Route path="*" element={<Errorpage />} />
+        <Route path="/" exact element={<Loading />} />
+        <Route path="/loading" element={<Loading />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 }

@@ -21,7 +21,7 @@ function Loading() {
         justifyContent: "center",
         alignItems: "center",
         width: "auto",
-        height: "20vh",
+        height: "100vh",
       }}
     >
       {/* <Skeleton variant="text" /> */}
