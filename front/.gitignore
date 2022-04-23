@@ -5,3 +5,7 @@
 /build
 
 .env
+**/.DS_Store
+/public
+**/.env
+tailwind.config.js
