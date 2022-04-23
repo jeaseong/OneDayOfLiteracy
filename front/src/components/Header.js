@@ -24,13 +24,13 @@ function Header() {
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
       <LinkTab
-        value="two"
+        value={false}
         onClick={() => navigate("/user/register")}
         label="회원가입"
       />
     ) : (
       <LinkTab
-        value="two"
+        value={false}
         onClick={() => navigate("/user/login")}
         label="로그인"
       />
@@ -68,11 +68,7 @@ function Header() {
           label="서비스 소개"
         />
         {isLogin ? (
-          <LinkTab
-            value="two"
-            onClick={() => navigate("/logout")}
-            label="로그아웃"
-          />
+          <LinkTab onClick={() => navigate("/logout")} label="로그아웃" />
         ) : (
           LoginRegisterTab
         )}
