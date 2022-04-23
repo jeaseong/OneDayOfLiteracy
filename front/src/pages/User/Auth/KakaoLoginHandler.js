@@ -18,13 +18,13 @@ function KakaoLoginHandler() {
     const getKakaoToken = async () => {
       try {
         const res = await get("oauth/kakao?code=" + kakaoCode);
-        const jwtToken = res.data.access_token;
+        const jwtToken = res.data.token;
         sessionStorage.setItem("userToken", jwtToken);
 
         queryClient.invalidateQueries("userState");
         navigate("/");
       } catch (err) {
-        console.log("카카오 로그인에 실패하였습니다.", err);
+        alert("로그인에 실패하였습니다.");
         navigate("/user/login");
       }
     };

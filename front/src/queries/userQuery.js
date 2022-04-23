@@ -39,6 +39,8 @@ export const useUserLogin = () => {
       queryClient.invalidateQueries("userState");
       navigate("/");
     },
-    onError: (err) => console.log("onError", err),
+    onError: (err) => {
+      alert("로그인에 실패하였습니다.");
+    },
   });
 };

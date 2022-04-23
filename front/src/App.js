@@ -6,9 +6,8 @@ import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
-  const { isLoading, isLogin } = useCurrentUser();
+  const { isLoading } = useCurrentUser();
 
-  isLogin ? console.log("로그인!") : console.log("로그인 정보 없음");
   if (isLoading) return "App Loading...";
 
   return (

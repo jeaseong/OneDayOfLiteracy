@@ -46,7 +46,7 @@ function Register({ onSubmit = () => {} }) {
       setRegisterInfo(initialInfo);
       navigate("/user/login");
     } catch (err) {
-      console.log("register", err);
+      alert("회원가입에 실패하였습니다.");
     }
   };
 
