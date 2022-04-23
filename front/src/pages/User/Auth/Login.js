@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import CustomSnackbar from "../../../components/CustomSnackbar";
+import { CustomSnackbar, errorAlert } from "../../../components/CustomSnackbar";
 import { Copyright } from "../../../components/Copyright";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
@@ -18,6 +18,7 @@ import { useUserLogin } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
+const loginFailMessage = "로그인에 실패하였습니다.";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
@@ -32,12 +33,7 @@ function Login({ onSubmit = () => {} }) {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
-  const failAlertData = {
-    open: showAlert,
-    setOpen: setShowAlert,
-    message: "로그인에 실패하였습니다.",
-    type: "error",
-  };
+  const loginFailData = errorAlert(showAlert, setShowAlert, loginFailMessage);
 
   const isActive = validation("login", loginInfo);
   const mutation = useUserLogin(setShowAlert);
@@ -54,7 +50,7 @@ function Login({ onSubmit = () => {} }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CustomSnackbar {...failAlertData} />
+      <CustomSnackbar {...loginFailData} />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
