@@ -64,9 +64,21 @@ function Header() {
             indicatorColor="primary"
             aria-label="primary tabs example"
           >
-            <LinkTab href="/" label="서비스 소개" />
-            <LinkTab href="/login" label="로그인" />
-            <LinkTab href="/register" label="회원가입" />
+            <LinkTab
+              onClick={() => navigate("/")}
+              href="/"
+              label="서비스 소개"
+            />
+            <LinkTab
+              onClick={() => navigate("/user/login")}
+              href="/user/login"
+              label="로그인"
+            />
+            <LinkTab
+              onClick={() => navigate("/user/register")}
+              href="/user/register"
+              label="회원가입"
+            />
           </Tabs>
         )}
       </Box>

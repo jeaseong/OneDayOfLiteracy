@@ -5,7 +5,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { palette } from "@mui/system";
 import { lightBlue } from "@mui/material/colors";
-// import { shadows } from "@material-ui/system";
 
 function Errorpage() {
   return (
