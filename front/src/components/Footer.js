@@ -2,8 +2,18 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Copyright } from "./Copyright";
+import { useLocation } from "react-router-dom";
 
 function Footer() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const loginPage = "/user/login";
+  const registerPage = "/user/register";
+  const hideFooter = currentPath === loginPage || currentPath === registerPage;
+
+  if (hideFooter) return null;
+
   return (
     <Box
       component="footer"
