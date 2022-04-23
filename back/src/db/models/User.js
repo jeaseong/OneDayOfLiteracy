@@ -3,16 +3,11 @@ import { UserModel } from "../schemas/user";
 class User {
   static async create({ newUser }) {
     const createdNewUser = await UserModel.create(newUser);
-    delete createdNewUser._doc['password'];
-
     return createdNewUser;
   }
 
   static async findById({ userId }) {
-    const user = await UserModel.findOne(
-      { _id: userId },
-      { password: 0, __v: 0 }
-    );
+    const user = await UserModel.findOne({ _id: userId }, { __v: 0});
     return user;
   }
 
@@ -25,16 +20,11 @@ class User {
       toUpdate,
       option
     );
-
-    delete updatedUser._doc["password"];
-
     return updatedUser;
   }
 
   static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
-    delete user._doc["password"];
-    
+    const user = await UserModel.findOne({ email }, {password: 0, __v: 0});
     return user;
   }
 
