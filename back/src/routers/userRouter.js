@@ -85,6 +85,7 @@ userAuthRouter.get("/oauth/kakao", (req, res, next) => {
           .then(async (result) => {
           
             const kakaoAccount = result.data.kakao_account;
+            console.log(kakaoAccount)
             const nickname = kakaoAccount.profile.nickname;
             const email = kakaoAccount.email ?? null;
 

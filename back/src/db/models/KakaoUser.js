@@ -33,7 +33,7 @@ class KakaoUser {
 
   static async findByEmail({ email }) {
     const user = await KakaoUserModel.findOne({ email });
-    delete user._doc["password"];
+    
     
     return user;
   }

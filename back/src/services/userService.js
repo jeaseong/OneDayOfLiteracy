@@ -100,7 +100,8 @@ class userAuthService {
     // new ObjectId("6262cf120e7a8939fcb51bf0") object 
     // 위처럼 userId 픨드 값에 new ObjectId 형식의 object가 저장되는데
     // 디코딩으로 jwt.verify(token, secretKey) 한 [ 결과.userId ] 값은 [ string ]!! 이다!
-
+    delete kakaoUser._doc["password"];
+    
     const loginUser = {
       ...kakaoUser._doc,
       token,
