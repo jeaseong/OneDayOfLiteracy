@@ -1,5 +1,6 @@
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
+import { TestHome } from "./pages/testSheet/TestHome";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <div>
       <Login />
       <Register />
+      <TestHome />
     </div>
   );
 }
