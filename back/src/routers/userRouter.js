@@ -62,26 +62,35 @@ userAuthRouter.get("/oauth/kakao", (req, res, next) => {
     axios
       .post(
         // 토큰 발급
-        `${config.kakao.oauthUrl}?grant_type=${config.kakao.grantType}&client_id=${config.kakao.clientId}&redirect_uri=${config.kakao.redirectUrl}&code=${code}`,
+        config.kakao.oauthUrl, 
+        {},
         {
           headers: {
             "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
           },
+          params: {
+            grant_type: config.kakao.grantType,
+            client_id: config.kakao.clientId,
+            redirect_uri: config.kakao.redirectUrl,
+            code: code,
+          }
         }
       )
       .then((result) => {
         const accessToken = result.data.access_token;
         console.log(accessToken);
         axios
-          ({
-            url: `https://kapi.kakao.com/v2/user/me`, 
-            method: 'POST',
-            // 토큰으로 유저(나) 정보 얻기
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-            },
-          })
+          .post(
+            config.kakao.userUrl,
+            {},
+            { 
+              // 토큰으로 유저(나) 정보 얻기
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+              }
+            }
+          )
           .then(async (result) => {
           
             const kakaoAccount = result.data.kakao_account;
