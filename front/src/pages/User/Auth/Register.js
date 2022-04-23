@@ -21,8 +21,10 @@ const registerFailMessage = "회원가입에 실패하셨습니다.";
 
 /**
  * 유저의 회원가입을 담당하는 컴포넌트 입니다.
- * @param {function} onSubmit - 테스트를 위한 모의함수입니다.
- **/
+ * @param onSubmit 테스트를 위한 모의함수입니다.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Register({ onSubmit = () => {} }) {
   const navigate = useNavigate();
   const initialInfo = {

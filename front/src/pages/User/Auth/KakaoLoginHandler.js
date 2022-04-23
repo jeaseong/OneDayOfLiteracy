@@ -5,8 +5,9 @@ import { get } from "../../../utils/api";
 
 /**
  * 카카오 로그인 진행 시 redirectURL로 컴포넌트가 마운트됩니다.
- * @retuns {null} 반환값은 없습니다.
- **/
+ * @returns {null}
+ * @constructor
+ */
 function KakaoLoginHandler() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();

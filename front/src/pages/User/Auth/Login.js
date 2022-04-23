@@ -22,8 +22,10 @@ const loginFailMessage = "로그인에 실패하였습니다.";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
- * @param {function} onSubmit - 테스트를 위한 모의함수입니다.
- **/
+ * @param onSubmit 테스트를 위한 모의함수입니다.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Login({ onSubmit = () => {} }) {
   const navigate = useNavigate();
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
