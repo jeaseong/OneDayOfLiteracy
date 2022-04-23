@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
+import CustomSnackbar from "./CustomSnackbar";
 
 function LinkTab(props) {
   return (
@@ -23,6 +24,15 @@ function Header() {
   const queryClient = useQueryClient();
   const { isLogin } = useCurrentUser();
   const [value, setValue] = useState("one");
+  const [showAlert, setShowAlert] = useState(false);
+
+  const successAlertData = {
+    open: showAlert,
+    setOpen: setShowAlert,
+    message: "로그아웃 되었습니다.",
+    type: "success",
+  };
+
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
       <LinkTab
@@ -45,7 +55,7 @@ function Header() {
   const handleUserLogout = () => {
     sessionStorage.removeItem("userToken");
     queryClient.removeQueries("userState");
-    navigate("/");
+    setShowAlert(true);
   };
 
   return (
@@ -81,6 +91,7 @@ function Header() {
           LoginRegisterTab
         )}
       </Tabs>
+      <CustomSnackbar {...successAlertData} />
     </Box>
   );
 }
