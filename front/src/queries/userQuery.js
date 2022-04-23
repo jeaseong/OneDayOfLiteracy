@@ -14,10 +14,7 @@ export function useCurrentUser() {
     {
       staleTime: Infinity,
       onSuccess: () => console.log("userToken이 없으면 userState는 false"),
-      onError: () => {
-        console.log("userToken 없음");
-        queryclient.setQueryData("userState", false);
-      },
+      onError: () => queryclient.setQueryData("userState", false),
     }
   );
 
@@ -28,7 +25,7 @@ export function useCurrentUser() {
  * 유저 로그인 핸들러입니다.
  * @returns {function} useMutation훅을 리턴합니다.
  **/
-export const useUserLogin = () => {
+export const useUserLogin = (setShowAlert = () => {}) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -39,8 +36,6 @@ export const useUserLogin = () => {
       queryClient.invalidateQueries("userState");
       navigate("/");
     },
-    onError: (err) => {
-      alert("로그인에 실패하였습니다.");
-    },
+    onError: () => setShowAlert(true),
   });
 };

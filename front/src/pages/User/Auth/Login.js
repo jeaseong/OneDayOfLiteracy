@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
+import CustomSnackbar from "../../../components/CustomSnackbar";
 import { Copyright } from "../../../components/Copyright";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
@@ -30,14 +31,22 @@ function Login({ onSubmit = () => {} }) {
     password: "",
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
+  const [showAlert, setShowAlert] = useState(false);
+  const failAlertData = {
+    open: showAlert,
+    setOpen: setShowAlert,
+    message: "로그인에 실패하였습니다.",
+    type: "error",
+  };
+
   const isActive = validation("login", loginInfo);
-  const mutation = useUserLogin();
+  const mutation = useUserLogin(setShowAlert);
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
     mutation.mutate(loginInfo);
@@ -45,6 +54,7 @@ function Login({ onSubmit = () => {} }) {
 
   return (
     <ThemeProvider theme={theme}>
+      <CustomSnackbar {...failAlertData} />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid

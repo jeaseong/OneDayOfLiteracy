@@ -9,6 +9,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CustomSnackbar from "../../../components/CustomSnackbar";
 import { Copyright } from "../../../components/Copyright";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
@@ -30,6 +31,13 @@ function Register({ onSubmit = () => {} }) {
     nickname: "",
   };
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
+  const [showAlert, setShowAlert] = useState(false);
+  const failAlertData = {
+    open: showAlert,
+    setOpen: setShowAlert,
+    message: "회원가입에 실패하셨습니다.",
+    type: "error",
+  };
   const isActive = validation("register", registerInfo);
 
   const handleOnChange = (e) => {
@@ -46,12 +54,13 @@ function Register({ onSubmit = () => {} }) {
       setRegisterInfo(initialInfo);
       navigate("/user/login");
     } catch (err) {
-      alert("회원가입에 실패하였습니다.");
+      setShowAlert(true);
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <CustomSnackbar {...failAlertData} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
