@@ -29,7 +29,7 @@ class User {
   }
 
   static async findAll() {
-    const users = await UserModel.find({}, {password: 0, __v: 0});
+    const users = await UserModel.find({}, { password: 0, __v: 0 });
     return users;
   }
 
