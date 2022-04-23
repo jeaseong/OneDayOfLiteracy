@@ -34,6 +34,14 @@ function Home() {
       >
         로그아웃
       </button>
+      <button
+        type={"button"}
+        onClick={() => {
+          navigate("/test");
+        }}
+      >
+        테스트보기
+      </button>
     </div>
   );
 }

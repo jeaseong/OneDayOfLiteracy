@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { testQuestion } from "./Utils";
 
 export const ButtonContainer = ({ nextTest, id, onSubmit, selectedAnswer }) => {
+  const navigate = useNavigate();
   return (
     <div>
       {testQuestion.length !== id ? (
@@ -9,7 +11,12 @@ export const ButtonContainer = ({ nextTest, id, onSubmit, selectedAnswer }) => {
           next
         </button>
       ) : (
-        <button disabled={false} onClick={onSubmit}>
+        <button
+          disabled={false}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           결과보기
         </button>
       )}

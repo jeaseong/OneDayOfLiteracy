@@ -26,6 +26,7 @@ function App() {
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/oauth/callback/kakao" element={<KakaoLoginHandler />} />
+        <Route path="/test" element={<TestHome />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
