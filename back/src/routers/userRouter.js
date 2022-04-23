@@ -55,76 +55,58 @@ userAuthRouter.post("/user/login", async (req, res, next) => {
 });
 
 // GET /oauth/kakao : kakaoUser 로그인
-userAuthRouter.get("/oauth/kakao", (req, res, next) => {
+userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
   const code = req.query.code;
 
   try {
-    axios
-      .post(
-        // 토큰 발급
-        config.kakao.oauthUrl, 
-        {},
-        {
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-          },
-          params: {
-            grant_type: config.kakao.grantType,
-            client_id: config.kakao.clientId,
-            redirect_uri: config.kakao.redirectUrl,
-            code: code,
-          }
-        }
-      )
-      .then((result) => {
-        const accessToken = result.data.access_token;
-        console.log(accessToken);
-        axios
-          .post(
-            config.kakao.userUrl,
-            {},
+    // 토큰 발급
+    let result = await axios.post(config.kakao.oauthUrl, {},
+              {
+                headers: {
+                  "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+                },
+                params: {
+                  grant_type: config.kakao.grantType,
+                  client_id: config.kakao.clientId,
+                  redirect_uri: config.kakao.redirectUrl,
+                  code: code,
+                }
+              })
+      
+    const accessToken = result.data.access_token;
+    console.log(accessToken);
+    // 토큰으로 유저(나) 정보 얻기
+    result = await axios.post(config.kakao.userUrl, {},
             { 
-              // 토큰으로 유저(나) 정보 얻기
               headers: {
                 Authorization: `Bearer ${accessToken}`,
                 "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
               }
-            }
-          )
-          .then(async (result) => {
-          
-            const kakaoAccount = result.data.kakao_account;
-            console.log(kakaoAccount)
-            const nickname = kakaoAccount.profile.nickname;
-            const email = kakaoAccount.email ?? null;
+            })
+  
+    const kakaoAccount = result.data.kakao_account;
+    console.log(kakaoAccount)
+    const nickname = kakaoAccount.profile.nickname;
+    const email = kakaoAccount.email ?? null;
 
-            if(email === null){ 
-              // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
-              throw new Error('카카오 email 제공을 꼭 체크해주세요!');
-            }
+    if(email === null){ 
+      // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
+      throw new Error('카카오 email 제공을 꼭 체크해주세요!');
+    }
 
-            const user = await userAuthService.getKakaoUser({ email });
+    const user = await userAuthService.getKakaoUser({ email });
 
-            if (user.errorNotFound) {
-              const newUser = await userAuthService.addKakaoUser({
-                nickname,
-                email,
-              });
-
-              
-              res.status(200).json(newUser);
-            } else {
-              console.log(user);
-              res.status(200).json(user);
-            }
-          })
-          .catch((error) => {
-            next(error);
-          });
-      })
-      .catch((error) => {
-        next(error);
+    if (user.errorNotFound) {
+      const newUser = await userAuthService.addKakaoUser({
+        nickname,
+        email,
       });
+
+      res.status(201).json(newUser);
+    }
+    
+    console.log(user);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
