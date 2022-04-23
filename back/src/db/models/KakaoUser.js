@@ -3,6 +3,8 @@ import { KakaoUserModel } from "../schemas/kakaoUser";
 class KakaoUser {
   static async create({ newKakaoUser }) {
     const createdNewUser = await KakaoUserModel.create(newKakaoUser);
+    delete createdNewUser._doc["password"];
+
     return createdNewUser;
   }
 
@@ -23,11 +25,16 @@ class KakaoUser {
       toUpdate,
       option
     );
+
+    delete updatedUser._doc["password"];
+
     return updatedUser;
   }
 
   static async findByEmail({ email }) {
     const user = await KakaoUserModel.findOne({ email });
+    delete user._doc["password"];
+    
     return user;
   }
 
