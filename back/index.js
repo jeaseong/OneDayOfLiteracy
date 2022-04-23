@@ -3,6 +3,7 @@ import { app } from "./src/app";
 import mongoose from "mongoose";
 
 const PORT = config.port || 5000;
+
 const DB_URL =
   config.mongodbUrl ||
   "MongoDB 서버 주소가 설정되지 않았습니다.\n./db/index.js 파일을 확인해 주세요.";

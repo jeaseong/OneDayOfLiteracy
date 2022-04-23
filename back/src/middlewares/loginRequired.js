@@ -12,13 +12,16 @@ function loginRequired(req, res, next) {
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
+    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
     //전자 서명에 사용한 secretKey로 accessToken 검증
     const jwtDecoded = jwt.verify(accessToken, secretKey);
 
+    //어떤 유저인지 req.currentType에 등록
+    req.currentUserType = jwtDecoded.type;
     //유저 id를 저장하여, 해당 유저임을 req.currentId에 등록
-    req.currentId = jwtDecoded.userId;
+    req.currentUserId = jwtDecoded.userId;
+
     next();
   } catch (error) {
     res.status(400).send("비정상적인 토큰입니다.");
