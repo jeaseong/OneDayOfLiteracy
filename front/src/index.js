@@ -6,7 +6,9 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { TestProvider } from "./context/TestContext";
 import reportWebVitals from "./reportWebVitals";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
