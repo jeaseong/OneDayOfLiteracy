@@ -23,7 +23,6 @@ export const TestSheetContainer = () => {
   });
 
   const onSubmit = async () => {
-    console.log(answer);
     // await axios.post("", answer);
     // 결과 페이지로 다이렉트하기
   };
@@ -37,6 +36,7 @@ export const TestSheetContainer = () => {
   const nextTest = (nextId) => {
     const nextTestQuestion = testQuestion.find((t) => nextId === t.id);
     testDispatch({ type: "setTest", payload: nextTestQuestion });
+    //전체 테스트지를 test에 저장하고 curTest 변수를 만들어서 props로 넘기는 방식으로 해야하지 않을까?
     setAnswer();
   };
   const setAnswer = () => {

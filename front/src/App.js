@@ -1,19 +1,16 @@
+import Login from "./pages/User/Auth/Login";
+import Register from "./pages/User/Auth/Register";
+import { useCurrentUser } from "./queries/userQuery";
+
 function App() {
+  const { isLoading } = useCurrentUser();
+
+  if (isLoading) return "Loading..";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Login />
+      <Register />
     </div>
   );
 }
