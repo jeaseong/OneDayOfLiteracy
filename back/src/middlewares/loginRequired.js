@@ -12,7 +12,13 @@ function loginRequired(req, res, next) {
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
+    const secretKey = process.env.JWT_SECRET_KEY ?? null;
+    
+    // .env 파일을 못 읽었을때 오류 발생
+    if (secretKey === null) {
+      console.log(".env 파일 설정 오류 ");
+      res.status(500);
+    }
 
     //전자 서명에 사용한 secretKey로 accessToken 검증
     const jwtDecoded = jwt.verify(accessToken, secretKey);
