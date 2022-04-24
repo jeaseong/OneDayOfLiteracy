@@ -9,15 +9,18 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CustomSnackbar, errorAlert } from "../../../components/CustomSnackbar";
+import {
+  CustomSnackbar,
+  setAlertData,
+} from "../../../components/CustomSnackbar";
 import { Copyright } from "../../../components/Copyright";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
+import { failMessage, alertType } from "../../../utils/alertMessage";
 import { post } from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
-const registerFailMessage = "회원가입에 실패하셨습니다.";
 
 /**
  * 유저의 회원가입을 담당하는 컴포넌트 입니다.
@@ -36,10 +39,11 @@ function Register({ onSubmit = () => {} }) {
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
   const isActive = validation("register", registerInfo);
-  const registerFailData = errorAlert(
+  const registerFailData = setAlertData(
     showAlert,
     setShowAlert,
-    registerFailMessage
+    failMessage.register,
+    alertType.error
   );
 
   const handleOnChange = (e) => {

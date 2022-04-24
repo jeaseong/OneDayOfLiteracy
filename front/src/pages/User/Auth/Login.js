@@ -9,16 +9,19 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { CustomSnackbar, errorAlert } from "../../../components/CustomSnackbar";
+import {
+  CustomSnackbar,
+  setAlertData,
+} from "../../../components/CustomSnackbar";
 import { Copyright } from "../../../components/Copyright";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import { failMessage, alertType } from "../../../utils/alertMessage";
 import { validation } from "../../../utils/validation";
 import { useUserLogin } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
-const loginFailMessage = "로그인에 실패하였습니다.";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
@@ -35,7 +38,12 @@ function Login({ onSubmit = () => {} }) {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
-  const loginFailData = errorAlert(showAlert, setShowAlert, loginFailMessage);
+  const loginFailData = setAlertData(
+    showAlert,
+    setShowAlert,
+    failMessage.login,
+    alertType.error
+  );
 
   const isActive = validation("login", loginInfo);
   const mutation = useUserLogin(setShowAlert);

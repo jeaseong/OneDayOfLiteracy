@@ -5,9 +5,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
-import { CustomSnackbar, successAlert } from "./CustomSnackbar";
-
-const logoutSuccessMessage = "로그아웃에 성공하였습니다.";
+import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
+import { successMessage, alertType } from "../utils/alertMessage";
 
 function LinkTab(props) {
   return (
@@ -28,10 +27,11 @@ function Header() {
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
 
-  const logoutSuccessData = successAlert(
+  const logoutSuccessData = setAlertData(
     showAlert,
     setShowAlert,
-    logoutSuccessMessage
+    successMessage.logout,
+    alertType.success
   );
 
   const LoginRegisterTab =
