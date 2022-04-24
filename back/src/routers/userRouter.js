@@ -91,15 +91,19 @@ userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
 
     if(email === null){ 
       // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
-      throw new Error('카카오 email 제공을 꼭 체크해주세요!');
+      
+      
+      const plzCheckEmail = { errorMessage: "kakao email 제공 동의사항을 선택해주세요!"}
+      res.status(400).send(plzCheckEmail);
     }
 
-    const user = await userAuthService.getKakaoUser({ email });
+    const user = await userAuthService.getKakaoUser({ email, accessToken });
 
     if (user.errorNotFound) {
       const newUser = await userAuthService.addKakaoUser({
         nickname,
         email,
+        accessToken,
       });
 
       res.status(201).json(newUser);
@@ -282,4 +286,73 @@ userAuthRouter.delete(
   }
 );
 
+// GET /user/kakao/logout : kakao user 로그아웃
+userAuthRouter.get(
+  "/user/kakao/logout",
+  loginRequired,
+  async (req, res, next) => {
+    try{
+      const kakaoToken = req.currentToken;
+      console.log(kakaoToken);
+
+      const result = await axios.get(config.kakao.logoutURL, 
+        {
+          params: {
+            client_id : config.kakao.clientId,
+            logout_redirect_uri : config.kakao.logoutRedirectUrl + `/${kakaoToken}`,
+          }
+        }
+      )
+      
+      console.log(result);
+      res.status(200).send("success2");
+
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+userAuthRouter.get(
+  "/oauth/callback/kakaologout/:token",
+  async (req, res, next) => {
+    try{
+      const { token } = req.params;
+      console.log(token);
+      await axios.post(config.kakao.tokenExpireUrl,{},
+        {
+          headers: { 'Authorization': 'Bearer ' + token },
+        }
+      );
+      console.log('success');
+      res.status(200).send('success');
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+userAuthRouter.get(
+  "/user/kakao/unlink",
+  loginRequired,
+  async (req, res, next) => {
+    try{
+      const kakaoToken = req.currentToken;
+      console.log(kakaoToken);
+
+      const result = await axios.post(config.kakao.unlinkUrl,{},
+        {
+          headers: {
+            Authorization: `Bearer ${kakaoToken}`
+          }
+        }
+      )
+
+      //console.log(result);
+      res.status(200).send(result.data);
+
+    } catch (error) {
+
+    }
+  }
+)
 export { userAuthRouter };

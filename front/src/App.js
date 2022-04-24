@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import KakaoRedirectHandler from "./kakao/KakaoRedirectHandler";
-import Login from "./component/Login";
+import Main from "./component/Main";
 function App() {
   return (
     <div className="App">
@@ -18,7 +18,7 @@ function App() {
         </a>
         <Router>
           <Routes>
-            <Route path="/" exact element={<Login />} />
+            <Route path="/" exact element={<Main />} />
             <Route
               path="/oauth/callback/kakao"
               element={<KakaoRedirectHandler />}

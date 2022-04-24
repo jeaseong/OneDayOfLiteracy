@@ -19,11 +19,12 @@ const KakaoRedirectHandler = () => {
       .then((res) => {
         // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
         console.log(res);
-        const accessToken = res.data["access_token"];
+        const accessToken = res.data["token"];
+        console.log(accessToken);
 
         // sessionStorage에 "accessToken"이라는 키로 토큰을 저장함.
-        localStorage.setItem("token", accessToken);
-
+        sessionStorage.setItem("token", accessToken);
+        
         // 토큰 받았으니 메인 화면으로 전환
         navigate("/");
       })
