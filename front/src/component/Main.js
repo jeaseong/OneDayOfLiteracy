@@ -9,6 +9,7 @@ function Main() {
       headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
     });
     
+    window.location.href = '/';
   }
 
   return (

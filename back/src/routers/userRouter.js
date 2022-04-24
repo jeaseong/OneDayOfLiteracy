@@ -287,6 +287,7 @@ userAuthRouter.delete(
 );
 
 // GET /user/kakao/logout : kakao user 로그아웃
+// 시도하다가 중단함
 userAuthRouter.get(
   "/user/kakao/logout",
   loginRequired,
@@ -331,13 +332,14 @@ userAuthRouter.get(
   }
 );
 
+// GET /user/kakao/unlink : 앱과 kakao 연결 끊기(카카오 로그인 연동 해제=> 동의 항목도 철회됨)
+// 자세한 설명 : https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink
 userAuthRouter.get(
   "/user/kakao/unlink",
   loginRequired,
   async (req, res, next) => {
     try{
       const kakaoToken = req.currentToken;
-      console.log(kakaoToken);
 
       const result = await axios.post(config.kakao.unlinkUrl,{},
         {
@@ -347,7 +349,6 @@ userAuthRouter.get(
         }
       )
 
-      //console.log(result);
       res.status(200).send(result.data);
 
     } catch (error) {
