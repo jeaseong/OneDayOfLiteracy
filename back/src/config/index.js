@@ -2,7 +2,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+
 const config = {
+  mode: process.env.NODE_ENV || 'development',
   port: process.env.SERVER_PORT,
   mongodbUrl: process.env.MONGODB_URL,
   jwtKey: process.env.JWT_SECRET_KEY,

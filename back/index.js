@@ -2,6 +2,13 @@ import config from "./src/config";
 import { app } from "./src/app";
 import mongoose from "mongoose";
 
+
+if (config.mode === "production") {
+  console = {}
+  console.log = () => {};
+  console.error = () => {};
+}
+
 const PORT = config.port || 5000;
 
 const DB_URL =
