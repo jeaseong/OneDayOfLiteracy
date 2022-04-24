@@ -66,7 +66,7 @@ userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
                   "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
                 },
                 params: {
-                  grant_type: config.kakao.grantType,
+                  grant_type: "authorization_code",
                   client_id: config.kakao.clientId,
                   redirect_uri: config.kakao.redirectUrl,
                   code: code,
