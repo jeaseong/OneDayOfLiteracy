@@ -7,7 +7,7 @@ class Post {
   }
 
   static async findById({ postId }) {
-    const post = await PostModel.findOne({ _id: postId });
+    const post = await PostModel.findOne({ _id: postId }).populate("Subject", {subject: 1});
     return post;
   }
 
@@ -24,7 +24,7 @@ class Post {
   }
 
   static async findByUserId({ userId }) {
-    const posts = await PostModel.find({ userId });
+    const posts = await PostModel.find({ userId }).populate("Subject", {subject: 1});
     return posts;
   }
 
