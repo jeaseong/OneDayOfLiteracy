@@ -297,3 +297,4 @@ userAuthRouter.delete(
   }
 );
 
+export { userAuthRouter };
