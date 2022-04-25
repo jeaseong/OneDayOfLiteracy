@@ -76,7 +76,7 @@ export const SubmitButton = styled.button`
   }
 `;
 
-export const DescriptionButton = styled.button`
+export const RouteButton = styled.button`
   display: inline-block;
   appearance: none;
   background-color: transparent;

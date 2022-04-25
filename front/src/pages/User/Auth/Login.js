@@ -13,7 +13,6 @@ import {
   AuthHeading,
   AuthInput,
   CharacterImage,
-  DescriptionButton,
   LogoButton,
   LogoImage,
   SubmitButton,
@@ -22,6 +21,7 @@ import {
   LoginImgContentBox,
   LoginContentBox,
   ButtonContent,
+  RouteButton,
 } from "../../../styles/AuthStyle";
 
 /**
@@ -82,9 +82,9 @@ function Login({ onSubmit = () => {} }) {
             required
           />
           <div>
-            <DescriptionButton onClick={() => navigate("/user/register")}>
-              회원 아니야?
-            </DescriptionButton>
+            <RouteButton onClick={() => navigate("/user/register")}>
+              회원이 아니신가요?
+            </RouteButton>
           </div>
           <SubmitButton
             type="submit"

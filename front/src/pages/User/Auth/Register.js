@@ -2,11 +2,11 @@ import React from "react";
 import {
   AuthContainer,
   AuthHeading,
-  DescriptionButton,
   LogoButton,
   LogoImage,
   AuthInput,
   SubmitButton,
+  RouteButton,
 } from "../../../styles/AuthStyle";
 import {
   CustomSnackbar,
@@ -97,9 +97,9 @@ function Register({ onSubmit = () => {} }) {
       <SubmitButton type="submit" onClick={handleOnSubmit} disabled={!isActive}>
         가입하기
       </SubmitButton>
-      <DescriptionButton onClick={() => navigate("/user/login")}>
-        이미 회원이야?
-      </DescriptionButton>
+      <RouteButton onClick={() => navigate("/user/login")}>
+        이미 회원이신가요?
+      </RouteButton>
       <CustomSnackbar {...registerFailData} />
     </AuthContainer>
   );
