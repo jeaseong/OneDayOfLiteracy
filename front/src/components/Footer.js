@@ -1,44 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { Copyright } from "./Copyright";
-import { useLocation } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import { FooterContainer } from "./componentStyle";
 
 function Footer() {
-  const location = useLocation();
-  const currentPath = location.pathname;
-
-  const loginPage = "/user/login";
-  const registerPage = "/user/register";
-  const hideFooter = currentPath === loginPage || currentPath === registerPage;
-
-  if (hideFooter) return null;
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: "auto",
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[400]
-              : theme.palette.grey[800],
-        }}
-      >
-        <Container maxWidth="sm">
-          <Copyright />
-        </Container>
-      </Box>
-    </Box>
+    <FooterContainer>
+      <Typography variant="body2" color="text.secondary" align="center">
+        Copyright © 문해한 하루 &nbsp;
+        {new Date().getFullYear()}.
+      </Typography>
+    </FooterContainer>
   );
 }
 
