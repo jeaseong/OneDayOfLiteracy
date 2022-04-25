@@ -61,7 +61,7 @@ function Login({ onSubmit = () => {} }) {
 
   return (
     <AuthContainer>
-      <LogoButton>
+      <LogoButton onClick={() => navigate("/")}>
         <LogoImage />
       </LogoButton>
       <LoginForm>
