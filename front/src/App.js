@@ -7,7 +7,7 @@ import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
-import { TestHome } from "./pages/TestSheet/TestHome";
+import TestHome from "./pages/TestSheet/TestHome";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {

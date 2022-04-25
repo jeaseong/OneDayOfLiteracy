@@ -2,12 +2,12 @@ import React from "react";
 import { AnswerBtn, AnswerText, AnswerBtnContainer } from "./TestStyle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-export const TestAnswerBtn = ({
+export default function TestAnswerBtn({
   testId,
   choices,
   handleClickAnswer,
   selectedAnswer,
-}) => {
+}) {
   return (
     <AnswerBtnContainer>
       {choices.map((option, index) => (
@@ -26,4 +26,4 @@ export const TestAnswerBtn = ({
       ))}
     </AnswerBtnContainer>
   );
-};
+}

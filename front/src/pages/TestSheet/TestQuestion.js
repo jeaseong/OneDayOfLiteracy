@@ -1,7 +1,7 @@
 import React from "react";
 import { QustionsContainer, Question } from "./TestStyle";
 
-export const TestQuestion = ({ id, question }) => {
+export default function TestQuestion({ id, question }) {
   return (
     <QustionsContainer>
       <Question>
@@ -9,4 +9,4 @@ export const TestQuestion = ({ id, question }) => {
       </Question>
     </QustionsContainer>
   );
-};
+}

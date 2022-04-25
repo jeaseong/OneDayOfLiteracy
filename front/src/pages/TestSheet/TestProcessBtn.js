@@ -1,9 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { testQuestion } from "./Utils";
+import { testQuestion } from "./util";
 import { ProcessContainer, ProcessBtn } from "./TestStyle";
 
-export const TestProcessBtn = ({ nextTest, id, onSubmit, selectedAnswer }) => {
+export default function TestProcessBtn({
+  nextTest,
+  id,
+  onSubmit,
+  selectedAnswer,
+}) {
   const navigate = useNavigate();
   return (
     <ProcessContainer>
@@ -23,4 +28,4 @@ export const TestProcessBtn = ({ nextTest, id, onSubmit, selectedAnswer }) => {
       )}
     </ProcessContainer>
   );
-};
+}

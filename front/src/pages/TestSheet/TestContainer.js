@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-
-import { testQuestion } from "./Utils";
-import { TestPresentation } from "./TestPresentation";
 import { TestContext } from "../../context/TestContext";
-import { TestProcessBtn } from "./TestProcessBtn";
-
+import { testQuestion } from "./util";
+import TestPresentation from "./TestPresentation";
+import TestProcessBtn from "./TestProcessBtn";
 import { ProcessBtn } from "./TestStyle";
 
-export const TestContainer = () => {
+export default function TestContainer() {
   const { test, answer, testDispatch, answerDispatch } =
     useContext(TestContext);
   // const { data, isLoading } = useQuery(
@@ -85,4 +83,4 @@ export const TestContainer = () => {
       )}
     </div>
   );
-};
+}

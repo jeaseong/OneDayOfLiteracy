@@ -1,15 +1,15 @@
 import React from "react";
 
-import { TestQuestion } from "./TestQuestion";
-import { TestAnswerBtn } from "./TestAnswerBtn";
+import TestQuestion from "./TestQuestion";
+import TestAnswerBtn from "./TestAnswerBtn";
 import TestContent from "./TestContent";
 
-export const TestPresentation = ({
+export default function TestPresentation({
   test,
   onSubmit,
   selectedAnswer,
   handleClickAnswer,
-}) => {
+}) {
   return (
     <div>
       {test && (
@@ -26,4 +26,4 @@ export const TestPresentation = ({
       )}
     </div>
   );
-};
+}
