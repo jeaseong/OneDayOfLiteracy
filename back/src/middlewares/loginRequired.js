@@ -28,6 +28,10 @@ function loginRequired(req, res, next) {
     //유저 id를 저장하여, 해당 유저임을 req.currentId에 등록
     req.currentUserId = jwtDecoded.userId;
 
+    //카카오 유저이면, 카카오 정보 접근 토큰 등록
+    req.currentToken = jwtDecoded.accessToken ?? null;
+
+    
     next();
   } catch (error) {
     res.status(400).send("비정상적인 토큰입니다.");

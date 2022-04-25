@@ -91,15 +91,19 @@ userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
 
     if(email === null){ 
       // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
-      throw new Error('카카오 email 제공을 꼭 체크해주세요!');
+      
+      
+      const plzCheckEmail = { errorMessage: "kakao email 제공 동의사항을 선택해주세요!"}
+      res.status(400).send(plzCheckEmail);
     }
 
-    const user = await userAuthService.getKakaoUser({ email });
+    const user = await userAuthService.getKakaoUser({ email, accessToken });
 
     if (user.errorNotFound) {
       const newUser = await userAuthService.addKakaoUser({
         nickname,
         email,
+        accessToken,
       });
 
       res.status(201).json(newUser);
@@ -262,12 +266,15 @@ userAuthRouter.delete(
 );
 
 // DELETE /user/kakao/:userId : kakao user 삭제 (단순히 우리 db에서 삭제)
+// 추가로, 앱과 kakao 연결 끊기(카카오 로그인 연동 해제=> 동의 항목도 철회됨)
+// unlink 설명 : https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink
 userAuthRouter.delete(
   "/user/kakao/:userId",
-  //loginRequired,
+  loginRequired,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
+      const kakaoToken = req.currentToken;
 
       const deletedUser = await userAuthService.deleteKakaoUser({ userId });
 
@@ -275,6 +282,14 @@ userAuthRouter.delete(
         throw new Error("정상적으로 삭제되지 않았습니다.");
       }
 
+      const result = await axios.post(config.kakao.unlinkUrl,{},
+        {
+          headers: {
+            Authorization: `Bearer ${kakaoToken}`,
+          },
+        }
+      );
+      
       res.status(200).send("success");
     } catch (error) {
       next(error);
@@ -282,4 +297,3 @@ userAuthRouter.delete(
   }
 );
 
-export { userAuthRouter };
