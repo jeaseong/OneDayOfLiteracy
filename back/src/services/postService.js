@@ -1,7 +1,7 @@
 import { User, Post, Subject } from '../db'
 
 class postService {
-  static async addPost({ title, content, subjectId, tags, userId }) {
+  static async addPost({ title, content, tags, subjectId, userId }) {
     // subjectId 에 대한 검증
     const subject = await Subject.findById({ subjectId });
     if (!subject) {
@@ -17,8 +17,8 @@ class postService {
     const createdNewPost = await Post.create({
       title,
       content,
-      subjectId,
       tags,
+      subjectId,
       userId,
     });
 
@@ -35,9 +35,16 @@ class postService {
   static async setPost({ postId, toUpdate }) { 
     const post = await Post.findById({ postId });
 
-    if (!post) {
-        return { errorMessage: "해당 글이 존재하지 않습니다." };
-    }
+    if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
+
+    const userId = toUpdate.userId;
+    const subjectId = toUpdate.subjectId;
+
+    const user = await User.findById({ userId });
+    const subject = await Subject.findById({ subjectId });
+
+    if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다."};
+    if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다."};
 
     const toUpdateField = Object.keys(toUpdate);
     toUpdateField.forEach((key) => {
@@ -45,6 +52,7 @@ class postService {
     });
 
     const updatedPost = await Post.update({ postId, toUpdate });
+    updatedPost.errorMessage = null;
     return updatedPost;
   }
 
