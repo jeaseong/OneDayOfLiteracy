@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 회원가입 ============================================================
 export const AuthContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,16 +25,25 @@ export const LogoButton = styled.button`
 
 export const LogoImage = styled.img.attrs({
   src: "/assets/img/logo_login.png",
+  alt: "logo",
 })`
   width: 355px;
   height: 204px;
+`;
+
+export const CharacterImage = styled.img.attrs({
+  src: "/assets/img/woman.png",
+  alt: "charactor",
+})`
+  width: 100%;
+  height: 100%;
 `;
 
 export const AuthHeading = styled.h2`
   color: #c48f5a;
 `;
 
-export const RegisterInput = styled.input`
+export const AuthInput = styled.input`
   border: solid 2px #c99c6e;
   border-radius: 8px;
   width: 50%;
@@ -67,6 +77,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const DescriptionButton = styled.button`
+  display: inline-block;
   appearance: none;
   background-color: transparent;
   border: none;
@@ -82,4 +93,36 @@ export const DescriptionButton = styled.button`
   &:active {
     font-weight: bold;
   }
+`;
+
+// 로그인 ============================================================
+export const LoginForm = styled.div`
+  display: flex;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const KakaoIcon = styled.img.attrs({
+  src: "/assets/img/kakaotalk.png",
+  alt: "kakaoIcon",
+})`
+  width: 25px;
+  height: 25px;
+`;
+
+export const LoginImgContentBox = styled.div`
+  width: 40%;
+  height: 15%;
+`;
+
+export const LoginContentBox = styled.div`
+  width: 60%;
+  text-align: center;
+`;
+
+export const ButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

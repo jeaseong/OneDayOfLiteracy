@@ -5,7 +5,7 @@ import {
   DescriptionButton,
   LogoButton,
   LogoImage,
-  RegisterInput,
+  AuthInput,
   SubmitButton,
 } from "../../../styles/AuthStyle";
 import {
@@ -66,28 +66,28 @@ function Register({ onSubmit = () => {} }) {
         <LogoImage src="/assets/img/logo_login.png" alt="logo" />
       </LogoButton>
       <AuthHeading>회원가입</AuthHeading>
-      <RegisterInput
+      <AuthInput
         type="email"
         placeholder="Email*"
         name="email"
         onChange={handleOnChange}
         required
       />
-      <RegisterInput
+      <AuthInput
         type="password"
         placeholder="Password*"
         name="password"
         onChange={handleOnChange}
         required
       />
-      <RegisterInput
+      <AuthInput
         type="password"
         placeholder="Confirm Password*"
         name="confirmPassword"
         onChange={handleOnChange}
         required
       />
-      <RegisterInput
+      <AuthInput
         type="text"
         placeholder="Nickname*"
         name="nickname"
