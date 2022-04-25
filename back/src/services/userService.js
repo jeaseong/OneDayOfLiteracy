@@ -31,7 +31,7 @@ class userAuthService {
   }
 
   // 카카오 계정 추가
-  static async addKakaoUser({ nickname, email }) {
+  static async addKakaoUser({ nickname, email, accessToken }) {
     // 중복 확인 불필요, 로직상 userRouter에서 getKakaoUser로 먼저 체크함
 
     const newKakaoUser = { nickname, email };
@@ -40,8 +40,11 @@ class userAuthService {
     const createdNewUser = await KakaoUser.create({ newKakaoUser });
 
     const secretKey = config.jwtKey || "jwt-secret-key";
-    const token = jwt.sign({ userId: createdNewUser._id, type: "kakao" }, secretKey);
-    
+    const token = jwt.sign(
+      { userId: createdNewUser._id, type: "kakao", accessToken },
+      secretKey
+    );
+
     const loginUser = {
       ...createdNewUser._doc,
       token,
@@ -61,7 +64,7 @@ class userAuthService {
       return { errorMessage };
     }
 
-    user = await User.findById({ userId: user._id })
+    user = await User.findById({ userId: user._id });
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
     const isPasswordCorrect = await bcrypt.compare(
@@ -77,8 +80,6 @@ class userAuthService {
     const secretKey = config.jwtKey || "jwt-secret-key";
     const token = jwt.sign({ userId: user._id, type: "general" }, secretKey);
 
-    
-
     const loginUser = {
       ...user._doc,
       token,
@@ -93,7 +94,7 @@ class userAuthService {
   }
 
   // 카카오 로그인
-  static async getKakaoUser({ email }) {
+  static async getKakaoUser({ email, accessToken }) {
     // 이메일 db에 존재 여부 확인
     const kakaoUser = await KakaoUser.findByEmail({ email });
 
@@ -103,15 +104,13 @@ class userAuthService {
     }
 
     const secretKey = config.jwtKey || "jwt-secret-key";
-    const token = jwt.sign({ userId: kakaoUser._id, type: "kakao" }, secretKey);
+    const token = jwt.sign({ userId: kakaoUser._id, type: "kakao", accessToken }, secretKey);
 
-       
     //console.log(kakaoUser._id, typeof kakaoUser._id);
-    // new ObjectId("6262cf120e7a8939fcb51bf0") object 
+    // new ObjectId("6262cf120e7a8939fcb51bf0") object
     // 위처럼 userId 픨드 값에 new ObjectId 형식의 object가 저장되는데
     // 디코딩으로 jwt.verify(token, secretKey) 한 [ 결과.userId ] 값은 [ string ]!! 이다!
-    
-    
+
     const loginUser = {
       ...kakaoUser._doc,
       token,
@@ -180,7 +179,6 @@ class userAuthService {
 
     // 수정해야하는 필드에 맞는 값을 업데이트
     const toUpdateField = Object.keys(toUpdate);
-    
     toUpdateField.forEach((key) => {
       if (!toUpdate[key]) delete toUpdate[key];
     });
