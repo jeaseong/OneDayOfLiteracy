@@ -1,16 +1,13 @@
 import React from "react";
-import styled from "styled-components";
-import { TestSheetContainer } from "./TestSheetContainer";
+import { ContainerHome, WomanBook } from "./TestStyle";
+import TestContainer from "./TestContainer";
+import { womanBook } from "../../utils/imgImport";
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-`;
-export const TestHome = () => {
+export default function TestHome() {
   return (
-    <Container>
-      <TestSheetContainer />
-    </Container>
+    <ContainerHome>
+      <WomanBook src={womanBook} alt="책을 들고있는 여자" />
+      <TestContainer />
+    </ContainerHome>
   );
-};
+}

@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-
-import { testQuestion } from "./Utils";
-import { TestSheet } from "./TestSheet";
 import { TestContext } from "../../context/TestContext";
-import { ButtonContainer } from "./ButtonContainer";
+import { testQuestion } from "./util";
+import TestPresentation from "./TestPresentation";
+import TestProcessBtn from "./TestProcessBtn";
+import { ProcessBtn } from "./TestStyle";
 
-// import * as Api from "../../api";
-
-export const TestSheetContainer = () => {
+export default function TestContainer() {
   const { test, answer, testDispatch, answerDispatch } =
     useContext(TestContext);
   // const { data, isLoading } = useQuery(
@@ -57,7 +55,7 @@ export const TestSheetContainer = () => {
   return (
     <div>
       {isTesting && (
-        <TestSheet
+        <TestPresentation
           test={test}
           onSubmit={onSubmit}
           nextTest={nextTest}
@@ -65,20 +63,18 @@ export const TestSheetContainer = () => {
           handleClickAnswer={handleClickAnswer}
         />
       )}
-
-      {!isTesting && <button>테스트 안볼래요</button>}
       {!isTesting && (
-        <button
+        <ProcessBtn
           onClick={() => {
             startTest();
             setIsTesting((cur) => true);
           }}
         >
           테스트 시작하기!
-        </button>
+        </ProcessBtn>
       )}
       {isTesting && test && (
-        <ButtonContainer
+        <TestProcessBtn
           selectedAnswer={selectedAnswer}
           onSubmit={onSubmit}
           nextTest={nextTest}
@@ -87,4 +83,4 @@ export const TestSheetContainer = () => {
       )}
     </div>
   );
-};
+}

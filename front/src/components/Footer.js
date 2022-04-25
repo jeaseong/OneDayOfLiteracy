@@ -1,8 +1,8 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { Copyright } from "./Copyright";
 import { useLocation } from "react-router-dom";
+import { Copyright } from "./Copyright";
+import { FooterContainer, FooterBackground } from "./componentStyle";
+import { footerImg } from "../utils/imgImport";
 
 function Footer() {
   const location = useLocation();
@@ -15,30 +15,10 @@ function Footer() {
   if (hideFooter) return null;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: "auto",
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[400]
-              : theme.palette.grey[800],
-        }}
-      >
-        <Container maxWidth="sm">
-          <Copyright />
-        </Container>
-      </Box>
-    </Box>
+    <FooterContainer>
+      <Copyright />
+      {/* <FooterBackground src={footerImg} alt="footer이미지" /> */}
+    </FooterContainer>
   );
 }
 

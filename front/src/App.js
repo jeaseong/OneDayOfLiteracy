@@ -7,7 +7,7 @@ import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
-import { TestHome } from "./pages/TestSheet/TestHome";
+import TestHome from "./pages/TestSheet/TestHome";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -16,18 +16,25 @@ function App() {
   if (isLoading) return <Loading />;
 
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/register" element={<Register />} />
-        <Route path="/oauth/callback/kakao" element={<KakaoLoginHandler />} />
-        <Route path="/test" element={<TestHome />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <div className="App">
+      <Router>
+        <Header />
+        <main className="main">
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route
+              path="/oauth/callback/kakao"
+              element={<KakaoLoginHandler />}
+            />
+            <Route path="/test" element={<TestHome />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 
