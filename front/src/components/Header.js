@@ -1,25 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-// import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { successMessage, alertType } from "../utils/alertMessage";
-import { HeaderContainer, LogoContainer, Navigation } from "./componentStyle";
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
+import {
+  HeaderContainer,
+  LogoContainer,
+  Navigation,
+  NavList,
+} from "./componentStyle";
 
 function Header() {
   const navigate = useNavigate();
@@ -34,20 +25,16 @@ function Header() {
     successMessage.logout,
     alertType.success
   );
+  const handleNav = (event, path) => {
+    event.preventDefault();
+    navigate(path);
+  };
 
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
-      <LinkTab
-        value={false}
-        onClick={() => navigate("/user/register")}
-        label="회원가입"
-      />
+      <NavList onClick={() => navigate("/user/register")}>회원가입</NavList>
     ) : (
-      <LinkTab
-        value={false}
-        onClick={() => navigate("/user/login")}
-        label="로그인"
-      />
+      <NavList onClick={() => navigate("/user/login")}>로그인 </NavList>
     );
 
   const handleChange = (event, newValue) => {
@@ -67,22 +54,15 @@ function Header() {
           onClick={() => navigate("/")}
           src={`${process.env.PUBLIC_URL}/logo_header.png`}
           alt="logo"
+          width="200px"
         ></img>
       </LogoContainer>
-      <Navigation
-        value={value}
-        onChange={handleChange}
-        textColor="primary"
-        indicatorColor="primary"
-        aria-label="primary tabs example"
-      >
-        <LinkTab
-          value="one"
-          onClick={() => navigate("/")}
-          label="서비스 소개"
-        />
+      <Navigation onChange={handleChange}>
+        <NavList onClick={() => navigate("/")} label="서비스 소개">
+          서비스 소개
+        </NavList>
         {isLogin ? (
-          <LinkTab value={false} onClick={handleUserLogout} label="로그아웃" />
+          <NavList onClick={handleUserLogout}>로그아웃</NavList>
         ) : (
           LoginRegisterTab
         )}
