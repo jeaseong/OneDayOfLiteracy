@@ -1,23 +1,14 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { Copyright } from "./Copyright";
-import { FooterContainer, FooterBackground } from "./componentStyle";
-import { footerImg } from "../utils/imgImport";
+import Typography from "@mui/material/Typography";
+import { FooterContainer } from "./componentStyle";
 
 function Footer() {
-  const location = useLocation();
-  const currentPath = location.pathname;
-
-  const loginPage = "/user/login";
-  const registerPage = "/user/register";
-  const hideFooter = currentPath === loginPage || currentPath === registerPage;
-
-  if (hideFooter) return null;
-
   return (
     <FooterContainer>
-      <Copyright />
-      {/* <FooterBackground src={footerImg} alt="footer이미지" /> */}
+      <Typography variant="body2" color="text.secondary" align="center">
+        Copyright © 문해한 하루 &nbsp;
+        {new Date().getFullYear()}.
+      </Typography>
     </FooterContainer>
   );
 }
