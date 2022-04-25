@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
 import { useCurrentUser } from "./queries/userQuery";
+import Errorpage from "./components/Errorpage";
 
 function App() {
   const { isLoading } = useCurrentUser();
