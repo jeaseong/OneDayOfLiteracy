@@ -266,12 +266,15 @@ userAuthRouter.delete(
 );
 
 // DELETE /user/kakao/:userId : kakao user 삭제 (단순히 우리 db에서 삭제)
+// 추가로, 앱과 kakao 연결 끊기(카카오 로그인 연동 해제=> 동의 항목도 철회됨)
+// unlink 설명 : https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink
 userAuthRouter.delete(
   "/user/kakao/:userId",
-  //loginRequired,
+  loginRequired,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
+      const kakaoToken = req.currentToken;
 
       const deletedUser = await userAuthService.deleteKakaoUser({ userId });
 
@@ -279,6 +282,14 @@ userAuthRouter.delete(
         throw new Error("정상적으로 삭제되지 않았습니다.");
       }
 
+      const result = await axios.post(config.kakao.unlinkUrl,{},
+        {
+          headers: {
+            Authorization: `Bearer ${kakaoToken}`,
+          },
+        }
+      );
+      
       res.status(200).send("success");
     } catch (error) {
       next(error);
@@ -286,74 +297,3 @@ userAuthRouter.delete(
   }
 );
 
-// GET /user/kakao/logout : kakao user 로그아웃
-// 시도하다가 중단함
-userAuthRouter.get(
-  "/user/kakao/logout",
-  loginRequired,
-  async (req, res, next) => {
-    try{
-      const kakaoToken = req.currentToken;
-      console.log(kakaoToken);
-
-      const result = await axios.get(config.kakao.logoutURL, 
-        {
-          params: {
-            client_id : config.kakao.clientId,
-            logout_redirect_uri : config.kakao.logoutRedirectUrl + `/${kakaoToken}`,
-          }
-        }
-      )
-      
-      console.log(result);
-      res.status(200).send("success2");
-
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-userAuthRouter.get(
-  "/oauth/callback/kakaologout/:token",
-  async (req, res, next) => {
-    try{
-      const { token } = req.params;
-      console.log(token);
-      await axios.post(config.kakao.tokenExpireUrl,{},
-        {
-          headers: { 'Authorization': 'Bearer ' + token },
-        }
-      );
-      console.log('success');
-      res.status(200).send('success');
-    } catch(error) {
-      next(error);
-    }
-  }
-);
-
-// GET /user/kakao/unlink : 앱과 kakao 연결 끊기(카카오 로그인 연동 해제=> 동의 항목도 철회됨)
-// 자세한 설명 : https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink
-userAuthRouter.get(
-  "/user/kakao/unlink",
-  loginRequired,
-  async (req, res, next) => {
-    try{
-      const kakaoToken = req.currentToken;
-
-      const result = await axios.post(config.kakao.unlinkUrl,{},
-        {
-          headers: {
-            Authorization: `Bearer ${kakaoToken}`
-          }
-        }
-      )
-
-      res.status(200).send(result.data);
-
-    } catch (error) {
-
-    }
-  }
-)
-export { userAuthRouter };

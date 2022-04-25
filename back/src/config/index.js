@@ -12,9 +12,6 @@ const config = {
     clientId: process.env.KAKAO_CLIENT_ID,
     redirectUrl: process.env.KAKAO_REDIRECT_URL,
     userUrl: process.env.KAKAO_OAUTH_USER_API_URL,
-    logoutURL: process.env.KAKAO_OAUTH_LOGOUT_URL,
-    logoutRedirectUrl: process.env.KAKAO_LOGOUT_REDIRECT_URL,
-    tokenExpireUrl: process.env.KAKAO_TOKEN_LOGOUT_URL,
     unlinkUrl: process.env.KAKAO_UNLINK,
   },
 };
