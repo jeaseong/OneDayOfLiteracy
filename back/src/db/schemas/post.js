@@ -10,6 +10,7 @@ const PostSchema = new Schema(
   },
   {
     timestamps: true,
+    selectPopulatedPaths: false,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
@@ -18,6 +19,13 @@ const PostSchema = new Schema(
 PostSchema.virtual('user', {
   ref: 'User',
   localField: 'userId',
+  foreignField: '_id',
+  justOne: true,
+});
+
+PostSchema.virtual('subject', {
+  ref: 'Subject',
+  localField: 'subjectId',
   foreignField: '_id',
   justOne: true,
 });

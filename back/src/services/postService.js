@@ -13,16 +13,25 @@ class postService {
     if (!user) {
         return { errorMessage: "Error: Invalid userId "}
     }
-
-    const createdNewPost = await Post.create({
+  
+    const newPost = {
       title,
       content,
       tags,
       subjectId,
       userId,
-    });
+    }
 
+    const createdNewPost = await Post.create({ newPost });
     createdNewPost.errorMessage = null;
+
+    // 작성한 user의 포인트 적립 (기존 포인트 + 작성한 글 포인트)
+    const points = user.point + subject.point;
+
+    await User.update({
+      userId: user._id,
+      toUpdate: { "point": points }
+    });
 
     return createdNewPost;
   }
@@ -64,10 +73,11 @@ class postService {
     }
 
     const posts = await Post.findByUserId({ userId });
+  
     return posts;
   }
 
-  static async getAllPosts({}) { 
+  static async getAllPosts() { 
     const posts = await Post.findAll();
     return posts;
   }
@@ -76,10 +86,11 @@ class postService {
   
   static async deletePost({ postId }) { 
     const result = await Post.delete({ postId })
-    if (result.count !== 1) {
+
+    if (result.deletedCount !== 1) {
         return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." }
     }
-
+    
     return { errorMessage: null }
   }
 
@@ -92,7 +103,7 @@ class postService {
 
     // 정상적으로 지워졌는지 검증 필요
     const result = await Post.deleteByUserId({ userId });
-    if (result.count === 0) { 
+    if (result.deletedCount === 0) { 
         return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." }
     }
 

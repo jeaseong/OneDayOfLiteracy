@@ -25,7 +25,6 @@ postRouter.post('/post', loginRequired, async (req, res, next) => {
 postRouter.get('/posts/:postId', loginRequired, async (req, res, next) => {
   try {
     const { postId } = req.params;
-
     const post = await postService.getPost({ postId });
     res.status(200).json(post);
   } catch (err) {
@@ -34,13 +33,13 @@ postRouter.get('/posts/:postId', loginRequired, async (req, res, next) => {
 });
 
 // 2. userId 로 해당 유저의 posts 조회
-postRouter.get('/posts/:userId', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/users/:userId', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
 
     const posts = await postService.getPostsByUserId({ userId });
     res.status(200).json(posts);
-  } catch (error) {
+  } catch (err) {
     next(err);
   }
 });
@@ -48,7 +47,7 @@ postRouter.get('/posts/:userId', loginRequired, async (req, res, next) => {
 // 3. 전체 게시글 조회
 postRouter.get('/posts', loginRequired, async (req, res, next) => {
   try {
-    const posts = await postService.getPosts();
+    const posts = await postService.getAllPosts();
 
     res.status(200).json(posts);
   } catch (err) {
@@ -119,7 +118,7 @@ postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
 })
 
 // 2. userId로 해당 유저의 글 모두 삭제
-postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
+postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
   

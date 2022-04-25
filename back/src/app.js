@@ -1,6 +1,8 @@
 import cors from "cors";
 import express from "express";
 
+import { errorMiddleware } from "./middlewares/errorMiddleware";
+
 import { userAuthRouter } from "./routers/userRouter";
 import { postRouter } from "./routers/postRouter";
 import { subjectRouter } from "./routers/subjectRouter";

@@ -8,7 +8,7 @@ class Subject {
   }
 
   static async findById({ subjectId }) {
-    const subject = await SubjectModel.findOne({ _id: subjectId });
+    const subject = await SubjectModel.findOne({ id: subjectId });
     return subject;
   }
 
@@ -35,7 +35,7 @@ class Subject {
   }
 
   static async delete({ subjectId }) {
-    const deletedSubject = await SubjectModel.deleteOne({ _id: subjectId });
+    const deletedSubject = await SubjectModel.deleteOne({ id: subjectId });
     return deletedSubject;
   }
 }

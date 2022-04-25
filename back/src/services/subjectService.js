@@ -44,9 +44,13 @@ class subjectService {
 
   static async deleteSubject({ subjectId }) {
     const result = await Subject.delete({ subjectId });
-    if (result.count !== 1) return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
+
+    if (result.deletedCount !== 1) return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
+
     return { errorMessage: null };
   }
 }
 
+
 export { subjectService };
+
