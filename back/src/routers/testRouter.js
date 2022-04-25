@@ -4,20 +4,122 @@ import { TestService } from "../services/testService";
 
 const testRouter = Router();
 
-testRouter.get(
-    "/test/query",
-    async (req, res, next) => {
-        try{
-            const question = req.query.question;
-            if(!question){
-                throw new Error("URL 쿼리에서 ?question={찾고싶은 질문 문자열} 형식으로 요청하세요");
-            }
+testRouter.get("/tests", async (req, res, next) => {
+  try {
+    const question = req.query.question;
 
-            const tests = await TestService.searchTest({ question });
-            
-            res.status(200).send(tests);
-        } catch(error) {
-            next(error);
-        }
+    const tests = await TestService.searchTest({ question });
+
+    res.status(200).json(tests);
+  } catch (error) {
+    next(error);
+  }
+});
+
+testRouter.post("/test/result", async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
     }
-);
+
+    const submission = req.body;
+
+    const score = await TestService.evaluateTest(submission);
+    if (score.errorMessage) {
+      console.error("\x1b[35m%s\x1b[0m", score.errorMessage);
+      res.status(500).json(score);
+    }
+
+    res.status(200).json(score);
+  } catch (error) {
+    next(error);
+  }
+});
+
+testRouter.post("/test", async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+
+    const question = req.body.question;
+    const questionType = req.body.questionType;
+    const content = req.body.content;
+    const choices = req.body.choices;
+    const answer = req.body.answer;
+
+    const test = await TestService.addTest({
+      question,
+      questionType,
+      content,
+      choices,
+      answer,
+    });
+
+    if (test.errorMessage) {
+      throw new Error(test.errorMessage);
+    }
+
+    res.status(200).json(test);
+  } catch (error) {
+    next(error);
+  }
+});
+
+testRouter.get("/test/:num", async (req, res, next) => {
+  try {
+    const num = req.params.num;
+
+    const test = await TestService.getTest({ num });
+    if (test.errorMessage) {
+      throw new Error(test.errorMessage);
+    }
+
+    res.status(200).json(test);
+  } catch (error) {
+    next(error);
+  }
+});
+
+testRouter.put("/test/:num", async (req, res, next) => {
+  try {
+    if(is.emptyObject(req.body)){
+        throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+    }
+
+    const num = req.params.num;
+    const { question, questionType, content, choices } = req.body;
+    const toUpdate = { question, questionType, content, choices };
+
+    const test = await TestService.setTest({ num, toUpdate });
+    if (test.errorMessage) {
+      throw new Error(test.errorMessage);
+    }
+
+    res.status(200).json(test);
+  } catch (error) {
+    next(error);
+  }
+});
+
+testRouter.delete("/test/:num", async (req, res, next) => {
+  try {
+      const num = req.params.num;
+
+      const deleteResult = await TestService.deleteTest({ num });
+      if(deleteResult.deletedCount !== 1){
+          throw new Error("정상적으로 삭제되지 않았습니다.");
+      }
+
+      res.status(200).send({ success: true, });
+
+  } catch (error) {
+      next(error);
+  }
+});

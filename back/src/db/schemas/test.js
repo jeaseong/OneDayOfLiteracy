@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 
 const TestSchema = new Schema(
   {
+    num: {type: Number, required: true,},
     question: { type: String, required: true, },
     questionType: { type: String, required: true, },
     content: { type: String, required: false, default: "", },
