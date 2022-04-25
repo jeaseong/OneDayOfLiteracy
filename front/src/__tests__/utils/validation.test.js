@@ -8,7 +8,11 @@ describe("Auth validation", () => {
       confirmPassword: "test1234",
       nickname: "테스트",
     };
-    expect(validation("register", registerInfo)).toBeFalsy();
+    const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+      validation("register", registerInfo);
+    const isActive =
+      isCheckEmail && isCheckNickName && isPassRule && isSamePassword;
+    expect(isActive).toBeFalsy();
   });
 
   it("password validation", () => {
@@ -18,7 +22,11 @@ describe("Auth validation", () => {
       confirmPassword: "test1234",
       nickname: "테스트",
     };
-    expect(validation("register", registerInfo)).toBeFalsy();
+    const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+      validation("register", registerInfo);
+    const isActive =
+      isCheckEmail && isCheckNickName && isPassRule && isSamePassword;
+    expect(isActive).toBeFalsy();
   });
 
   it("nickName validation", () => {
@@ -28,7 +36,11 @@ describe("Auth validation", () => {
       confirmPassword: "test1234",
       nickname: "a",
     };
-    expect(validation("register", registerInfo)).toBeFalsy();
+    const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+      validation("register", registerInfo);
+    const isActive =
+      isCheckEmail && isCheckNickName && isPassRule && isSamePassword;
+    expect(isActive).toBeFalsy();
   });
 
   it("Pass register validation", () => {
@@ -38,7 +50,11 @@ describe("Auth validation", () => {
       confirmPassword: "test1234",
       nickname: "test",
     };
-    expect(validation("register", registerInfo)).toBeTruthy();
+    const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+      validation("register", registerInfo);
+    const isActive =
+      isCheckEmail && isCheckNickName && isPassRule && isSamePassword;
+    expect(!isActive).toBeTruthy();
   });
 });
 
