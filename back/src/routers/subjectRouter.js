@@ -31,7 +31,6 @@ subjectRouter.post('/subject', async (req, res, next) => {
 subjectRouter.get('/subjects/:subjectId', async (req, res, next) => {
   try {
     const { subjectId } = req.params;
-    console.log(subjectId)
     const subject = await subjectService.getSubject({ subjectId });
 
     if (subject.errorMessage) throw new Error(subject.errorMessage);
