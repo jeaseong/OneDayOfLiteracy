@@ -1,7 +1,7 @@
 import cactusFooter from "../img/cactus_footer.png";
 import desertFooter from "../img/desert_footer.png";
 import leafFooer from "../img/leaf_footer.png";
-import footer from "../img/footer.png";
+import footerImg from "../img/footer.png";
 import header from "../img/header.png";
 import leafLeftHeader from "../img/leaf_left.png";
 import leafRightHeader from "../img/leaf_right.png";
@@ -14,7 +14,7 @@ export {
   cactusFooter,
   desertFooter,
   leafFooer,
-  footer,
+  footerImg,
   header,
   leafLeftHeader,
   leafRightHeader,

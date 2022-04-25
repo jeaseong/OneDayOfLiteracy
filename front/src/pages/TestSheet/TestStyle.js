@@ -9,7 +9,7 @@ export const ContainerHome = styled.div`
   box-sizing: border-box;
   padding: 0 20px;
   margin: 0 auto;
-  margin-top: 100px;
+  margin: 100px 0;
 `;
 
 export const WomanBook = styled.img`
