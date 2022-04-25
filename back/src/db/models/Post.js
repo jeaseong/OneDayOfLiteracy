@@ -29,6 +29,7 @@ class Post {
   }
 
   static async findAll() {
+    // pagination 필요
     const posts = await PostModel.find({});
     return posts;
   }
