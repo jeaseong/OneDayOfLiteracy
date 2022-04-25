@@ -7,6 +7,7 @@ import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { successMessage, alertType } from "../utils/alertMessage";
+import { useStyles } from "../css/headerStyles";
 
 function LinkTab(props) {
   return (
@@ -58,21 +59,15 @@ function Header() {
     queryClient.removeQueries("userState");
     setShowAlert(true);
   };
+  const classes = useStyles();
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <Box className={classes.header}>
       <img
         onClick={() => navigate("/")}
-        src={`${process.env.PUBLIC_URL}/moonhaeday.png`}
+        src={`${process.env.PUBLIC_URL}/logo_header.png`}
         alt="logo"
-        width="100"
+        className={classes.logo}
       ></img>
       <Tabs
         value={value}
