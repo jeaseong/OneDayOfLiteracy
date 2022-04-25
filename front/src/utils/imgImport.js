@@ -1,25 +1,14 @@
-import cactusFooter from "../img/cactus_footer.png";
-import desertFooter from "../img/desert_footer.png";
-import leafFooer from "../img/leaf_footer.png";
-import footerImg from "../img/footer.png";
-import header from "../img/header.png";
-import leafLeftHeader from "../img/leaf_left.png";
-import leafRightHeader from "../img/leaf_right.png";
-import logoHeader from "../img/logo_header.png";
-import logoLogin from "../img/logo_login.png";
-import womanBook from "../img/woman_book.png";
-import woman from "../img/woman.png";
-
-export {
-  cactusFooter,
-  desertFooter,
-  leafFooer,
-  footerImg,
-  header,
-  leafLeftHeader,
-  leafRightHeader,
-  logoHeader,
-  logoLogin,
-  womanBook,
-  woman,
+export const img = {
+  cactusFooter: `${process.env.PUBLIC_URL}/assets/img/cactus_footer.png`,
+  desertFooter: `${process.env.PUBLIC_URL}/assets/img/desert_footer.png`,
+  leafFooer: `${process.env.PUBLIC_URL}/assets/img/leaf_footer.png`,
+  footerImg: `${process.env.PUBLIC_URL}/assets/img/footer.png`,
+  header: `${process.env.PUBLIC_URL}/assets/img/header.png`,
+  leafLeftHeader: `${process.env.PUBLIC_URL}/assets/img/leaf_left.png`,
+  leafRightHeader: `${process.env.PUBLIC_URL}/assets/img/leaf_right.png`,
+  logoHeader: `${process.env.PUBLIC_URL}/assets/img/logo_header.png`,
+  logoLogin: `${process.env.PUBLIC_URL}/assets/img/logo_login.png`,
+  womanBook: `${process.env.PUBLIC_URL}/assets/img/woman_book.png`,
+  woman: `${process.env.PUBLIC_URL}/assets/img/woman.png`,
+  kakaoIcon: `${process.env.PUBLIC_URL}/assets/img/kakaotalk.png`,
 };

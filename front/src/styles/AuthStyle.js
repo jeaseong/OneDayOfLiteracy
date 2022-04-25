@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { img } from "../utils/imgImport";
 
 // 회원가입 ============================================================
 export const AuthContainer = styled.div`
@@ -24,7 +25,7 @@ export const LogoButton = styled.button`
 `;
 
 export const LogoImage = styled.img.attrs({
-  src: "/assets/img/logo_login.png",
+  src: img.logoLogin,
   alt: "logo",
 })`
   width: 355px;
@@ -32,7 +33,7 @@ export const LogoImage = styled.img.attrs({
 `;
 
 export const CharacterImage = styled.img.attrs({
-  src: "/assets/img/woman.png",
+  src: img.woman,
   alt: "charactor",
 })`
   width: 100%;
@@ -104,7 +105,7 @@ export const LoginForm = styled.div`
 `;
 
 export const KakaoIcon = styled.img.attrs({
-  src: "/assets/img/kakaotalk.png",
+  src: img.kakaoIcon,
   alt: "kakaoIcon",
 })`
   width: 25px;
