@@ -1,6 +1,6 @@
 import React from "react";
 import { AnswerBtn, AnswerText, AnswerBtnContainer } from "./TestStyle";
-import CheckIcon from "@mui/icons-material/Check";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const TestAnswerBtn = ({
   testId,
@@ -19,7 +19,9 @@ export const TestAnswerBtn = ({
           <AnswerText>
             {index + 1}. {option.choice}
           </AnswerText>
-          {selectedAnswer === option.id && <CheckIcon />}
+          {selectedAnswer === option.id && (
+            <FavoriteIcon style={{ color: "#C48F5A" }} />
+          )}
         </AnswerBtn>
       ))}
     </AnswerBtnContainer>

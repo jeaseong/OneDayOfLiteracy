@@ -28,7 +28,6 @@ export const Question = styled.h2`
 `;
 export const Content = styled.p`
   font-weight: 400;
-  font-size: 14px;
   line-height: 20px;
   margin-bottom: 10px;
 `;
@@ -44,13 +43,15 @@ export const AnswerBtn = styled.button`
   box-shadow: 0px 0px 10px rgba(195, 202, 254, 0.6);
   border-radius: 3px;
   margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 `;
 
 export const AnswerText = styled.p`
-  font-size: 14px;
   line-height: 20px;
   text-align: left;
-  padding: 10px;
 `;
 
 export const ProcessContainer = styled.section`
