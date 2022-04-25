@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { successMessage, alertType } from "../utils/alertMessage";
-import { useStyles } from "../css/headerStyles";
+import { HeaderContainer, LogoContainer, Navigation } from "./componentStyle";
 
 function LinkTab(props) {
   return (
@@ -59,17 +59,17 @@ function Header() {
     queryClient.removeQueries("userState");
     setShowAlert(true);
   };
-  const classes = useStyles();
 
   return (
-    <Box className={classes.header}>
-      <img
-        onClick={() => navigate("/")}
-        src={`${process.env.PUBLIC_URL}/logo_header.png`}
-        alt="logo"
-        className={classes.logo}
-      ></img>
-      <Tabs
+    <HeaderContainer>
+      <LogoContainer>
+        <img
+          onClick={() => navigate("/")}
+          src={`${process.env.PUBLIC_URL}/logo_header.png`}
+          alt="logo"
+        ></img>
+      </LogoContainer>
+      <Navigation
         value={value}
         onChange={handleChange}
         textColor="primary"
@@ -86,9 +86,9 @@ function Header() {
         ) : (
           LoginRegisterTab
         )}
-      </Tabs>
+      </Navigation>
       <CustomSnackbar {...logoutSuccessData} />
-    </Box>
+    </HeaderContainer>
   );
 }
 
