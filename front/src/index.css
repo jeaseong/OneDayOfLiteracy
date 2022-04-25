@@ -1,13 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap");
 @font-face{
   font-family: 'Maplestory Bold';
-  src: url('./font/Maplestory_Bold.ttf');
+  src: url('styles/fonts/Maplestory_Bold.ttf');
   font-family: 'Maplestory Light';
-  src: url('./font/Maplestory_Light.ttf');
+  src: url('styles/fonts/Maplestory_Light.ttf');
   font-family: 'Maplestory Bold';
-  src: url('./font/Maplestory_Bold.ttf');
+  src: url('styles/fonts/Maplestory_Bold.ttf');
   font-family: 'Maplestory Bold';
-  src: url('./font/Maplestory_Bold.ttf');
+  src: url('styles/fonts/Maplestory_Bold.ttf');
 }
 
 * {
