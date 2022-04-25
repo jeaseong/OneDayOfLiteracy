@@ -1,6 +1,6 @@
 import { Test } from "../db";
 
-class TestService {
+class testService {
     static async addTest({ question, questionType, content, choices, answer }) {
         const test = await Test.findByQuestion({ question });
         if(test){
@@ -90,9 +90,9 @@ class TestService {
     }
 
     static async deleteTest({ num }){
-        const deleteResult = Test.delete({ num });
+        const deleteResult = await Test.delete({ num });
         return deleteResult;
     }
 }
 
-export { TestService };
+export { testService };

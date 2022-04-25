@@ -4,6 +4,7 @@ import { TestModel } from '../schemas/test';
 class Test {
     static async create({ newTest }) {
         const createdNewTest = await TestModel.create(newTest);
+        delete createdNewTest._doc["__v"];
         //string화 되어있는 content필드를 json화
         createdNewTest._doc["content"] =  JSON.parse(createdNewTest._doc["content"]);
         return createdNewTest;
