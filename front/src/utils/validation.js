@@ -6,7 +6,7 @@
 function emailValidate(email) {
   const emailRule =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return !emailRule.test(email);
+  return emailRule.test(email);
 }
 
 /**
@@ -36,7 +36,7 @@ function passwordValidate(type, passwordInfo) {
 function registerValidation(type, info) {
   const { email, password, confirmPassword, nickname } = info;
 
-  const isCheckEmail = emailValidate(email) && email.length > 0;
+  const isCheckEmail = !emailValidate(email) && email.length > 0;
   const isCheckNickName = !(nickname.length >= 2) && nickname.length > 0;
   const { isPassRule, isSamePassword } = passwordValidate(type, {
     password,
