@@ -12,8 +12,18 @@ class Test {
         return test;
     }
 
+    static async findByQuestion({ question }){
+        const test = await TestModel.findOne({ question }, {content: 0, choices: 0, __v: 0});
+        return test;
+    }
+
+    static async findByRegex(query){
+        const tests = await TestModel.find(query, {__v: 0});
+        return tests;
+    }
+
     static async findAll() {
-        const tests = await TestModel.find({});
+        const tests = await TestModel.find({},{__v: 0});
         return tests;
     }
 
