@@ -2,16 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { QueryClientProvider, QueryClient } from "react-query";
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import { ReactQueryDevtools } from "react-query/devtools";
+import { TestProvider } from "./context/TestContext";
+import reportWebVitals from "./reportWebVitals";
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
 });
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <QueryClientProvider client={queryClient}>
-    <App />
+    <TestProvider>
+      <App />
+    </TestProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
 

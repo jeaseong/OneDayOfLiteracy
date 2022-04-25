@@ -1,17 +1,14 @@
-import React, { useContext, useState } from "react";
-
-import { testQuestion } from "./Utils";
-import { TestSheet } from "./TestSheet";
-import { TestContext } from "../../context/TestContext";
-import { ButtonContainer } from "./ButtonContainer";
-
+import React, { useState } from "react";
+import { TestPresentation } from "./TestPresentation";
+import { TestProcessBtn } from "./TestProcessBtn";
+import { NextBtn } from "./TestStyle";
 import { useTestSheet } from "../../queries/TestQuery";
+import { testQuestion } from "./Utils";
 
-export const TestSheetContainer = () => {
-  const { test, answer, testDispatch, answerDispatch } =
-    useContext(TestContext);
+export function TestContainer() {
   const initAnswer = {
     questionId: null,
+    answerId: null,
   };
   const [isTesting, setIsTesting] = useState(false);
   const [curAnswer, setCurAnswer] = useState(initAnswer);
@@ -41,7 +38,7 @@ export const TestSheetContainer = () => {
   return (
     <div>
       {isTesting && (
-        <TestSheet
+        <TestPresentation
           test={data[step]}
           onSubmit={onSubmit}
           nextTest={nextTest}
@@ -49,19 +46,17 @@ export const TestSheetContainer = () => {
           handleClickAnswer={handleClickAnswer}
         />
       )}
-
-      {!isTesting && <button>테스트 안볼래요</button>}
       {!isTesting && (
-        <button
+        <NextBtn
           onClick={() => {
             setIsTesting((cur) => true);
           }}
         >
           테스트 시작하기!
-        </button>
+        </NextBtn>
       )}
       {isTesting && test && (
-        <ButtonContainer
+        <TestProcessBtn
           selectedAnswer={selectedAnswer}
           onSubmit={onSubmit}
           nextTest={nextTest}
@@ -70,4 +65,4 @@ export const TestSheetContainer = () => {
       )}
     </div>
   );
-};
+}
