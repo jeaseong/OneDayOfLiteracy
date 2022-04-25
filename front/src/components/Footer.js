@@ -17,7 +17,7 @@ function Footer() {
   return (
     <FooterContainer>
       <Copyright />
-      <FooterBackground src={footerImg} alt="footer이미지" />
+      {/* <FooterBackground src={footerImg} alt="footer이미지" /> */}
     </FooterContainer>
   );
 }

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { TestPresentation } from "./TestPresentation";
-import { TestProcessBtn } from "./TestProcessBtn";
+import { useQuery } from "react-query";
+import TestPresentation from "./TestPresentation";
+import TestProcessBtn from "./TestProcessBtn";
 import { NextBtn } from "./TestStyle";
 import { useTestSheet } from "../../queries/TestQuery";
-import { testQuestion } from "./Utils";
 
-export function TestContainer() {
+export default function TestContainer() {
+  // const { data, isLoading } = useQuery(
+  //   "test",
+  //   async () => await Api.get("test")
+  // );
   const initAnswer = {
     questionId: null,
     answerId: null,
