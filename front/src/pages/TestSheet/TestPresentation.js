@@ -1,9 +1,10 @@
 import React from "react";
 
-import { QuestionText } from "./QuestionText";
-import { AnswerButtons } from "./AnswerButtons";
+import { TestQuestion } from "./TestQuestion";
+import { TestAnswerBtn } from "./TestAnswerBtn";
+import TestContent from "./TestContent";
 
-export const TestSheet = ({
+export const TestPresentation = ({
   test,
   onSubmit,
   selectedAnswer,
@@ -13,12 +14,9 @@ export const TestSheet = ({
     <div>
       {test && (
         <>
-          <QuestionText
-            id={test.id}
-            question={test.question}
-            content={test.content}
-          />
-          <AnswerButtons
+          <TestQuestion id={test.id} question={test.question} />
+          <TestContent content={test.content} />
+          <TestAnswerBtn
             testId={test.id}
             choices={test.choices}
             handleClickAnswer={handleClickAnswer}

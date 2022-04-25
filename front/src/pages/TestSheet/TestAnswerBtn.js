@@ -1,32 +1,17 @@
 import React from "react";
-import styled from "styled-components";
+import { AnswerBtn, AnswerText, AnswerBtnContainer } from "./TestStyle";
 import CheckIcon from "@mui/icons-material/Check";
 
-const Button = styled.button`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  font-size: 1em;
-  border-color: transparent;
-  background-color: transparent;
-  outline: none;
-`;
-
-const AnswerText = styled.div`
-  flex-grow: 1;
-  text-align: left;
-`;
-
-export const AnswerButtons = ({
+export const TestAnswerBtn = ({
   testId,
   choices,
   handleClickAnswer,
   selectedAnswer,
 }) => {
   return (
-    <div>
+    <AnswerBtnContainer>
       {choices.map((option, index) => (
-        <Button
+        <AnswerBtn
           onClick={() => {
             handleClickAnswer(testId, option.id);
           }}
@@ -35,8 +20,8 @@ export const AnswerButtons = ({
             {index + 1}. {option.choice}
           </AnswerText>
           {selectedAnswer === option.id && <CheckIcon />}
-        </Button>
+        </AnswerBtn>
       ))}
-    </div>
+    </AnswerBtnContainer>
   );
 };

@@ -1,25 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { testQuestion } from "./Utils";
+import { ProcessContainer, ProcessBtn } from "./TestStyle";
 
-export const ButtonContainer = ({ nextTest, id, onSubmit, selectedAnswer }) => {
+export const TestProcessBtn = ({ nextTest, id, onSubmit, selectedAnswer }) => {
   const navigate = useNavigate();
   return (
-    <div>
+    <ProcessContainer>
       {testQuestion.length !== id ? (
-        <button disabled={!selectedAnswer} onClick={() => nextTest(id + 1)}>
+        <ProcessBtn disabled={!selectedAnswer} onClick={() => nextTest(id + 1)}>
           next
-        </button>
+        </ProcessBtn>
       ) : (
-        <button
+        <ProcessBtn
           disabled={false}
           onClick={() => {
             navigate("/");
           }}
         >
           결과보기
-        </button>
+        </ProcessBtn>
       )}
-    </div>
+    </ProcessContainer>
   );
 };
