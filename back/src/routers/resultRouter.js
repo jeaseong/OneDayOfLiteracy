@@ -95,3 +95,5 @@ subjectRouter.delete('/subjects/:subjectId', async (req, res, next) => {
     next(err);
   }
 });
+
+export { subjectRouter };
