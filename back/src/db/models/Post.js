@@ -7,7 +7,7 @@ class Post {
   }
 
   static async findById({ postId }) {
-    const post = await PostModel.findOne({ id: postId }).populate("subject", {_id: 0, subject: 1});
+    const post = await PostModel.findOne({ _id: postId }).populate("subject", {_id: 0, subject: 1});
     return post;
   }
 
@@ -35,7 +35,7 @@ class Post {
   }
 
   static async delete({ postId }) {
-    const deletedPost = await PostModel.deleteOne({ id: postId });
+    const deletedPost = await PostModel.deleteOne({ _id: postId });
     return deletedPost;
   }
 
