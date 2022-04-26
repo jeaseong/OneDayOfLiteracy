@@ -2,48 +2,52 @@ import styled, { keyframes } from "styled-components";
 
 const loading = keyframes`
   0% {
-    transform: translateX(0);
-  }
-  50%,
-  100% {
-    transform: translateX(460px);
-  }
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+        background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
 `;
 
 export const Skeletonontainer = styled.div`
-  width: 200px;
-  height: 260px;
-  padding: 12px;
+  flex: 50%;
+  padding: 10px;
+  background: #ffffff;
   border-radius: 12px;
+  overflow: hidden;
 `;
 export const SkeletonImg = styled.div`
   width: 100%;
-  height: 100px;
+  height: 200px;
+  margin-bottom: 10px;
+  border-radius: 20px;
   background-color: #eaeaea;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
-  }
+  position: relative;
+  animation: ${loading} 1.5s infinite linear;
 `;
-export const SkeletonText = styled.div`
-  width: 50%;
-  height: 30px;
-  background-color: #eaeaea;
 
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: ${loading} 2s infinite linear;
-  }
+export const SkeletonTag = styled.span`
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+  margin-right: 5px;
+  background-color: #eaeaea;
+  border-radius: 20px;
+  position: relative;
+  animation: ${loading} 1.5s infinite linear;
+`;
+
+export const SkeletonText = styled.div`
+  width: 100%;
+  height: 30px;
+  margin-bottom: 5px;
+  background-color: #eaeaea;
+  border-radius: 20px;
+  position: relative;
+  animation: ${loading} 1.5s infinite linear;
 `;
