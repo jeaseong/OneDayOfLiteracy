@@ -40,6 +40,12 @@ function UserCard() {
           </CardIntroduce>
           <CardMyInfo>
             <CardLikePost>
+              <ProfileHeading>내가 작성한 게시글</ProfileHeading>
+              <CardLikeCountBox>
+                <ProfileHeading>3</ProfileHeading>
+              </CardLikeCountBox>
+            </CardLikePost>
+            <CardLikePost>
               <ProfileHeading>내가 좋아한 게시글</ProfileHeading>
               <CardLikeCountBox>
                 <ProfileHeading>3</ProfileHeading>
