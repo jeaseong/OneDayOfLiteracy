@@ -83,3 +83,47 @@ describe("Login validation", () => {
     expect(validation("login", loginInfo)).toBeTruthy();
   });
 });
+
+describe("Edit validation", () => {
+  it("edit password validation", () => {
+    const editUserInfo = {
+      password: "test1222",
+      confirmPassword: "test1234",
+      nickname: "테스트",
+    };
+    const { isCheckNickName, isPassRule, isSamePassword } = validation(
+      "editUser",
+      editUserInfo
+    );
+    const isActive = isCheckNickName && isPassRule && isSamePassword;
+    expect(isActive).toBeFalsy();
+  });
+
+  it("edit nickName validation", () => {
+    const editUserInfo = {
+      password: "test1234",
+      confirmPassword: "test1234",
+      nickname: "a",
+    };
+    const { isCheckNickName, isPassRule, isSamePassword } = validation(
+      "editUser",
+      editUserInfo
+    );
+    const isActive = isCheckNickName && isPassRule && isSamePassword;
+    expect(isActive).toBeFalsy();
+  });
+
+  it("Pass editUser validation", () => {
+    const editUserInfo = {
+      password: "test1234",
+      confirmPassword: "test1234",
+      nickname: "test",
+    };
+    const { isCheckNickName, isPassRule, isSamePassword } = validation(
+      "editUser",
+      editUserInfo
+    );
+    const isActive = isCheckNickName && isPassRule && isSamePassword;
+    expect(!isActive).toBeTruthy();
+  });
+});
