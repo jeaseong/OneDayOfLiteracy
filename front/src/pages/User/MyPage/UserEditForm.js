@@ -9,6 +9,8 @@ import {
 } from "../../../styles/User/MyPageStyle";
 
 function UserEditForm({ editStateStore }) {
+  const { setIsEdit } = editStateStore;
+
   return (
     <EditContainer>
       <EditBox>
@@ -17,7 +19,9 @@ function UserEditForm({ editStateStore }) {
         <EditInput placeholder="Confirm Password*" />
         <ConfirmButtonBox>
           <ConfirmButton>확인</ConfirmButton>
-          <ConfirmButton>취소</ConfirmButton>
+          <ConfirmButton onClick={() => setIsEdit((cur) => !cur)}>
+            취소
+          </ConfirmButton>
         </ConfirmButtonBox>
       </EditBox>
       <EditIntroduceBox>

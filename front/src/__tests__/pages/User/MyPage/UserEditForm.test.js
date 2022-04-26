@@ -2,34 +2,36 @@ import { render, screen } from "../../../../test-utils";
 import UserEditForm from "../../../../pages/User/MyPage/UserEditForm";
 import userEvent from "@testing-library/user-event";
 
+const editStateStore = { setIsEdit: jest.fn() };
+
 describe("UserEditForm 요소 테스트", () => {
   it("닉네임 수정 inputBox", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileNickname = screen.queryByPlaceholderText(/nickname*/i);
     expect(editProfileNickname).toBeInTheDocument();
   });
 
   it("비밀번호 변경 inputBox", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const editProfilePassword = screen.queryByPlaceholderText("Password*");
     expect(editProfilePassword).toBeInTheDocument();
   });
 
   it("비밀번호 확인 inputBox", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileConfirmPassword =
       screen.queryByPlaceholderText("Confirm Password*");
     expect(editProfileConfirmPassword).toBeInTheDocument();
   });
 
   it("소개 textarea", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileIntroduce = screen.queryByPlaceholderText(/introduce/i);
     expect(editProfileIntroduce).toBeInTheDocument();
   });
 
   it("확인 버튼", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const confirmButton = screen.getByRole("button", {
       name: "확인",
     });
@@ -37,7 +39,7 @@ describe("UserEditForm 요소 테스트", () => {
   });
 
   it("취소 버튼", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const cancleButton = screen.getByRole("button", {
       name: "취소",
     });
@@ -47,7 +49,7 @@ describe("UserEditForm 요소 테스트", () => {
 
 describe("버튼 기능 동작 확인", () => {
   it("확인버튼 disabled", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileNickname = screen.queryByPlaceholderText(/nickname/i);
     const editProfilePassword = screen.queryByPlaceholderText("Password*");
     const editProfileConfirmPassword =
@@ -71,12 +73,12 @@ describe("버튼 기능 동작 확인", () => {
   });
 
   it("취소버튼 동작", () => {
-    render(<UserEditForm />);
+    render(<UserEditForm editStateStore={editStateStore} />);
     const cancleButton = screen.getByRole("button", {
       name: "취소",
     });
 
     userEvent.click(cancleButton);
-    expect(cancleButton).not.toBeInTheDocument();
+    expect(editStateStore.setIsEdit).toHaveBeenCalledTimes(1);
   });
 });
