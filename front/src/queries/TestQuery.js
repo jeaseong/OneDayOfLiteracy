@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { get, post } from "../utils/api";
 
-export function useTestSheet() {
+export function useTestQuery() {
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery(
     "test",
