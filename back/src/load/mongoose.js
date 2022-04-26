@@ -4,6 +4,7 @@ export default async () => {
     const data =
     [
       {
+        num: 1,
         question: "문맥상 괄호 안에 가장 적합한 단어를 고르시오.",
         questionType: "객관식",
         content:
@@ -17,6 +18,7 @@ export default async () => {
         answer: '2'
       },
       {
+        num: 2,
         question: "다음 중 '금일'의 의미는?",
         questionType: "객관식",
         content: "",
@@ -40,6 +42,7 @@ export default async () => {
             return false;
 
         } catch(error) {
+            const question = v.question;
             console.log(question)
             console.log(error);
             return true;
@@ -48,8 +51,8 @@ export default async () => {
 
     // 반복문 돌면서 객체 하나씩 DB에 있는지 확인하고, 없으면 저장
     let isError = false;
-    for (v of data) {
-        isError = insertOne(v);
+    for (let v of data) {
+        isError = await insertOne(v);
         if(isError) break;
     }
 

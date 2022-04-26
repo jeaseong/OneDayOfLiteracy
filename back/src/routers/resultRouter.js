@@ -2,9 +2,9 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { resultService } from "../services/resultService";
 
-const testRouter = Router();
+const resultRouter = Router();
 
-testRouter.post("/result", async (req, res, next) => {
+resultRouter.post("/result", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -22,7 +22,7 @@ testRouter.post("/result", async (req, res, next) => {
   }
 });
 
-testRouter.get("/results/:userId", async (req, res, next) => {
+resultRouter.get("/results/:userId", async (req, res, next) => {
   try {
 
     const userId = req.params.userId;
@@ -39,12 +39,12 @@ testRouter.get("/results/:userId", async (req, res, next) => {
   }
 });
 
-testRouter.delete("/results/:userId", async (req, res, next) => {
+resultRouter.delete("/results/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
 
     const deleteResult = await resultService.deleteResults({ userId });
-    if (deleteResult.deletedCount !== 1) {
+    if (deleteResult.deletedCount == 0) {
       throw new Error("정상적으로 삭제되지 않았습니다.");
     }
 
@@ -54,7 +54,7 @@ testRouter.delete("/results/:userId", async (req, res, next) => {
   }
 });
 
-testRouter.get("/results", async (req, res, next) => {
+resultRouter.get("/results", async (req, res, next) => {
   try {
     const results = await resultService.getAllResults();
 
@@ -64,7 +64,7 @@ testRouter.get("/results", async (req, res, next) => {
   }
 });
 
-testRouter.get("/result/:resultId", async (req, res, next) => {
+resultRouter.get("/result/:resultId", async (req, res, next) => {
   try {
     const resultId = req.params.resultId;
 
@@ -79,7 +79,7 @@ testRouter.get("/result/:resultId", async (req, res, next) => {
   }
 });
 
-testRouter.delete("/result/:resultId", async (req, res, next) => {
+resultRouter.delete("/result/:resultId", async (req, res, next) => {
   try {
     const resultId = req.params.resultId;
 
@@ -93,3 +93,5 @@ testRouter.delete("/result/:resultId", async (req, res, next) => {
     next(error);
   }
 });
+
+export { resultRouter };

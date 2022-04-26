@@ -1,15 +1,22 @@
 import { Test } from "../db";
 
 class testService {
-    static async addTest({ question, questionType, content, choices, answer }) {
-        const test = await Test.findByQuestion({ question });
-        if(test){
+    static async addTest({ num, question, questionType, content, choices, answer }) {
+        const test1 = await Test.findByQuestion({ question });
+        if(test1){
             const errorMessage = 
               "해당 질문의 테스트가 존재합니다.";
             return { errorMessage };
         }
+        
+        const test2 = await Test.findByNum({ num });
+        if(test2){
+            const errorMessage = 
+              "해당 번호의 테스트가 존재합니다.";
+            return { errorMessage };          
+        }
 
-        const num = Test.countDocs() + 1;
+
         const newTest = {
           num,
           question,
@@ -23,11 +30,16 @@ class testService {
         return createdNewTest;
     }
 
+    static async getTotallCount(){
+      const counts = await Test.countDocs();
+      return counts;
+    }
+
     static async getTest({ num }){
         const test = await Test.findByNum({ num });
         if(!test){
             const errorMessage = 
-              "해당 번호의 질문이 존재하지 않습니다.";
+              "해당 번호의 테스트가 존재하지 않습니다.";
             return { errorMessage };
         }
 
@@ -49,7 +61,7 @@ class testService {
     static async evaluateTest(submission){
         const tests = await Test.findByRegex();
 
-        const score = 0;
+        let score = 0;
         tests.forEach( (v,i) => {
             if(!(v.num === i+1)){
                 const errorMessage =
@@ -68,11 +80,21 @@ class testService {
 
 
     static async setTest({ num, toUpdate }){
-        const test = await Test.findByNum({ num });
+        const test1 = await Test.findByNum({ num });
 
-        if (!test) {
-            const errorMessage = "해당 번호의 질문이 존재하지 않습니다.";
+        if (!test1) {
+            const errorMessage = 
+              "해당 번호의 테스트가 존재하지 않습니다.";
             return { errorMessage };
+        }
+
+        if(toUpdate?.question){
+          const test2 = await Test.findByQuestion({ question: toUpdate.question });
+          if(test2) {
+            const errorMessage = 
+              "해당 질문이 존재합니다.";
+            return { errorMessage };
+          }
         }
 
         // 수정해야하는 필드에 맞는 값을 업데이트

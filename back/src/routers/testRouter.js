@@ -1,6 +1,8 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { testService } from "../services/testService";
+import { resultService } from "../services/resultService";
+import { loginRequired } from "../middlewares/loginRequired";
 
 const testRouter = Router();
 
@@ -16,7 +18,7 @@ testRouter.get("/tests", async (req, res, next) => {
   }
 });
 
-testRouter.post("/test/result", async (req, res, next) => {
+testRouter.post("/test/result", loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -24,6 +26,7 @@ testRouter.post("/test/result", async (req, res, next) => {
       );
     }
 
+    const currentUserId = req.currentUserId;
     const submission = req.body;
 
     const score = await testService.evaluateTest(submission);
@@ -31,6 +34,8 @@ testRouter.post("/test/result", async (req, res, next) => {
       console.error("\x1b[35m%s\x1b[0m", score.errorMessage);
       res.status(500).json(score);
     }
+
+    await resultService.addResult({ userId: currentUserId, result: score.result });
 
     res.status(200).json(score);
   } catch (error) {
@@ -45,7 +50,8 @@ testRouter.post("/test", async (req, res, next) => {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-
+    
+    const num = req.body.num;
     const question = req.body.question;
     const questionType = req.body.questionType;
     const content = req.body.content;
@@ -53,6 +59,7 @@ testRouter.post("/test", async (req, res, next) => {
     const answer = req.body.answer;
 
     const test = await testService.addTest({
+      num,
       question,
       questionType,
       content,
@@ -123,3 +130,5 @@ testRouter.delete("/test/:num", async (req, res, next) => {
       next(error);
   }
 });
+
+export { testRouter };

@@ -4,7 +4,7 @@ import { ResultModel } from '../schemas/result';
 class Result {
     static async create({ newResult }) {
         const createdNewResult = await ResultModel.create(newResult);
-        delete createdNewResult["__v"];
+        delete createdNewResult._doc["__v"];
         return createdNewResult;
     }
 
