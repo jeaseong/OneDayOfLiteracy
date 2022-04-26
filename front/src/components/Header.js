@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Tab from "@mui/material/Tab";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
@@ -25,10 +24,6 @@ function Header() {
     successMessage.logout,
     alertType.success
   );
-  const handleNav = (event, path) => {
-    event.preventDefault();
-    navigate(path);
-  };
 
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
@@ -58,7 +53,13 @@ function Header() {
         ></img>
       </LogoContainer>
       <Navigation onChange={handleChange}>
-        <NavList onClick={() => navigate("/")} label="서비스 소개">
+        <NavList
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+          label="서비스 소개"
+        >
           서비스 소개
         </NavList>
         {isLogin ? (

@@ -37,20 +37,22 @@ export const LogoContainer = styled.div`
   left: 8%;
 `;
 
-export const Navigation = styled.ul`
+export const Navigation = styled.div`
   position: absolute;
   right: 4%;
   font-family: Maplestory Light;
 `;
 
-export const NavList = styled.a`
-  text-decoration: none;
+export const NavList = styled.button`
   margin-right: 20px;
   font-size: 17px;
+  border: none;
+  padding-bottom: 5px;
   &:hover {
     cursor: pointer;
     color: #c48f5a;
     transition: 0.1s linear;
+    box-sizing: border-box;
   }
 `;
 
