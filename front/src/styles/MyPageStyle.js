@@ -56,7 +56,7 @@ export const CardContent = styled.div`
 export const CardIntroduce = styled.div`
   word-break: break-all;
   width: 100%;
-  height: 50%;
+  height: 60%;
 `;
 
 export const CardMyInfo = styled.div`
@@ -64,7 +64,7 @@ export const CardMyInfo = styled.div`
   flex-direction: row;
   word-break: break-all;
   width: 100%;
-  height: calc(50% - 20px);
+  height: calc(40% - 20px);
 `;
 
 export const CardLikePost = styled.div`
@@ -84,6 +84,10 @@ export const CardLikeCountBox = styled.div`
 
 export const ProfileHeading = styled.h2`
   color: #c48f5a;
+`;
+
+export const ProfilePostCount = styled(ProfileHeading)`
+  margin-top: 6px;
 `;
 
 export const ProfileNickName = styled(ProfileHeading)`
@@ -121,4 +125,49 @@ export const ProfileChangeBox = styled.div`
 
 export const ChangeButton = styled(SubmitButton)`
   margin: 10px auto;
+`;
+
+export const EditContainer = styled(CardContent)`
+  display: flex;
+  height: 100%;
+`;
+
+export const EditBox = styled.div`
+  width: 50%;
+  height: 100%;
+`;
+
+export const EditIntroduceBox = styled.div`
+  width: 50%;
+`;
+
+export const EditInput = styled.input`
+  border: solid 2px #c99c6e;
+  border-radius: 8px;
+  width: 90%;
+  height: 20px;
+  margin: 1.1rem 0 0 0;
+  padding: 10px;
+  font-size: 1.3rem;
+`;
+
+export const EditIntroduceInput = styled.textarea`
+  width: 90%;
+  height: 85%;
+  padding: 10px;
+  margin: 1.1rem 0 0 0;
+  border: solid 2px #c99c6e;
+  border-radius: 8px;
+  font-size: 1.3rem;
+`;
+
+export const ConfirmButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 21px;
+`;
+
+export const ConfirmButton = styled(SubmitButton)`
+  margin: 10px 7px;
+  width: 20%;
 `;

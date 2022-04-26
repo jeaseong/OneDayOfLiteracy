@@ -1,22 +1,22 @@
 import {
   CardBox,
   CardContainer,
-  CardContent,
   CardHeader,
   ProfileImg,
   ChangeButton,
   ProfileImgBox,
   ProfileChangeBox,
-  CardIntroduce,
-  ProfileHeading,
-  CardMyInfo,
-  CardLikePost,
-  ProfileNickName,
-  ProfileIntroduce,
-  CardLikeCountBox,
 } from "../../../styles/MyPageStyle";
 
-function UserCard() {
+function UserCard({ editStateStore, children }) {
+  const { isEdit, setIsEdit } = editStateStore;
+
+  const ModifyUserButton = isEdit ? (
+    <ChangeButton>프로필 수정</ChangeButton>
+  ) : (
+    <ChangeButton>이미지 변경</ChangeButton>
+  );
+
   return (
     <CardContainer>
       <CardBox>
@@ -27,38 +27,9 @@ function UserCard() {
               alt={"profile"}
             />
           </ProfileImgBox>
-          <ProfileChangeBox>
-            <ChangeButton>프로필 수정</ChangeButton>
-          </ProfileChangeBox>
+          <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
         </CardHeader>
-        <CardContent>
-          <CardIntroduce>
-            <ProfileNickName>테스트유저</ProfileNickName> &nbsp;
-            <ProfileIntroduce>
-              소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.
-            </ProfileIntroduce>
-          </CardIntroduce>
-          <CardMyInfo>
-            <CardLikePost>
-              <ProfileHeading>내가 작성한 게시글</ProfileHeading>
-              <CardLikeCountBox>
-                <ProfileHeading>3</ProfileHeading>
-              </CardLikeCountBox>
-            </CardLikePost>
-            <CardLikePost>
-              <ProfileHeading>내가 좋아한 게시글</ProfileHeading>
-              <CardLikeCountBox>
-                <ProfileHeading>3</ProfileHeading>
-              </CardLikeCountBox>
-            </CardLikePost>
-            <CardLikePost>
-              <ProfileHeading>내 글을 좋아한 사람들</ProfileHeading>
-              <CardLikeCountBox>
-                <ProfileHeading>3</ProfileHeading>
-              </CardLikeCountBox>
-            </CardLikePost>
-          </CardMyInfo>
-        </CardContent>
+        {children}
       </CardBox>
     </CardContainer>
   );
