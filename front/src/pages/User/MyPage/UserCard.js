@@ -11,7 +11,7 @@ import {
 function UserCard({ editStateStore, children }) {
   const { isEdit, setIsEdit } = editStateStore;
 
-  const ModifyUserButton = isEdit ? (
+  const ModifyUserButton = !isEdit ? (
     <ChangeButton>프로필 수정</ChangeButton>
   ) : (
     <ChangeButton>이미지 변경</ChangeButton>

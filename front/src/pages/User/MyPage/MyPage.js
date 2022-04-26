@@ -22,7 +22,7 @@ function MyPage() {
     if (!isLogin) navigate("/");
   }, [isLogin, navigate]);
 
-  const CardContent = isEdit ? (
+  const CardContent = !isEdit ? (
     <UserInfomation />
   ) : (
     <UserEditForm editStateStore={editStateStore} />
