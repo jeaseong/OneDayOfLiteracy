@@ -9,11 +9,12 @@ import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
 import { useCurrentUser } from "./queries/userQuery";
+import MyPage from "./pages/User/MyPage/MyPage";
 
 function App() {
-  const { isLoading } = useCurrentUser();
+  const { isFetching } = useCurrentUser();
 
-  if (isLoading) return <Loading />;
+  if (isFetching) return <Loading />;
 
   return (
     <div className="App">
@@ -29,7 +30,7 @@ function App() {
               element={<KakaoLoginHandler />}
             />
             <Route path="/test" element={<TestHome />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<MyPage />} />
           </Routes>
         </main>
         <Footer />

@@ -1,24 +1,24 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { QueryCache, useMutation, useQuery, useQueryClient } from "react-query";
 import { get, post } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**
  * 현재 유저상태를 받아오며, token이 없다면 userState는 false를 기본값으로 가집니다.
- * @returns {{userState: (object|boolean), isLoading: boolean, isLogin: boolean, error: string}}
+ * @returns {{userState: (object|boolean), isFetching: boolean, isLogin: boolean, error: string}}
  */
 export function useCurrentUser() {
-  const { isLoading, error, data } = useQuery(
+  const queryclient = useQueryClient();
+  const { isFetching, error, data } = useQuery(
     "userState",
     () => get("user/current").then((res) => res.data),
     {
-      initialData: false,
       staleTime: Infinity,
-      onSuccess: () => console.log("로그인 성공!"),
-      onError: () => console.log("로그인 실패"),
+      onSuccess: (data) => queryclient.setQueryData("userState", data),
+      onError: (err) => queryclient.setQueryData("userState", null),
     }
   );
 
-  return { userState: data, isLoading, isLogin: !!data, error };
+  return { userState: data, isFetching, isLogin: !!data, error };
 }
 
 /**
@@ -33,7 +33,7 @@ export const useUserLogin = (setShowAlert = () => {}) => {
   return useMutation(async (loginData) => await post("user/login", loginData), {
     onSuccess: (res) => {
       const jwtToken = res.data.token;
-      sessionStorage.setItem("userToken", jwtToken);
+      localStorage.setItem("userToken", jwtToken);
       queryClient.invalidateQueries("userState");
       navigate("/");
     },

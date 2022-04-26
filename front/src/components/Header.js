@@ -54,9 +54,10 @@ function Header() {
   };
 
   const handleUserLogout = () => {
-    sessionStorage.removeItem("userToken");
+    localStorage.removeItem("userToken");
     queryClient.removeQueries("userState");
     setShowAlert(true);
+    navigate("/");
   };
 
   return (

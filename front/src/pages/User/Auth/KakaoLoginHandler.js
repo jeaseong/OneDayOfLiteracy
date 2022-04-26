@@ -20,7 +20,7 @@ function KakaoLoginHandler() {
       try {
         const res = await get("oauth/kakao?code=" + kakaoCode);
         const jwtToken = res.data.token;
-        sessionStorage.setItem("userToken", jwtToken);
+        localStorage.setItem("userToken", jwtToken);
 
         queryClient.invalidateQueries("userState");
         navigate("/");
