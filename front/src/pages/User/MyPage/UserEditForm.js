@@ -12,9 +12,9 @@ function UserEditForm({ editStateStore }) {
   return (
     <EditContainer>
       <EditBox>
-        <EditInput placeholder="Nickname" />
-        <EditInput placeholder="Password" />
-        <EditInput placeholder="Confirm Password" />
+        <EditInput placeholder="Nickname*" />
+        <EditInput placeholder="Password*" />
+        <EditInput placeholder="Confirm Password*" />
         <ConfirmButtonBox>
           <ConfirmButton>확인</ConfirmButton>
           <ConfirmButton>취소</ConfirmButton>
