@@ -22,19 +22,25 @@ export const FooterBackground = styled.img`
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  height: 80px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+
   background-image: url(${img.leafLeftHeader}), url(${img.leafRightHeader});
   background-repeat: no-repeat;
   background-position: left, right;
-  background-size: auto 80px, auto 100px;
+  background-size: auto 100px, auto 100px;
+  background-color: #f5efea;
 `;
 
 export const LogoContainer = styled.div`
   position: absolute;
   left: 8%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Navigation = styled.div`
