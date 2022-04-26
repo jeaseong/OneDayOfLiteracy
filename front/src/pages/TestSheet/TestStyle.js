@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { img } from "../../utils/imgImport";
 
 export const ContainerHome = styled.div`
   width: 100%;
@@ -12,7 +13,10 @@ export const ContainerHome = styled.div`
   margin: 100px 0;
 `;
 
-export const WomanBook = styled.img`
+export const WomanBook = styled.img.attrs({
+  src: img.womanBook,
+  alt: "책을 들고 있는 여자",
+})`
   width: 300px;
   height: 400px;
   margin-bottom: 30px;
@@ -67,4 +71,14 @@ export const NextBtn = styled.button`
   border-radius: 30px;
   color: #ffffff;
   text-align: center;
+  box-shadow: 3px 3px 3px gray;
+  transition-duration: 0.3s;
+  &:active {
+    box-shadow: none;
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    background: var(--button-bg-color, gray);
+  }
 `;
