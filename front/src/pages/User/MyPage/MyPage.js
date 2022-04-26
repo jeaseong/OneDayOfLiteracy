@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useCurrentUser } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import { MyPageContainer } from "../../../styles/MyPageStyle";
+import UserCard from "./UserCard";
 
 function MyPage() {
   const navigate = useNavigate();
-  const { userState, isLogin } = useCurrentUser();
+  const { isLogin } = useCurrentUser();
 
   useEffect(() => {
     if (!isLogin) navigate("/");
@@ -13,7 +14,7 @@ function MyPage() {
 
   return (
     <MyPageContainer>
-      <h2>{userState.nickname}</h2>
+      <UserCard>sadf</UserCard>
     </MyPageContainer>
   );
 }
