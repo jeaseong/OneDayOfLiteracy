@@ -6,6 +6,8 @@ import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { userAuthRouter } from "./routers/userRouter";
 import { postRouter } from "./routers/postRouter";
 import { subjectRouter } from "./routers/subjectRouter";
+import { testRouter } from "./routers/testRouter";
+import { resultRouter } from "./routers/resultRouter";
 
 const app = express();
 
@@ -27,6 +29,9 @@ app.get("/", (req, res) => {
 app.use(userAuthRouter);
 app.use(postRouter);
 app.use(subjectRouter);
+app.use(testRouter);
+app.use(resultRouter);
+
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 

@@ -1,99 +1,97 @@
-import { Router } from 'express';
-import { subjectService } from '../services/subjectService';
+import is from "@sindresorhus/is";
+import { Router } from "express";
+import { resultService } from "../services/resultService";
 
-const subjectRouter = Router();
+const resultRouter = Router();
 
-// create
-subjectRouter.post('/subject', async (req, res, next) => {
+resultRouter.post("/result", async (req, res, next) => {
   try {
-    const subject = req.body.subject ?? null;
-    const level = req.body.level ?? null;
-    const category = req.body.category ?? null;
-    const point = req.body.point ?? null;
-
-    const newSubject = await subjectService.addSubject({
-      subject,
-      level,
-      category,
-      point
-    })
-
-    if (newSubject.errorMessage) throw new Error(newSubject.errorMessage);
-    delete newSubject['errorMessage'];
-    res.status(201).json(newSubject);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// read
-// 1. subjectId 를 통해 해당 주제 조회
-subjectRouter.get('/subjects/:subjectId', async (req, res, next) => {
-  try {
-    const { subjectId } = req.params;
-    const subject = await subjectService.getSubject({ subjectId });
-
-    if (subject.errorMessage) throw new Error(subject.errorMessage);
-
-    delete subject['errorMessage'];
-    res.status(200).json(subject);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// 2. level을 통해 해당 레벨에 해당하는 주제들 조회
-subjectRouter.get('/subjects/:level', async (req, res, next) => {
-  try {
-    const { level } = req.params;
-    // level의 유효성 검사 필요
-    const subjects = await subjectService.getSubjectsByLevel({ level });
-
-    res.status(200).json(subjects);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// update
-subjectRouter.put('/subjects/:subjectId', async (req, res, next) => {
-  try {
-    const { subjectId } = req.params;
-
-    const subject = req.body.subject ?? null;
-    const category = req.body.category ?? null;
-    const level = req.body.level ?? null;
-    const point = req.body.point ?? null;
-
-    const toUpdate = {
-      subject,
-      category,
-      level,
-      point,
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
     }
 
-    const updatedSubject = await subjectService.setSubject({ subjectId, toUpdate });
-    if (updatedSubject.errorMessage) throw new Error(updatedSubject.errorMessage);
+    const { userId, result } = req.body;
 
-    res.status(200).json(updatedSubject);
-  } catch (err) {
-    next(err);
+    await resultService.addResult({ userId, result });
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    next(error);
   }
 });
 
-// delete
-subjectRouter.delete('/subjects/:subjectId', async (req, res, next) => {
+resultRouter.get("/results/:userId", async (req, res, next) => {
   try {
-    const { subjectId } = req.params;
 
-    const result = await subjectService.deleteSubject({ subjectId });
+    const userId = req.params.userId;
 
-    if (result.errorMessage) throw new Error(result.errorMessage);
+    const results = await resultService.getResults({ userId });
 
-    res.status(200).json({ message: "success" });
-  } catch (err) {
-    next(err);
+    if (results?.errorMessage) {
+      throw new Error(results.errorMessage);
+    }
+
+    res.status(200).json(results);
+  } catch (error) {
+    next(error);
   }
 });
 
-export { subjectRouter };
+resultRouter.delete("/results/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    const deleteResult = await resultService.deleteResults({ userId });
+    if (deleteResult.deletedCount == 0) {
+      throw new Error("정상적으로 삭제되지 않았습니다.");
+    }
+
+    res.status(200).send({ success: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+resultRouter.get("/results", async (req, res, next) => {
+  try {
+    const results = await resultService.getAllResults();
+
+    res.status(200).json(results);
+  } catch (error) {
+    next(error);
+  }
+});
+
+resultRouter.get("/result/:resultId", async (req, res, next) => {
+  try {
+    const resultId = req.params.resultId;
+
+    const result = await resultService.getOneResult({ resultId });
+    if (result.errorMessage) {
+      throw new Error(result.errorMessage);
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+resultRouter.delete("/result/:resultId", async (req, res, next) => {
+  try {
+    const resultId = req.params.resultId;
+
+    const deleteResult = await resultService.deleteResult({ resultId });
+    if (deleteResult.deletedCount !== 1) {
+      throw new Error("정상적으로 삭제되지 않았습니다.");
+    }
+
+    res.status(200).send({ success: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+export { resultRouter };
