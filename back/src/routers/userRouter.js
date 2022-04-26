@@ -31,6 +31,7 @@ userAuthRouter
       }
 
       res.status(201).json(newUser);
+      next();
     } catch (error) {
       next(error);
     }

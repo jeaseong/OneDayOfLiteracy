@@ -8,6 +8,7 @@ const UserSchema = new Schema(
     badge: [{ type: String }],
     level: { type: Number, default: 0 },
     point: { type: Number, default: 0 },
+    profileUrl: { type: String, required: false, default: null },
   },
   {
     timestamps: true,

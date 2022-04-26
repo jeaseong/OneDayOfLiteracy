@@ -7,6 +7,7 @@ const PostSchema = new Schema(
     tags: [{ type: String, required: false, }],
     subjectId: { type: Schema.Types.ObjectId, required: true, ref: "Subject" },
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
+    imageUrls: [{ type: String, required: false }],
   },
   {
     timestamps: true,

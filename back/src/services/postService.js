@@ -45,21 +45,21 @@ class postService {
     const post = await Post.findById({ postId });
 
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
+    if (!("imageUrls" in toUpdate)) {
+      const userId = toUpdate.userId;
+      const subjectId = toUpdate.subjectId;
 
-    const userId = toUpdate.userId;
-    const subjectId = toUpdate.subjectId;
+      const user = await User.findById({ userId });
+      const subject = await Subject.findById({ subjectId });
 
-    const user = await User.findById({ userId });
-    const subject = await Subject.findById({ subjectId });
+      if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다."};
+      if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다."};
 
-    if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다."};
-    if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다."};
-
-    const toUpdateField = Object.keys(toUpdate);
-    toUpdateField.forEach((key) => {
-      if (!toUpdate[key]) delete toUpdate[key];
-    });
-
+      const toUpdateField = Object.keys(toUpdate);
+      toUpdateField.forEach((key) => {
+        if (!toUpdate[key]) delete toUpdate[key];
+      });
+    }
     const updatedPost = await Post.update({ postId, toUpdate });
     updatedPost.errorMessage = null;
     return updatedPost;
