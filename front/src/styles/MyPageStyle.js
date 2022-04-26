@@ -8,6 +8,19 @@ export const MyPageContainer = styled.div`
   margin: 30px auto;
 `;
 
+export const MyPostContainer = styled.div`
+  margin: 25px 0;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const TempPostCard = styled.div`
+  width: 33%;
+  margin: 0 10px;
+  height: 300px;
+  border: solid 3px;
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;

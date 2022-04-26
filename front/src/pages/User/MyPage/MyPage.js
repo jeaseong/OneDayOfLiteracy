@@ -3,6 +3,7 @@ import { useCurrentUser } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import { MyPageContainer } from "../../../styles/MyPageStyle";
 import UserCard from "./UserCard";
+import MyPost from "./MyPost";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function MyPage() {
   return (
     <MyPageContainer>
       <UserCard>sadf</UserCard>
+      <MyPost />
     </MyPageContainer>
   );
 }
