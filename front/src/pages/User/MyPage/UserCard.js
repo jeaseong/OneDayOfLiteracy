@@ -12,7 +12,9 @@ function UserCard({ editStateStore, children }) {
   const { isEdit, setIsEdit } = editStateStore;
 
   const ModifyUserButton = !isEdit ? (
-    <ChangeButton>프로필 수정</ChangeButton>
+    <ChangeButton onClick={() => setIsEdit((cur) => !cur)}>
+      프로필 수정
+    </ChangeButton>
   ) : (
     <ChangeButton>이미지 변경</ChangeButton>
   );
@@ -24,7 +26,7 @@ function UserCard({ editStateStore, children }) {
           <ProfileImgBox>
             <ProfileImg
               src={"https://source.unsplash.com/random"}
-              alt={"profile"}
+              alt="profileImage"
             />
           </ProfileImgBox>
           <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
