@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   StepContainer,
   StepImg,
@@ -8,22 +9,20 @@ import {
   StepDescription,
 } from "../../styles/TrainingStyle";
 
-export default function TrainingStep({
-  stepImg,
-  stepTitle,
-  stepTag,
-  stepDescription,
-}) {
+export default function TrainingStep({ step, img, title, tag, des }) {
+  console.log(step);
+  const navigate = useNavigate();
   return (
-    <StepContainer>
-      <StepImg src={stepImg} alt="훈련 대표 이미지" />
-      <StepTitle>{stepTitle}</StepTitle>
+    <StepContainer onClick={() => navigate("/training", { state: step })}>
+      <StepImg src={img} alt="훈련 대표 이미지" />
+      <StepTitle>{title}</StepTitle>
       <StepTagContainer>
-        {stepTag.map((tag, i) => (
+        {tag.map((tag, i) => (
           <StepTag key={i}>{tag}</StepTag>
         ))}
       </StepTagContainer>
-      <StepDescription>{stepDescription}</StepDescription>
+
+      <StepDescription>{des}</StepDescription>
     </StepContainer>
   );
 }
