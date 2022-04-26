@@ -87,10 +87,13 @@ class postService {
     const andList = []
     tags.forEach(tag => {
       const cond = {tags: {$regex: decodeURI(tag), $options: 'iu'}};
+      console.log(cond);
       andList.push(cond)
     })
 
     const query = {$and: andList};
+
+    console.log(query);
     const posts = await Post.findAll(page, limit, query);
     return posts;
   }
@@ -129,13 +132,8 @@ class postService {
         return { errorMessage: "해당 글이 존재하지 않습니다." };
     }
 
-    const likedUserIds = await Post.getLikedUsers({ postId });
-
-    const likedUsers = likedUserIds.map(v => {
-      const user = await User.findById({ userId: v });
-      return user;
-    })
-
+    const likedUsers = await Post.getLikedUsers({ postId });
+    
     return likedUsers;
   }
 }

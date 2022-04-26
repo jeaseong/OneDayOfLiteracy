@@ -55,7 +55,7 @@ postRouter.get('/posts/users/:userId', loginRequired, async (req, res, next) => 
 postRouter.get('/posts', loginRequired, async (req, res, next) => {
   try {
     let query = req.body;
-    if(query === undefined || isEmptyObj(query){
+    if(query === undefined || isEmptyObj(query)){
       query = {};
     }
 
@@ -70,7 +70,7 @@ postRouter.get('/posts', loginRequired, async (req, res, next) => {
 
 // 4. 태그 별 조회 (로직 고민중)
 // /posts/tags?tag={String}&tag={String}&tag= ...  &{Boolean}&page={Number}&limit={Number}
-postRouter.get('/posts/:tag', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/search/tags', loginRequired, async (req, res, next) => {
   try {
     const { tag, page, limit } = req.query;
     
@@ -79,14 +79,16 @@ postRouter.get('/posts/:tag', loginRequired, async (req, res, next) => {
     if(tag !== undefined){
       if(tag?.length > 1){
         tags = tag;
+      } else {
+        tags = [ tag ];
       }
-      tags = [ tag ];
     } // tag에 값 없음
     else {
       const errorMessage = "올바른 URL query로 보내주세요! tag에 값이 없습니다.";
       throw new Error(errorMessage);
     }
     
+    console.log(tags);
     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
     const posts = await postService.getTaggedPosts(page, limit, tags); 
@@ -172,16 +174,16 @@ postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) 
   }
 })
 
-//get postLikes : 글에 "좋아요!"를 누른 사람의 [userId 배열] 반환
+//get postLikes : 글에 "좋아요!"를 누른 사람들 정보 반환
 postRouter.get('/posts/likedUsers/:postId', loginRequired, async (req, res, next) => {
   try{
     const { postId } = req.params;
 
-    const likedUsers = postService.getPostLikes({ postId });
+    const likedUsers = await postService.getPostLikes({ postId });
     if(likedUsers.errorMessage){
       throw new Error(likedUsers.errorMessage);
     }
-
+    
     res.status(200).json(likedUsers);
   } catch(err) {
     next(err);

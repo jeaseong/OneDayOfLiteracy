@@ -31,6 +31,7 @@ class Post {
 
   static async findAll(page, limit, query) {
     // pagination 필요
+    // console.log(Object.prototype.toString.call(findByPagination)); //[object AsyncFunction]
     const posts = await findByPagination(PostModel, { page, limit }, query);
     return posts;
   }
@@ -46,13 +47,11 @@ class Post {
   }
 
   static async getLikedUsers({ postId }){
-    const posts = await PostModel.find({ postId }).populate("userLikes");
+    const post = await PostModel.findOne({ postId }).populate("userLikes", {_id: 1, nickname: 1});
 
-    const likedUserIds = posts.map(v => {
-      return v._doc["userLinkes"];
-    });
-
-    return likedUserIds;
+    const likedUsers = post.userLikes;
+    
+    return likedUsers;
   }
 }
 

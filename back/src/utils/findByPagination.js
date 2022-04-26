@@ -1,15 +1,16 @@
 //model 과 { query, page, limit } 으로 페이지네이션
-async function findbyPagination(model, options = {}, query = {}) {
+async function findByPagination(model, options = {}, query = {}) {
   const { page, limit } = options;
+  
 
   if (page && limit) {
     return await model
       .find(query)
       .skip((page - 1) * limit)
       .limit(limit);
+  } else {
+    return await model.find(query);
   }
-
-  return await model.find(query);
 }
 
-export { findbyPagination };
+export { findByPagination };
