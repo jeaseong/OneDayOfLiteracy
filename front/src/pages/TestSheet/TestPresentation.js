@@ -6,9 +6,8 @@ import TestContent from "./TestContent";
 
 export default function TestPresentation({
   test,
-  onSubmit,
   selectedAnswer,
-  handleClickAnswer,
+  MyselectedAnswer,
 }) {
   return (
     <div>
@@ -19,8 +18,8 @@ export default function TestPresentation({
           <TestAnswerBtn
             testId={test.id}
             choices={test.choices}
-            handleClickAnswer={handleClickAnswer}
             selectedAnswer={selectedAnswer}
+            MyselectedAnswer={MyselectedAnswer}
           />
         </>
       )}

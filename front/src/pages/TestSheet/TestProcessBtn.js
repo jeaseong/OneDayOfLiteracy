@@ -1,30 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { testQuestion } from "./util";
-import { ProcessContainer, ProcessBtn } from "./TestStyle";
+import { ProcessContainer, NextBtn } from "./TestStyle";
 
 export default function TestProcessBtn({
-  nextTest,
-  id,
+  step,
+  setNextQuestion,
   onSubmit,
   selectedAnswer,
 }) {
   const navigate = useNavigate();
   return (
     <ProcessContainer>
-      {testQuestion.length !== id ? (
-        <ProcessBtn disabled={!selectedAnswer} onClick={() => nextTest(id + 1)}>
+      {testQuestion.length !== step ? (
+        <NextBtn disabled={!selectedAnswer} onClick={setNextQuestion()}>
           next
-        </ProcessBtn>
+        </NextBtn>
       ) : (
-        <ProcessBtn
+        <NextBtn
           disabled={false}
           onClick={() => {
+            onSubmit();
             navigate("/");
           }}
         >
           결과보기
-        </ProcessBtn>
+        </NextBtn>
       )}
     </ProcessContainer>
   );

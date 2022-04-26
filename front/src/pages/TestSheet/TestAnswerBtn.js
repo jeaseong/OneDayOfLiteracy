@@ -5,15 +5,15 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 export default function TestAnswerBtn({
   testId,
   choices,
-  handleClickAnswer,
   selectedAnswer,
+  MyselectedAnswer,
 }) {
   return (
     <AnswerBtnContainer>
       {choices.map((option, index) => (
         <AnswerBtn
           onClick={() => {
-            handleClickAnswer(testId, option.id);
+            MyselectedAnswer(testId, option.id);
           }}
         >
           <AnswerText>
