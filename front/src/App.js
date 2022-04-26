@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
-import PostList from "./pages/Post/PostList";
+import Posts from "./pages/Post/Posts";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
               element={<KakaoLoginHandler />}
             />
             <Route path="/test" element={<TestHome />} />
-            <Route path="/post" element={<PostList />} />
+            <Route path="/posts" element={<Posts />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

@@ -64,7 +64,7 @@ function Header() {
         <NavList
           onClick={(e) => {
             e.preventDefault();
-            navigate("/post");
+            navigate("/posts");
           }}
         >
           게시글

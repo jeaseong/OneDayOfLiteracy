@@ -2,16 +2,18 @@ import styled from "styled-components";
 
 export const PostContainer = styled.div`
   display: flex;
+  flex-flow: wrap;
   align-items: center;
-  justify-content: space-around;
-  width: 80%;
-  min-height: 56vh;
-  margin: 144px;
+  justify-content: center;
+  //   gap: 1rem;
+  // grid-template-columns:repeat(auto-fit, minmax(10rem, 1fr))
+  margin: 100px 200px;
   border-radius: 8px;
 `;
+
 export const Post = styled.div`
-  width: 228px;
-  min-height: 200px;
+  width: 25%;
+  height: 30vh;
   border-radius: 8px;
   padding: 16px;
   box-sizing: border-box;
@@ -26,7 +28,7 @@ export const Post = styled.div`
 
 export const PostImage = styled.img`
   width: 100%;
-  max-height: 130px;
+  height: 50%;
   background-color: #dcc2aa;
   border-radius: 15px;
 `;
