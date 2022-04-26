@@ -170,46 +170,42 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
 });
 
 // PUT /user/:userId : user 정보 수정
-userAuthRouter.put("/user/:userId", 
-  loginRequired, 
-  isValidData("setting"),
-  invalidCallback,
-  async (req, res, next) => {
-    try {
-      const userType = req.currentUserType;
-      const currentUserId = req.currentUserId;
-      const { userId } = req.params;
-      const { nickname, password } = req.body;
-      
-      if(userId !== currentUserId) {
-        throw new Error('path parameter로 보낸 userId와 로그인한 userId가 달라서 수정을 제한합니다.');
-      }
-
-      let updatedUser = null;
-      if (userType === "general") {
-        const toUpdate = {
-          nickname,
-          password,
-        };
-        updatedUser = await userAuthService.setUser({ userId, toUpdate });
-      } else if (userType === "kakao") {
-        const toUpdate = {
-          nickname,
-        };
-        updatedUser = await userAuthService.setKakaoUser({ userId, toUpdate });
-      }
-
-      if (updatedUser?.errorMessage) {
-        throw new Error(updatedUser.errorMessage);
-      } else if (updatedUser === null) {
-        //그럴 일은 없지만, 혹시 currentUserType이 잘못 저장되어 찾기 불가능한 상태
-        throw new Error("userType이 잘못되었습니다.");
-      }
-
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      next(error);
+userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
+  try {
+    const userType = req.currentUserType;
+    const currentUserId = req.currentUserId;
+    const { userId } = req.params;
+    const { nickname, password } = req.body;
+    
+    if(userId !== currentUserId) {
+      throw new Error('path parameter로 보낸 userId와 로그인한 userId가 달라서 수정을 제한합니다.');
     }
+
+    let updatedUser = null;
+    if (userType === "general") {
+      const toUpdate = {
+        nickname,
+        password,
+      };
+      updatedUser = await userAuthService.setUser({ userId, toUpdate });
+    } else if (userType === "kakao") {
+      const toUpdate = {
+        nickname,
+      };
+      updatedUser = await userAuthService.setKakaoUser({ userId, toUpdate });
+    }
+
+    if (updatedUser?.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    } else if (updatedUser === null) {
+      //그럴 일은 없지만, 혹시 currentUserType이 잘못 저장되어 찾기 불가능한 상태
+      throw new Error("userType이 잘못되었습니다.");
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // GET /users/:userId : 일반 user 조회

@@ -1,23 +1,28 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
+import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { postService } from "../services/postService";
 
 const postRouter = Router();
 
 // create
-postRouter.post('/post', loginRequired, async (req, res, next) => {
-  try {
-    const { title, content, tags, userId, subjectId } = req.body;
+postRouter.post('/post', 
+  loginRequired, 
+  isValidData("post"),
+  invalidCallback,
+  async (req, res, next) => {
+    try {
+      const { title, content, tags, userId, subjectId } = req.body;
 
-    const newPost = await postService.addPost({ title, content, tags, userId, subjectId })
-    if (newPost.errorMessage) {
-      throw new Error(newPost.errorMessage);
+      const newPost = await postService.addPost({ title, content, tags, userId, subjectId })
+      if (newPost.errorMessage) {
+        throw new Error(newPost.errorMessage);
+      }
+
+      res.status(201).json({ message: 'success'});
+    } catch (err) {
+      next(err);
     }
-
-    res.status(201).json({ message: 'success'});
-  } catch (err) {
-    next(err);
-  }
 });
 
 // read
