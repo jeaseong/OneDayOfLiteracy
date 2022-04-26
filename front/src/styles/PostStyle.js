@@ -7,23 +7,24 @@ export const PostContainer = styled.div`
   justify-content: center;
   //   gap: 1rem;
   // grid-template-columns:repeat(auto-fit, minmax(10rem, 1fr))
-  margin: 100px 200px;
+  margin: 10%;
   border-radius: 8px;
 `;
 
 export const Post = styled.div`
-  width: 25%;
+  width: 20%;
   height: 30vh;
   border-radius: 8px;
   padding: 16px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   margin: 15px;
   font-family: Maplestory Light;
   background-color: white;
+  box-shadow: 0 0 5px #c48f5a;
 `;
 
 export const PostImage = styled.img`
@@ -33,13 +34,15 @@ export const PostImage = styled.img`
   border-radius: 15px;
 `;
 export const PostSummary = styled.div`
+  width: 100%;
   min-height: 80px;
 `;
 export const PostHeader = styled.h3`
   font-size: 16px;
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 export const PostContent = styled.p`
+  display: block;
   font-size: 10px;
   line-height: 12px;
   color: #666666;
