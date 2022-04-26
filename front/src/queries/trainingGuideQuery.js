@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { get } from "../utils/api";
 
 export function useTrainingGuide() {
-  const { isLoading, error, data } = useQuery(
+  const { isfetching, error, data } = useQuery(
     "trainingstep",
     () => get("training/guides").then((res) => res.data),
     {
@@ -14,5 +14,5 @@ export function useTrainingGuide() {
     }
   );
 
-  return { userState: data, isLoading, isLogin: !!data, error };
+  return { userState: data, isfetching, isLogin: !!data, error };
 }
