@@ -1,4 +1,5 @@
 import { PostModel } from "../schemas/post";
+import { findByPagination } from "../../utils/findByPagination";
 
 class Post {
   static async create({ newPost }) {
@@ -28,9 +29,9 @@ class Post {
     return posts;
   }
 
-  static async findAll() {
+  static async findAll(page, limit, query) {
     // pagination 필요
-    const posts = await PostModel.find({});
+    const posts = await findByPagination(PostModel, { page, limit }, query);
     return posts;
   }
 
@@ -42,6 +43,16 @@ class Post {
   static async deleteByUserId({ userId }) {
     const deletedPosts = await PostModel.deleteMany({ userId });
     return deletedPosts;
+  }
+
+  static async getLikedUsers({ postId }){
+    const posts = await PostModel.find({ postId }).populate("userLikes");
+
+    const likedUserIds = posts.map(v => {
+      return v._doc["userLinkes"];
+    });
+
+    return likedUserIds;
   }
 }
 

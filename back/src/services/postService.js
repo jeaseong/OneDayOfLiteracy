@@ -38,6 +38,7 @@ class postService {
 
   static async getPost({ postId }) { 
     const post = await Post.findById({ postId });
+    if (!post) return { errorMessage: "해당 글이 존재하지 않습니다."};
     return post;
   }
 
@@ -77,8 +78,20 @@ class postService {
     return posts;
   }
 
-  static async getAllPosts() { 
-    const posts = await Post.findAll();
+  static async getAllPostsByQuery(page, limit, query) { 
+    const posts = await Post.findAll(page, limit, query);
+    return posts;
+  }
+
+  static async getTaggedPosts(page, limit, tags){
+    const andList = []
+    tags.forEach(tag => {
+      const cond = {tags: {$regex: decodeURI(tag), $options: 'iu'}};
+      andList.push(cond)
+    })
+
+    const query = {$and: andList};
+    const posts = await Post.findAll(page, limit, query);
     return posts;
   }
 
@@ -108,6 +121,22 @@ class postService {
     }
 
     return { errorMessage: null }
+  }
+
+  static async getPostLikes({ postId }) {
+    const post = await Post.findById({ postId });
+    if(!post) {
+        return { errorMessage: "해당 글이 존재하지 않습니다." };
+    }
+
+    const likedUserIds = await Post.getLikedUsers({ postId });
+
+    const likedUsers = likedUserIds.map(v => {
+      const user = await User.findById({ userId: v });
+      return user;
+    })
+
+    return likedUsers;
   }
 }
 
