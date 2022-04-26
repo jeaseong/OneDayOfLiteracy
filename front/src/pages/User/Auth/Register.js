@@ -1,13 +1,15 @@
 import React from "react";
 import {
   AuthContainer,
-  AuthHeading,
   LogoButton,
   LogoImage,
-  AuthInput,
-  SubmitButton,
-  RouteButton,
-} from "../../../styles/AuthStyle";
+} from "../../../styles/User/AuthStyle";
+import {
+  HeadingTwo,
+  InputBox,
+  Button,
+  LinkButton,
+} from "../../../styles/CommonStyle";
 import {
   CustomSnackbar,
   setAlertData,
@@ -70,8 +72,8 @@ function Register({ onSubmit = () => {} }) {
       <LogoButton onClick={() => navigate("/")}>
         <LogoImage src="/assets/img/logo_login.png" alt="logo" />
       </LogoButton>
-      <AuthHeading>회원가입</AuthHeading>
-      <AuthInput
+      <HeadingTwo>회원가입</HeadingTwo>
+      <InputBox
         type="email"
         placeholder="Email*"
         name="email"
@@ -79,7 +81,7 @@ function Register({ onSubmit = () => {} }) {
         required
       />
       {isCheckEmail && <p>이메일 형식에 맞지 않습니다.</p>}
-      <AuthInput
+      <InputBox
         type="password"
         placeholder="Password*"
         name="password"
@@ -87,7 +89,7 @@ function Register({ onSubmit = () => {} }) {
         required
       />
       {isPassRule && <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>}
-      <AuthInput
+      <InputBox
         type="password"
         placeholder="Confirm Password*"
         name="confirmPassword"
@@ -95,7 +97,7 @@ function Register({ onSubmit = () => {} }) {
         required
       />
       {isSamePassword && <p>비밀번호가 일치하지 않습니다.</p>}
-      <AuthInput
+      <InputBox
         type="text"
         placeholder="Nickname*"
         name="nickname"
@@ -103,12 +105,12 @@ function Register({ onSubmit = () => {} }) {
         required
       />
       {isCheckNickName && <p>닉네임은 2글자 이상이어야 합니다.</p>}
-      <SubmitButton type="submit" onClick={handleOnSubmit} disabled={isActive}>
+      <Button type="submit" onClick={handleOnSubmit} disabled={isActive}>
         가입하기
-      </SubmitButton>
-      <RouteButton onClick={() => navigate("/user/login")}>
+      </Button>
+      <LinkButton onClick={() => navigate("/user/login")}>
         이미 회원이신가요?
-      </RouteButton>
+      </LinkButton>
       <CustomSnackbar {...registerFailData} />
     </AuthContainer>
   );

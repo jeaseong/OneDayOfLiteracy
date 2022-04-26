@@ -6,7 +6,7 @@ import {
   ChangeButton,
   ProfileImgBox,
   ProfileChangeBox,
-} from "../../../styles/MyPageStyle";
+} from "../../../styles/User/MyPageStyle";
 
 function UserCard({ editStateStore, children }) {
   const { isEdit, setIsEdit } = editStateStore;

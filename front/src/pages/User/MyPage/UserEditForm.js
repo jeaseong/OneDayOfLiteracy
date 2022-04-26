@@ -6,7 +6,7 @@ import {
   EditIntroduceInput,
   ConfirmButton,
   ConfirmButtonBox,
-} from "../../../styles/MyPageStyle";
+} from "../../../styles/User/MyPageStyle";
 
 function UserEditForm({ editStateStore }) {
   return (

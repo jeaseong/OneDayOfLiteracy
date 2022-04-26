@@ -9,20 +9,22 @@ import { validation } from "../../../utils/validation";
 import { useUserLogin } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import {
+  HeadingTwo,
+  InputBox,
+  Button,
+  LinkButton,
+  FlexBoxCenter,
+} from "../../../styles/CommonStyle";
+import {
   AuthContainer,
-  AuthHeading,
-  AuthInput,
   CharacterImage,
   LogoButton,
   LogoImage,
-  SubmitButton,
   LoginForm,
   KakaoIcon,
   LoginImgContentBox,
   LoginContentBox,
-  ButtonContent,
-  RouteButton,
-} from "../../../styles/AuthStyle";
+} from "../../../styles/User/AuthStyle";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
@@ -66,15 +68,15 @@ function Login({ onSubmit = () => {} }) {
       </LogoButton>
       <LoginForm>
         <LoginContentBox>
-          <AuthHeading>로그인</AuthHeading>
-          <AuthInput
+          <HeadingTwo>로그인</HeadingTwo>
+          <InputBox
             type="email"
             placeholder="Email*"
             name="email"
             onChange={handleOnChange}
             required
           />
-          <AuthInput
+          <InputBox
             type="password"
             placeholder="Password*"
             name="password"
@@ -82,22 +84,18 @@ function Login({ onSubmit = () => {} }) {
             required
           />
           <div>
-            <RouteButton onClick={() => navigate("/user/register")}>
+            <LinkButton onClick={() => navigate("/user/register")}>
               회원이 아니신가요?
-            </RouteButton>
+            </LinkButton>
           </div>
-          <SubmitButton
-            type="submit"
-            onClick={handleOnSubmit}
-            disabled={!isActive}
-          >
+          <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
             로그인
-          </SubmitButton>
-          <SubmitButton onClick={() => (window.location.href = kakaoAuthUrl)}>
-            <ButtonContent>
+          </Button>
+          <Button onClick={() => (window.location.href = kakaoAuthUrl)}>
+            <FlexBoxCenter>
               <KakaoIcon /> &nbsp; 카카오 로그인
-            </ButtonContent>
-          </SubmitButton>
+            </FlexBoxCenter>
+          </Button>
         </LoginContentBox>
         <LoginImgContentBox>
           <CharacterImage />

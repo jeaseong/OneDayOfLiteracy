@@ -4,11 +4,11 @@ import {
   CardLikeCountBox,
   CardLikePost,
   CardMyInfo,
-  ProfileHeading,
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
-} from "../../../styles/MyPageStyle";
+} from "../../../styles/User/MyPageStyle";
+import { HeadingTwo } from "../../../styles/CommonStyle";
 
 function UserInfomation() {
   return (
@@ -21,19 +21,19 @@ function UserInfomation() {
       </CardIntroduce>
       <CardMyInfo>
         <CardLikePost>
-          <ProfileHeading>내가 작성한 게시글</ProfileHeading>
+          <HeadingTwo>내가 작성한 게시글</HeadingTwo>
           <CardLikeCountBox>
             <ProfilePostCount>3</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
-          <ProfileHeading>내가 좋아한 게시글</ProfileHeading>
+          <HeadingTwo>내가 좋아한 게시글</HeadingTwo>
           <CardLikeCountBox>
             <ProfilePostCount>3</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
-          <ProfileHeading>내 글을 좋아한 사람들</ProfileHeading>
+          <HeadingTwo>내 글을 좋아한 사람들</HeadingTwo>
           <CardLikeCountBox>
             <ProfilePostCount>3</ProfilePostCount>
           </CardLikeCountBox>

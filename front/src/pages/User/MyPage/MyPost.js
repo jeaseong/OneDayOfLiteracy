@@ -1,4 +1,7 @@
-import { MyPostContainer, TempPostCard } from "../../../styles/MyPageStyle";
+import {
+  MyPostContainer,
+  TempPostCard,
+} from "../../../styles/User/MyPageStyle";
 
 function MyPost() {
   return (

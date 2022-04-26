@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
-import { MyPageContainer } from "../../../styles/MyPageStyle";
+import { MyPageContainer } from "../../../styles/User/MyPageStyle";
 import UserCard from "./UserCard";
 import MyPost from "./MyPost";
 import UserInfomation from "./UserInfomation";
