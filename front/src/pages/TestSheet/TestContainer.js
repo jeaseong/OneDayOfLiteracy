@@ -1,70 +1,70 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
 import { NextBtn } from "./TestStyle";
-import { useTestSheet } from "../../queries/TestQuery";
+import { useTestQuery } from "../../queries/TestQuery";
+
+import { post } from "../../utils/api";
 
 export default function TestContainer() {
-  // const { data, isLoading } = useQuery(
-  //   "test",
-  //   async () => await Api.get("test")
-  // );
+  const queryClient = useQueryClient();
   const initAnswer = {
     questionId: null,
     answerId: null,
   };
-  const [isTesting, setIsTesting] = useState(false);
-  const [curAnswer, setCurAnswer] = useState(initAnswer);
-  const { data } = useTestSheet();
+  const { data } = useTestQuery();
   const [step, setStep] = useState(0);
+  const [isProceedingTest, setIsProceedingTest] = useState(false);
+  const [curAnswer, setCurAnswer] = useState(initAnswer);
+  const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState([]);
 
-  const onSubmit = async () => {
-    // await axios.post("", answer);
-    // 결과 페이지로 다이렉트하기
-  };
-  const startTest = async () => {};
-  const selectAnswer = (id) => {};
-  const nextTest = () => {
-    setStep((cur) => cur + 1);
-    setAnswer();
-  };
-  const setAnswer = () => {
-    selectAnswer(curAnswer);
-    setCurAnswer((cur) => initAnswer);
-  };
-  const handleClickAnswer = (questionId, answerId) => {
+  const MyselectedAnswer = (questionId, answerId) => {
     setCurAnswer((cur) => {
       return { questionId, answerId };
     });
   };
   const selectedAnswer = curAnswer.answerId;
+
+  const setNextQuestion = () => {
+    setStep((cur) => cur + 1);
+    setCurAnswer(null);
+    setTotalMySelectedAnswer((cur) => [...cur, curAnswer]);
+  };
+
+  const onSubmit = async () => {
+    try {
+      await post("", totalMySelectedAnswer);
+      queryClient.removeQueries("test");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
-      {isTesting && (
+      {isProceedingTest && (
         <TestPresentation
           test={data[step]}
-          onSubmit={onSubmit}
-          nextTest={nextTest}
           selectedAnswer={selectedAnswer}
-          handleClickAnswer={handleClickAnswer}
+          MyselectedAnswer={MyselectedAnswer}
         />
       )}
-      {!isTesting && (
+      {!isProceedingTest && (
         <NextBtn
           onClick={() => {
-            setIsTesting((cur) => true);
+            setIsProceedingTest(true);
           }}
         >
           테스트 시작하기!
         </NextBtn>
       )}
-      {isTesting && test && (
+      {isProceedingTest && data && (
         <TestProcessBtn
+          step={step}
           selectedAnswer={selectedAnswer}
           onSubmit={onSubmit}
-          nextTest={nextTest}
-          id={test.id}
+          setNextQuestion={setNextQuestion}
         />
       )}
     </div>
