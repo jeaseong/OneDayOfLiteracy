@@ -1,15 +1,5 @@
 import { render, screen } from "../../../../test-utils";
 import UserCard from "../../../../pages/User/MyPage/UserCard";
-import userEvent from "@testing-library/user-event";
-
-const mockFunction = jest.fn();
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => ({
-    navigate: mockFunction.mockImplementation(() => ({})),
-  }),
-}));
 
 const editStateStore = {
   isEdit: false,
