@@ -1,6 +1,6 @@
-import is from "@sindresorhus/is";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
+import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { userAuthService } from "../services/userService";
 import config from "../config";
 import axios from "axios";
@@ -8,50 +8,54 @@ import axios from "axios";
 const userAuthRouter = Router();
 
 // POST /user/register : user 추가
-userAuthRouter.post("/user/register", async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error("잘못된 요청입니다.");
+userAuthRouter
+  .post("/user/register", 
+  isValidData("register"), 
+  invalidCallback, 
+  async (req, res, next) => {
+    try {
+      // req (request) 에서 데이터 가져오기
+      const email = req.body.email;
+      const password = req.body.password;
+      const nickname = req.body.nickname;
+
+      // 위 데이터를 유저 db에 추가하기
+      const newUser = await userAuthService.addUser({
+        email,
+        password,
+        nickname,
+      });
+
+      if (newUser.errorMessage) {
+        throw new Error(newUser.errorMessage);
+      }
+
+      res.status(201).json(newUser);
+    } catch (error) {
+      next(error);
     }
-
-    // req (request) 에서 데이터 가져오기
-    const email = req.body.email;
-    const password = req.body.password;
-    const nickname = req.body.nickname;
-
-    // 위 데이터를 유저 db에 추가하기
-    const newUser = await userAuthService.addUser({
-      email,
-      password,
-      nickname,
-    });
-
-    if (newUser.errorMessage) {
-      throw new Error(newUser.errorMessage);
-    }
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
-  }
 });
 
 // POST /user/login : user 로그인
-userAuthRouter.post("/user/login", async (req, res, next) => {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
+userAuthRouter
+  .post("/user/login",
+  isValidData("login"), 
+  invalidCallback, 
+  async (req, res, next) => {
+    try {
+      const email = req.body.email;
+      const password = req.body.password;
 
-    const user = await userAuthService.getUser({ email, password });
+      const user = await userAuthService.getUser({ email, password });
 
-    if (user.errorMessage) {
-      throw new Error(user.errorMessage);
+      if (user.errorMessage) {
+        throw new Error(user.errorMessage);
+      }
+
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
     }
-
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
 });
 
 // GET /oauth/kakao : kakaoUser 로그인
