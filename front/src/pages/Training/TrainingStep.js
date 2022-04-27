@@ -10,10 +10,13 @@ import {
 } from "../../styles/TrainingStyle";
 
 export default function TrainingStep({ step, img, title, tag, des }) {
-  console.log(step);
   const navigate = useNavigate();
   return (
-    <StepContainer onClick={() => navigate("/training", { state: step })}>
+    <StepContainer
+      onClick={() =>
+        navigate("/training", { replace: true, state: { step: step } })
+      }
+    >
       <StepImg src={img} alt="훈련 대표 이미지" />
       <StepTitle>{title}</StepTitle>
       <StepTagContainer>

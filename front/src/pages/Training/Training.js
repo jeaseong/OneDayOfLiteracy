@@ -7,13 +7,14 @@ import { dumy } from "./dumyData";
 
 export default function Training() {
   // const { data, isfetching } = useTrainingGuide();
-  const isfetching = false;
+  const isfetching = true;
   return (
     <TrainingContainer>
       {isfetching
         ? new Array(4).fill("").map((_, i) => <CardSkeleton key={i} />)
         : dumy.map((d, i) => (
             <TrainingStep
+              key={i}
               step={i + 1}
               img={d.stepImg}
               title={d.stepTitle}
