@@ -11,6 +11,11 @@ class User {
     return user;
   }
 
+  static async findByKakaoId({ kakaoId }) {
+    const user = await UserModel.findOne({ kakaoId });
+    return user;
+  }
+
   static async update({ userId, toUpdate }) {
     const filter = { id: userId };
     const option = { returnOriginal: false };
@@ -37,6 +42,7 @@ class User {
     const deletedUser = await UserModel.deleteOne({ id: userId });
     return deletedUser;
   }
+
 }
 
 export { User };

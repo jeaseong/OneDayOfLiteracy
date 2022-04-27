@@ -36,7 +36,73 @@ userAuthRouter.post("/user/register", async (req, res, next) => {
   }
 });
 
-// POST /user/login : user 로그인
+// POST /user/kakao/register : 카카오 계정 등록(즉, kakaoId 추가)
+userAuthRouter.post("/oauth/kakao/register", loginRequired, async (req, res, next) => {
+  const code = req.query.code;
+
+  try {
+    // 토큰 발급
+    let result = await axios.post(
+      config.kakao.oauthUrl,
+      {},
+      {
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: config.kakao.clientId,
+          redirect_uri: config.kakao.redirectUrl2,
+          code: code,
+        },
+      }
+    );
+
+    const accessToken = result.data.access_token;
+    
+    // 토큰으로 유저(나) 정보 얻기
+    result = await axios.post(
+      config.kakao.userUrl,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      }
+    );
+
+    const kakaoId = result.data.id;
+
+    const user = await userAuthService.getUserByKakaoId({ kakaoId });
+
+    if (user) {
+      await axios.post(
+        config.kakao.unlinkUrl,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      throw new Error("다른 이메일로 이미 카카오 계정을 등록하셨습니다. (하나의 이메일 - 하나의 카카오 계정 규칙)");
+    }
+
+    const userId = req.currentUserId;
+    const toUpdate = { kakaoId };
+    
+    const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+// POST /user/login : 일반 로그인
 userAuthRouter.post("/user/login", async (req, res, next) => {
   try {
     const email = req.body.email;
@@ -54,7 +120,7 @@ userAuthRouter.post("/user/login", async (req, res, next) => {
   }
 });
 
-// GET /oauth/kakao : kakaoUser 로그인
+// GET /oauth/kakao : 카카오로 로그인
 userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
   const code = req.query.code;
 
@@ -74,7 +140,7 @@ userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
               })
       
     const accessToken = result.data.access_token;
-    console.log(accessToken);
+  
     // 토큰으로 유저(나) 정보 얻기
     result = await axios.post(config.kakao.userUrl, {},
             { 
@@ -83,34 +149,31 @@ userAuthRouter.get("/oauth/kakao", async (req, res, next) => {
                 "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
               }
             })
-  
-    const kakaoAccount = result.data.kakao_account;
-    console.log(kakaoAccount)
-    const nickname = kakaoAccount.profile.nickname;
-    const email = kakaoAccount.email ?? null;
-
-    if(email === null){ 
-      // 유저가 카카오 로그인 시, "이메일 제공 허용"을 꼭 해주어야 이메일 정보를 우리 서버가 받을 수 있다!
-      
-      
-      const plzCheckEmail = { errorMessage: "kakao email 제공 동의사항을 선택해주세요!"}
-      res.status(400).send(plzCheckEmail);
-    }
-
-    const user = await userAuthService.getKakaoUser({ email, accessToken });
-
-    if (user.errorNotFound) {
-      const newUser = await userAuthService.addKakaoUser({
-        nickname,
-        email,
-        accessToken,
-      });
-
-      res.status(201).json(newUser);
-    }
     
-    console.log(user);
-    res.status(200).json(user);
+
+    const kakaoId = result.data.id;
+
+    const user = await userAuthService.getUserByKakaoId({ kakaoId });
+
+    if (!user) {
+      await axios.post(
+        config.kakao.unlinkUrl,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      throw new Error(
+        "최초로 저희 서비스에 로그인한 후에, 카카오 계정을 등록하세요."
+      );
+    }
+
+    const userWithToken = await userAuthService.getKakaoUser({ kakaoId });
+
+    res.status(200).json(userWithToken);
   } catch (error) {
     next(error);
   }
@@ -146,12 +209,7 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
       currentUserInfo = await userAuthService.getUserInfo({
         userId,
       });
-    } else if (userType === "kakao") {
-      // 카카오 로그인 유저
-      currentUserInfo = await userAuthService.getKakaoUserInfo({
-        userId,
-      });
-    }
+    } 
 
     if (currentUserInfo?.errorMessage) {
       throw new Error(currentUserInfo.errorMessage);
@@ -224,25 +282,7 @@ userAuthRouter.get(
   }
 );
 
-// GET /users/kakao/:userId : 카카오 user 조회
-userAuthRouter.get(
-  "/users/kakao/:userId",
-  //loginRequired,
-  async (req, res, next) => {
-    try {
-      const { userId } = req.params;
-      const user = await userAuthService.getKakaoUserInfo({ userId });
 
-      if (user.errorMessage) {
-        throw new Error(user.errorMessage);
-      }
-
-      res.status(200).json(user);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
 
 // DELETE /user/:userId : user 삭제 (회원 탈퇴)
 userAuthRouter.delete(
@@ -269,26 +309,28 @@ userAuthRouter.delete(
 // 추가로, 앱과 kakao 연결 끊기(카카오 로그인 연동 해제=> 동의 항목도 철회됨)
 // unlink 설명 : https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink
 userAuthRouter.delete(
-  "/user/kakao/:userId",
+  "/user/current/kakao",
   loginRequired,
   async (req, res, next) => {
     try {
-      const { userId } = req.params;
-      const kakaoToken = req.currentToken;
+      const userId = req.currentUserId;
 
-      const deletedUser = await userAuthService.deleteKakaoUser({ userId });
-
-      if (deletedUser.deletedCount !== 1) {
-        throw new Error("정상적으로 삭제되지 않았습니다.");
-      }
-
-      const result = await axios.post(config.kakao.unlinkUrl,{},
+      const kakaoId = await axios.post(
+        config.kakao.unlinkUrl,
+        {},
         {
           headers: {
             Authorization: `Bearer ${kakaoToken}`,
           },
         }
       );
+      const deletedKakaoId = await userAuthService.deleteKakaoId({ userId });
+
+      if (deletedKakaoId.errorMessage) {
+        throw new Error(deleted.errorMessage);
+      }
+
+
       
       res.status(200).send("success");
     } catch (error) {
@@ -297,4 +339,80 @@ userAuthRouter.delete(
   }
 );
 
+
+// POST /user/kakao/delete : 카카오 계정 삭제(즉, kakaoId 삭제 및 앱과 unlink)
+userAuthRouter.delete("/oauth/kakao/delete", loginRequired, async (req, res, next) => {
+  const code = req.query.code;
+
+  try {
+    // 토큰 발급
+    let result = await axios.post(
+      config.kakao.oauthUrl,
+      {},
+      {
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: config.kakao.clientId,
+          redirect_uri: config.kakao.redirectUrl3,
+          code: code,
+        },
+      }
+    );
+
+    const accessToken = result.data.access_token;
+
+    // 토큰으로 유저(나) 정보 얻기
+    result = await axios.post(
+      config.kakao.userUrl,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      }
+    );
+
+    const kakaoId = result.data.id;
+    
+    const user = await userAuthService.getUserByKakaoId({ kakaoId });
+
+    if (!user) {
+      throw new Error("등록되지 않은 카카오 계정을 삭제할 수 없습니다.");
+    }
+
+    result = await axios.post(
+      config.kakao.unlinkUrl,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    //result.data 는 { id: 2210894451 } 형태
+    const deletedKakaoId = result.data;
+
+    
+    if (deletedKakaoId.id !== user._doc["kakaoId"]) {
+      console.log("Kakao deleted Error");
+      res.status(500).send({ message: "Kakao deleted Error" });
+      return;
+    }
+
+    const userId = req.currentUserId;
+    const toUpdate = { kakaoId: -1 };
+
+    const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+
+    
+    res.status(200).json({ message: "success" });
+  } catch (error) {
+    next(error);
+  }
+});
 export { userAuthRouter };

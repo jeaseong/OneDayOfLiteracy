@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     point: { type: Number, default: 0 },
     postLikes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     profileUrl: { type: String, required: false, default: null },
-    kakaoId: {type: String, required: false, default: null},
+    kakaoId: {type: Number, required: false, default: 0},
   },
   {
     timestamps: true,

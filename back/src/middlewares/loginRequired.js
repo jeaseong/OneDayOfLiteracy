@@ -23,14 +23,8 @@ function loginRequired(req, res, next) {
     //전자 서명에 사용한 secretKey로 accessToken 검증
     const jwtDecoded = jwt.verify(accessToken, secretKey);
 
-    //어떤 유저인지 req.currentType에 등록
-    req.currentUserType = jwtDecoded.type;
     //유저 id를 저장하여, 해당 유저임을 req.currentId에 등록
     req.currentUserId = jwtDecoded.userId;
-
-    //카카오 유저이면, 카카오 정보 접근 토큰 등록
-    req.currentToken = jwtDecoded.accessToken ?? null;
-
     
     next();
   } catch (error) {
