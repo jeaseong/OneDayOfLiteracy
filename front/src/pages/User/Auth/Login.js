@@ -40,6 +40,8 @@ function Login() {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
+  const mutation = useUserLogin(setShowAlert);
+
   const loginFailData = setAlertData(
     showAlert,
     setShowAlert,
@@ -48,7 +50,6 @@ function Login() {
   );
 
   const isActive = validation("login", loginInfo);
-  const mutation = useUserLogin(setShowAlert);
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));

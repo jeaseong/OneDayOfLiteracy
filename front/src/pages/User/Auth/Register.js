@@ -40,6 +40,15 @@ function Register() {
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
 
+  // Alert
+  const registerFailData = setAlertData(
+    showAlert,
+    setShowAlert,
+    FAIL_MESSAGE.REGISTER,
+    ALERT_TYPE.ERROR
+  );
+
+  // 유효성 검사
   const { email, password, confirmPassword, nickname } = registerInfo;
   const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
     validation("register", registerInfo);
@@ -52,13 +61,7 @@ function Register() {
   const isActive =
     isCheckEmail && isPassRule && isSamePassword && isCheckNickName;
 
-  const registerFailData = setAlertData(
-    showAlert,
-    setShowAlert,
-    FAIL_MESSAGE.REGISTER,
-    ALERT_TYPE.ERROR
-  );
-
+  // 유저 입력 onChange 및 onSUbmit
   const handleOnChange = (e) => {
     setRegisterInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { get, post } from "../utils/api";
+import { get, post, put } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -39,4 +39,16 @@ export const useUserLogin = (setShowAlert = () => {}) => {
     },
     onError: () => setShowAlert(true),
   });
+};
+
+export const useChangeProfile = (setShowAlert = () => {}) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (id, changeProfileData) => await put(`user/${id}`, changeProfileData),
+    {
+      onSuccess: () => queryClient.invalidateQueries("userState"),
+      onError: () => setShowAlert(true),
+    }
+  );
 };

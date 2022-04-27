@@ -9,19 +9,40 @@ import {
   ConfirmButtonBox,
   EditInputBox,
 } from "../../../styles/User/MyPageStyle";
-import { LABEL, GUIDE_MESSAGE } from "../../../utils/constants";
+import {
+  LABEL,
+  GUIDE_MESSAGE,
+  FAIL_MESSAGE,
+  ALERT_TYPE,
+} from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
-import { useCurrentUser } from "../../../queries/userQuery";
+import { useChangeProfile, useCurrentUser } from "../../../queries/userQuery";
+import {
+  CustomSnackbar,
+  setAlertData,
+} from "../../../components/CustomSnackbar";
 
 function UserEditForm({ editStateStore }) {
   const { setIsEdit } = editStateStore;
   const { userState } = useCurrentUser();
+  const [showAlert, setShowAlert] = useState(false);
+  const mutation = useChangeProfile(setShowAlert);
   const [editInfo, setEditInfo] = useState({
     nickname: userState.nickname,
     password: "",
     confirmPassword: "",
     introduce: "테스트",
   });
+
+  // Alert
+  const changeFailUserProfile = setAlertData(
+    showAlert,
+    setShowAlert,
+    FAIL_MESSAGE.CHANGE_PROFILE,
+    ALERT_TYPE.SUCCESS
+  );
+
+  // 유효성 검사
   const { nickname, password, confirmPassword } = editInfo;
   const { isCheckNickName, isPassRule, isSamePassword } = validation(
     "editUser",
@@ -33,6 +54,13 @@ function UserEditForm({ editStateStore }) {
     confirmPassword: !isSamePassword && confirmPassword.length > 0,
   };
   const isActive = isCheckNickName && isPassRule && isSamePassword;
+
+  // 유저 입력 onChange 및 onSUbmit
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const profileData = { nickname, password };
+    mutation.mutate(userState._id, profileData);
+  };
 
   const handleOnChange = (e) => {
     setEditInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
@@ -72,7 +100,13 @@ function UserEditForm({ editStateStore }) {
           )}
         </EditInputBox>
         <ConfirmButtonBox type={userInputGuide.confirmPassword}>
-          <ConfirmButton disabled={!isActive}>{LABEL.CONFIRM}</ConfirmButton>
+          <ConfirmButton
+            type="submit"
+            onClick={handleOnSubmit}
+            disabled={!isActive}
+          >
+            {LABEL.CONFIRM}
+          </ConfirmButton>
           <ConfirmButton onClick={() => setIsEdit((cur) => !cur)}>
             {LABEL.CANCLE}
           </ConfirmButton>
@@ -81,6 +115,7 @@ function UserEditForm({ editStateStore }) {
       <EditIntroduceBox>
         <EditIntroduceInput placeholder="Introduce" />
       </EditIntroduceBox>
+      <CustomSnackbar {...changeFailUserProfile} />
     </EditContainer>
   );
 }
