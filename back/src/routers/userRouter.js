@@ -204,22 +204,13 @@ userAuthRouter.get("/users", async (req, res, next) => {
 // GET /user/current : 현재 로그인 user 조회
 userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
   try {
-    const userType = req.currentUserType;
     const userId = req.currentUserId;
-    
-
-    let currentUserInfo = null;
-    if (userType === "general") {
-      // 일반 로그인 유저
-      currentUserInfo = await userAuthService.getUserInfo({
+    const currentUserInfo = await userAuthService.getUserInfo({
         userId,
       });
-    } 
 
     if (currentUserInfo?.errorMessage) {
       throw new Error(currentUserInfo.errorMessage);
-    } else if (currentUserInfo === null) {
-      throw new Error("userType이 잘못되었습니다.");
     }
 
     res.status(200).json(currentUserInfo);
