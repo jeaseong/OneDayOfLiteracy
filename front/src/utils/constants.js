@@ -9,6 +9,7 @@ export const FAIL_MESSAGE = {
   LOGIN: "로그인에 실패하였습니다.",
   REGISTER: "회원가입에 실패하셨습니다.",
   CHANGE_PROFILE: "회정정보 변경에 실패하였습니다.",
+  IMAGE: "이미지 업로드에 실패하셨습니다.",
 };
 
 export const ALERT_TYPE = {

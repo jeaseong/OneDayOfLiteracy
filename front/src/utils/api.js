@@ -21,6 +21,15 @@ export async function post(endpoint, data) {
   });
 }
 
+export async function uploadFile(endpoint, formData) {
+  return axios.post(serverUrl + endpoint, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+    },
+  });
+}
+
 export async function put(endpoint, data) {
   const bodyData = JSON.stringify(data);
   return axios.put(serverUrl + endpoint, bodyData, {

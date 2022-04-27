@@ -65,3 +65,7 @@ export const LinkButton = styled.button`
     font-weight: bold;
   }
 `;
+
+export const InputFile = styled.input`
+  display: none;
+`;

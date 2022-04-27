@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CardBox,
   CardContainer,
@@ -7,17 +8,43 @@ import {
   ProfileImgBox,
   ProfileChangeBox,
 } from "../../../styles/User/MyPageStyle";
-import { LABEL } from "../../../utils/constants";
+import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
+import FileUpload from "../../../components/FileUpload";
+import { useCurrentUser } from "../../../queries/userQuery";
+import {
+  CustomSnackbar,
+  setAlertData,
+} from "../../../components/CustomSnackbar";
 
 function UserCard({ editStateStore, children }) {
+  const { userState } = useCurrentUser();
+  const [showAlert, setShowAlert] = useState(false);
+  const { _id, profileUrl } = userState;
   const { isEdit, setIsEdit } = editStateStore;
+
+  // Alert
+  const changeFailImage = setAlertData(
+    showAlert,
+    setShowAlert,
+    FAIL_MESSAGE.IMAGE,
+    ALERT_TYPE.ERROR
+  );
+
+  // 프로필 이미지 업로드
+  const profileImageData = {
+    type: "user",
+    id: _id,
+    prevImage: profileUrl,
+    showAlert,
+    setShowAlert,
+  };
 
   const ModifyUserButton = !isEdit ? (
     <ChangeButton onClick={() => setIsEdit((cur) => !cur)}>
       {LABEL.CHANGE_PROFILE}
     </ChangeButton>
   ) : (
-    <ChangeButton>{LABEL.CHANGE_IMAGE}</ChangeButton>
+    <FileUpload {...profileImageData} />
   );
 
   return (
@@ -25,15 +52,13 @@ function UserCard({ editStateStore, children }) {
       <CardBox>
         <CardHeader>
           <ProfileImgBox>
-            <ProfileImg
-              src={"https://source.unsplash.com/random"}
-              alt="profileImage"
-            />
+            <ProfileImg src={profileUrl} alt="profileImage" />
           </ProfileImgBox>
           <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
         </CardHeader>
         {children}
       </CardBox>
+      <CustomSnackbar {...changeFailImage} />
     </CardContainer>
   );
 }

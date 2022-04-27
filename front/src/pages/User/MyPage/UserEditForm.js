@@ -69,7 +69,7 @@ function UserEditForm({ editStateStore }) {
   return (
     <EditContainer>
       <EditBox>
-        <EditInputBox type={userInputGuide.nickname}>
+        <EditInputBox types={userInputGuide.nickname}>
           <EditInput
             name="nickname"
             type="text"
@@ -79,7 +79,7 @@ function UserEditForm({ editStateStore }) {
           />
           {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
         </EditInputBox>
-        <EditInputBox type={userInputGuide.password}>
+        <EditInputBox types={userInputGuide.password}>
           <EditInput
             name="password"
             type="password"
@@ -88,7 +88,7 @@ function UserEditForm({ editStateStore }) {
           />
           {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
         </EditInputBox>
-        <EditInputBox type={userInputGuide.confirmPassword}>
+        <EditInputBox types={userInputGuide.confirmPassword}>
           <EditInput
             name="confirmPassword"
             type="password"
@@ -99,7 +99,7 @@ function UserEditForm({ editStateStore }) {
             <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
           )}
         </EditInputBox>
-        <ConfirmButtonBox type={userInputGuide.confirmPassword}>
+        <ConfirmButtonBox types={userInputGuide.confirmPassword}>
           <ConfirmButton
             type="submit"
             onClick={handleOnSubmit}

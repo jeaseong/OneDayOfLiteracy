@@ -130,7 +130,7 @@ export const EditInputBox = styled.div`
     margin-top: 1.1rem;
   }
 
-  margin-bottom: ${(props) => (props.type ? 0 : "16px")};
+  margin-bottom: ${(props) => (props.types ? 0 : "16px")};
 `;
 
 export const EditInput = styled(InputBox)`

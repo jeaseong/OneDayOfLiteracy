@@ -84,7 +84,7 @@ function Register() {
         <LogoImage src={img.logoLogin} alt="logo" />
       </LogoButton>
       <HeadingTwo>{LABEL.REGISTER}</HeadingTwo>
-      <AuthInputTopBox type={userInputGuide.email}>
+      <AuthInputTopBox types={userInputGuide.email}>
         <AuthInput
           type="email"
           placeholder="Email*"
@@ -94,7 +94,7 @@ function Register() {
         />
         {userInputGuide.email && <p>{GUIDE_MESSAGE.EMAIL}</p>}
       </AuthInputTopBox>
-      <AuthInputBox type={userInputGuide.password}>
+      <AuthInputBox types={userInputGuide.password}>
         <AuthInput
           type="password"
           placeholder="Password*"
@@ -104,7 +104,7 @@ function Register() {
         />
         {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
       </AuthInputBox>
-      <AuthInputBox type={userInputGuide.confirmPassword}>
+      <AuthInputBox types={userInputGuide.confirmPassword}>
         <AuthInput
           type="password"
           placeholder="Confirm Password*"
@@ -116,7 +116,7 @@ function Register() {
           <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
         )}
       </AuthInputBox>
-      <AuthInputBox type={userInputGuide.nickname}>
+      <AuthInputBox types={userInputGuide.nickname}>
         <AuthInput
           type="text"
           placeholder="Nickname*"

@@ -12,7 +12,7 @@ export const AuthContainer = styled(FlexBoxCenter)`
 export const AuthInputBox = styled(FlexBoxCenter)`
   width: 100%;
   flex-direction: column;
-  margin-bottom: ${(props) => (props.type ? 0 : "16px")};
+  margin-bottom: ${(props) => (props.types ? 0 : "16px")};
 `;
 
 export const AuthInputTopBox = styled(AuthInputBox)`
