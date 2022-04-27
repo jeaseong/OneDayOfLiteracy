@@ -3,39 +3,42 @@ import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
 import { NextBtn } from "./TestStyle";
-import { useTestQuery } from "../../queries/TestQuery";
-
+import { useTestQuery } from "../../queries/testQuery";
 import { post } from "../../utils/api";
 
 export default function TestContainer() {
   const queryClient = useQueryClient();
-  const initAnswer = {
-    questionId: null,
-    answerId: null,
-  };
-  const { data } = useTestQuery();
+  const { tests } = useTestQuery();
+
   const [step, setStep] = useState(0);
   const [isProceedingTest, setIsProceedingTest] = useState(false);
-  const [curAnswer, setCurAnswer] = useState(initAnswer);
-  const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState([]);
+  const [curAnswer, setCurAnswer] = useState({});
+  const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState({});
 
-  const MyselectedAnswer = (questionId, answerId) => {
+  const MyselectedAnswer = (_qustionId, answerId) => {
     setCurAnswer((cur) => {
-      return { questionId, answerId };
+      return {
+        [_qustionId]: answerId,
+      };
     });
   };
-  const selectedAnswer = curAnswer.answerId;
+  const selectedAnswer = curAnswer[step + 1] || null;
 
   const setNextQuestion = () => {
     setStep((cur) => cur + 1);
-    setCurAnswer(null);
-    setTotalMySelectedAnswer((cur) => [...cur, curAnswer]);
+    setCurAnswer({});
+    setTotalMySelectedAnswer((cur) => {
+      return {
+        ...cur,
+        [Object.keys(curAnswer)[0]]: Object.values(curAnswer)[0],
+      };
+    });
   };
 
   const onSubmit = async () => {
     try {
-      await post("", totalMySelectedAnswer);
-      queryClient.removeQueries("test");
+      await post("test/result", totalMySelectedAnswer);
+      queryClient.removeQueries("tests");
     } catch (e) {
       console.log(e);
     }
@@ -43,9 +46,9 @@ export default function TestContainer() {
 
   return (
     <div>
-      {isProceedingTest && (
+      {isProceedingTest && tests && (
         <TestPresentation
-          test={data[step]}
+          test={tests[step]}
           selectedAnswer={selectedAnswer}
           MyselectedAnswer={MyselectedAnswer}
         />
@@ -59,9 +62,10 @@ export default function TestContainer() {
           테스트 시작하기!
         </NextBtn>
       )}
-      {isProceedingTest && data && (
+      {isProceedingTest && tests && (
         <TestProcessBtn
-          step={step}
+          step={step + 1}
+          totalQuestion={tests.length}
           selectedAnswer={selectedAnswer}
           onSubmit={onSubmit}
           setNextQuestion={setNextQuestion}
