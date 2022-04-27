@@ -1,12 +1,26 @@
 import styled from "styled-components";
 import { img } from "../../utils/imgImport";
-import { FlexBoxCenter } from "../CommonStyle";
+import { FlexBoxCenter, InputBox } from "../CommonStyle";
 
 // 회원가입 ============================================================
 export const AuthContainer = styled(FlexBoxCenter)`
   max-width: 1000px;
   margin: 30px auto;
   flex-direction: column;
+`;
+
+export const AuthInputBox = styled(FlexBoxCenter)`
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: ${(props) => (props.type ? 0 : "16px")};
+`;
+
+export const AuthInputTopBox = styled(AuthInputBox)`
+  margin-top: 1.7rem;
+`;
+
+export const AuthInput = styled(InputBox)`
+  margin-top: 0;
 `;
 
 export const LogoButton = styled.button`

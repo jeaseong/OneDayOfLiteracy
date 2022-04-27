@@ -3,13 +3,11 @@ import {
   AuthContainer,
   LogoButton,
   LogoImage,
+  AuthInputBox,
+  AuthInput,
+  AuthInputTopBox,
 } from "../../../styles/User/AuthStyle";
-import {
-  HeadingTwo,
-  InputBox,
-  Button,
-  LinkButton,
-} from "../../../styles/CommonStyle";
+import { HeadingTwo, Button, LinkButton } from "../../../styles/CommonStyle";
 import {
   CustomSnackbar,
   setAlertData,
@@ -77,40 +75,48 @@ function Register() {
         <LogoImage src="/assets/img/logo_login.png" alt="logo" />
       </LogoButton>
       <HeadingTwo>회원가입</HeadingTwo>
-      <InputBox
-        type="email"
-        placeholder="Email*"
-        name="email"
-        onChange={handleOnChange}
-        required
-      />
-      {userInputGuide.email && <p>이메일 형식에 맞지 않습니다.</p>}
-      <InputBox
-        type="password"
-        placeholder="Password*"
-        name="password"
-        onChange={handleOnChange}
-        required
-      />
-      {userInputGuide.password && (
-        <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
-      )}
-      <InputBox
-        type="password"
-        placeholder="Confirm Password*"
-        name="confirmPassword"
-        onChange={handleOnChange}
-        required
-      />
-      {userInputGuide.confirmPassword && <p>비밀번호가 일치하지 않습니다.</p>}
-      <InputBox
-        type="text"
-        placeholder="Nickname*"
-        name="nickname"
-        onChange={handleOnChange}
-        required
-      />
-      {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+      <AuthInputTopBox type={userInputGuide.email}>
+        <AuthInput
+          type="email"
+          placeholder="Email*"
+          name="email"
+          onChange={handleOnChange}
+          required
+        />
+        {userInputGuide.email && <p>이메일 형식에 맞지 않습니다.</p>}
+      </AuthInputTopBox>
+      <AuthInputBox type={userInputGuide.password}>
+        <AuthInput
+          type="password"
+          placeholder="Password*"
+          name="password"
+          onChange={handleOnChange}
+          required
+        />
+        {userInputGuide.password && (
+          <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
+        )}
+      </AuthInputBox>
+      <AuthInputBox type={userInputGuide.confirmPassword}>
+        <AuthInput
+          type="password"
+          placeholder="Confirm Password*"
+          name="confirmPassword"
+          onChange={handleOnChange}
+          required
+        />
+        {userInputGuide.confirmPassword && <p>비밀번호가 일치하지 않습니다.</p>}
+      </AuthInputBox>
+      <AuthInputBox type={userInputGuide.nickname}>
+        <AuthInput
+          type="text"
+          placeholder="Nickname*"
+          name="nickname"
+          onChange={handleOnChange}
+          required
+        />
+        {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+      </AuthInputBox>
       <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
         가입하기
       </Button>
