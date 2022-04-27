@@ -10,20 +10,22 @@ export default function TestAnswerBtn({
 }) {
   return (
     <AnswerBtnContainer>
-      {choices.map((option, index) => (
-        <AnswerBtn
-          onClick={() => {
-            MyselectedAnswer(testId, option.id);
-          }}
-        >
-          <AnswerText>
-            {index + 1}. {option.choice}
-          </AnswerText>
-          {selectedAnswer === option.id && (
-            <FavoriteIcon style={{ color: "#C48F5A" }} />
-          )}
-        </AnswerBtn>
-      ))}
+      {choices &&
+        Object.entries(choices).map((option, index) => (
+          <AnswerBtn
+            key={index}
+            onClick={() => {
+              MyselectedAnswer(testId, option[0]);
+            }}
+          >
+            <AnswerText>
+              {index + 1}. {option[1]}
+            </AnswerText>
+            {selectedAnswer === option[0] && (
+              <FavoriteIcon style={{ color: "#C48F5A" }} />
+            )}
+          </AnswerBtn>
+        ))}
     </AnswerBtnContainer>
   );
 }
