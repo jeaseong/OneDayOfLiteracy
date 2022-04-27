@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
+import TestResult from "./pages/TestSheet/TestResult";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               element={<KakaoLoginHandler />}
             />
             <Route path="/test" element={<TestHome />} />
+            <Route path="/test/result" element={<TestResult />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
