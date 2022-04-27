@@ -2,6 +2,7 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { postService } from "../services/postService";
 import { isEmptyObj } from "../utils/validation/isEmptyObj";
+import { typeName } from "../utils/validation/typeName";
 
 const postRouter = Router();
 
@@ -68,7 +69,7 @@ postRouter.get('/posts', loginRequired, async (req, res, next) => {
   }
 });
 
-// 4. 태그 별 조회 (로직 고민중)
+// 4. 태그 별 조회 
 // /posts/tags?tag={String}&tag={String}&tag= ...  &{Boolean}&page={Number}&limit={Number}
 postRouter.get('/posts/search/tags', loginRequired, async (req, res, next) => {
   try {
@@ -77,10 +78,10 @@ postRouter.get('/posts/search/tags', loginRequired, async (req, res, next) => {
     let tags;
     //tag에 값이 존재
     if(tag !== undefined){
-      if(tag?.length > 1){
+      if (typeName(tag) === "Array") {
         tags = tag;
       } else {
-        tags = [ tag ];
+        tags = [tag];
       }
     } // tag에 값 없음
     else {
@@ -88,7 +89,7 @@ postRouter.get('/posts/search/tags', loginRequired, async (req, res, next) => {
       throw new Error(errorMessage);
     }
     
-    console.log(tags);
+    
     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
     const posts = await postService.getTaggedPosts(page, limit, tags); 

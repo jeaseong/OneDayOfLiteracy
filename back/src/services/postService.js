@@ -87,13 +87,12 @@ class postService {
     const andList = []
     tags.forEach(tag => {
       const cond = {tags: {$regex: decodeURI(tag), $options: 'iu'}};
-      console.log(cond);
+      
       andList.push(cond)
     })
 
     const query = {$and: andList};
 
-    console.log(query);
     const posts = await Post.findAll(page, limit, query);
     return posts;
   }

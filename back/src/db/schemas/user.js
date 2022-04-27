@@ -8,7 +8,9 @@ const UserSchema = new Schema(
     badge: [{ type: String }],
     level: { type: Number, default: 0 },
     point: { type: Number, default: 0 },
-    postLikes: [{type: Schema.Types.ObjectId, ref:'Post'}]
+    postLikes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    profileUrl: { type: String, required: false, default: null },
+    kakaoId: {type: String, required: false, default: null},
   },
   {
     timestamps: true,
