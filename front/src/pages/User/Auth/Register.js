@@ -34,7 +34,12 @@ function Register({ onSubmit = () => {} }) {
   };
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
-  const isActive = validation("register", registerInfo);
+
+  const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+    validation("register", registerInfo);
+  const isActive =
+    isCheckEmail && isPassRule && isSamePassword && isCheckNickName;
+
   const registerFailData = setAlertData(
     showAlert,
     setShowAlert,
@@ -73,6 +78,7 @@ function Register({ onSubmit = () => {} }) {
         onChange={handleOnChange}
         required
       />
+      {isCheckEmail && <p>이메일 형식에 맞지 않습니다.</p>}
       <AuthInput
         type="password"
         placeholder="Password*"
@@ -80,6 +86,7 @@ function Register({ onSubmit = () => {} }) {
         onChange={handleOnChange}
         required
       />
+      {isPassRule && <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>}
       <AuthInput
         type="password"
         placeholder="Confirm Password*"
@@ -87,6 +94,7 @@ function Register({ onSubmit = () => {} }) {
         onChange={handleOnChange}
         required
       />
+      {isSamePassword && <p>비밀번호가 일치하지 않습니다.</p>}
       <AuthInput
         type="text"
         placeholder="Nickname*"
@@ -94,7 +102,8 @@ function Register({ onSubmit = () => {} }) {
         onChange={handleOnChange}
         required
       />
-      <SubmitButton type="submit" onClick={handleOnSubmit} disabled={!isActive}>
+      {isCheckNickName && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+      <SubmitButton type="submit" onClick={handleOnSubmit} disabled={isActive}>
         가입하기
       </SubmitButton>
       <RouteButton onClick={() => navigate("/user/login")}>
