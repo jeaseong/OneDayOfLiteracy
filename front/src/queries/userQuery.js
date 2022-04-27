@@ -15,20 +15,27 @@ export function useCurrentUser() {
     {
       staleTime: Infinity,
       onSuccess: (data) => queryclient.setQueryData("userState", data),
-      onError: (err) => queryclient.setQueryData("userState", null),
+      onError: () => queryclient.setQueryData("userState", null),
     }
   );
 
   return { userState: data, isFetching, isLogin: !!data, error };
 }
 
+/**
+ * 유저의 프로필을 받아옵니다.
+ * @param {string} id
+ * @returns {{isFetching: boolean, error: boolean, userProfile: object}}
+ */
 export function useProfileUser(id) {
   const queryclient = useQueryClient();
 
   const { isFetching, error, data } = useQuery(
     ["user", id],
-    async () => await get(`users/${id}`),
+    () => get(`users/${id}`).then((res) => res.data),
     {
+      staleTime: 60000,
+      cacheTime: 120000,
       onSuccess: (data) => queryclient.setQueryData(["user", id], data),
     }
   );
@@ -56,6 +63,11 @@ export const useUserLogin = (setShowAlert = () => {}) => {
   });
 };
 
+/**
+ * 유저의 프로필 수정 핸들러입니다.
+ * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
+ * @returns {function} useMutation 훅을 반환합니다.
+ */
 export const useChangeProfile = (setShowAlert = () => {}) => {
   const queryClient = useQueryClient();
 

@@ -46,7 +46,7 @@ describe("Check the form required for register", () => {
 
   it("Check submit button", () => {
     render(<Register />);
-    const submitButton = screen.getByRole("button", { name: "가입하기" });
+    const submitButton = screen.getByRole("button", { name: "회원가입" });
     expect(submitButton).toBeInTheDocument();
   });
 });
@@ -56,7 +56,7 @@ describe("Auth button's action", () => {
     // const onSubmit = jest.fn();
     render(<Register />);
 
-    const submitButton = screen.getByRole("button", { name: "가입하기" });
+    const submitButton = screen.getByRole("button", { name: "회원가입" });
 
     const emailForm = screen.getByPlaceholderText("Email*");
     userEvent.type(emailForm, "abcd@naver.com");

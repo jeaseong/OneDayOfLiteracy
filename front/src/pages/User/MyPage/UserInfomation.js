@@ -10,12 +10,22 @@ import {
 } from "../../../styles/User/MyPageStyle";
 import { HeadingTwo } from "../../../styles/CommonStyle";
 import { LABEL } from "../../../utils/constants";
+import { useProfileUser } from "../../../queries/userQuery";
+import { useParams } from "react-router-dom";
+import { useUserPostList } from "../../../queries/postQuery";
+import Loading from "../../../components/Loading";
 
 function UserInfomation() {
+  const params = useParams();
+  const { userProfile } = useProfileUser(params.userId);
+  const { userPosts, isFetching } = useUserPostList(params.userId);
+
+  if (isFetching) return <Loading />;
+
   return (
     <CardContent>
       <CardIntroduce>
-        <ProfileNickName>테스트유저</ProfileNickName> &nbsp;
+        <ProfileNickName>{userProfile.nickname}</ProfileNickName> &nbsp;
         <ProfileIntroduce>
           소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.
         </ProfileIntroduce>
@@ -24,13 +34,13 @@ function UserInfomation() {
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
-            <ProfilePostCount>3</ProfilePostCount>
+            <ProfilePostCount>{userPosts.length}</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
           <CardLikeCountBox>
-            <ProfilePostCount>3</ProfilePostCount>
+            <ProfilePostCount>{userProfile.postLikes.length}</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
