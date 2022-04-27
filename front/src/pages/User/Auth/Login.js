@@ -28,11 +28,10 @@ import {
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
- * @param onSubmit 테스트를 위한 모의함수입니다.
  * @returns {JSX.Element}
  * @constructor
  */
-function Login({ onSubmit = () => {} }) {
+function Login() {
   const navigate = useNavigate();
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
@@ -57,7 +56,6 @@ function Login({ onSubmit = () => {} }) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    onSubmit();
     mutation.mutate(loginInfo);
   };
 

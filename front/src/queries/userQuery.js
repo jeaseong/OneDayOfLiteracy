@@ -1,4 +1,4 @@
-import { QueryCache, useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { get, post } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
