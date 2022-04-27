@@ -7,6 +7,7 @@ import {
   EditIntroduceInput,
   ConfirmButton,
   ConfirmButtonBox,
+  EditInputBox,
 } from "../../../styles/User/MyPageStyle";
 import { validation } from "../../../utils/validation";
 import { useCurrentUser } from "../../../queries/userQuery";
@@ -39,31 +40,39 @@ function UserEditForm({ editStateStore }) {
   return (
     <EditContainer>
       <EditBox>
-        <EditInput
-          name="nickname"
-          type="text"
-          placeholder="Nickname*"
-          value={editInfo.nickname}
-          onChange={handleOnChange}
-        />
-        {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
-        <EditInput
-          name="password"
-          type="password"
-          placeholder="Password*"
-          onChange={handleOnChange}
-        />
-        {userInputGuide.password && (
-          <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
-        )}
-        <EditInput
-          name="confirmPassword"
-          type="password"
-          placeholder="Confirm Password*"
-          onChange={handleOnChange}
-        />
-        {userInputGuide.confirmPassword && <p>비밀번호가 일치하지 않습니다.</p>}
-        <ConfirmButtonBox>
+        <EditInputBox type={userInputGuide.nickname}>
+          <EditInput
+            name="nickname"
+            type="text"
+            placeholder="Nickname*"
+            value={editInfo.nickname}
+            onChange={handleOnChange}
+          />
+          {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+        </EditInputBox>
+        <EditInputBox type={userInputGuide.password}>
+          <EditInput
+            name="password"
+            type="password"
+            placeholder="Password*"
+            onChange={handleOnChange}
+          />
+          {userInputGuide.password && (
+            <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
+          )}
+        </EditInputBox>
+        <EditInputBox type={userInputGuide.confirmPassword}>
+          <EditInput
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password*"
+            onChange={handleOnChange}
+          />
+          {userInputGuide.confirmPassword && (
+            <p>비밀번호가 일치하지 않습니다.</p>
+          )}
+        </EditInputBox>
+        <ConfirmButtonBox type={userInputGuide.confirmPassword}>
           <ConfirmButton disabled={!isActive}>확인</ConfirmButton>
           <ConfirmButton onClick={() => setIsEdit((cur) => !cur)}>
             취소

@@ -121,10 +121,22 @@ export const EditIntroduceBox = styled.div`
   width: 50%;
 `;
 
+// export const EditInputTopBox = styled.div`
+//   margin-top: 1.1rem;
+// `;
+
+export const EditInputBox = styled.div`
+  &:first-child {
+    margin-top: 1.1rem;
+  }
+
+  margin-bottom: ${(props) => (props.type ? 0 : "16px")};
+`;
+
 export const EditInput = styled(InputBox)`
   width: 90%;
   height: 20px;
-  margin: 1.1rem 0 0 0;
+  margin: 0 auto;
 `;
 
 export const EditIntroduceInput = styled.textarea`
@@ -139,7 +151,7 @@ export const EditIntroduceInput = styled.textarea`
 
 export const ConfirmButtonBox = styled(FlexBox)`
   justify-content: center;
-  margin-top: 21px;
+  margin-top: ${(props) => (props.type ? "5px" : "21px")};
 `;
 
 export const ConfirmButton = styled(Button)`

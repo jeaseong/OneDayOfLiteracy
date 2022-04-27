@@ -70,7 +70,7 @@ function loginValidation(type, info) {
 function editUserValidation(type, info) {
   const { nickname, password, confirmPassword } = info;
 
-  const isCheckNickName = nickname.length > 2;
+  const isCheckNickName = nickname.length >= 2;
   const { isPassRule, isSamePassword } = passwordValidate(type, {
     password,
     confirmPassword,
