@@ -36,8 +36,15 @@ function Register() {
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
 
+  const { email, password, confirmPassword, nickname } = registerInfo;
   const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
     validation("register", registerInfo);
+  const userInputGuide = {
+    email: !isCheckEmail && email.length > 0,
+    password: !isPassRule && password.length > 0,
+    confirmPassword: !isSamePassword && confirmPassword.length > 0,
+    nickname: !isCheckNickName && nickname.length > 0,
+  };
   const isActive =
     isCheckEmail && isPassRule && isSamePassword && isCheckNickName;
 
@@ -55,7 +62,6 @@ function Register() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password, nickname } = registerInfo;
     try {
       await post("user/register", { email, password, nickname });
       setRegisterInfo(initialInfo);
@@ -78,7 +84,7 @@ function Register() {
         onChange={handleOnChange}
         required
       />
-      {isCheckEmail && <p>이메일 형식에 맞지 않습니다.</p>}
+      {userInputGuide.email && <p>이메일 형식에 맞지 않습니다.</p>}
       <InputBox
         type="password"
         placeholder="Password*"
@@ -86,7 +92,9 @@ function Register() {
         onChange={handleOnChange}
         required
       />
-      {isPassRule && <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>}
+      {userInputGuide.password && (
+        <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
+      )}
       <InputBox
         type="password"
         placeholder="Confirm Password*"
@@ -94,7 +102,7 @@ function Register() {
         onChange={handleOnChange}
         required
       />
-      {isSamePassword && <p>비밀번호가 일치하지 않습니다.</p>}
+      {userInputGuide.confirmPassword && <p>비밀번호가 일치하지 않습니다.</p>}
       <InputBox
         type="text"
         placeholder="Nickname*"
@@ -102,8 +110,8 @@ function Register() {
         onChange={handleOnChange}
         required
       />
-      {isCheckNickName && <p>닉네임은 2글자 이상이어야 합니다.</p>}
-      <Button type="submit" onClick={handleOnSubmit} disabled={isActive}>
+      {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+      <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
         가입하기
       </Button>
       <LinkButton onClick={() => navigate("/user/login")}>
