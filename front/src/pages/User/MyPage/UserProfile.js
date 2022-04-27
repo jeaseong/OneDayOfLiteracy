@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { useCurrentUser } from "../../../queries/userQuery";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { MyPageContainer } from "../../../styles/User/MyPageStyle";
 import UserCard from "./UserCard";
-import MyPost from "./MyPost";
+import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";
 import UserEditForm from "./UserEditForm";
 
@@ -12,28 +10,22 @@ import UserEditForm from "./UserEditForm";
  * @returns {JSX.Element}
  * @constructor
  */
-function MyPage() {
-  const navigate = useNavigate();
-  const { isLogin } = useCurrentUser();
+function UserProfile() {
   const [isEdit, setIsEdit] = useState(false);
   const editStateStore = { isEdit, setIsEdit };
 
-  useEffect(() => {
-    if (!isLogin) navigate("/");
-  }, [isLogin, navigate]);
-
-  const CardContent = !isEdit ? (
-    <UserInfomation />
-  ) : (
+  const CardContent = isEdit ? (
     <UserEditForm editStateStore={editStateStore} />
+  ) : (
+    <UserInfomation />
   );
 
   return (
     <MyPageContainer>
       <UserCard editStateStore={editStateStore}>{CardContent}</UserCard>
-      <MyPost />
+      <UserPostList />
     </MyPageContainer>
   );
 }
 
-export default MyPage;
+export default UserProfile;

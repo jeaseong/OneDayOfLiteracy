@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
-import MyPage from "./pages/User/MyPage/MyPage";
+import UserProfile from "./pages/User/MyPage/UserProfile";
 import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -25,7 +25,7 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/register" element={<Register />} />
-            <Route path="/user/mypage" element={<MyPage />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
             <Route
               path="/oauth/callback/kakao"
               element={<KakaoLoginHandler />}

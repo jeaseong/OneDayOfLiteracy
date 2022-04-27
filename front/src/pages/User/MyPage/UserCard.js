@@ -10,17 +10,30 @@ import {
 } from "../../../styles/User/MyPageStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
-import { useCurrentUser } from "../../../queries/userQuery";
+import { useCurrentUser, useProfileUser } from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
+import { useParams } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 function UserCard({ editStateStore, children }) {
+  const params = useParams();
   const { userState } = useCurrentUser();
+  const { userProfile, isFetching } = useProfileUser(params.userId);
   const [showAlert, setShowAlert] = useState(false);
-  const { _id, profileUrl } = userState;
   const { isEdit, setIsEdit } = editStateStore;
+
+  if (isFetching) return <Loading />;
+  const { _id, profileUrl } = userProfile;
+
+  // 프로필의 주인인가?
+  const checkProfileOwner = () => {
+    if (!userState) return false;
+    return userState._id === params.userId;
+  };
+  const isProfileOwner = checkProfileOwner();
 
   // Alert
   const changeFailImage = setAlertData(
@@ -54,7 +67,9 @@ function UserCard({ editStateStore, children }) {
           <ProfileImgBox>
             <ProfileImg src={profileUrl} alt="profileImage" />
           </ProfileImgBox>
-          <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
+          {isProfileOwner && (
+            <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
+          )}
         </CardHeader>
         {children}
       </CardBox>

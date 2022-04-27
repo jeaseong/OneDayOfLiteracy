@@ -3,7 +3,7 @@ import {
   TempPostCard,
 } from "../../../styles/User/MyPageStyle";
 
-function MyPost() {
+function UserPostList() {
   return (
     <MyPostContainer>
       <TempPostCard>asdf</TempPostCard>
@@ -13,4 +13,4 @@ function MyPost() {
   );
 }
 
-export default MyPost;
+export default UserPostList;

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
  */
 export function useCurrentUser() {
   const queryclient = useQueryClient();
+
   const { isFetching, error, data } = useQuery(
     "userState",
     () => get("user/current").then((res) => res.data),
@@ -19,6 +20,21 @@ export function useCurrentUser() {
   );
 
   return { userState: data, isFetching, isLogin: !!data, error };
+}
+
+export function useProfileUser(id) {
+  const queryclient = useQueryClient();
+
+  const { isFetching, error, data } = useQuery(
+    ["user", id],
+    async () => await get(`users/${id}`),
+    {
+      onSuccess: (data) => queryclient.setQueryData(["user", id], data),
+      onError: (err) => queryclient.setQueryData(["user", id], null),
+    }
+  );
+
+  return { userProfile: data, isFetching, error };
 }
 
 /**
