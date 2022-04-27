@@ -22,15 +22,13 @@ export const WomanBook = styled.img.attrs({
   margin-bottom: 30px;
 `;
 
-export const QustionsContainer = styled.div``;
-
-export const Question = styled.h2`
+export const TestQuestion = styled.h2`
   font-weight: bold;
   font-size: 15px;
   color: #c48f5a;
   margin-bottom: 10px;
 `;
-export const Content = styled.p`
+export const TestContent = styled.p`
   font-weight: 400;
   line-height: 20px;
   margin-bottom: 10px;
