@@ -13,6 +13,7 @@ function Posts() {
       try {
         const list = await get("posts");
         setPosts([...list.data]);
+        console.log(posts);
       } catch (error) {
         throw new Error(error);
       }
@@ -21,24 +22,8 @@ function Posts() {
   }, []);
   return (
     <PostContainer>
-      {posts?.map((post) => {
-        return (
-          <PostCard
-            key={post.id}
-            userId={post.userId}
-            title={post.title}
-            content={post.content}
-            tags={post.tags}
-            image={
-              post.imageUrls
-                ? post.imageUrls[0]
-                : "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
-            }
-            onClick={() => {
-              navigate("posts/:postId");
-            }}
-          />
-        );
+      {posts?.map((post, index) => {
+        return <PostCard key={index} post={post} />;
       })}
     </PostContainer>
   );

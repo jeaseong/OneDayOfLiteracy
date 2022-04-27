@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
 import Posts from "./pages/Post/Posts";
+import Post from "./pages/Post/Post";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
             />
             <Route path="/test" element={<TestHome />} />
             <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:postId" element={<Post />} />
+
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

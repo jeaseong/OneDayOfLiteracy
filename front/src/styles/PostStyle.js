@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const PostContainer = styled.div`
+  max-width: 1024px;
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  justify-content: center;
-  //   gap: 1rem;
+  justify-content: flex-start;
+  gap: 1rem;
   // grid-template-columns:repeat(auto-fit, minmax(10rem, 1fr))
-  margin: 10%;
+  margin: 5% auto;
   border-radius: 8px;
 `;
 
