@@ -54,7 +54,7 @@ describe("Auth validation", () => {
       validation("register", registerInfo);
     const isActive =
       isCheckEmail && isCheckNickName && isPassRule && isSamePassword;
-    expect(!isActive).toBeTruthy();
+    expect(isActive).toBeTruthy();
   });
 });
 
@@ -124,6 +124,6 @@ describe("Edit validation", () => {
       editUserInfo
     );
     const isActive = isCheckNickName && isPassRule && isSamePassword;
-    expect(!isActive).toBeTruthy();
+    expect(isActive).toBeTruthy();
   });
 });
