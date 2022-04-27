@@ -33,6 +33,7 @@ export const LABEL = {
   USER_LIKE_COUNT: "받은 좋아요 수",
   CHANGE_PROFILE: "프로필 수정",
   CHANGE_IMAGE: "이미지 변경",
+  ERROR_INTRODUCE: "THE PAGE YOU REQUESTED COULD NOT FOUND",
 };
 
 export const GUIDE_MESSAGE = {
@@ -40,4 +41,5 @@ export const GUIDE_MESSAGE = {
   PASSWORD: "비밀번호는 영문 + 숫자 + 8자리 이상입니다.",
   CONFIRM_PASSWORD: "비밀번호가 일치하지 않습니다.",
   NICKNAME: "닉네임은 2글자 이상이어야 합니다.",
+  ERROR: "초 후 홈페이지로 이동합니다.",
 };

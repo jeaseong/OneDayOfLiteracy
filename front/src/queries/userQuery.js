@@ -30,7 +30,6 @@ export function useProfileUser(id) {
     async () => await get(`users/${id}`),
     {
       onSuccess: (data) => queryclient.setQueryData(["user", id], data),
-      onError: (err) => queryclient.setQueryData(["user", id], null),
     }
   );
 
