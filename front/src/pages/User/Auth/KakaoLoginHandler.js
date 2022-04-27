@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { get } from "../../../utils/api";
+import { FAIL_MESSAGE } from "../../../utils/constants";
 
 /**
  * 카카오 로그인 진행 시 redirectURL로 컴포넌트가 마운트됩니다.
@@ -25,7 +26,7 @@ function KakaoLoginHandler() {
         queryClient.invalidateQueries("userState");
         navigate("/");
       } catch (err) {
-        alert("로그인에 실패하였습니다.");
+        alert(FAIL_MESSAGE.LOGIN);
         navigate("/user/login");
       }
     };

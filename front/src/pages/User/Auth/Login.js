@@ -4,7 +4,7 @@ import {
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useState } from "react";
-import { failMessage, alertType } from "../../../utils/alertMessage";
+import { FAIL_MESSAGE, ALERT_TYPE, LABEL } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
 import { useUserLogin } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
@@ -43,8 +43,8 @@ function Login() {
   const loginFailData = setAlertData(
     showAlert,
     setShowAlert,
-    failMessage.login,
-    alertType.error
+    FAIL_MESSAGE.LOGIN,
+    ALERT_TYPE.ERROR
   );
 
   const isActive = validation("login", loginInfo);
@@ -66,7 +66,7 @@ function Login() {
       </LogoButton>
       <LoginForm>
         <LoginContentBox>
-          <HeadingTwo>로그인</HeadingTwo>
+          <HeadingTwo>{LABEL.LOGIN}</HeadingTwo>
           <InputBox
             type="email"
             placeholder="Email*"
@@ -83,15 +83,15 @@ function Login() {
           />
           <div>
             <LinkButton onClick={() => navigate("/user/register")}>
-              회원이 아니신가요?
+              {LABEL.NOT_MEMBER}
             </LinkButton>
           </div>
           <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
-            로그인
+            {LABEL.LOGIN}
           </Button>
           <Button onClick={() => (window.location.href = kakaoAuthUrl)}>
             <FlexBoxCenter>
-              <KakaoIcon /> &nbsp; 카카오 로그인
+              <KakaoIcon /> &nbsp; {LABEL.KAKAO_LOGIN}
             </FlexBoxCenter>
           </Button>
         </LoginContentBox>

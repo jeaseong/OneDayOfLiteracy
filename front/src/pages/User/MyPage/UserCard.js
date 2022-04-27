@@ -7,16 +7,17 @@ import {
   ProfileImgBox,
   ProfileChangeBox,
 } from "../../../styles/User/MyPageStyle";
+import { LABEL } from "../../../utils/constants";
 
 function UserCard({ editStateStore, children }) {
   const { isEdit, setIsEdit } = editStateStore;
 
   const ModifyUserButton = !isEdit ? (
     <ChangeButton onClick={() => setIsEdit((cur) => !cur)}>
-      프로필 수정
+      {LABEL.CHANGE_PROFILE}
     </ChangeButton>
   ) : (
-    <ChangeButton>이미지 변경</ChangeButton>
+    <ChangeButton>{LABEL.CHANGE_IMAGE}</ChangeButton>
   );
 
   return (

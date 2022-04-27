@@ -9,6 +9,7 @@ import {
   ConfirmButtonBox,
   EditInputBox,
 } from "../../../styles/User/MyPageStyle";
+import { LABEL, GUIDE_MESSAGE } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
 import { useCurrentUser } from "../../../queries/userQuery";
 
@@ -48,7 +49,7 @@ function UserEditForm({ editStateStore }) {
             value={editInfo.nickname}
             onChange={handleOnChange}
           />
-          {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+          {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
         </EditInputBox>
         <EditInputBox type={userInputGuide.password}>
           <EditInput
@@ -57,9 +58,7 @@ function UserEditForm({ editStateStore }) {
             placeholder="Password*"
             onChange={handleOnChange}
           />
-          {userInputGuide.password && (
-            <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
-          )}
+          {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
         </EditInputBox>
         <EditInputBox type={userInputGuide.confirmPassword}>
           <EditInput
@@ -69,13 +68,13 @@ function UserEditForm({ editStateStore }) {
             onChange={handleOnChange}
           />
           {userInputGuide.confirmPassword && (
-            <p>비밀번호가 일치하지 않습니다.</p>
+            <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
           )}
         </EditInputBox>
         <ConfirmButtonBox type={userInputGuide.confirmPassword}>
-          <ConfirmButton disabled={!isActive}>확인</ConfirmButton>
+          <ConfirmButton disabled={!isActive}>{LABEL.CONFIRM}</ConfirmButton>
           <ConfirmButton onClick={() => setIsEdit((cur) => !cur)}>
-            취소
+            {LABEL.CANCLE}
           </ConfirmButton>
         </ConfirmButtonBox>
       </EditBox>

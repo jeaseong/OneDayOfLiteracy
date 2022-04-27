@@ -7,6 +7,7 @@ import {
   AuthInput,
   AuthInputTopBox,
 } from "../../../styles/User/AuthStyle";
+import { img } from "../../../utils/imgImport";
 import { HeadingTwo, Button, LinkButton } from "../../../styles/CommonStyle";
 import {
   CustomSnackbar,
@@ -14,7 +15,12 @@ import {
 } from "../../../components/CustomSnackbar";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
-import { failMessage, alertType } from "../../../utils/alertMessage";
+import {
+  FAIL_MESSAGE,
+  ALERT_TYPE,
+  LABEL,
+  GUIDE_MESSAGE,
+} from "../../../utils/constants";
 import { post } from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
 
@@ -49,8 +55,8 @@ function Register() {
   const registerFailData = setAlertData(
     showAlert,
     setShowAlert,
-    failMessage.register,
-    alertType.error
+    FAIL_MESSAGE.REGISTER,
+    ALERT_TYPE.ERROR
   );
 
   const handleOnChange = (e) => {
@@ -72,9 +78,9 @@ function Register() {
   return (
     <AuthContainer>
       <LogoButton onClick={() => navigate("/")}>
-        <LogoImage src="/assets/img/logo_login.png" alt="logo" />
+        <LogoImage src={img.logoLogin} alt="logo" />
       </LogoButton>
-      <HeadingTwo>회원가입</HeadingTwo>
+      <HeadingTwo>{LABEL.REGISTER}</HeadingTwo>
       <AuthInputTopBox type={userInputGuide.email}>
         <AuthInput
           type="email"
@@ -83,7 +89,7 @@ function Register() {
           onChange={handleOnChange}
           required
         />
-        {userInputGuide.email && <p>이메일 형식에 맞지 않습니다.</p>}
+        {userInputGuide.email && <p>{GUIDE_MESSAGE.EMAIL}</p>}
       </AuthInputTopBox>
       <AuthInputBox type={userInputGuide.password}>
         <AuthInput
@@ -93,9 +99,7 @@ function Register() {
           onChange={handleOnChange}
           required
         />
-        {userInputGuide.password && (
-          <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>
-        )}
+        {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
       </AuthInputBox>
       <AuthInputBox type={userInputGuide.confirmPassword}>
         <AuthInput
@@ -105,7 +109,9 @@ function Register() {
           onChange={handleOnChange}
           required
         />
-        {userInputGuide.confirmPassword && <p>비밀번호가 일치하지 않습니다.</p>}
+        {userInputGuide.confirmPassword && (
+          <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
+        )}
       </AuthInputBox>
       <AuthInputBox type={userInputGuide.nickname}>
         <AuthInput
@@ -115,13 +121,13 @@ function Register() {
           onChange={handleOnChange}
           required
         />
-        {userInputGuide.nickname && <p>닉네임은 2글자 이상이어야 합니다.</p>}
+        {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
       </AuthInputBox>
       <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
-        가입하기
+        {LABEL.REGISTER}
       </Button>
       <LinkButton onClick={() => navigate("/user/login")}>
-        이미 회원이신가요?
+        {LABEL.ALREADY_MEMBER}
       </LinkButton>
       <CustomSnackbar {...registerFailData} />
     </AuthContainer>
