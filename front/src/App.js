@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import Main from "./pages/Main/Main";
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
 import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
@@ -28,6 +29,7 @@ function App() {
               path="/oauth/callback/kakao"
               element={<KakaoLoginHandler />}
             />
+            <Route path="/main" element={<Main />} />
             <Route path="/test" element={<TestHome />} />
             <Route path="*" element={<Home />} />
           </Routes>
