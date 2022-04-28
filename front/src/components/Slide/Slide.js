@@ -4,9 +4,13 @@ import {
   SlideContainer,
   SlideInner,
   SlideItem,
+  BottonContainer,
   PrevBtn,
   NextBtn,
 } from "../../styles/SlideStyle";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+
 const initTransition = "transform 0.5s";
 export default function Slide({ elements }) {
   const [curIndex, setCurIndex] = useState(0);
@@ -51,8 +55,14 @@ export default function Slide({ elements }) {
           ))}
         </SlideContainer>
       </OverFlow>
-      <PrevBtn onClick={() => handleSlide(curIndex - 1)}>뒤</PrevBtn>
-      <NextBtn onClick={() => handleSlide(curIndex + 1)}>앞</NextBtn>
+      <BottonContainer>
+        <PrevBtn onClick={() => handleSlide(curIndex - 1)}>
+          <ArrowBackIosIcon fontSize="large" />
+        </PrevBtn>
+        <NextBtn onClick={() => handleSlide(curIndex + 1)}>
+          <ArrowForwardIosIcon fontSize="large" />
+        </NextBtn>
+      </BottonContainer>
     </>
   );
 }
