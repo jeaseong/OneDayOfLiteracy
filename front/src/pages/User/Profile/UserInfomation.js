@@ -7,7 +7,7 @@ import {
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
-} from "../../../styles/User/MyPageStyle";
+} from "../../../styles/User/ProfileStyle";
 import { HeadingTwo } from "../../../styles/CommonStyle";
 import { LABEL } from "../../../utils/constants";
 import { useProfileUser } from "../../../queries/userQuery";

@@ -121,10 +121,6 @@ export const EditIntroduceBox = styled.div`
   width: 50%;
 `;
 
-// export const EditInputTopBox = styled.div`
-//   margin-top: 1.1rem;
-// `;
-
 export const EditInputBox = styled.div`
   &:first-child {
     margin-top: 1.1rem;
@@ -158,3 +154,5 @@ export const ConfirmButton = styled(Button)`
   margin: 10px 7px;
   width: 20%;
 `;
+
+export const notPostImg = styled.img``;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MyPageContainer } from "../../../styles/User/MyPageStyle";
+import { MyPageContainer } from "../../../styles/User/ProfileStyle";
 import UserCard from "./UserCard";
 import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";

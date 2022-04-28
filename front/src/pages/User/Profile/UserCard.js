@@ -7,7 +7,7 @@ import {
   ChangeButton,
   ProfileImgBox,
   ProfileChangeBox,
-} from "../../../styles/User/MyPageStyle";
+} from "../../../styles/User/ProfileStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
 import { useCurrentUser, useProfileUser } from "../../../queries/userQuery";

@@ -1,6 +1,6 @@
 import "jest-styled-components";
 import { render, screen } from "../../../../test-utils";
-import UserEditForm from "../../../../pages/User/MyPage/UserEditForm";
+import UserEditForm from "../../../../pages/User/Profile/UserEditForm";
 import userEvent from "@testing-library/user-event";
 import { useCurrentUser } from "../../../../queries/userQuery";
 jest.mock("../../../../queries/userQuery");

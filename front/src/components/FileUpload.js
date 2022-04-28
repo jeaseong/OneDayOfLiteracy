@@ -1,5 +1,5 @@
 import { InputFile } from "../styles/CommonStyle";
-import { ChangeButton } from "../styles/User/MyPageStyle";
+import { ChangeButton } from "../styles/User/ProfileStyle";
 import { LABEL } from "../utils/constants";
 import { useRef } from "react";
 import { uploadFile } from "../utils/api";

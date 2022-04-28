@@ -6,6 +6,7 @@ import {
   AuthInputBox,
   AuthInput,
   AuthInputTopBox,
+  AuthContentForm,
 } from "../../../styles/User/AuthStyle";
 import { img } from "../../../utils/imgImport";
 import { HeadingTwo, Button, LinkButton } from "../../../styles/CommonStyle";
@@ -84,54 +85,56 @@ function Register() {
         <LogoImage src={img.logoLogin} alt="logo" />
       </LogoButton>
       <HeadingTwo>{LABEL.REGISTER}</HeadingTwo>
-      <AuthInputTopBox types={userInputGuide.email}>
-        <AuthInput
-          type="email"
-          placeholder="Email*"
-          name="email"
-          onChange={handleOnChange}
-          required
-        />
-        {userInputGuide.email && <p>{GUIDE_MESSAGE.EMAIL}</p>}
-      </AuthInputTopBox>
-      <AuthInputBox types={userInputGuide.password}>
-        <AuthInput
-          type="password"
-          placeholder="Password*"
-          name="password"
-          onChange={handleOnChange}
-          required
-        />
-        {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
-      </AuthInputBox>
-      <AuthInputBox types={userInputGuide.confirmPassword}>
-        <AuthInput
-          type="password"
-          placeholder="Confirm Password*"
-          name="confirmPassword"
-          onChange={handleOnChange}
-          required
-        />
-        {userInputGuide.confirmPassword && (
-          <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
-        )}
-      </AuthInputBox>
-      <AuthInputBox types={userInputGuide.nickname}>
-        <AuthInput
-          type="text"
-          placeholder="Nickname*"
-          name="nickname"
-          onChange={handleOnChange}
-          required
-        />
-        {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
-      </AuthInputBox>
-      <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
-        {LABEL.REGISTER}
-      </Button>
-      <LinkButton onClick={() => navigate("/user/login")}>
-        {LABEL.ALREADY_MEMBER}
-      </LinkButton>
+      <AuthContentForm>
+        <AuthInputTopBox types={userInputGuide.email}>
+          <AuthInput
+            type="email"
+            placeholder="Email*"
+            name="email"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.email && <p>{GUIDE_MESSAGE.EMAIL}</p>}
+        </AuthInputTopBox>
+        <AuthInputBox types={userInputGuide.password}>
+          <AuthInput
+            type="password"
+            placeholder="Password*"
+            name="password"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
+        </AuthInputBox>
+        <AuthInputBox types={userInputGuide.confirmPassword}>
+          <AuthInput
+            type="password"
+            placeholder="Confirm Password*"
+            name="confirmPassword"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.confirmPassword && (
+            <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
+          )}
+        </AuthInputBox>
+        <AuthInputBox types={userInputGuide.nickname}>
+          <AuthInput
+            type="text"
+            placeholder="Nickname*"
+            name="nickname"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
+        </AuthInputBox>
+        <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
+          {LABEL.REGISTER}
+        </Button>
+        <LinkButton type="button" onClick={() => navigate("/user/login")}>
+          {LABEL.ALREADY_MEMBER}
+        </LinkButton>
+      </AuthContentForm>
       <CustomSnackbar {...registerFailData} />
     </AuthContainer>
   );

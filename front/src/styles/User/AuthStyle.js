@@ -9,6 +9,14 @@ export const AuthContainer = styled(FlexBoxCenter)`
   flex-direction: column;
 `;
 
+export const AuthContentForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const AuthInputBox = styled(FlexBoxCenter)`
   width: 100%;
   flex-direction: column;
@@ -70,7 +78,7 @@ export const LoginImgContentBox = styled.div`
   height: 15%;
 `;
 
-export const LoginContentBox = styled.div`
+export const LoginContentForm = styled.form`
   width: 60%;
   text-align: center;
 `;

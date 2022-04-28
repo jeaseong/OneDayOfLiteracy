@@ -23,7 +23,7 @@ import {
   LoginForm,
   KakaoIcon,
   LoginImgContentBox,
-  LoginContentBox,
+  LoginContentForm,
 } from "../../../styles/User/AuthStyle";
 
 /**
@@ -66,7 +66,7 @@ function Login() {
         <LogoImage />
       </LogoButton>
       <LoginForm>
-        <LoginContentBox>
+        <LoginContentForm onSubmit={handleOnSubmit}>
           <HeadingTwo>{LABEL.LOGIN}</HeadingTwo>
           <InputBox
             type="email"
@@ -82,20 +82,26 @@ function Login() {
             onChange={handleOnChange}
             required
           />
-          <div>
-            <LinkButton onClick={() => navigate("/user/register")}>
-              {LABEL.NOT_MEMBER}
-            </LinkButton>
-          </div>
-          <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
+          <Button type="submit" disabled={!isActive}>
             {LABEL.LOGIN}
           </Button>
-          <Button onClick={() => (window.location.href = kakaoAuthUrl)}>
+          <Button
+            type="button"
+            onClick={() => (window.location.href = kakaoAuthUrl)}
+          >
             <FlexBoxCenter>
               <KakaoIcon /> &nbsp; {LABEL.KAKAO_LOGIN}
             </FlexBoxCenter>
           </Button>
-        </LoginContentBox>
+          <div>
+            <LinkButton
+              type="button"
+              onClick={() => navigate("/user/register")}
+            >
+              {LABEL.NOT_MEMBER}
+            </LinkButton>
+          </div>
+        </LoginContentForm>
         <LoginImgContentBox>
           <CharacterImage />
         </LoginImgContentBox>
