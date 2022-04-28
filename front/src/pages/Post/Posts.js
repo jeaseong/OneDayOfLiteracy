@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../utils/api";
 import PostCard from "./PostCard";
-import { PostContainer } from "../../styles/PostStyle";
+import { PostsContainer } from "../../styles/PostStyle";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -11,9 +11,10 @@ function Posts() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const list = await get("posts");
-        setPosts([...list.data]);
-        console.log(posts);
+        const result = await get("posts");
+        console.log(result);
+        console.log(result.data);
+        setPosts([...result?.data]);
       } catch (error) {
         throw new Error(error);
       }
@@ -21,11 +22,11 @@ function Posts() {
     getPosts();
   }, []);
   return (
-    <PostContainer>
+    <PostsContainer>
       {posts?.map((post, index) => {
         return <PostCard key={index} post={post} />;
       })}
-    </PostContainer>
+    </PostsContainer>
   );
 }
 export default Posts;
