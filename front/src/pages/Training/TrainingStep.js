@@ -12,11 +12,7 @@ import {
 export default function TrainingStep({ step, img, title, tag, des }) {
   const navigate = useNavigate();
   return (
-    <StepContainer
-      onClick={() =>
-        navigate("/training", { replace: true, state: { step: step } })
-      }
-    >
+    <StepContainer onClick={() => navigate(`/training/${step}`)}>
       <StepImg src={img} alt="훈련 대표 이미지" />
       <StepTitle>{title}</StepTitle>
       <StepTagContainer>

@@ -9,6 +9,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
+import TrainingStepOne from "./pages/Training/TrainingStepOne";
+import TrainingStepTwo from "./pages/Training/TrainingStepTwo";
+import TrainingStepThree from "./pages/Training/TrainingStepThree";
+import TrainingStepFour from "./pages/Training/TrainingStepFour";
 import { useCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -30,6 +34,10 @@ function App() {
               element={<KakaoLoginHandler />}
             />
             <Route path="/main" element={<Main />} />
+            <Route path="/training/1" element={<TrainingStepOne />} />
+            <Route path="/training/2" element={<TrainingStepTwo />} />
+            <Route path="/training/3" element={<TrainingStepThree />} />
+            <Route path="/training/4" element={<TrainingStepFour />} />
             <Route path="/test" element={<TestHome />} />
             <Route path="*" element={<Home />} />
           </Routes>

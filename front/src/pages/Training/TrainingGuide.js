@@ -1,9 +1,14 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { TrainingGuideContainer } from "../../styles/TrainingStyle";
+import {
+  TrainingGuideContainer,
+  TrainingGuideContent,
+} from "../../styles/TrainingStyle";
 
-export default function TrainingGuide() {
-  const location = useLocation();
-  const { step } = location.state;
-  return <TrainingGuideContainer></TrainingGuideContainer>;
+export default function TrainingGuide({ children }) {
+  return (
+    <TrainingGuideContainer>
+      <TrainingGuideContent>{children}</TrainingGuideContent>
+      {/* <Post></Post> */}
+    </TrainingGuideContainer>
+  );
 }

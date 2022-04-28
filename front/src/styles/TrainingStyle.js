@@ -53,3 +53,9 @@ export const StepDescription = styled.p`
   width: 100%;
   text-align: left;
 `;
+
+//TrainingGuide
+
+export const TrainingGuideContainer = styled.section``;
+
+export const TrainingGuideContent = styled.div``;
