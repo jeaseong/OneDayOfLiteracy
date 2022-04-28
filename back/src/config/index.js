@@ -16,6 +16,7 @@ const config = {
     redirectUrl3: process.env.KAKAO_REDIRECT_URL_DELETE,
     userUrl: process.env.KAKAO_OAUTH_USER_API_URL,
     unlinkUrl: process.env.KAKAO_UNLINK,
+    adminKey: process.env.KAKAO_ADMIN_KEY,
   },
   ncp: {
     accessKey: process.env.NCP_ACCESS_KEY,

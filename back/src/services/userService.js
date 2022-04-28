@@ -161,6 +161,36 @@ class userAuthService {
     return deletedUser;
   }
 
+  static async addUserByKakaoId({ kakaoId }) {
+    const user = await User.findByKakaoId({ kakaoId });
+    if (user) {
+      const errorMessage =
+        "이미 등록되어 있습니다.";
+      return { errorMessage };
+    }
+    // kakaoUser용 임시 email
+    const randomString =  Math.random().toString(10).slice(2,10)
+    const email = `kakaouser${randomString}@test.com`;
+    // kakaoUser용 임시 password
+    const password = Math.random().toString(36).slice(2,11);
+    // kakaoUser용 임시 nickname
+    const nickname = `문하생${randomString}`
+    // 비밀번호 해쉬화
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = { email, password: hashedPassword, nickname, kakaoId };
+
+    // db에 저장
+    const createdNewUser = await User.create({ newUser });
+    createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
+
+    try {
+      delete createdNewUser._doc["password"];
+      delete createdNewUser._doc["kakaoId"];
+    } finally {
+      return createdNewUser;
+    }
+  }
 }
 
 export { userAuthService };
