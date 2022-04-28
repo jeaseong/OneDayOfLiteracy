@@ -25,13 +25,15 @@ function SearchContent() {
   if (error) return <ErrorPage />;
 
   return (
-    <SearchContainerBox onSubmit={handleSearchOnSubmit}>
+    <SearchContainerBox>
       <SearchCategory setCategory={setCategory} />
       <SearchBar
         searchTarget={searchTarget}
         setSearchTarget={setSearchTarget}
       />
-      <SearchButton type="submit">{LABEL.SEARCH}</SearchButton>
+      <SearchButton type="submit" onClick={handleSearchOnSubmit}>
+        {LABEL.SEARCH}
+      </SearchButton>
     </SearchContainerBox>
   );
 }
