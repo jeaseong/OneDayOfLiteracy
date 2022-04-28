@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
-import { successMessage, alertType } from "../utils/alertMessage";
+import { SUCCESS_MESSAGE, ALERT_TYPE } from "../utils/constants";
 
 function LinkTab(props) {
   return (
@@ -30,8 +30,8 @@ function Header() {
   const logoutSuccessData = setAlertData(
     showAlert,
     setShowAlert,
-    successMessage.logout,
-    alertType.success
+    SUCCESS_MESSAGE.LOGOUT,
+    ALERT_TYPE.SUCCESS
   );
 
   const LoginRegisterTab =
@@ -54,9 +54,10 @@ function Header() {
   };
 
   const handleUserLogout = () => {
-    sessionStorage.removeItem("userToken");
+    localStorage.removeItem("userToken");
     queryClient.removeQueries("userState");
     setShowAlert(true);
+    navigate("/");
   };
 
   return (

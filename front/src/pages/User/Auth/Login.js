@@ -4,33 +4,34 @@ import {
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useState } from "react";
-import { failMessage, alertType } from "../../../utils/alertMessage";
+import { FAIL_MESSAGE, ALERT_TYPE, LABEL } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
 import { useUserLogin } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import {
+  HeadingTwo,
+  InputBox,
+  Button,
+  LinkButton,
+  FlexBoxCenter,
+} from "../../../styles/CommonStyle";
+import {
   AuthContainer,
-  AuthHeading,
-  AuthInput,
   CharacterImage,
   LogoButton,
   LogoImage,
-  SubmitButton,
   LoginForm,
   KakaoIcon,
   LoginImgContentBox,
-  LoginContentBox,
-  ButtonContent,
-  RouteButton,
-} from "../../../styles/AuthStyle";
+  LoginContentForm,
+} from "../../../styles/User/AuthStyle";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.
- * @param onSubmit 테스트를 위한 모의함수입니다.
  * @returns {JSX.Element}
  * @constructor
  */
-function Login({ onSubmit = () => {} }) {
+function Login() {
   const navigate = useNavigate();
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
   const initialInfo = {
@@ -39,15 +40,16 @@ function Login({ onSubmit = () => {} }) {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
+  const mutation = useUserLogin(setShowAlert);
+
   const loginFailData = setAlertData(
     showAlert,
     setShowAlert,
-    failMessage.login,
-    alertType.error
+    FAIL_MESSAGE.LOGIN,
+    ALERT_TYPE.ERROR
   );
 
   const isActive = validation("login", loginInfo);
-  const mutation = useUserLogin(setShowAlert);
 
   const handleOnChange = (e) => {
     setLoginInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
@@ -55,7 +57,6 @@ function Login({ onSubmit = () => {} }) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    onSubmit();
     mutation.mutate(loginInfo);
   };
 
@@ -65,40 +66,42 @@ function Login({ onSubmit = () => {} }) {
         <LogoImage />
       </LogoButton>
       <LoginForm>
-        <LoginContentBox>
-          <AuthHeading>로그인</AuthHeading>
-          <AuthInput
+        <LoginContentForm onSubmit={handleOnSubmit}>
+          <HeadingTwo>{LABEL.LOGIN}</HeadingTwo>
+          <InputBox
             type="email"
             placeholder="Email*"
             name="email"
             onChange={handleOnChange}
             required
           />
-          <AuthInput
+          <InputBox
             type="password"
             placeholder="Password*"
             name="password"
             onChange={handleOnChange}
             required
           />
-          <div>
-            <RouteButton onClick={() => navigate("/user/register")}>
-              회원이 아니신가요?
-            </RouteButton>
-          </div>
-          <SubmitButton
-            type="submit"
-            onClick={handleOnSubmit}
-            disabled={!isActive}
+          <Button type="submit" disabled={!isActive}>
+            {LABEL.LOGIN}
+          </Button>
+          <Button
+            type="button"
+            onClick={() => (window.location.href = kakaoAuthUrl)}
           >
-            로그인
-          </SubmitButton>
-          <SubmitButton onClick={() => (window.location.href = kakaoAuthUrl)}>
-            <ButtonContent>
-              <KakaoIcon /> &nbsp; 카카오 로그인
-            </ButtonContent>
-          </SubmitButton>
-        </LoginContentBox>
+            <FlexBoxCenter>
+              <KakaoIcon /> &nbsp; {LABEL.KAKAO_LOGIN}
+            </FlexBoxCenter>
+          </Button>
+          <div>
+            <LinkButton
+              type="button"
+              onClick={() => navigate("/user/register")}
+            >
+              {LABEL.NOT_MEMBER}
+            </LinkButton>
+          </div>
+        </LoginContentForm>
         <LoginImgContentBox>
           <CharacterImage />
         </LoginImgContentBox>

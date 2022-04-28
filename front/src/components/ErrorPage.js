@@ -1,10 +1,26 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { lightBlue } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
+import { LABEL, GUIDE_MESSAGE } from "../utils/constants";
 
-function Errorpage() {
+function ErrorPage() {
+  const navigate = useNavigate();
+  const [showTimeCount, setShowTimeCount] = useState(3);
+
+  useEffect(() => {
+    const countDown = setInterval(() => {
+      setShowTimeCount((cur) => cur - 1);
+    }, 1000);
+    return () => clearInterval(countDown);
+  }, []);
+
+  useEffect(() => {
+    if (showTimeCount < 0) navigate("/");
+  }, [showTimeCount, navigate]);
+
   return (
     <Container
       fixed
@@ -25,14 +41,14 @@ function Errorpage() {
           <span>4</span>
         </Typography>
         <Typography variant="h5" gutterBottom component="div">
-          THE PAGE YOU REQUESTED COULD NOT FOUND
+          {LABEL.ERROR_INTRODUCE}
         </Typography>
         <br />
         <Typography variant="h5" gutterBottom component="div">
-          3초 후 홈페이지로 이동합니다.
+          {showTimeCount + GUIDE_MESSAGE.ERROR}
         </Typography>
       </Box>
     </Container>
   );
 }
-export default Errorpage;
+export default ErrorPage;
