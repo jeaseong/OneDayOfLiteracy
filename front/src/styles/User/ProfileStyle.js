@@ -17,13 +17,6 @@ export const MyPostContainer = styled(FlexBox)`
   margin: 25px 0;
 `;
 
-export const TempPostCard = styled.div`
-  width: 33%;
-  margin: 0 10px;
-  height: 300px;
-  border: solid 3px;
-`;
-
 export const CardContainer = styled(FlexBoxCenter)`
   flex-direction: column;
   height: 250px;
@@ -154,5 +147,3 @@ export const ConfirmButton = styled(Button)`
   margin: 10px 7px;
   width: 20%;
 `;
-
-export const notPostImg = styled.img``;

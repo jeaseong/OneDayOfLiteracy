@@ -12,14 +12,14 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
   const handleUploadFile = async (e) => {
     const formData = new FormData();
     formData.append("filename", e.target.files[0]);
+    formData.append("prevImage", prevImage);
 
     try {
-      await uploadFile(`uploads/${type}/${id}`, { formData, prevImage });
-      if (type === "user") queryClient.invalidateQueries("userState");
+      await uploadFile(`uploads/${type}/${id}`, formData);
+      if (type === "user") queryClient.invalidateQueries(["user", id]);
     } catch (err) {
       setShowAlert(true);
     }
-    // if (type === "user") queryClient.invalidateQueries("userState");
   };
 
   return (
