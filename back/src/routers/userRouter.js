@@ -226,6 +226,7 @@ userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
     const { userId } = req.params;
 
     const nickname = req.body.nickname ?? null;
+    const introduce = req.body.introduce ?? null;
     const password = req.body.password ?? null;
     
     if(userId !== currentUserId) {
@@ -234,6 +235,7 @@ userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
 
     const toUpdate = {
       nickname,
+      introduce,
       password
     }
 
