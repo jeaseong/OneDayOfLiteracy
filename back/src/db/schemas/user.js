@@ -11,6 +11,7 @@ const UserSchema = new Schema(
     postLikes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     profileUrl: { type: String, required: false, default: null },
     kakaoId: {type: Number, required: false, default: 0},
+    introduce: {type: String, required: false, default: "소개를 해주세요!"},
   },
   {
     timestamps: true,
