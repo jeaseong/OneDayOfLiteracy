@@ -14,14 +14,14 @@ postRouter.post('/post',
   invalidCallback,
   async (req, res, next) => {
     try {
-      const { title, content, tags, userId, subjectId } = req.body;
+      const { title, content, tags, userId, subjectId, category } = req.body;
 
-      const newPost = await postService.addPost({ title, content, tags, userId, subjectId })
+      const newPost = await postService.addPost({ title, content, tags, userId, subjectId, category })
       if (newPost.errorMessage) {
         throw new Error(newPost.errorMessage);
       }
 
-      res.status(201).json({ message: 'success'});
+      res.status(201).json({ message: 'success', newPost});
     } catch (err) {
       next(err);
     }
@@ -29,7 +29,7 @@ postRouter.post('/post',
 
 // read
 // 1. postId 로 해당 post 조회
-postRouter.get('/posts/:postId', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/:postId', async (req, res, next) => {
   try {
     const { postId } = req.params;
     const post = await postService.getPost({ postId });
@@ -44,7 +44,7 @@ postRouter.get('/posts/:postId', loginRequired, async (req, res, next) => {
 });
 
 // 2. userId 로 해당 유저의 posts 조회
-postRouter.get('/posts/users/:userId', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/users/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
 
@@ -58,7 +58,7 @@ postRouter.get('/posts/users/:userId', loginRequired, async (req, res, next) => 
 // 3. 전체 게시글 조회
 // /posts?page={Number}&limit={Number}
 // body로 query 제공
-postRouter.get('/posts', loginRequired, async (req, res, next) => {
+postRouter.get('/posts', async (req, res, next) => {
   try {
     let query = req.body;
     if(query === undefined || isEmptyObj(query)){
@@ -76,7 +76,7 @@ postRouter.get('/posts', loginRequired, async (req, res, next) => {
 
 // 4. 태그 별 조회 
 // /posts/tags?tag={String}&tag={String}&tag= ...  &{Boolean}&page={Number}&limit={Number}
-postRouter.get('/posts/search/tags', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/search/tags', async (req, res, next) => {
   try {
     const { tag, page, limit } = req.query;
     
@@ -120,6 +120,7 @@ postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
     const tags = req.body.tags ?? null;
     const userId = req.body.userId ?? null;
     const subjectId = req.body.subjectId ?? null;
+    const category = req.body.category ?? null;
 
     if (!userId || !subjectId) {
       const errorMessage = "Error: Invalid data";
@@ -132,6 +133,7 @@ postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
       tags,
       userId,
       subjectId,
+      category
     }
 
     const updatedPost = await postService.setPost({ postId, toUpdate });
@@ -181,7 +183,7 @@ postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) 
 })
 
 //get postLikes : 글에 "좋아요!"를 누른 사람들 정보 반환
-postRouter.get('/posts/likedUsers/:postId', loginRequired, async (req, res, next) => {
+postRouter.get('/posts/likedUsers/:postId', async (req, res, next) => {
   try{
     const { postId } = req.params;
 

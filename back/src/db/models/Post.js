@@ -3,7 +3,7 @@ import { findByPagination } from "../../utils/findByPagination";
 
 class Post {
   static async create({ newPost }) {
-    const createdNewPost = await PostModel.create(newPost);
+    const createdNewPost = await PostModel.create([newPost], {runValidators: true});
     return createdNewPost;
   }
 

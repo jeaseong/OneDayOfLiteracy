@@ -8,6 +8,15 @@ const PostSchema = new Schema(
     subjectId: { type: Schema.Types.ObjectId, required: true, ref: "Subject" },
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
     imageUrls: [{ type: String, required: false }],
+    category: { 
+      type: String, 
+      required: false, 
+      default: "etc", 
+      enum: {
+        values: ['소설', '시', '산문', "etc"],
+        message: '{VALUE} is not supported'
+      }
+    }
   },
   {
     timestamps: true,

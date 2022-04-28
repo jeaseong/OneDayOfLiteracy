@@ -1,7 +1,7 @@
 import { User, Post, Subject } from '../db'
 
 class postService {
-  static async addPost({ title, content, tags, subjectId, userId }) {
+  static async addPost({ title, content, tags, subjectId, userId, category }) {
     // subjectId 에 대한 검증
     const subject = await Subject.findById({ subjectId });
     if (!subject) {
@@ -20,6 +20,7 @@ class postService {
       tags,
       subjectId,
       userId,
+      category,
     }
 
     const createdNewPost = await Post.create({ newPost });
