@@ -16,16 +16,13 @@ import {
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useParams } from "react-router-dom";
-import Loading from "../../../components/Loading";
 
 function UserCard({ editStateStore, children }) {
   const params = useParams();
   const { userState } = useCurrentUser();
-  const { userProfile, isFetching } = useProfileUser(params.userId);
+  const { userProfile } = useProfileUser(params.userId);
   const [showAlert, setShowAlert] = useState(false);
   const { isEdit, setIsEdit } = editStateStore;
-
-  if (isFetching) return <Loading />;
   const { _id, profileUrl } = userProfile;
 
   // 프로필의 주인인가?

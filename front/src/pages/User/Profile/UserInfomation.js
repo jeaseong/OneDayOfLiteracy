@@ -13,14 +13,11 @@ import { LABEL } from "../../../utils/constants";
 import { useProfileUser } from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
 import { useUserPostList } from "../../../queries/postQuery";
-import Loading from "../../../components/Loading";
 
 function UserInfomation() {
   const params = useParams();
   const { userProfile } = useProfileUser(params.userId);
-  const { userPosts, isFetching } = useUserPostList(params.userId);
-
-  if (isFetching) return <Loading />;
+  const { userPosts } = useUserPostList(params.userId);
 
   return (
     <CardContent>
