@@ -31,7 +31,6 @@ function SearchBar({ searchTarget, setSearchTarget }) {
         setDropDownList([]);
       }
     };
-
     showDropDownList();
   }, [searchTarget, postList]);
 
@@ -47,13 +46,13 @@ function SearchBar({ searchTarget, setSearchTarget }) {
 
   const dropDownItem =
     dropDownList.length === 0 ? (
-      <p>{GUIDE_MESSAGE.NOT_FOUND_AUTO_COMPLETE}</p>
+      <DropDownItem>{GUIDE_MESSAGE.NOT_FOUND_AUTO_COMPLETE}</DropDownItem>
     ) : (
       dropDownList.map((item, index) => {
         return (
           <DropDownItem
             key={index}
-            onClick={() => handleOnClickDropDownItem(item.title)}
+            onClick={() => handleOnClickDropDownItem(item)}
           >
             {item}
           </DropDownItem>
@@ -64,6 +63,7 @@ function SearchBar({ searchTarget, setSearchTarget }) {
   return (
     <InputBox>
       <SearchInput
+        value={searchTarget}
         placeholder={GUIDE_MESSAGE.SEARCH}
         onChange={handleInputOnChange}
       />
