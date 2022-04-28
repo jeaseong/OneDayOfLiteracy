@@ -4,6 +4,7 @@ import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
+import { img } from "../utils/imgImport";
 import {
   HeaderContainer,
   LogoContainer,
@@ -52,7 +53,7 @@ function Header() {
       <LogoContainer>
         <img
           onClick={() => navigate("/")}
-          src={`${process.env.PUBLIC_URL}/logo_header.png`}
+          src={img.logoHeader}
           alt="logo"
           width="200px"
         ></img>
