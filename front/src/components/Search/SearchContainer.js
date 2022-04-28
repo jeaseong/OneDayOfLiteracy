@@ -1,14 +1,17 @@
 import SearchBar from "./SearchBar";
 import SearchCategory from "./SearchCategory";
-import { Button } from "../../styles/CommonStyle";
+import {
+  SearchButton,
+  SearchContainerBox,
+} from "../../styles/Components/SearchStyle";
 
 function SearchContainer() {
   return (
-    <form>
-      <SearchBar />
+    <SearchContainerBox>
       <SearchCategory />
-      <Button>검색</Button>
-    </form>
+      <SearchBar />
+      <SearchButton>검색</SearchButton>
+    </SearchContainerBox>
   );
 }
 
