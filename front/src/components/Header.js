@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { useCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
-import { SUCCESS_MESSAGE, ALERT_TYPE } from "../utils/constants";
+import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
 import {
   HeaderContainer,
   LogoContainer,
@@ -14,9 +14,11 @@ import {
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { isLogin } = useCurrentUser();
+  const { userState, isLogin } = useCurrentUser();
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
+
+  const userId = isLogin ? userState._id : null;
 
   const logoutSuccessData = setAlertData(
     showAlert,
@@ -27,9 +29,11 @@ function Header() {
 
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
-      <NavList onClick={() => navigate("/user/register")}>회원가입</NavList>
+      <NavList onClick={() => navigate("/user/register")}>
+        {LABEL.REGISTER}
+      </NavList>
     ) : (
-      <NavList onClick={() => navigate("/user/login")}>로그인 </NavList>
+      <NavList onClick={() => navigate("/user/login")}>{LABEL.LOGIN}</NavList>
     );
 
   const handleChange = (event, newValue) => {
@@ -61,10 +65,15 @@ function Header() {
           }}
           label="서비스 소개"
         >
-          서비스 소개
+          {LABEL.SERVICE_INTRODUCE}
         </NavList>
         {isLogin ? (
-          <NavList onClick={handleUserLogout}>로그아웃</NavList>
+          <>
+            <NavList onClick={() => navigate(`/user/${userId}`)}>
+              {LABEL.PROFILE}
+            </NavList>
+            <NavList onClick={handleUserLogout}>{LABEL.LOGOUT}</NavList>
+          </>
         ) : (
           LoginRegisterTab
         )}

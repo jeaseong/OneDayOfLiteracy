@@ -39,7 +39,7 @@ function UserEditForm({ editStateStore }) {
     showAlert,
     setShowAlert,
     FAIL_MESSAGE.CHANGE_PROFILE,
-    ALERT_TYPE.SUCCESS
+    ALERT_TYPE.ERROR
   );
 
   // 유효성 검사
