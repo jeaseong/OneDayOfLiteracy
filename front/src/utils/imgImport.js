@@ -5,7 +5,7 @@ export const img = {
   footerImg: `${process.env.PUBLIC_URL}/assets/img/footer.png`,
   header: `${process.env.PUBLIC_URL}/assets/img/header.png`,
   leafLeftHeader: `${process.env.PUBLIC_URL}/assets/img/leaf_left.png`,
-  leafRightHeader: `${process.env.PUBLIC_URL}/assets/img/leaf_right.png`,
+  leafRightHeader: `${process.env.PUBLIC_URL}/assets/img/leaf_right_header.png`,
   logoHeader: `${process.env.PUBLIC_URL}/assets/img/logo_header.png`,
   logoLogin: `${process.env.PUBLIC_URL}/assets/img/logo_login.png`,
   womanBook: `${process.env.PUBLIC_URL}/assets/img/woman_book.png`,
