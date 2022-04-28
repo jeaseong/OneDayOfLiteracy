@@ -16,3 +16,19 @@ export function useGetUserPostList(id) {
 
   return { userPosts: data, isFetching, error };
 }
+
+export function useGetPostList() {
+  const queryclient = useQueryClient();
+
+  const { isFetching, error, data } = useQuery(
+    ["posts"],
+    () => get("posts").then((res) => res.data),
+    {
+      staleTime: 30000,
+      cacheTime: 120000,
+      onSuccess: (data) => queryclient.setQueryData(["posts"], data),
+    }
+  );
+
+  return { postList: data, isFetching, error };
+}

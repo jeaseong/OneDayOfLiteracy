@@ -10,6 +10,7 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
   const refFileUpload = useRef();
 
   const handleUploadFile = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("filename", e.target.files[0]);
     formData.append("prevImage", prevImage);

@@ -46,6 +46,7 @@ export const GUIDE_MESSAGE = {
   NICKNAME: "닉네임은 2글자 이상이어야 합니다.",
   ERROR: "초 후 홈페이지로 이동합니다.",
   SEARCH: "검색어를 입력하세요.",
+  NOT_FOUND_AUTO_COMPLETE: "해당하는 단어가 없습니다.",
 };
 
 export const CATEGORY = {
