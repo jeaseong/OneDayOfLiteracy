@@ -1,4 +1,9 @@
-import { SearchInput } from "../../styles/Components/SearchStyle";
+import {
+  SearchInput,
+  DropDownBox,
+  InputBox,
+  DropDownItem,
+} from "../../styles/Components/SearchStyle";
 import { GUIDE_MESSAGE } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import { useGetPostList } from "../../queries/postQuery";
@@ -45,23 +50,25 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       <p>{GUIDE_MESSAGE.NOT_FOUND_AUTO_COMPLETE}</p>
     ) : (
       dropDownList.map((item, index) => {
-        console.log(item);
         return (
-          <li key={index} onClick={() => handleOnClickDropDownItem(item.title)}>
-            {item.title}
-          </li>
+          <DropDownItem
+            key={index}
+            onClick={() => handleOnClickDropDownItem(item.title)}
+          >
+            {item}
+          </DropDownItem>
         );
       })
     );
 
   return (
-    <>
+    <InputBox>
       <SearchInput
         placeholder={GUIDE_MESSAGE.SEARCH}
         onChange={handleInputOnChange}
       />
-      {isHaveSearchContent && dropDownItem}
-    </>
+      {isHaveSearchContent && <DropDownBox>{dropDownItem}</DropDownBox>}
+    </InputBox>
   );
 }
 
