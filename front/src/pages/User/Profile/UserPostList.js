@@ -1,11 +1,11 @@
 import { MyPostContainer } from "../../../styles/User/ProfileStyle";
-import { useUserPostList } from "../../../queries/postQuery";
+import { useGetUserPostList } from "../../../queries/postQuery";
 import { useParams } from "react-router-dom";
 import { img } from "../../../utils/imgImport";
 
 function UserPostList() {
   const params = useParams();
-  const { userPosts } = useUserPostList(params.userId);
+  const { userPosts } = useGetUserPostList(params.userId);
 
   return (
     <MyPostContainer>

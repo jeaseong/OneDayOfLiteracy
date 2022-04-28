@@ -10,7 +10,10 @@ import {
 } from "../../../styles/User/ProfileStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
-import { useCurrentUser, useProfileUser } from "../../../queries/userQuery";
+import {
+  useGetCurrentUser,
+  useGetProfileUser,
+} from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
@@ -19,8 +22,8 @@ import { useParams } from "react-router-dom";
 
 function UserCard({ editStateStore, children }) {
   const params = useParams();
-  const { userState } = useCurrentUser();
-  const { userProfile } = useProfileUser(params.userId);
+  const { userState } = useGetCurrentUser();
+  const { userProfile } = useGetProfileUser(params.userId);
   const [showAlert, setShowAlert] = useState(false);
   const { isEdit, setIsEdit } = editStateStore;
   const { _id, profileUrl } = userProfile;

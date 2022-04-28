@@ -4,10 +4,10 @@ import UserCard from "./UserCard";
 import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";
 import UserEditForm from "./UserEditForm";
-import { useProfileUser } from "../../../queries/userQuery";
+import { useGetProfileUser } from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
 import ErrorPage from "../../../components/ErrorPage";
-import { useUserPostList } from "../../../queries/postQuery";
+import { useGetUserPostList } from "../../../queries/postQuery";
 import Loading from "../../../components/Loading";
 
 /**
@@ -18,8 +18,8 @@ import Loading from "../../../components/Loading";
 function UserProfile() {
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
-  const { error, isFetching } = useProfileUser(params.userId);
-  const userPostsData = useUserPostList(params.userId);
+  const { error, isFetching } = useGetProfileUser(params.userId);
+  const userPostsData = useGetUserPostList(params.userId);
 
   const editStateStore = { isEdit, setIsEdit };
 

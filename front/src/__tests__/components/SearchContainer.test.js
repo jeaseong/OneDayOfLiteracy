@@ -1,10 +1,10 @@
 import { render, screen } from "../../test-utils";
-import SearchContainer from "../../components/Search/SearchContainer";
+import SearchContent from "../../components/Search/SearchContent";
 import userEvent from "@testing-library/user-event";
 
 test("검색창과 카테고리 선택 요소가 있다.", () => {
-  render(<SearchContainer />);
-  const searchInput = screen.getByPlaceholderText("검색하기");
+  render(<SearchContent />);
+  const searchInput = screen.getByPlaceholderText("검색어", { exact: false });
   expect(searchInput).toBeInTheDocument();
 
   const searchCategory = screen.getAllByRole("option");
@@ -15,8 +15,8 @@ test("검색창과 카테고리 선택 요소가 있다.", () => {
 });
 
 test("검색창과 카테고리 선택 시 동작 테스트", () => {
-  render(<SearchContainer />);
-  const searchInput = screen.getByPlaceholderText("검색하기");
+  render(<SearchContent />);
+  const searchInput = screen.getByPlaceholderText("검색어", { exact: false });
   userEvent.type(searchInput, "테스트검색");
   expect(searchInput).toHaveValue("테스트검색");
 

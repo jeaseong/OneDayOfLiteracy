@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useCurrentUser } from "../queries/userQuery";
+import { useGetCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
 import { img } from "../utils/imgImport";
@@ -11,11 +11,12 @@ import {
   Navigation,
   NavList,
 } from "./componentStyle";
+import SearchContent from "./Search/SearchContent";
 
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { userState, isLogin } = useCurrentUser();
+  const { userState, isLogin } = useGetCurrentUser();
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
 
@@ -58,6 +59,7 @@ function Header() {
           width="200px"
         ></img>
       </LogoContainer>
+      <SearchContent />
       <Navigation onChange={handleChange}>
         <NavList
           onClick={(e) => {

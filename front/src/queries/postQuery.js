@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
 import { get } from "../utils/api";
 
-export function useUserPostList(id) {
+export function useGetUserPostList(id) {
   const queryclient = useQueryClient();
 
   const { isFetching, error, data } = useQuery(

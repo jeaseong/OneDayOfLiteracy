@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { FAIL_MESSAGE, ALERT_TYPE, LABEL } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
-import { useUserLogin } from "../../../queries/userQuery";
+import { useUserLoginHandler } from "../../../queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import {
   HeadingTwo,
@@ -40,7 +40,7 @@ function Login() {
   };
   const [loginInfo, setLoginInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
-  const mutation = useUserLogin(setShowAlert);
+  const mutation = useUserLoginHandler(setShowAlert);
 
   const loginFailData = setAlertData(
     showAlert,

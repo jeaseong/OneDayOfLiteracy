@@ -9,11 +9,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
-import { useCurrentUser } from "./queries/userQuery";
-import SearchContainer from "./components/Search/SearchContainer";
+import { useGetCurrentUser } from "./queries/userQuery";
 
 function App() {
-  const { isFetching } = useCurrentUser();
+  const { isFetching } = useGetCurrentUser();
 
   if (isFetching) return <Loading />;
 
@@ -32,7 +31,6 @@ function App() {
               element={<KakaoLoginHandler />}
             />
             <Route path="/test" element={<TestHome />} />
-            <Route path="/search" element={<SearchContainer />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

@@ -36,6 +36,7 @@ export const LABEL = {
   CHANGE_PROFILE: "프로필 수정",
   CHANGE_IMAGE: "이미지 변경",
   ERROR_INTRODUCE: "THE PAGE YOU REQUESTED COULD NOT FOUND",
+  SEARCH: "검색",
 };
 
 export const GUIDE_MESSAGE = {
@@ -44,4 +45,12 @@ export const GUIDE_MESSAGE = {
   CONFIRM_PASSWORD: "비밀번호가 일치하지 않습니다.",
   NICKNAME: "닉네임은 2글자 이상이어야 합니다.",
   ERROR: "초 후 홈페이지로 이동합니다.",
+  SEARCH: "검색어를 입력하세요.",
+};
+
+export const CATEGORY = {
+  ALL: "전체",
+  NOVEL: "소설",
+  ESSAY: "에세이",
+  POETRY: "시",
 };
