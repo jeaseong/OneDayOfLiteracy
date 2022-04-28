@@ -224,10 +224,17 @@ userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
   try {
     const currentUserId = req.currentUserId;
     const { userId } = req.params;
-    const { nickname, password } = req.body;
+
+    const nickname = req.body.nickname ?? null;
+    const password = req.body.password ?? null;
     
     if(userId !== currentUserId) {
       throw new Error('path parameter로 보낸 userId와 로그인한 userId가 달라서 수정을 제한합니다.');
+    }
+
+    const toUpdate = {
+      nickname,
+      password
     }
 
     const updatedUser = await userAuthService.setUser({ userId, toUpdate });

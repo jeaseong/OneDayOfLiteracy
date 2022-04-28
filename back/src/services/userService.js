@@ -135,17 +135,16 @@ class userAuthService {
       return { errorMessage };
     }
 
-    // 변경 사항에 password 있을 시 암호화 해서 저장
-    if (toUpdate.password) {
-      toUpdate["password"] = await bcrypt.hash(toUpdate.password, 10);
-    }
-
     // 수정해야하는 필드에 맞는 값을 업데이트
     const toUpdateField = Object.keys(toUpdate);
     toUpdateField.forEach((key) => {
       if (!toUpdate[key]) delete toUpdate[key];
     });
 
+    // 변경 사항에 password 있을 시 암호화 해서 저장
+    if (toUpdate.password) {
+      toUpdate["password"] = await bcrypt.hash(toUpdate.password, 10);
+    }
 
     user = await User.update({ userId, toUpdate });
     try {
