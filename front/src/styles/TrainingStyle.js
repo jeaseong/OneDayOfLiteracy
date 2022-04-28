@@ -59,3 +59,34 @@ export const StepDescription = styled.p`
 export const TrainingGuideContainer = styled.section``;
 
 export const TrainingGuideContent = styled.div``;
+
+//TrainingGuide step1
+
+export const TrainingSubjectContainer = styled.section`
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 200px;
+  background-color: #ffffff;
+`;
+
+export const TrainingSubjectWrap = styled.div`
+  max-width: 1024px;
+  margin: 0 auto;
+`;
+
+export const TrainingStepTitle = styled.h3`
+  color: #c48f5a;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
+export const TrainingStepIntroduction = styled.p`
+  text-align: center;
+  line-height: 1.5;
+`;
+
+export const Hilight = styled.span`
+  color: #c48f5a;
+`;
