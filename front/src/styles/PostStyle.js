@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export const PostsContainer = styled.div`
   max-width: 1024px;
@@ -8,7 +7,6 @@ export const PostsContainer = styled.div`
   align-items: center;
   // justify-content: flex-start;
   gap: 1rem;
-
   margin: 5% auto;
   border-radius: 8px;
 `;
@@ -96,10 +94,8 @@ export const PostBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // border: 1px solid #c48f5a;
   box-shadow: 0 0 3px #c48f5a;
   border-radius: 5px;
-  // margin: 2% 0;
   padding: 5%;
 `;
 
