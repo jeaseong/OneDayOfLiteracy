@@ -26,12 +26,12 @@ function UserEditForm({ editStateStore }) {
   const { setIsEdit } = editStateStore;
   const { userState } = useCurrentUser();
   const [showAlert, setShowAlert] = useState(false);
-  const mutation = useChangeProfile(setShowAlert);
+  const mutation = useChangeProfile(userState._id, setShowAlert);
   const [editInfo, setEditInfo] = useState({
     nickname: userState.nickname,
     password: "",
     confirmPassword: "",
-    introduce: "테스트",
+    introduce: userState.introduce,
   });
 
   // Alert
@@ -43,7 +43,7 @@ function UserEditForm({ editStateStore }) {
   );
 
   // 유효성 검사
-  const { nickname, password, confirmPassword } = editInfo;
+  const { nickname, password, confirmPassword, introduce } = editInfo;
   const { isCheckNickName, isPassRule, isSamePassword } = validation(
     "editUser",
     editInfo
@@ -58,8 +58,8 @@ function UserEditForm({ editStateStore }) {
   // 유저 입력 onChange 및 onSUbmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const profileData = { nickname, password };
-    mutation.mutate(userState._id, profileData);
+    const profileData = { nickname, password, introduce };
+    mutation.mutate(profileData);
   };
 
   const handleOnChange = (e) => {
@@ -113,7 +113,12 @@ function UserEditForm({ editStateStore }) {
         </ConfirmButtonBox>
       </EditBox>
       <EditIntroduceBox>
-        <EditIntroduceInput placeholder="Introduce" />
+        <EditIntroduceInput
+          name="introduce"
+          placeholder="Introduce"
+          value={editInfo.introduce}
+          onChange={handleOnChange}
+        />
       </EditIntroduceBox>
       <CustomSnackbar {...changeFailUserProfile} />
     </EditContainer>

@@ -16,7 +16,10 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
 
     try {
       await uploadFile(`uploads/${type}/${id}`, formData);
-      if (type === "user") queryClient.invalidateQueries(["user", id]);
+      if (type === "user") {
+        queryClient.invalidateQueries("userState");
+        queryClient.invalidateQueries(["user", id]);
+      }
     } catch (err) {
       setShowAlert(true);
     }

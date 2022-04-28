@@ -26,9 +26,7 @@ function UserInfomation() {
     <CardContent>
       <CardIntroduce>
         <ProfileNickName>{userProfile.nickname}</ProfileNickName> &nbsp;
-        <ProfileIntroduce>
-          소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.소개글입니다.
-        </ProfileIntroduce>
+        <ProfileIntroduce>{userProfile.introduce}</ProfileIntroduce>
       </CardIntroduce>
       <CardMyInfo>
         <CardLikePost>

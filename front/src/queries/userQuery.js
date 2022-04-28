@@ -65,16 +65,20 @@ export const useUserLogin = (setShowAlert = () => {}) => {
 
 /**
  * 유저의 프로필 수정 핸들러입니다.
+ * @param {string} id 프로필을 변경 할 유저의 id 입니다.
  * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
  * @returns {function} useMutation 훅을 반환합니다.
  */
-export const useChangeProfile = (setShowAlert = () => {}) => {
+export const useChangeProfile = (id, setShowAlert = () => {}) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (id, changeProfileData) => await put(`user/${id}`, changeProfileData),
+    async (changeProfileData) => await put(`user/${id}`, changeProfileData),
     {
-      onSuccess: () => queryClient.invalidateQueries("userState"),
+      onSuccess: () => {
+        queryClient.invalidateQueries("userState");
+        queryClient.invalidateQueries(["user", id]);
+      },
       onError: () => setShowAlert(true),
     }
   );
