@@ -27,6 +27,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: fixed;
+  z-index: 9999;
 
   background-image: url(${img.leafLeftHeader}), url(${img.leafRightHeader});
   background-repeat: no-repeat;
