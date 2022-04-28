@@ -35,5 +35,5 @@ a{
 }
 .main {
   flex: 1;
-  padding: 100px 20px 0 20px;
+  padding-top: 100px;
 }
