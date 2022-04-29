@@ -28,6 +28,10 @@ a{
   color: black;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 .App {
   display: flex;
   min-height: 100vh;
