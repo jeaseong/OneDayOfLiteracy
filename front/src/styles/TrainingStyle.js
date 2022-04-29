@@ -66,7 +66,7 @@ export const TrainingSubjectContainer = styled.section`
   display: flex;
   align-items: center;
   width: 100vw;
-  height: 200px;
+  height: 300px;
   background-color: #ffffff;
   margin-bottom: 50px;
 `;
