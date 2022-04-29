@@ -6,19 +6,20 @@ import {
 } from "../../styles/Components/SearchStyle";
 import { LABEL } from "../../utils/constants";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetPostList } from "../../queries/postQuery";
 import Loading from "../Loading";
 import ErrorPage from "../ErrorPage";
 
 function SearchContent() {
-  const params = useParams();
+  const navigate = useNavigate();
   const { isFetching, error } = useGetPostList();
-  const [category, setCategory] = useState(params.category);
+  const [category, setCategory] = useState("all");
   const [searchTarget, setSearchTarget] = useState("");
 
   const handleSearchOnSubmit = (e) => {
     e.preventDefault();
+    navigate(`/posts/search?category=${category}&content=${searchTarget}`);
   };
 
   if (isFetching) return <Loading />;
