@@ -1,84 +1,74 @@
-import React, { useContext, useState } from "react";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { TestContext } from "../../context/TestContext";
-import { testQuestion } from "./util";
+import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
-import { ProcessBtn } from "./TestStyle";
+import { NextBtn } from "./TestStyle";
+import { useTestQuery } from "../../queries/testQuery";
+import { post } from "../../utils/api";
 
 export default function TestContainer() {
-  const { test, answer, testDispatch, answerDispatch } =
-    useContext(TestContext);
-  // const { data, isLoading } = useQuery(
-  //   "test",
-  //   async () => await Api.get("test")
-  // );
-  const [isTesting, setIsTesting] = useState(false);
-  const [curAnswer, setCurAnswer] = useState({
-    questionId: null,
-    answerId: null,
-  });
+  const queryClient = useQueryClient();
+  const { tests } = useTestQuery();
 
-  const onSubmit = async () => {
-    // await axios.post("", answer);
-    // 결과 페이지로 다이렉트하기
-  };
-  const startTest = async () => {
-    // const res = await axios.get("");
-    testDispatch({ type: "setTest", payload: testQuestion[0] });
-  };
-  const selectAnswer = (id) => {
-    answerDispatch({ type: "setAnswer", payload: id });
-  };
-  const nextTest = (nextId) => {
-    const nextTestQuestion = testQuestion.find((t) => nextId === t.id);
-    testDispatch({ type: "setTest", payload: nextTestQuestion });
-    //전체 테스트지를 test에 저장하고 curTest 변수를 만들어서 props로 넘기는 방식으로 해야하지 않을까?
-    setAnswer();
-  };
-  const setAnswer = () => {
-    selectAnswer(curAnswer);
+  const [step, setStep] = useState(0);
+  const [isProceedingTest, setIsProceedingTest] = useState(false);
+  const [curAnswer, setCurAnswer] = useState({});
+  const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState({});
+
+  const MyselectedAnswer = (_qustionId, answerId) => {
     setCurAnswer((cur) => {
       return {
-        questionId: null,
-        answerId: null,
+        [_qustionId]: answerId,
       };
     });
   };
-  const handleClickAnswer = (questionId, answerId) => {
-    setCurAnswer((cur) => {
-      return { questionId, answerId };
+  const selectedAnswer = curAnswer[step + 1] || null;
+
+  const setNextQuestion = () => {
+    setStep((cur) => cur + 1);
+    setCurAnswer({});
+    setTotalMySelectedAnswer((cur) => {
+      return {
+        ...cur,
+        [Object.keys(curAnswer)[0]]: Object.values(curAnswer)[0],
+      };
     });
   };
-  const selectedAnswer = curAnswer.answerId;
+
+  const onSubmit = async () => {
+    try {
+      await post("test/result", totalMySelectedAnswer);
+      queryClient.removeQueries("tests");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
-      {isTesting && (
+      {isProceedingTest && tests && (
         <TestPresentation
-          test={test}
-          onSubmit={onSubmit}
-          nextTest={nextTest}
+          test={tests[step]}
           selectedAnswer={selectedAnswer}
-          handleClickAnswer={handleClickAnswer}
+          MyselectedAnswer={MyselectedAnswer}
         />
       )}
-      {!isTesting && (
-        <ProcessBtn
+      {!isProceedingTest && (
+        <NextBtn
           onClick={() => {
-            startTest();
-            setIsTesting((cur) => true);
+            setIsProceedingTest(true);
           }}
         >
           테스트 시작하기!
-        </ProcessBtn>
+        </NextBtn>
       )}
-      {isTesting && test && (
+      {isProceedingTest && tests && (
         <TestProcessBtn
+          step={step + 1}
+          totalQuestion={tests.length}
           selectedAnswer={selectedAnswer}
           onSubmit={onSubmit}
-          nextTest={nextTest}
-          id={test.id}
+          setNextQuestion={setNextQuestion}
         />
       )}
     </div>
