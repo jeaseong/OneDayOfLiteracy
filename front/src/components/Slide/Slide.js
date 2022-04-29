@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useWindowSize from "../useWindowSize";
 import {
   OverFlow,
   SlideContainer,
@@ -18,9 +19,16 @@ export default function Slide({ elements }) {
   const [isSwiping, setIsSwiping] = useState(false);
   const [slideX, setSlideX] = useState(null);
   const [prevSlideX, setPrevSlideX] = useState(false);
+  const [windowWidth, windowHeight] = useWindowSize();
   const ORIGINSIZE = elements.length;
   const infiniteElements = [elements[ORIGINSIZE - 1], ...elements, elements[0]];
   const NEWSIZE = infiniteElements.length;
+
+  const getNewItemWidth = () => {
+    let itemWidth = windowWidth * 0.9;
+    itemWidth = itemWidth > 1060 ? 1060 : itemWidth;
+    return itemWidth;
+  };
   const getClientX = (event) => {
     return event._reactName === "onTouchStart"
       ? event.touches[0].clientX
@@ -81,8 +89,8 @@ export default function Slide({ elements }) {
     <>
       <OverFlow>
         <SlideContainer
-          width={`${NEWSIZE * 100}vw`}
-          transform={`translate(${-100 * curIndex}vw)`}
+          width={`${NEWSIZE * 1024}px`}
+          transform={`translate(${-1024 * curIndex}px)`}
           transition={curTransition}
           onMouseOver={() => setIsSwiping(true)}
           onMounseOut={() => setIsSwiping(false)}
@@ -98,9 +106,7 @@ export default function Slide({ elements }) {
               onTouchEnd={handleMouseSwipe}
               onMouseLeave={handleMouseSwipe}
             >
-              <SlideItem>
-                <img src={e} alt="사진" />
-              </SlideItem>
+              <SlideItem width={getNewItemWidth()}>{e}</SlideItem>
             </SlideInner>
           ))}
         </SlideContainer>

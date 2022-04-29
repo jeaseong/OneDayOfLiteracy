@@ -17,7 +17,7 @@ export const SlideInner = styled.div`
   float: left;
 `;
 export const SlideItem = styled.div`
-  width: 100%;
+  width: ${(props) => props.width};
 `;
 
 export const Btn = styled.button`
@@ -31,6 +31,7 @@ export const BottonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 `;
 export const PrevBtn = styled(Btn)``;
 export const NextBtn = styled(Btn)``;
