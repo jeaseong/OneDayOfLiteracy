@@ -13,11 +13,11 @@ export const SlideContainer = styled.div`
   align-items: center;
 `;
 export const SlideInner = styled.div`
-  width: 100vw;
+  width: 100%;
   float: left;
 `;
 export const SlideItem = styled.div`
-  width: ${(props) => props.width};
+  width: ${(props) => props.width}px;
 `;
 
 export const Btn = styled.button`

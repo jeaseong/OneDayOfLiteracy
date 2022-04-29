@@ -25,8 +25,8 @@ export default function Slide({ elements }) {
   const NEWSIZE = infiniteElements.length;
 
   const getNewItemWidth = () => {
-    let itemWidth = windowWidth * 0.9;
-    itemWidth = itemWidth > 1060 ? 1060 : itemWidth;
+    let itemWidth = windowWidth;
+    itemWidth = itemWidth > 1024 ? 1024 : itemWidth;
     return itemWidth;
   };
   const getClientX = (event) => {
@@ -74,15 +74,14 @@ export default function Slide({ elements }) {
 
   const handleSlide = (index) => {
     setCurIndex(index);
-    setCurTransition(initTransition);
-
-    if (index - 2 < 0) {
+    if (index <= 0) {
       index += ORIGINSIZE;
       replaceSlide(index);
     } else if (index - 2 >= ORIGINSIZE - 1) {
       index -= ORIGINSIZE;
       replaceSlide(index);
     }
+    setCurTransition(initTransition);
   };
 
   return (
@@ -106,7 +105,7 @@ export default function Slide({ elements }) {
               onTouchEnd={handleMouseSwipe}
               onMouseLeave={handleMouseSwipe}
             >
-              <SlideItem width={getNewItemWidth()}>{e}</SlideItem>
+              <SlideItem width={getNewItemWidth}>{e}</SlideItem>
             </SlideInner>
           ))}
         </SlideContainer>
