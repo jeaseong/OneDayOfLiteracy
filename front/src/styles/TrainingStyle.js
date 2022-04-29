@@ -90,4 +90,5 @@ export const TrainingStepIntroduction = styled.p`
 
 export const Hilight = styled.span`
   color: #c48f5a;
+  font-weight: bole;
 `;
