@@ -2,6 +2,7 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { postService } from "../services/postService";
+import { userService } from "../services/userService";
 import { isEmptyObj } from "../utils/validation/isEmptyType";
 import { typeName } from "../utils/validation/typeName";
 
@@ -14,9 +15,20 @@ postRouter.post('/post',
   invalidCallback,
   async (req, res, next) => {
     try {
-      const { title, content, tags, userId, subjectId, category } = req.body;
+      const { title, content, tags, subjectId, category } = req.body;
+      
+      const userId =  req.currentUserId;
+      const author = userService.getUserInfo({ userId });
 
-      const newPost = await postService.addPost({ title, content, tags, userId, subjectId, category })
+      const newPost = await postService.addPost({
+        author,
+        title,
+        content,
+        tags,
+        userId,
+        subjectId,
+        category,
+      });
       if (newPost.errorMessage) {
         throw new Error(newPost.errorMessage);
       }

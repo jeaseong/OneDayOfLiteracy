@@ -2,7 +2,7 @@ import { User, Post, Subject } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
 class postService {
-  static async addPost({ title, content, tags, subjectId, userId, category }) {
+  static async addPost({ author, title, content, tags, subjectId, userId, category }) {
     // subjectId 에 대한 검증
     const subject = await Subject.findById({ subjectId });
     if (!subject) {
@@ -16,6 +16,7 @@ class postService {
     }
   
     const newPost = {
+      author,
       title,
       content,
       tags,
@@ -128,7 +129,6 @@ class postService {
       query = { $and: andList };
     }
     
-    console.log(JSON.stringify(query));
     const posts = await Post.findAll(page, limit, query);
     return posts;
   }
