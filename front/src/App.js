@@ -9,10 +9,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
-import { useCurrentUser } from "./queries/userQuery";
+import { useGetCurrentUser } from "./queries/userQuery";
 
 function App() {
-  const { isFetching } = useCurrentUser();
+  const { isFetching } = useGetCurrentUser();
 
   if (isFetching) return <Loading />;
 

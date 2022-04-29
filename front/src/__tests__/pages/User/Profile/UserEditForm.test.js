@@ -2,28 +2,28 @@ import "jest-styled-components";
 import { render, screen } from "../../../../test-utils";
 import UserEditForm from "../../../../pages/User/Profile/UserEditForm";
 import userEvent from "@testing-library/user-event";
-import { useCurrentUser } from "../../../../queries/userQuery";
+import { useGetCurrentUser } from "../../../../queries/userQuery";
 jest.mock("../../../../queries/userQuery");
 
 const editStateStore = { setIsEdit: jest.fn() };
 
 describe("UserEditForm 요소 테스트", () => {
   it("닉네임 수정 inputBox", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileNickname = screen.queryByPlaceholderText(/nickname*/i);
     expect(editProfileNickname).toBeInTheDocument();
   });
 
   it("비밀번호 변경 inputBox", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const editProfilePassword = screen.queryByPlaceholderText("Password*");
     expect(editProfilePassword).toBeInTheDocument();
   });
 
   it("비밀번호 확인 inputBox", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileConfirmPassword =
       screen.queryByPlaceholderText("Confirm Password*");
@@ -31,14 +31,14 @@ describe("UserEditForm 요소 테스트", () => {
   });
 
   it("소개 textarea", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileIntroduce = screen.queryByPlaceholderText(/introduce/i);
     expect(editProfileIntroduce).toBeInTheDocument();
   });
 
   it("확인 버튼", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const confirmButton = screen.getByRole("button", {
       name: "확인",
@@ -47,7 +47,7 @@ describe("UserEditForm 요소 테스트", () => {
   });
 
   it("취소 버튼", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const cancleButton = screen.getByRole("button", {
       name: "취소",
@@ -58,7 +58,7 @@ describe("UserEditForm 요소 테스트", () => {
 
 describe("버튼 기능 동작 확인", () => {
   it("확인버튼 disabled", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const editProfileNickname = screen.queryByPlaceholderText(/nickname/i);
     const editProfilePassword = screen.queryByPlaceholderText("Password*");
@@ -83,7 +83,7 @@ describe("버튼 기능 동작 확인", () => {
   });
 
   it("취소버튼 동작", () => {
-    useCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
+    useGetCurrentUser.mockReturnValue({ userState: { nickname: "테스트" } });
     render(<UserEditForm editStateStore={editStateStore} />);
     const cancleButton = screen.getByRole("button", {
       name: "취소",

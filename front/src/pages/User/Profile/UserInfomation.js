@@ -10,17 +10,14 @@ import {
 } from "../../../styles/User/ProfileStyle";
 import { HeadingTwo } from "../../../styles/CommonStyle";
 import { LABEL } from "../../../utils/constants";
-import { useProfileUser } from "../../../queries/userQuery";
+import { useGetProfileUser } from "../../../queries/userQuery";
+import { useGetUserPostList } from "../../../queries/postQuery";
 import { useParams } from "react-router-dom";
-import { useUserPostList } from "../../../queries/postQuery";
-import Loading from "../../../components/Loading";
 
 function UserInfomation() {
   const params = useParams();
-  const { userProfile } = useProfileUser(params.userId);
-  const { userPosts, isFetching } = useUserPostList(params.userId);
-
-  if (isFetching) return <Loading />;
+  const { userProfile } = useGetProfileUser(params.userId);
+  const { userPosts } = useGetUserPostList(params.userId);
 
   return (
     <CardContent>

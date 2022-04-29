@@ -16,7 +16,10 @@ import {
   ALERT_TYPE,
 } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
-import { useChangeProfile, useCurrentUser } from "../../../queries/userQuery";
+import {
+  useChangeProfileHandler,
+  useGetCurrentUser,
+} from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
@@ -24,9 +27,9 @@ import {
 
 function UserEditForm({ editStateStore }) {
   const { setIsEdit } = editStateStore;
-  const { userState } = useCurrentUser();
+  const { userState } = useGetCurrentUser();
   const [showAlert, setShowAlert] = useState(false);
-  const mutation = useChangeProfile(userState._id, setShowAlert);
+  const mutation = useChangeProfileHandler(userState._id, setShowAlert);
   const [editInfo, setEditInfo] = useState({
     nickname: userState.nickname,
     password: "",

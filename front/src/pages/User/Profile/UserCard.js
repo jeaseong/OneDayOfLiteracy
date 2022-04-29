@@ -10,22 +10,22 @@ import {
 } from "../../../styles/User/ProfileStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
-import { useCurrentUser, useProfileUser } from "../../../queries/userQuery";
+import {
+  useGetCurrentUser,
+  useGetProfileUser,
+} from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useParams } from "react-router-dom";
-import Loading from "../../../components/Loading";
 
 function UserCard({ editStateStore, children }) {
   const params = useParams();
-  const { userState } = useCurrentUser();
-  const { userProfile, isFetching } = useProfileUser(params.userId);
+  const { userState } = useGetCurrentUser();
+  const { userProfile } = useGetProfileUser(params.userId);
   const [showAlert, setShowAlert] = useState(false);
   const { isEdit, setIsEdit } = editStateStore;
-
-  if (isFetching) return <Loading />;
   const { _id, profileUrl } = userProfile;
 
   // 프로필의 주인인가?

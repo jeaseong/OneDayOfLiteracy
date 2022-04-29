@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
 import { get } from "../utils/api";
 
-export function useUserPostList(id) {
+export function useGetUserPostList(id) {
   const queryclient = useQueryClient();
 
   const { isFetching, error, data } = useQuery(
@@ -15,4 +15,21 @@ export function useUserPostList(id) {
   );
 
   return { userPosts: data, isFetching, error };
+}
+
+export function useGetPostList() {
+  const queryclient = useQueryClient();
+
+  const { isFetching, error, data } = useQuery(
+    ["posts"],
+    () => get("posts").then((res) => res.data),
+    {
+      staleTime: 30000,
+      cacheTime: 120000,
+      onSuccess: (data) => queryclient.setQueryData(["posts"], data),
+      onError: () => queryclient.setQueryData(["posts"], []),
+    }
+  );
+
+  return { postList: data, isFetching, error };
 }
