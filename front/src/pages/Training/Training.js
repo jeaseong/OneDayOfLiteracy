@@ -7,7 +7,7 @@ import { dumy } from "./dumyData";
 
 export default function Training() {
   // const { data, isfetching } = useTrainingGuide();
-  const isfetching = true;
+  const isfetching = false;
   return (
     <TrainingContainer>
       {isfetching
