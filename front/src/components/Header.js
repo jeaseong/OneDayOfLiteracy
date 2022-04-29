@@ -1,35 +1,45 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useCurrentUser } from "../queries/userQuery";
+import { useGetCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
-import { successMessage, alertType } from "../utils/alertMessage";
+import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
+import { img } from "../utils/imgImport";
 import {
   HeaderContainer,
   LogoContainer,
   Navigation,
   NavList,
+<<<<<<< HEAD
 } from "../styles/componentStyle";
+=======
+} from "./componentStyle";
+import SearchContent from "./Search/SearchContent";
+>>>>>>> a816b2c8f43094726c5078b5e2f17ac1a9f53ab8
 
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { isLogin } = useCurrentUser();
+  const { userState, isLogin } = useGetCurrentUser();
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
+
+  const userId = isLogin ? userState._id : null;
 
   const logoutSuccessData = setAlertData(
     showAlert,
     setShowAlert,
-    successMessage.logout,
-    alertType.success
+    SUCCESS_MESSAGE.LOGOUT,
+    ALERT_TYPE.SUCCESS
   );
 
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
-      <NavList onClick={() => navigate("/user/register")}>회원가입</NavList>
+      <NavList onClick={() => navigate("/user/register")}>
+        {LABEL.REGISTER}
+      </NavList>
     ) : (
-      <NavList onClick={() => navigate("/user/login")}>로그인 </NavList>
+      <NavList onClick={() => navigate("/user/login")}>{LABEL.LOGIN}</NavList>
     );
 
   const handleChange = (event, newValue) => {
@@ -37,9 +47,10 @@ function Header() {
   };
 
   const handleUserLogout = () => {
-    sessionStorage.removeItem("userToken");
+    localStorage.removeItem("userToken");
     queryClient.removeQueries("userState");
     setShowAlert(true);
+    navigate("/");
   };
 
   return (
@@ -47,11 +58,12 @@ function Header() {
       <LogoContainer>
         <img
           onClick={() => navigate("/")}
-          src={`${process.env.PUBLIC_URL}/logo_header.png`}
+          src={img.logoHeader}
           alt="logo"
           width="200px"
         ></img>
       </LogoContainer>
+      <SearchContent />
       <Navigation onChange={handleChange}>
         <NavList
           onClick={(e) => {
@@ -60,10 +72,15 @@ function Header() {
           }}
           label="서비스 소개"
         >
-          서비스 소개
+          {LABEL.SERVICE_INTRODUCE}
         </NavList>
         {isLogin ? (
-          <NavList onClick={handleUserLogout}>로그아웃</NavList>
+          <>
+            <NavList onClick={() => navigate(`/user/${userId}`)}>
+              {LABEL.PROFILE}
+            </NavList>
+            <NavList onClick={handleUserLogout}>{LABEL.LOGOUT}</NavList>
+          </>
         ) : (
           LoginRegisterTab
         )}

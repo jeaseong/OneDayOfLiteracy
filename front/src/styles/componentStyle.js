@@ -23,6 +23,7 @@ export const FooterBackground = styled.img`
 `;
 
 export const HeaderContainer = styled.div`
+  min-width: 1100px;
   width: 100%;
   height: 100px;
   display: flex;

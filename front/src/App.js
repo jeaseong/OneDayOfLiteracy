@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Main from "./pages/Main/Main";
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
+import UserProfile from "./pages/User/Profile/UserProfile";
 import KakaoLoginHandler from "./pages/User/Auth/KakaoLoginHandler";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,12 +14,13 @@ import TrainingStepOne from "./pages/Training/TrainingStepOne";
 import TrainingStepTwo from "./pages/Training/TrainingStepTwo";
 import TrainingStepThree from "./pages/Training/TrainingStepThree";
 import TrainingStepFour from "./pages/Training/TrainingStepFour";
-import { useCurrentUser } from "./queries/userQuery";
+import TestResult from "./pages/TestSheet/TestResult";
+import { useGetCurrentUser } from "./queries/userQuery";
 
 function App() {
-  const { isLoading } = useCurrentUser();
+  const { isFetching } = useGetCurrentUser();
 
-  if (isLoading) return <Loading />;
+  if (isFetching) return <Loading />;
 
   return (
     <div className="App">
@@ -29,6 +31,7 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/register" element={<Register />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
             <Route
               path="/oauth/callback/kakao"
               element={<KakaoLoginHandler />}
@@ -39,6 +42,7 @@ function App() {
             <Route path="/training/3" element={<TrainingStepThree />} />
             <Route path="/training/4" element={<TrainingStepFour />} />
             <Route path="/test" element={<TestHome />} />
+            <Route path="/test/result" element={<TestResult />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
