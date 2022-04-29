@@ -25,6 +25,12 @@ import {
   setAlertData,
 } from "../../../components/CustomSnackbar";
 
+/**
+ * 프로필 수정 컴포넌트입니다.
+ * @param {object} editStateStore 편집 상태와 편집상태를 수정하는 state
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function UserEditForm({ editStateStore }) {
   const { setIsEdit } = editStateStore;
   const { userState } = useGetCurrentUser();

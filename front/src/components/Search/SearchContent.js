@@ -11,6 +11,11 @@ import { useGetPostList } from "../../queries/postQuery";
 import Loading from "../Loading";
 import ErrorPage from "../ErrorPage";
 
+/**
+ * 검색 컴포넌트 입니다.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function SearchContent() {
   const navigate = useNavigate();
   const { isFetching, error } = useGetPostList();

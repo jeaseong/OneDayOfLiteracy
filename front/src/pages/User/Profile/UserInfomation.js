@@ -14,6 +14,11 @@ import { useGetProfileUser } from "../../../queries/userQuery";
 import { useGetUserPostList } from "../../../queries/postQuery";
 import { useParams } from "react-router-dom";
 
+/**
+ * 프로필 정보 컴포넌트입니다.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function UserInfomation() {
   const params = useParams();
   const { userProfile } = useGetProfileUser(params.userId);
