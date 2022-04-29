@@ -24,7 +24,7 @@ class postService {
       userId,
       category,
     }
-
+    
     const createdNewPost = await Post.create({ newPost });
     createdNewPost.errorMessage = null;
 
@@ -100,34 +100,41 @@ class postService {
     return posts;
   }
   
-  static async getSearchPosts({author, title, tags, content, page, limit}){
-    const andList = [];
-    if (author) andList.push({ author: decodeURI(author) });
+  static async getSearchPosts({category, content, page, limit}){
+    const orList = [];
+    
     const pushRegexQuery = (fieldName, value) => {
       if (!value) return;
       if (typeName(value) === "Array") {
         value.forEach((tag) => {
           let queryObj = new Object();
           queryObj[`${fieldName}`] = { $regex: decodeURI(tag), $options: "iu" };
-          andList.push(queryObj);
+          orList.push(queryObj);
         });
       } else {
         const queryObj = new Object();
         queryObj[`${fieldName}`] = { $regex: decodeURI(value), $options: "iu" };
-        andList.push(queryObj);
+        orList.push(queryObj);
       }
       
     };
-    pushRegexQuery("title",title);
-    pushRegexQuery("tags",tags);
+    
+    pushRegexQuery("title", content);
+    pushRegexQuery("tags", content);
     pushRegexQuery("content",content);
+    pushRegexQuery("author", content);
 
     let query;
-    if(isEmptyArray(andList)){
+    if(isEmptyArray(orList) && !category){
       query = {};
     } else {
+      const andList = [];
+
+      if(category) andList.push({ category: category });
+      if(!isEmptyArray(orList)) andList.push({ $or: orList });
       query = { $and: andList };
     }
+    
     
     const posts = await Post.findAll(page, limit, query);
     return posts;

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { postService } from "../services/postService";
-import { userService } from "../services/userService";
+import { userAuthService } from "../services/userService";
 import { isEmptyObj } from "../utils/validation/isEmptyType";
 import { typeName } from "../utils/validation/typeName";
 
@@ -17,8 +17,8 @@ postRouter.post('/post',
     try {
       const { title, content, tags, subjectId, category } = req.body;
       
-      const userId =  req.currentUserId;
-      const user = userService.getUserInfo({ userId });
+      const userId = req.currentUserId;
+      const user = await userAuthService.getUserInfo({ userId });
       const author = user.nickname;
       
       const newPost = await postService.addPost({
@@ -68,24 +68,7 @@ postRouter.get('/posts/users/:userId', async (req, res, next) => {
   }
 });
 
-// 3. 전체 게시글 조회
-// /posts?page={Number}&limit={Number}
-// body로 query 제공
-postRouter.get('/posts', async (req, res, next) => {
-  try {
-    let query = req.body;
-    if(query === undefined || isEmptyObj(query)){
-      query = {};
-    }
 
-    const { page, limit } = req.query;
-    const posts = await postService.getAllPostsByQuery(page, limit, query);
-
-    res.status(200).json(posts);
-  } catch (err) {
-    next(err);
-  }
-});
 
 // 4. 태그 별 조회 
 // /posts/tags?tag={String}&tag={String}&tag= ...  &{Boolean}&page={Number}&limit={Number}
@@ -118,38 +101,27 @@ postRouter.get('/posts/search/tags', async (req, res, next) => {
   }
 });
 
-// 4. 작성자, 제목, 태그, 내용 검색
-// posts/search/q?author={String}&title={String}&tag={String}&content={String}&page={Number}&limit={Number}
-postRouter.get('/posts/search/q', async (req, res, next) => {
+// 4. 내용 검색(내용에는 태그, 제목, 컨텐츠, 작성자 모두 포함된다! => 즉 일부라도 일치하는건 모두 반환!)
+// posts?category={String}&content={String}&page={Number}&limit={Number} 
+postRouter.get('/posts', async (req, res, next) => {
   try {
-    const { author, title, tag, content, page, limit } = req.query;
-
-    let tags;
-    //tag에 값이 존재
-    if(tag !== undefined){
-      if (typeName(tag) === "Array") {
-        tags = tag;
-      } else {
-        tags = [tag];
-      }
-    } 
+    const { category, content, page, limit } = req.query;
     
     const errorIfArray = (variable) => {
-      if (typeName(variable) === "Array") {
-        throw new Error(`${variable}은 하나만 보내세요.`);
+      if (typeName(variable) === "Array" && typeName(variable) == "Object") {
+        throw new Error(`${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`);
       }
     };
 
-    errorIfArray(author);
-    errorIfArray(title);
+    errorIfArray(category);
     errorIfArray(content);
+    errorIfArray(limit);
+    errorIfArray(page);
 
     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
     const posts = await postService.getSearchPosts({
-      author,
-      title,
-      tags,
+      category,
       content,
       page,
       limit,
