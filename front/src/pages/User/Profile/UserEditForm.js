@@ -95,7 +95,10 @@ function UserEditForm({ editStateStore }) {
           />
           {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
         </EditInputBox>
-        <EditInputBox types={userInputGuide.confirmPassword}>
+        <EditInputBox
+          types={userInputGuide.confirmPassword}
+          kakao={isKakaoUser}
+        >
           <EditInput
             name="confirmPassword"
             type="password"
@@ -108,7 +111,10 @@ function UserEditForm({ editStateStore }) {
           )}
           {isKakaoUser && <p>{GUIDE_MESSAGE.KAKAO_CHANGE_INFO}</p>}
         </EditInputBox>
-        <ConfirmButtonBox types={userInputGuide.confirmPassword}>
+        <ConfirmButtonBox
+          types={userInputGuide.confirmPassword}
+          kakao={isKakaoUser}
+        >
           <ConfirmButton
             type="submit"
             onClick={handleOnSubmit}
