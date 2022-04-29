@@ -27,6 +27,7 @@ export function useGetPostList() {
       staleTime: 30000,
       cacheTime: 120000,
       onSuccess: (data) => queryclient.setQueryData(["posts"], data),
+      onError: () => queryclient.setQueryData(["posts"], []),
     }
   );
 
