@@ -39,7 +39,7 @@ userAuthRouter
     }
 });
 
-// GET /user/kakao : 카카오 로그인으로 회원가입 및 로그인
+// GET /oauth/kakao : 카카오 로그인으로 회원가입 및 로그인
 userAuthRouter
   .get("/oauth/kakao",
   async (req, res, next) => {
