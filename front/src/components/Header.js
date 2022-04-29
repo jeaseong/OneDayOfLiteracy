@@ -10,12 +10,8 @@ import {
   LogoContainer,
   Navigation,
   NavList,
-<<<<<<< HEAD
 } from "../styles/componentStyle";
-=======
-} from "./componentStyle";
 import SearchContent from "./Search/SearchContent";
->>>>>>> a816b2c8f43094726c5078b5e2f17ac1a9f53ab8
 
 function Header() {
   const navigate = useNavigate();

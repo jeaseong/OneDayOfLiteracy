@@ -12,12 +12,10 @@ import {
   ButtonBox,
   PrevBtn,
   NextBtn,
-  Hilight,
-} from "../../styles/WordTrainingStyle";
+} from "../../../styles/WordTrainingStyle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { dum } from "./wordDumy";
-import "../../index.css";
 
 export default function WordTraining() {
   const [progress, setProgress] = useState(0);

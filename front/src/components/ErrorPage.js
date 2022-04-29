@@ -5,7 +5,7 @@ import {
   ErrorHeader,
   ErrorCode,
   ErrorMessage,
-} from "./componentStyle";
+} from "../styles/componentStyle";
 import { useNavigate } from "react-router-dom";
 import { LABEL, GUIDE_MESSAGE } from "../utils/constants";
 

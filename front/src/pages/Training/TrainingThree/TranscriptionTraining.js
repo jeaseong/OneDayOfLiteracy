@@ -1,7 +1,10 @@
 import React from "react";
 
-import { TrainingStepIntroduction, Hilight } from "../../styles/TrainingStyle";
-import Text from "../../components/Text";
+import {
+  TrainingStepIntroduction,
+  Hilight,
+} from "../../../styles/TrainingStyle";
+import Text from "../../../components/Text";
 
 function TranscriptionIntro() {
   return (

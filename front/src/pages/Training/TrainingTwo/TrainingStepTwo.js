@@ -1,5 +1,5 @@
 import React from "react";
-import TrainingGuide from "./TrainingGuide";
+import TrainingGuide from "../TrainingGuide";
 
 import {
   TrainingSubjectContainer,
@@ -7,9 +7,9 @@ import {
   TrainingStepTitle,
   TrainingStepIntroduction,
   Hilight,
-} from "../../styles/TrainingStyle";
+} from "../../../styles/TrainingStyle";
 
-import Text from "../../components/Text";
+import Text from "../../../components/Text";
 
 export default function TrainingStepTwo() {
   return (

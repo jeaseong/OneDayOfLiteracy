@@ -10,10 +10,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
-import TrainingStepOne from "./pages/Training/TrainingStepOne";
-import TrainingStepTwo from "./pages/Training/TrainingStepTwo";
-import TrainingStepThree from "./pages/Training/TrainingStepThree";
-import TrainingStepFour from "./pages/Training/TrainingStepFour";
+import TrainingStepOne from "./pages/Training/TrainingOne/TrainingStepOne";
+import TrainingStepTwo from "./pages/Training/TrainingTwo/TrainingStepTwo";
+import TrainingStepThree from "./pages/Training/TrainingThree/TrainingStepThree";
+import TrainingStepFour from "./pages/Training/TrainingFour/TrainingStepFour";
 import TestResult from "./pages/TestSheet/TestResult";
 import { useGetCurrentUser } from "./queries/userQuery";
 

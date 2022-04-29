@@ -1,14 +1,14 @@
 import React from "react";
 import WordTraining from "./WordTraining";
-import TrainingGuide from "./TrainingGuide";
+import TrainingGuide from "../TrainingGuide";
 import {
   TrainingSubjectContainer,
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
   Hilight,
-} from "../../styles/TrainingStyle";
-import Text from "../../components/Text";
+} from "../../../styles/TrainingStyle";
+import Text from "../../../components/Text";
 function TrainingStepOne() {
   return (
     <TrainingGuide>

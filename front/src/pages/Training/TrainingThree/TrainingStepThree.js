@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import TrainingGuide from "./TrainingGuide";
-import Slide from "../../components/Slide/Slide";
+import TrainingGuide from "../TrainingGuide";
+import Slide from "../../../components/Slide/Slide";
 import { TranscriptionTraining } from "./TranscriptionTraining";
 
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
-} from "../../styles/TrainingStyle";
+} from "../../../styles/TrainingStyle";
 
 export default function TrainingStepThree() {
   return (
