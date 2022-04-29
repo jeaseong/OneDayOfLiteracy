@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { img } from "../utils/imgImport";
+import { img } from "../../utils/imgImport";
 
 export const FooterContainer = styled.footer`
   width: 100%;

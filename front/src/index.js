@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { TestProvider } from "./context/TestContext";
 import reportWebVitals from "./reportWebVitals";
 
 const queryClient = new QueryClient({
@@ -14,9 +13,7 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <QueryClientProvider client={queryClient}>
-    <TestProvider>
-      <App />
-    </TestProvider>
+    <App />
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
