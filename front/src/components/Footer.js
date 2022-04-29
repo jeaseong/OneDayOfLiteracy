@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { FooterContainer } from "./componentStyle";
+import { FooterContainer } from "../styles/componentStyle";
 
 function Footer() {
   return (

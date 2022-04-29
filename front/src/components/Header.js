@@ -9,7 +9,7 @@ import {
   LogoContainer,
   Navigation,
   NavList,
-} from "./componentStyle";
+} from "../styles/componentStyle";
 
 function Header() {
   const navigate = useNavigate();
