@@ -20,6 +20,7 @@ export const WordMeaningBox = styled.div`
   justify-content: center;
   border: 1px solid #445656;
   margin-bottom: 20px;
+  padding: 10px;
 `;
 
 export const WordMeaning = styled.p`
