@@ -18,8 +18,9 @@ postRouter.post('/post',
       const { title, content, tags, subjectId, category } = req.body;
       
       const userId =  req.currentUserId;
-      const author = userService.getUserInfo({ userId });
-
+      const user = userService.getUserInfo({ userId });
+      const author = user.nickname;
+      
       const newPost = await postService.addPost({
         author,
         title,
