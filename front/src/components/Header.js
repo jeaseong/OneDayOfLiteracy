@@ -10,7 +10,7 @@ import {
   LogoContainer,
   Navigation,
   NavList,
-} from "../styles/componentStyle";
+} from "../styles/Components/componentStyle";
 import SearchContent from "./Search/SearchContent";
 
 function Header() {
