@@ -1,30 +1,36 @@
 import React from "react";
 import {
   AuthContainer,
-  AuthHeading,
   LogoButton,
   LogoImage,
+  AuthInputBox,
   AuthInput,
-  SubmitButton,
-  RouteButton,
-} from "../../../styles/AuthStyle";
+  AuthInputTopBox,
+  AuthContentForm,
+} from "../../../styles/User/AuthStyle";
+import { img } from "../../../utils/imgImport";
+import { HeadingTwo, Button, LinkButton } from "../../../styles/CommonStyle";
 import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useState } from "react";
 import { validation } from "../../../utils/validation";
-import { failMessage, alertType } from "../../../utils/alertMessage";
+import {
+  FAIL_MESSAGE,
+  ALERT_TYPE,
+  LABEL,
+  GUIDE_MESSAGE,
+} from "../../../utils/constants";
 import { post } from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**
  * 유저의 회원가입을 담당하는 컴포넌트 입니다.
- * @param onSubmit 테스트를 위한 모의함수입니다.
  * @returns {JSX.Element}
  * @constructor
  */
-function Register({ onSubmit = () => {} }) {
+function Register() {
   const navigate = useNavigate();
   const initialInfo = {
     email: "",
@@ -35,27 +41,35 @@ function Register({ onSubmit = () => {} }) {
   const [registerInfo, setRegisterInfo] = useState(initialInfo);
   const [showAlert, setShowAlert] = useState(false);
 
-  const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
-    validation("register", registerInfo);
-  const isActive =
-    isCheckEmail && isPassRule && isSamePassword && isCheckNickName;
-
+  // Alert
   const registerFailData = setAlertData(
     showAlert,
     setShowAlert,
-    failMessage.register,
-    alertType.error
+    FAIL_MESSAGE.REGISTER,
+    ALERT_TYPE.ERROR
   );
 
+  // 유효성 검사
+  const { email, password, confirmPassword, nickname } = registerInfo;
+  const { isCheckEmail, isCheckNickName, isPassRule, isSamePassword } =
+    validation("register", registerInfo);
+  const userInputGuide = {
+    email: !isCheckEmail && email.length > 0,
+    password: !isPassRule && password.length > 0,
+    confirmPassword: !isSamePassword && confirmPassword.length > 0,
+    nickname: !isCheckNickName && nickname.length > 0,
+  };
+  const isActive =
+    isCheckEmail && isPassRule && isSamePassword && isCheckNickName;
+
+  // 유저 입력 onChange 및 onSUbmit
   const handleOnChange = (e) => {
     setRegisterInfo((cur) => ({ ...cur, [e.target.name]: e.target.value }));
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    onSubmit();
 
-    const { email, password, nickname } = registerInfo;
     try {
       await post("user/register", { email, password, nickname });
       setRegisterInfo(initialInfo);
@@ -68,47 +82,59 @@ function Register({ onSubmit = () => {} }) {
   return (
     <AuthContainer>
       <LogoButton onClick={() => navigate("/")}>
-        <LogoImage src="/assets/img/logo_login.png" alt="logo" />
+        <LogoImage src={img.logoLogin} alt="logo" />
       </LogoButton>
-      <AuthHeading>회원가입</AuthHeading>
-      <AuthInput
-        type="email"
-        placeholder="Email*"
-        name="email"
-        onChange={handleOnChange}
-        required
-      />
-      {isCheckEmail && <p>이메일 형식에 맞지 않습니다.</p>}
-      <AuthInput
-        type="password"
-        placeholder="Password*"
-        name="password"
-        onChange={handleOnChange}
-        required
-      />
-      {isPassRule && <p>비밀번호는 영문 + 숫자 + 8자리 이상입니다.</p>}
-      <AuthInput
-        type="password"
-        placeholder="Confirm Password*"
-        name="confirmPassword"
-        onChange={handleOnChange}
-        required
-      />
-      {isSamePassword && <p>비밀번호가 일치하지 않습니다.</p>}
-      <AuthInput
-        type="text"
-        placeholder="Nickname*"
-        name="nickname"
-        onChange={handleOnChange}
-        required
-      />
-      {isCheckNickName && <p>닉네임은 2글자 이상이어야 합니다.</p>}
-      <SubmitButton type="submit" onClick={handleOnSubmit} disabled={isActive}>
-        가입하기
-      </SubmitButton>
-      <RouteButton onClick={() => navigate("/user/login")}>
-        이미 회원이신가요?
-      </RouteButton>
+      <HeadingTwo>{LABEL.REGISTER}</HeadingTwo>
+      <AuthContentForm>
+        <AuthInputTopBox types={userInputGuide.email}>
+          <AuthInput
+            type="email"
+            placeholder="Email*"
+            name="email"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.email && <p>{GUIDE_MESSAGE.EMAIL}</p>}
+        </AuthInputTopBox>
+        <AuthInputBox types={userInputGuide.password}>
+          <AuthInput
+            type="password"
+            placeholder="Password*"
+            name="password"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
+        </AuthInputBox>
+        <AuthInputBox types={userInputGuide.confirmPassword}>
+          <AuthInput
+            type="password"
+            placeholder="Confirm Password*"
+            name="confirmPassword"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.confirmPassword && (
+            <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
+          )}
+        </AuthInputBox>
+        <AuthInputBox types={userInputGuide.nickname}>
+          <AuthInput
+            type="text"
+            placeholder="Nickname*"
+            name="nickname"
+            onChange={handleOnChange}
+            required
+          />
+          {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
+        </AuthInputBox>
+        <Button type="submit" onClick={handleOnSubmit} disabled={!isActive}>
+          {LABEL.REGISTER}
+        </Button>
+        <LinkButton type="button" onClick={() => navigate("/user/login")}>
+          {LABEL.ALREADY_MEMBER}
+        </LinkButton>
+      </AuthContentForm>
       <CustomSnackbar {...registerFailData} />
     </AuthContainer>
   );
