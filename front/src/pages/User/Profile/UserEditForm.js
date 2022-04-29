@@ -46,6 +46,7 @@ function UserEditForm({ editStateStore }) {
   );
 
   // 유효성 검사
+  const isKakaoUser = userState.kakaoId !== 0;
   const { nickname, password, confirmPassword, introduce } = editInfo;
   const { isCheckNickName, isPassRule, isSamePassword } = validation(
     "editUser",
@@ -56,7 +57,9 @@ function UserEditForm({ editStateStore }) {
     password: !isPassRule && password.length > 0,
     confirmPassword: !isSamePassword && confirmPassword.length > 0,
   };
-  const isActive = isCheckNickName && isPassRule && isSamePassword;
+  const isActive = isKakaoUser
+    ? isCheckNickName
+    : isCheckNickName && isPassRule && isSamePassword;
 
   // 유저 입력 onChange 및 onSUbmit
   const handleOnSubmit = (e) => {
@@ -87,6 +90,7 @@ function UserEditForm({ editStateStore }) {
             name="password"
             type="password"
             placeholder="Password*"
+            disabled={isKakaoUser}
             onChange={handleOnChange}
           />
           {userInputGuide.password && <p>{GUIDE_MESSAGE.PASSWORD}</p>}
@@ -96,11 +100,13 @@ function UserEditForm({ editStateStore }) {
             name="confirmPassword"
             type="password"
             placeholder="Confirm Password*"
+            disabled={isKakaoUser}
             onChange={handleOnChange}
           />
           {userInputGuide.confirmPassword && (
             <p>{GUIDE_MESSAGE.CONFIRM_PASSWORD}</p>
           )}
+          {isKakaoUser && <p>{GUIDE_MESSAGE.KAKAO_CHANGE_INFO}</p>}
         </EditInputBox>
         <ConfirmButtonBox types={userInputGuide.confirmPassword}>
           <ConfirmButton
