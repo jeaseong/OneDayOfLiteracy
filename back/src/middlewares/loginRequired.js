@@ -1,3 +1,4 @@
+import config from "../config";
 import jwt from "jsonwebtoken";
 
 function loginRequired(req, res, next) {
@@ -12,7 +13,7 @@ function loginRequired(req, res, next) {
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET_KEY ?? null;
+    const secretKey = config.jwtKey ?? null;
     
     // .env 파일을 못 읽었을때 오류 발생
     if (secretKey === null) {

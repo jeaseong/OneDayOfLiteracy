@@ -1,37 +1,27 @@
-import { LikeModel } from '../schemas/like';
-
+import { UserModel } from "../schemas/user";
+import { mongoose } from "mongoose";
 
 class Like {
-    static async create({ newLike }) {
-        const createdNewLike = await LikeModel.create(newLike);
-        return createdNewLike;
-    }
+  // 좋아요
+  static async findByUserIdAndPostId({ userId, postId }) {
+    const found = await UserModel.findOne({ _id: userId, postLikes: postId });
+    return found;
+  }
 
-    static async findAllByUserId({ userId }) {
-        const likes = await LikeModel.find({ userId });
-        return likes;
-    }
+  static async deleteAllByPostId({ postId }) {
+    const updated = await UserModel.updateMany({}, {$pull: { postLikes: postId }})
+    return;
+  }
 
-    static async findAllByPostId({ postId }) {
-        const likes = await LikeModel.find({ postId });
-        return likes;
-    }
+  static async create({ userId, postId }) {
+    const created = await UserModel.findOneAndUpdate({ _id: userId }, {$addToSet: { postLikes: postId }})
+    return created;
+  }
 
-    static async deleteAllByUserId({ userId }) {
-        const deletedLikes = await LikeModel.deleteMany({ userId });
-        return deletedLikes;
-    }
-
-    static async deleteAllByPostId({ postId }) {
-        const deletedLikes = await LikeModel.deleteMany({ postId });
-        return deletedLikes;
-    }
-
-    static async delete({ LikeId }) {
-        const deletedLike = await LikeModel.deleteOne({ _id: LikeId });
-        return deletedLike;
-    }
+  static async delete({ userId, postId }) {
+    const deleted = await UserModel.findOneAndUpdate({ _id: userId }, {$pull: { postLikes: postId }})
+    return deleted;
+  }
 }
-
 
 export { Like };

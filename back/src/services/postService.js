@@ -159,17 +159,6 @@ class postService {
 
     return { errorMessage: null }
   }
-
-  static async getPostLikes({ postId }) {
-    const post = await Post.findById({ postId });
-    if(!post) {
-        return { errorMessage: "해당 글이 존재하지 않습니다." };
-    }
-
-    const likedUsers = await Post.getLikedUsers({ postId });
-    
-    return likedUsers;
-  }
 }
 
 

@@ -225,20 +225,4 @@ postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) 
   }
 })
 
-//get postLikes : 글에 "좋아요!"를 누른 사람들 정보 반환
-postRouter.get('/posts/likedUsers/:postId', async (req, res, next) => {
-  try{
-    const { postId } = req.params;
-
-    const likedUsers = await postService.getPostLikes({ postId });
-    if(likedUsers.errorMessage){
-      throw new Error(likedUsers.errorMessage);
-    }
-    
-    res.status(200).json(likedUsers);
-  } catch(err) {
-    next(err);
-  }
-})
-
 export { postRouter };
