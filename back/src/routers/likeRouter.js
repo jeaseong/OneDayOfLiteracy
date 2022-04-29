@@ -31,7 +31,7 @@ likeRouter.delete("/like/:postId",
       const userId = req.currentUserId;
       const { postId } = req.params;
       const deletedLike = await likeService.deleteLike({ userId, postId });
-      console.log(userId);
+      
       if (deletedLike.errorMessage) {
         throw new Error(deletedLike.errorMessage);
       }

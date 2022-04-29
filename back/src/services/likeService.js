@@ -97,7 +97,6 @@ class likeService {
     
     const likedUsers = await Post.getLikedUsers({ postId });
     
-    console.log(likedUsers);
     return likedUsers;
   }
 }
