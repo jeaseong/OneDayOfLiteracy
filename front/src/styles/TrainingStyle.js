@@ -68,6 +68,7 @@ export const TrainingSubjectContainer = styled.section`
   width: 100vw;
   height: 200px;
   background-color: #ffffff;
+  margin-bottom: 50px;
 `;
 
 export const TrainingSubjectWrap = styled.div`
