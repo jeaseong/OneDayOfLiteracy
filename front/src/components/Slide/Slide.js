@@ -13,7 +13,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const initTransition = "transform 0.5s";
 export default function Slide({ elements }) {
-  const [curIndex, setCurIndex] = useState(0);
+  const [curIndex, setCurIndex] = useState(1);
   const [curTransition, setCurTransition] = useState(initTransition);
   const [isSwiping, setIsSwiping] = useState(false);
   const [slideX, setSlideX] = useState(null);
@@ -21,31 +21,6 @@ export default function Slide({ elements }) {
   const ORIGINSIZE = elements.length;
   const infiniteElements = [elements[ORIGINSIZE - 1], ...elements, elements[0]];
   const NEWSIZE = infiniteElements.length;
-
-  const replaceSlide = (index) => {
-    setTimeout(() => {
-      setCurTransition("");
-      setCurIndex(index);
-    }, 500);
-  };
-
-  const handleSlide = (index) => {
-    setCurIndex(index);
-    if (index - 2 < 0) {
-      index += ORIGINSIZE;
-      replaceSlide(index);
-    } else if (index - 2 >= ORIGINSIZE) {
-      index -= ORIGINSIZE;
-      replaceSlide(index);
-    }
-    setCurTransition(initTransition);
-  };
-
-  const handleSwipe = (direction) => {
-    setIsSwiping(true);
-    handleSlide(curIndex + direction);
-  };
-
   const getClientX = (event) => {
     return event._reactName === "onTouchStart"
       ? event.touches[0].clientX
@@ -75,6 +50,31 @@ export default function Slide({ elements }) {
       setSlideX((slideX) => null);
     }
     setPrevSlideX((prevSlideX) => null);
+  };
+
+  const handleSwipe = (direction) => {
+    setIsSwiping(true);
+    handleSlide(curIndex + direction);
+  };
+
+  const replaceSlide = (index) => {
+    setTimeout(() => {
+      setCurTransition("0s");
+      setCurIndex(index);
+    }, 500);
+  };
+
+  const handleSlide = (index) => {
+    setCurIndex(index);
+    setCurTransition(initTransition);
+
+    if (index - 2 < 0) {
+      index += ORIGINSIZE;
+      replaceSlide(index);
+    } else if (index - 2 >= ORIGINSIZE - 1) {
+      index -= ORIGINSIZE;
+      replaceSlide(index);
+    }
   };
 
   return (
