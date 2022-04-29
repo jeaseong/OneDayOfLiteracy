@@ -1,5 +1,6 @@
 import { User, Post, Subject } from '../db'
-
+import { typeName } from "../utils/validation/typeName";
+import { isEmptyArray } from "../utils/validation/isEmptyType";
 class postService {
   static async addPost({ title, content, tags, subjectId, userId, category }) {
     // subjectId 에 대한 검증
@@ -85,11 +86,11 @@ class postService {
   }
 
   static async getTaggedPosts(page, limit, tags){
-    const andList = []
+    const andList = [];
     tags.forEach(tag => {
       const cond = {tags: {$regex: decodeURI(tag), $options: 'iu'}};
       
-      andList.push(cond)
+      andList.push(cond);
     })
 
     const query = {$and: andList};
@@ -97,7 +98,40 @@ class postService {
     const posts = await Post.findAll(page, limit, query);
     return posts;
   }
+  
+  static async getSearchPosts({author, title, tags, content, page, limit}){
+    const andList = [];
+    if (author) andList.push({ author: decodeURI(author) });
+    const pushRegexQuery = (fieldName, value) => {
+      if (!value) return;
+      if (typeName(value) === "Array") {
+        value.forEach((tag) => {
+          let queryObj = new Object();
+          queryObj[`${fieldName}`] = { $regex: decodeURI(tag), $options: "iu" };
+          andList.push(queryObj);
+        });
+      } else {
+        const queryObj = new Object();
+        queryObj[`${fieldName}`] = { $regex: decodeURI(value), $options: "iu" };
+        andList.push(queryObj);
+      }
+      
+    };
+    pushRegexQuery("title",title);
+    pushRegexQuery("tags",tags);
+    pushRegexQuery("content",content);
 
+    let query;
+    if(isEmptyArray(andList)){
+      query = {};
+    } else {
+      query = { $and: andList };
+    }
+    
+    console.log(JSON.stringify(query));
+    const posts = await Post.findAll(page, limit, query);
+    return posts;
+  }
   static async getPostsByTags({ tags }) { }
   
   static async deletePost({ postId }) { 

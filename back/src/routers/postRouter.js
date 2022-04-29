@@ -2,7 +2,7 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { postService } from "../services/postService";
-import { isEmptyObj } from "../utils/validation/isEmptyObj";
+import { isEmptyObj } from "../utils/validation/isEmptyType";
 import { typeName } from "../utils/validation/typeName";
 
 const postRouter = Router();
@@ -98,6 +98,49 @@ postRouter.get('/posts/search/tags', async (req, res, next) => {
     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
     const posts = await postService.getTaggedPosts(page, limit, tags); 
+
+    res.status(200).json(posts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 4. 작성자, 제목, 태그, 내용 검색
+// posts/search/q?author={String}&title={String}&tag={String}&content={String}&page={Number}&limit={Number}
+postRouter.get('/posts/search/q', async (req, res, next) => {
+  try {
+    const { author, title, tag, content, page, limit } = req.query;
+
+    let tags;
+    //tag에 값이 존재
+    if(tag !== undefined){
+      if (typeName(tag) === "Array") {
+        tags = tag;
+      } else {
+        tags = [tag];
+      }
+    } 
+    
+    const errorIfArray = (variable) => {
+      if (typeName(variable) === "Array") {
+        throw new Error(`${variable}은 하나만 보내세요.`);
+      }
+    };
+
+    errorIfArray(author);
+    errorIfArray(title);
+    errorIfArray(content);
+
+    // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
+    // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
+    const posts = await postService.getSearchPosts({
+      author,
+      title,
+      tags,
+      content,
+      page,
+      limit,
+    }); 
 
     res.status(200).json(posts);
   } catch (err) {

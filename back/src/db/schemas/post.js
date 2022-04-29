@@ -6,6 +6,7 @@ const PostSchema = new Schema(
     content: { type: String, required: true },
     tags: [{ type: String, required: false }],
     subjectId: { type: Schema.Types.ObjectId, required: true, ref: "Subject" },
+    author: { type: Schema.Types.ObjectId, required: true},
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
     imageUrls: [{ type: String, required: false }],
     category: { 
