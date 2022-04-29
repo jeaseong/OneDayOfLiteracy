@@ -37,4 +37,43 @@ export const handlers = [
       })
     );
   }),
+
+  rest.get("http://localhost:5001/posts", (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          title: "작성글입니다.",
+          content: "내용입니다.",
+          tags: ["challenge"],
+          author: "닉네임",
+          userId: "6232e9c20cb9033a0d6d156a",
+          subjectId: "6232e9c20cb9033a0d6d156a",
+          subject: {
+            subject: "자기소개",
+          },
+          category: "소설",
+          _id: "6232e9c20cb9033a0d6d156a",
+          createdAt: "2022-03-17T07:56:50.255Z",
+          updatedAt: "2022-03-17T07:56:50.255Z",
+          __v: 0,
+        },
+        {
+          title: "작성글입니다2.",
+          content: "내용입니다2.",
+          author: "닉네임2",
+          tags: ["challenge"],
+          userId: "6232e9c20cb9033a0d6d156a2",
+          subjectId: "6232e9c20cb9033a0d6d156a2",
+          subject: {
+            subject: "자기소개",
+          },
+          category: "시",
+          _id: "6232e9c20cb9033a0d6d156a2",
+          createdAt: "2022-03-17T07:56:50.255Z",
+          updatedAt: "2022-03-17T07:56:50.255Z",
+          __v: 0,
+        },
+      ])
+    );
+  }),
 ];
