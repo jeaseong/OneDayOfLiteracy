@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTags";
@@ -24,22 +24,22 @@ function Posting() {
   const [isContentEmpty, setIsContentEmpty] = useState(false);
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
 
+  // useEffect(() => {
+  //   setIsTitleEmpty(() => !titleRef.current.value);
+  //   setIsContentEmpty(() => !contentRef.current.value);
+  //   setIsCategoryEmpty(() => categoryRef.current.value);
+  // }, [titleRef, contentRef, categoryRef]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log("titleRef : ", titleRef.current.value);
-      // console.log("contentRef : ", contentRef.current.value);
-      // console.log("categoryRef : ", categoryRef.current.value);
-      // console.log("tagRef : ", tagRef.current.value);
-      // console.log("tag : ", tagArray);
-
       setIsTitleEmpty(() => !titleRef.current.value);
       setIsContentEmpty(() => !contentRef.current.value);
       setIsCategoryEmpty(() => categoryRef.current.value);
 
-      console.log(isCategoryEmpty);
-      console.log(isContentEmpty);
-      console.log(isTitleEmpty);
+      // console.log(isCategoryEmpty);
+      // console.log(isContentEmpty);
+      // console.log(isTitleEmpty);
 
       console.log({
         title: titleRef.current.value,
@@ -84,19 +84,23 @@ function Posting() {
     }
   };
 
-  const handleClick = (e) => {};
-
+  console.log(
+    "=======================",
+    isTitleEmpty || isContentEmpty || isCategoryEmpty === ""
+  );
   return (
     <PostContainer>
       <form onSubmit={handleSubmit}>
         <PostingHeader
+          setIsTitleEmpty={setIsTitleEmpty}
           isTitleEmpty={isTitleEmpty}
           ref={titleRef}
         ></PostingHeader>
         <PostingContents
           isContentEmpty={isContentEmpty}
           isCategoryEmpty={isCategoryEmpty}
-          handleSubmit={handleSubmit}
+          setIsContentEmpty={setIsContentEmpty}
+          setIsCategoryEmpty={setIsCategoryEmpty}
           ref={{ contentRef, categoryRef }}
         ></PostingContents>
         <PostingTag
@@ -105,7 +109,11 @@ function Posting() {
           handleTagEnter={handleTagEnter}
           ref={tagRef}
         ></PostingTag>
-        <PostingButton onClick={handleClick}>출간하기</PostingButton>
+        <PostingButton
+        // disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
+        >
+          출간하기
+        </PostingButton>
       </form>
     </PostContainer>
   );
