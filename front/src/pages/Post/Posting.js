@@ -6,8 +6,13 @@ import { PostContainer } from "../../styles/PostStyle";
 import { PostingButton } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 import { post } from "../../utils/api";
+import { useGetCurrentUser } from "../../queries/userQuery";
 
 function Posting() {
+  const { userState } = useGetCurrentUser();
+  console.log("여기야 여기!", userState._id);
+  console.log("여기야 여기!", userState.nickname);
+
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
@@ -24,13 +29,21 @@ function Posting() {
     try {
       console.log("titleRef : ", titleRef.current.value);
       console.log("contentRef : ", contentRef.current.value);
+      console.log("categoryRef : ", categoryRef.current.value);
       console.log("tagRef : ", tagRef.current.value.split(","));
       setIsTitleEmpty(!titleRef.current.value);
       setIsContentEmpty(!contentRef.current.value);
+      console.log({
+        title: titleRef.current.value,
+        content: contentRef.current.value,
+        category: categoryRef.current.value,
+        tags: tagRef.current.value,
+      });
       // await post("post", {
-      //     title:titleRef.current.value,
+      //   title: titleRef.current.value,
       //   content: contentRef.current.value,
-      //   tags:
+      //   category: categoryRef.current.value,
+      //   tags: tagRef.current.value,
       // });
     } catch (error) {
       throw new Error(error);
