@@ -5,19 +5,8 @@ import {
   DropDownItem,
 } from "../../styles/Components/SearchStyle";
 import { GUIDE_MESSAGE } from "../../utils/constants";
-import { useEffect, useState } from "react";
-import { useGetPostList } from "../../queries/postQuery";
-
-// 입력한 단어가 글 제목에 포함되어 있는지 체크
-function includeSearchTarget(postList, searchTarget) {
-  const filterData = postList.reduce((cur, post) => {
-    const { title } = post;
-    if (title.includes(searchTarget)) return [...cur, title];
-    return [...cur];
-  }, []);
-
-  return new Set(filterData);
-}
+import { useCallback, useState } from "react";
+import { get } from "../../utils/api";
 
 /**
  * 검색어 입력 컴포넌트입니다.
@@ -27,42 +16,49 @@ function includeSearchTarget(postList, searchTarget) {
  * @constructor
  */
 function SearchBar({ searchTarget, setSearchTarget }) {
-  const { postList } = useGetPostList();
   const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
-  const [dropDownList, setDropDownList] = useState(postList);
+  const [dropDownList, setDropDownList] = useState([]);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(0);
+  const [timer, setTimer] = useState(0);
 
-  // 자동완성 목록 생성
-  useEffect(() => {
-    const showDropDownList = () => {
-      if (searchTarget.length !== 0) {
+  // 입력한 단어가 글 제목에 포함되어 있는지 체크
+  const includeSearchTarget = useCallback((searchList, searchTarget) => {
+    const filterData = searchList.reduce((cur, post) => {
+      const { title } = post;
+      if (title.includes(searchTarget)) return [...cur, title];
+      return [...cur];
+    }, []);
+
+    return new Set(filterData);
+  }, []);
+
+  // 사용자 키워드 입력 검색 디바운스
+  const handleInputOnChange = (e) => {
+    setSearchTarget(e.target.value);
+    const searchKeyword = e.target.value;
+    if (timer) clearTimeout(timer);
+
+    const debounce = setTimeout(async () => {
+      try {
+        const res = await get(`posts?content=${searchKeyword}`);
         const filteredSearchData = [
-          ...includeSearchTarget(postList, searchTarget),
+          ...includeSearchTarget(res.data, searchKeyword),
         ];
-
-        if (filteredSearchData.length > 10) {
-          setDropDownList(filteredSearchData.slice(0, 10));
-          return;
-        }
         setDropDownList(filteredSearchData);
-      } else {
-        setIsHaveSearchContent(false);
-        setDropDownList([]);
+        searchKeyword.length !== 0
+          ? setIsHaveSearchContent(true)
+          : setIsHaveSearchContent(false);
+      } catch (err) {
+        console.log(err);
       }
-    };
-    showDropDownList();
-  }, [searchTarget, postList]);
+    }, 250);
+    setTimer(debounce);
+  };
 
   // 자동완성 단어를 클릭 했을 때
   const handleOnClickDropDownItem = (clickedItem) => {
     setSearchTarget(clickedItem);
     setIsHaveSearchContent(false);
-  };
-
-  // 사용자가 검색어를 입력할 때
-  const handleInputOnChange = (e) => {
-    setSearchTarget(e.target.value);
-    setIsHaveSearchContent(true);
   };
 
   // 사용자의 키 입력으로 자동완성 목록 이동

@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useInfiniteQuery, useQuery, useQueryClient } from "react-query";
 import { get } from "../utils/api";
 
 /**
@@ -22,23 +22,17 @@ export function useGetUserPostList(id) {
   return { userPosts: data, isFetching, error };
 }
 
-/**
- * 전체 글 목록을 받아옵니다.
- * @returns {{postList: array, isFetching: boolean, error: unknown}}
- */
-export function useGetPostList() {
-  const queryclient = useQueryClient();
+export function useGetPostList(endpoint = "") {
+  const fetchPostList = async ({ pageParam = 1 }) => {
+    const res = await get(`posts?${endpoint}&page=${pageParam}&limit=9`);
+    const { posts, isLast } = res.data;
+    return { posts, nextPage: pageParam + 1, isLast };
+  };
 
-  const { isFetching, error, data } = useQuery(
-    ["posts"],
-    () => get("posts").then((res) => res.data),
-    {
-      staleTime: 30000,
-      cacheTime: 120000,
-      onSuccess: (data) => queryclient.setQueryData(["posts"], data),
-      onError: () => queryclient.setQueryData(["posts"], []),
-    }
-  );
-
-  return { postList: data, isFetching, error };
+  return useInfiniteQuery(["posts"], fetchPostList, {
+    staleTime: 60000,
+    cacheTime: 120000,
+    getNextPageParam: (lastPage) =>
+      !lastPage.isLast ? lastPage.nextPage : undefined,
+  });
 }
