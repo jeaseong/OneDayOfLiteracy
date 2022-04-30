@@ -12,15 +12,18 @@ import {
 } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 
-const PostingHeader = forwardRef(({ isTitleEmpty, handleSubmit }, ref) => {
+const PostingHeader = forwardRef(({ isTitleEmpty, setIsTitleEmpty }, ref) => {
   //   console.log(ref);
   return (
     <>
       <PostingTitle
+        onChange={(e) => setIsTitleEmpty(() => !e.target.value)}
+        className={isTitleEmpty && "focusInput"}
         type={"text"}
         placeholder={"제목을 입력하세요"}
         ref={ref}
-      ></PostingTitle>
+      />
+      {isTitleEmpty && <span>제목을 입력해주세요.</span>}
     </>
   );
 });

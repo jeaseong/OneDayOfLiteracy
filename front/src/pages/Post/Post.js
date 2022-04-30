@@ -38,7 +38,7 @@ function Post() {
     <PostContainer>
       <PostTitle>{post.title}</PostTitle>
       <PostHeader>
-        <PostWriter>{post.userId}</PostWriter>
+        <PostWriter>{!post.author ? "익명 문하생" : post.author}</PostWriter>
         <PostWriter>{post.createdAt?.slice(0, 10)}</PostWriter>
       </PostHeader>
       <PostBody>

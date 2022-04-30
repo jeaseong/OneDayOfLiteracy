@@ -18,6 +18,7 @@ function PostCard({ userId, post }) {
   const handleOnClick = () => {
     navigate(`/posts/${post.id}`);
   };
+
   return (
     <Posts onClick={handleOnClick}>
       <PostsImage
@@ -31,7 +32,9 @@ function PostCard({ userId, post }) {
       <PostsSummary>
         <PostsHeader>
           <PostsTitle>{post.title}</PostsTitle>
-          <PostsWriter>{post.userId.slice(0, 6)}</PostsWriter>
+          <PostsWriter>
+            {!post.author ? "익명 문하생" : post.author}
+          </PostsWriter>
         </PostsHeader>
         <PostsContent>{post.content}</PostsContent>
         {post.tags?.map((tag, index) => {
