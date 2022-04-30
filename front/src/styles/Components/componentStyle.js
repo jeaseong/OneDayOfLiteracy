@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { img } from "../../utils/imgImport";
 
+export const TextComponent = styled.p``;
+
+export const ImgComponent = styled.img`
+  width: 100%;
+  height: 400px;
+`;
+
 export const FooterContainer = styled.footer`
   width: 100%;
   height: 100px;
@@ -28,6 +35,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: fixed;
+  z-index: 9999;
 
   background-image: url(${img.leafLeftHeader}), url(${img.leafRightHeader});
   background-repeat: no-repeat;

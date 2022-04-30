@@ -1,18 +1,18 @@
 @font-face {
-  font-family: "Maplestory Bold";
+  font-family: "Maplestory";
   src: url("styles/fonts/Maplestory_Bold.ttf");
-  font-family: "Maplestory Light";
+  font-weight: normal;
+}
+@font-face{
+  font-family: "Maplestory";
   src: url("styles/fonts/Maplestory_Light.ttf");
-  font-family: "Maplestory Bold";
-  src: url("styles/fonts/Maplestory_Bold.ttf");
-  font-family: "Maplestory Bold";
-  src: url("styles/fonts/Maplestory_Bold.ttf");
+  font-weight: lighter;
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Maplestory Light", "Maplestory Bold";
+  font-family: "Maplestory";
 }
 
 html,
@@ -21,6 +21,15 @@ body {
   height: 100%;
   font-size: 14px;
   background-color: #f5efea;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  -webkit-user-drag: none;
 }
 
 .App {

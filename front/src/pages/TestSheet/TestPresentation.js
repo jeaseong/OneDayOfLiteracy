@@ -1,6 +1,6 @@
 import React from "react";
 import TestAnswerBtn from "./TestAnswerBtn";
-import { TestContent, TestQuestion } from "./TestStyle";
+import { TestContent, TestQuestion } from "../../styles/TestStyle";
 
 export default function TestPresentation({
   test,

@@ -12,4 +12,7 @@ export const img = {
   woman: `${process.env.PUBLIC_URL}/assets/img/woman.png`,
   kakaoIcon: `${process.env.PUBLIC_URL}/assets/img/kakaotalk.png`,
   notPost: `${process.env.PUBLIC_URL}/assets/img/post_not.png`,
+  banner1: `${process.env.PUBLIC_URL}/assets/img/banner1.png`,
+  banner2: `${process.env.PUBLIC_URL}/assets/img/banner2.png`,
+  banner3: `${process.env.PUBLIC_URL}/assets/img/banner3.png`,
 };

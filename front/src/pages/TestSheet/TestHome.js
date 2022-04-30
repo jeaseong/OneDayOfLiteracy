@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerHome, WomanBook } from "./TestStyle";
+import { ContainerHome, WomanBook } from "../../styles/TestStyle";
 import TestContainer from "./TestContainer";
 
 export default function TestHome() {

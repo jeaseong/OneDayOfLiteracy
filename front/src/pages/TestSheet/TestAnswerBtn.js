@@ -1,5 +1,9 @@
 import React from "react";
-import { AnswerBtn, AnswerText, AnswerBtnContainer } from "./TestStyle";
+import {
+  AnswerBtn,
+  AnswerText,
+  AnswerBtnContainer,
+} from "../../styles/TestStyle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function TestAnswerBtn({
