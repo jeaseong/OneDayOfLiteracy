@@ -41,6 +41,7 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       : deduplicationData;
   };
 
+  // 검색어의 길이 체크
   const checkShowSearchContent = (keyword) => {
     return keyword.length !== 0
       ? setIsHaveSearchContent(true)

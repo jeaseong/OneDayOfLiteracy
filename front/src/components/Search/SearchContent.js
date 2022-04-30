@@ -5,7 +5,7 @@ import {
   SearchContainerBox,
 } from "../../styles/Components/SearchStyle";
 import { LABEL } from "../../utils/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -30,6 +30,8 @@ function SearchContent() {
     const endpoint = createEndpointURI();
     navigate(`/posts?${endpoint}`);
   };
+
+  //TODO 검색 버튼클릭으로 검색 시 자동완성목록이 남아있는 현상
 
   return (
     <SearchContainerBox onSubmit={handleSearchOnSubmit}>
