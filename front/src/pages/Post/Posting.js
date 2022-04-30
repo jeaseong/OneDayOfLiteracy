@@ -24,22 +24,12 @@ function Posting() {
   const [isContentEmpty, setIsContentEmpty] = useState(false);
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
 
-  // useEffect(() => {
-  //   setIsTitleEmpty(() => !titleRef.current.value);
-  //   setIsContentEmpty(() => !contentRef.current.value);
-  //   setIsCategoryEmpty(() => categoryRef.current.value);
-  // }, [titleRef, contentRef, categoryRef]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setIsTitleEmpty(() => !titleRef.current.value);
-      setIsContentEmpty(() => !contentRef.current.value);
-      setIsCategoryEmpty(() => categoryRef.current.value);
-
-      // console.log(isCategoryEmpty);
-      // console.log(isContentEmpty);
-      // console.log(isTitleEmpty);
+      // setIsTitleEmpty(() => !titleRef.current.value);
+      // setIsContentEmpty(() => !contentRef.current.value);
+      // setIsCategoryEmpty(() => categoryRef.current.value);
 
       console.log({
         title: titleRef.current.value,
@@ -110,7 +100,7 @@ function Posting() {
           ref={tagRef}
         ></PostingTag>
         <PostingButton
-        // disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
+          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
         >
           출간하기
         </PostingButton>
