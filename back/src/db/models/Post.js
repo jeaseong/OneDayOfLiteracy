@@ -1,5 +1,5 @@
 import { PostModel } from "../schemas/post";
-import { findByPagination } from "../../utils/findByPagination";
+import { findByPagination2 } from "../../utils/findByPagination";
 
 class Post {
   static async create({ newPost }) {
@@ -8,7 +8,7 @@ class Post {
   }
 
   static async findById({ postId }) {
-    const post = await PostModel.findOne({ _id: postId }).populate("subject", {_id: 0, subject: 1});
+    const post = await PostModel.findOne({ _id: postId }).lean().populate("subject", {_id: 0, subject: 1});
     return post;
   }
 
@@ -24,15 +24,20 @@ class Post {
     return updatedPost;
   }
 
+  
+  // 페이지네이션 지원하는 버전으로 바꾸면서 
+  // 필요는 없지만, 남겨둠
   static async findByUserId({ userId }) {
-    const posts = await PostModel.find({ userId }).populate("subject", {_id: 0, subject: 1});
+    const posts = await PostModel.find({ userId }).lean().populate("subject", {_id: 0, subject: 1});
     return posts;
   }
 
   static async findAll(page, limit, query) {
     // pagination 필요
-    // console.log(Object.prototype.toString.call(findByPagination)); //[object AsyncFunction]
-    const posts = await findByPagination(PostModel, { page, limit }, query);
+    const populateField = "subject";
+    const populateOption = {_id: 0, subject: 1};
+    const posts = await findByPagination2(PostModel, { page, limit }, query, populateField, populateOption);
+
     return posts;
   }
 

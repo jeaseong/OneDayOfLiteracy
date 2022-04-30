@@ -71,7 +71,7 @@ postRouter.get('/posts/users/:userId', async (req, res, next) => {
 
 
 // 4. 태그 별 조회 
-// /posts/tags?tag={String}&tag={String}&tag= ...  &{Boolean}&page={Number}&limit={Number}
+// /posts/tags?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
 postRouter.get('/posts/search/tags', async (req, res, next) => {
   try {
     const { tag, page, limit } = req.query;

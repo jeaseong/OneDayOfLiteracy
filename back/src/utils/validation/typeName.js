@@ -20,6 +20,7 @@ const typeName = (variable) => {
 // Object.prototype.toString.call(Math);           // [object Math]
 // Object.prototype.toString.call(/test/i);        // [object RegExp]
 // Object.prototype.toString.call(function () {}); // [object Function]
+// Object.prototype.toString.call(async function () {}); // [object AsyncFunction]
 // Object.prototype.toString.call(document);       // [object HTMLDocument]
 // Object.prototype.toString.call(argument);       // [object Arguments]
 // Object.prototype.toString.call(undeclared);     // ReferenceError
