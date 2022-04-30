@@ -14,7 +14,7 @@ import TrainingStepOne from "./pages/Training/TrainingOne/TrainingStepOne";
 import TrainingStepTwo from "./pages/Training/TrainingTwo/TrainingStepTwo";
 import TrainingStepThree from "./pages/Training/TrainingThree/TrainingStepThree";
 import TrainingStepFour from "./pages/Training/TrainingFour/TrainingStepFour";
-import TestResult from "./pages/TestSheet/TestResult";
+import TestResult from "./pages/TestResult/TestResult";
 import { useGetCurrentUser } from "./queries/userQuery";
 
 function App() {
