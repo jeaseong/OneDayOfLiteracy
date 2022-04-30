@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ProcessContainer, NextBtn } from "./TestStyle";
+import { ProcessContainer, NextBtn } from "../../styles/TestStyle";
 
 export default function TestProcessBtn({
   step,

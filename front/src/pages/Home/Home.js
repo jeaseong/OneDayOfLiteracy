@@ -1,20 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import Slide from "../../components/Slide/Slide";
+import Image from "../../components/Image";
+import { HomeContainer, HomeWrap } from "../../styles/HomeStyle";
+import { img } from "../../utils/imgImport";
+
+const BANNERS = [
+  <Image url={img.banner1} alt={"banner1"} />,
+  <Image url={img.banner2} alt={"banner2"} />,
+  <Image url={img.banner3} alt={"banner3"} />,
+];
 
 function Home() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>문해한 하루</h1>
-      <button
-        type={"button"}
-        onClick={() => {
-          navigate("/test");
-        }}
-      >
-        테스트보기
-      </button>
-    </div>
+    <HomeContainer>
+      <HomeWrap>
+        <Slide elements={BANNERS} />
+      </HomeWrap>
+    </HomeContainer>
   );
 }
 

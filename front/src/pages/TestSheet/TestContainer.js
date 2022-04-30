@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
-import { NextBtn } from "./TestStyle";
+import { NextBtn } from "../../styles/TestStyle";
 import { useTestQuery } from "../../queries/testQuery";
 import { post } from "../../utils/api";
 

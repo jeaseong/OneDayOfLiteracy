@@ -1,7 +1,5 @@
 import React from "react";
 
-function TestResult() {
+export default function TrainingStepFive() {
   return <div></div>;
 }
-
-export default TestResult;

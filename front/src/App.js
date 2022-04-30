@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import Main from "./pages/Main/Main";
 import Login from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
 import UserProfile from "./pages/User/Profile/UserProfile";
@@ -9,15 +10,15 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
-
+import TrainingStepOne from "./pages/Training/TrainingOne/TrainingStepOne";
+import TrainingStepTwo from "./pages/Training/TrainingTwo/TrainingStepTwo";
+import TrainingStepThree from "./pages/Training/TrainingThree/TrainingStepThree";
+import TrainingStepFour from "./pages/Training/TrainingFour/TrainingStepFour";
+import TestResult from "./pages/TestResult/TestResult";
 import Posts from "./pages/Post/Posts";
 import Post from "./pages/Post/Post";
 import Posting from "./pages/Post/Posting";
-import { useCurrentUser } from "./queries/userQuery";
-
-import TestResult from "./pages/TestSheet/TestResult";
 import { useGetCurrentUser } from "./queries/userQuery";
-
 
 function App() {
   const { isFetching } = useGetCurrentUser();
@@ -38,6 +39,11 @@ function App() {
               path="/oauth/callback/kakao"
               element={<KakaoLoginHandler />}
             />
+            <Route path="/main" element={<Main />} />
+            <Route path="/training/1" element={<TrainingStepOne />} />
+            <Route path="/training/2" element={<TrainingStepTwo />} />
+            <Route path="/training/3" element={<TrainingStepThree />} />
+            <Route path="/training/4" element={<TrainingStepFour />} />
             <Route path="/test" element={<TestHome />} />
 
             <Route path="/posts" element={<Posts />} />
