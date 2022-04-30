@@ -41,6 +41,12 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       : deduplicationData;
   };
 
+  const checkShowSearchContent = (keyword) => {
+    return keyword.length !== 0
+      ? setIsHaveSearchContent(true)
+      : setIsHaveSearchContent(false);
+  };
+
   // 사용자 키워드 입력 검색 디바운스
   const handleInputOnChange = (e) => {
     setSearchTarget(e.target.value);
@@ -55,9 +61,7 @@ function SearchBar({ searchTarget, setSearchTarget }) {
         ];
 
         setDropDownList(filteredSearchData);
-        searchKeyword.length !== 0
-          ? setIsHaveSearchContent(true)
-          : setIsHaveSearchContent(false);
+        checkShowSearchContent(searchKeyword);
       } catch (err) {
         setIsError(true);
       }
@@ -83,6 +87,8 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       setSearchTarget(dropDownList[dropDownItemIndex - 1]);
       setDropDownItemIndex(dropDownItemIndex - 1);
     }
+
+    if (e.key === "Enter") setIsHaveSearchContent(false);
   };
 
   // 자동완성 목록 가공

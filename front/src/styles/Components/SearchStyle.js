@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../CommonStyle";
 
-export const SearchContainerBox = styled.div`
+export const SearchContainerBox = styled.form`
   max-width: 1024px;
   width: 100%;
   display: flex;
