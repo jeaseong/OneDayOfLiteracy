@@ -1,8 +1,8 @@
 import {
-  SearchInput,
   DropDownBox,
-  InputBox,
   DropDownItem,
+  InputBox,
+  SearchInput,
 } from "../../styles/Components/SearchStyle";
 import { GUIDE_MESSAGE } from "../../utils/constants";
 import { useCallback, useState } from "react";
@@ -19,7 +19,8 @@ function SearchBar({ searchTarget, setSearchTarget }) {
   const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
   const [dropDownList, setDropDownList] = useState([]);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(0);
-  const [timer, setTimer] = useState(0);
+  const [isError, setIsError] = useState(false);
+  const [timer, setTimer] = useState(null);
 
   // 입력한 단어가 글 제목에 포함되어 있는지 체크
   const includeSearchTarget = useCallback((searchList, searchTarget) => {
@@ -29,8 +30,16 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       return [...cur];
     }, []);
 
-    return new Set(filterData);
+    return checkOverlapData(filterData);
   }, []);
+
+  // 중복 제거 및 길이 제한
+  const checkOverlapData = (data) => {
+    const deduplicationData = new Set(data);
+    return deduplicationData.length > 10
+      ? deduplicationData.slice(0, 10)
+      : deduplicationData;
+  };
 
   // 사용자 키워드 입력 검색 디바운스
   const handleInputOnChange = (e) => {
@@ -44,12 +53,13 @@ function SearchBar({ searchTarget, setSearchTarget }) {
         const filteredSearchData = [
           ...includeSearchTarget(res.data, searchKeyword),
         ];
+
         setDropDownList(filteredSearchData);
         searchKeyword.length !== 0
           ? setIsHaveSearchContent(true)
           : setIsHaveSearchContent(false);
       } catch (err) {
-        console.log(err);
+        setIsError(true);
       }
     }, 250);
     setTimer(debounce);
@@ -64,21 +74,20 @@ function SearchBar({ searchTarget, setSearchTarget }) {
   // 사용자의 키 입력으로 자동완성 목록 이동
   const handleDropDownOnKey = (e) => {
     if (!isHaveSearchContent) return null;
-    if (e.key === "ArrowDown" && dropDownList.length - 1 > dropDownItemIndex)
+    if (e.key === "ArrowDown" && dropDownList.length - 1 > dropDownItemIndex) {
+      setSearchTarget(dropDownList[dropDownItemIndex + 1]);
       setDropDownItemIndex(dropDownItemIndex + 1);
+    }
 
-    if (e.key === "ArrowUp" && dropDownItemIndex > 0)
+    if (e.key === "ArrowUp" && dropDownItemIndex > 0) {
+      setSearchTarget(dropDownList[dropDownItemIndex - 1]);
       setDropDownItemIndex(dropDownItemIndex - 1);
-
-    if (e.key === "Enter" && dropDownItemIndex >= 0) {
-      handleOnClickDropDownItem(dropDownList[dropDownItemIndex]);
-      setDropDownItemIndex(-1);
     }
   };
 
   // 자동완성 목록 가공
   const dropDownItem =
-    dropDownList.length === 0 ? (
+    isError || dropDownList.length === 0 ? (
       <DropDownItem>{GUIDE_MESSAGE.NOT_FOUND_AUTO_COMPLETE}</DropDownItem>
     ) : (
       dropDownList.map((item, index) => {
