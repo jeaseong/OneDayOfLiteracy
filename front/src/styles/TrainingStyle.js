@@ -65,7 +65,7 @@ export const TrainingGuideContent = styled.div``;
 export const TrainingSubjectContainer = styled.section`
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 300px;
   background-color: #ffffff;
   margin-bottom: 50px;
