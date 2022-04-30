@@ -23,6 +23,7 @@ const PostingContents = forwardRef(
       <>
         <PostingCategory
           ref={ref.categoryRef}
+          isCategoryEmpty={isCategoryEmpty}
           type={"option"}
           placeholder={"카테고리"}
           onChange={(e) => setIsCategoryEmpty(e.target.value)}
@@ -38,6 +39,7 @@ const PostingContents = forwardRef(
         <PostingContent>
           <PostingArea
             placeholder="내용을 입력해주세요"
+            isContentEmpty={isContentEmpty}
             ref={ref.contentRef}
             onChange={handleMarkdown}
           ></PostingArea>

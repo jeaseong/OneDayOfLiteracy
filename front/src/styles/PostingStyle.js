@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const PostingBody = styled.div`
   display: flex;
@@ -8,20 +8,25 @@ export const PostingBody = styled.div`
 export const PostingTitle = styled.input`
   padding: 20px;
   border: none;
-  border-radius: 5px;
-  outline: none;
+  border-radius: 10px;
   margin: 10px;
   width: 50%;
   font-size: 30px;
   background-color: #eaf3f5;
   display: block;
+  ${(props) => (props.isTitleEmpty ? focusInput : "outline : none")};
+`;
+
+const focusInput = css`
+  outline: 4px solid #41d6d6;
+  transition: 0.2s ease-in-out;
 `;
 
 export const PostingCategory = styled.select`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  outline: none;
+  ${(props) => (props.isCategoryEmpty === "" ? focusInput : "outline : none")};
   margin: 10px;
   width: 30%;
 `;
@@ -40,7 +45,7 @@ export const PostingArea = styled.textarea`
   margin-right: 20px;
   border-radius: 5px;
   padding: 10px;
-  outline: none;
+  ${(props) => (props.isContentEmpty ? focusInput : "outline : none")};
 `;
 
 export const PostingTags = styled.input`
@@ -53,7 +58,7 @@ export const PostingTags = styled.input`
   background-color: #eaf3f5;
   outline: none;
   cursor: text;
-  //   line-height: 2rem;
+
   margin-bottom: 0.75rem;
   min-width: 8rem;
 `;

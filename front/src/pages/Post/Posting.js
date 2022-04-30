@@ -27,16 +27,16 @@ function Posting() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // setIsTitleEmpty(() => !titleRef.current.value);
-      // setIsContentEmpty(() => !contentRef.current.value);
-      // setIsCategoryEmpty(() => categoryRef.current.value);
-
-      console.log({
-        title: titleRef.current.value,
-        content: contentRef.current.value,
-        category: categoryRef.current.value,
-        tags: tagArray,
-      });
+      setIsTitleEmpty(() => !titleRef.current.value);
+      setIsContentEmpty(() => !contentRef.current.value);
+      setIsCategoryEmpty(() => categoryRef.current.value);
+      console.log("isTitleEmpty : ", isTitleEmpty);
+      // console.log({
+      //   title: titleRef.current.value,
+      //   content: contentRef.current.value,
+      //   category: categoryRef.current.value,
+      //   tags: tagArray,
+      // });
       // await post("post", {
       //   title: titleRef.current.value,
       //   content: contentRef.current.value,
@@ -100,7 +100,7 @@ function Posting() {
           ref={tagRef}
         ></PostingTag>
         <PostingButton
-          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
+        // disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
         >
           출간하기
         </PostingButton>
