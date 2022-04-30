@@ -1,32 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { get } from "../../utils/api";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 import PostCard from "./PostCard";
 import { PostsContainer } from "../../styles/PostStyle";
+import { useGetPostList } from "../../queries/postQuery";
+import Loading from "../../components/Loading";
+import ErrorPage from "../../components/ErrorPage";
 
 function Posts() {
-  const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
+  const location = useLocation();
+  const { ref, inView } = useInView();
+  const { data, status, fetchNextPage } = useGetPostList(location.search);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const result = await get("posts");
-        console.log(result);
-        console.log(result.data);
-        setPosts([...result?.data]);
-      } catch (error) {
-        throw new Error(error);
-      }
-    };
-    getPosts();
-  }, []);
+    if (inView) fetchNextPage();
+  }, [inView]);
+
   return (
-    <PostsContainer>
-      {posts?.map((post, index) => {
-        return <PostCard key={index} post={post} />;
-      })}
-    </PostsContainer>
+    <>
+      {status === "loading" ? (
+        <Loading />
+      ) : status === "error" ? (
+        <ErrorPage />
+      ) : (
+        <PostsContainer>
+          {data?.pages.map((page, index) => (
+            <React.Fragment key={index}>
+              {page.posts.map((post, index) => (
+                <PostCard key={index} post={post}></PostCard>
+              ))}
+            </React.Fragment>
+          ))}
+          <div ref={ref}></div>
+        </PostsContainer>
+      )}
+    </>
   );
 }
 export default Posts;
