@@ -4,6 +4,8 @@ import ReactMarkdown from "react-markdown";
 import { PostContainer, PostHeader, PostBody } from "../../styles/PostStyle";
 import {
   PostingTitle,
+  PostingTitleBox,
+  PostingMessage,
   PostingCategory,
   PostingTags,
   PostingBody,
@@ -14,7 +16,7 @@ import "../../styles/markdown.css";
 
 const PostingHeader = forwardRef(({ isTitleEmpty, setIsTitleEmpty }, ref) => {
   return (
-    <>
+    <PostingTitleBox>
       <PostingTitle
         onChange={(e) => setIsTitleEmpty(() => !e.target.value)}
         isTitleEmpty={isTitleEmpty}
@@ -22,8 +24,8 @@ const PostingHeader = forwardRef(({ isTitleEmpty, setIsTitleEmpty }, ref) => {
         placeholder={"제목을 입력하세요"}
         ref={ref}
       />
-      {isTitleEmpty && <span>제목을 입력해주세요.</span>}
-    </>
+      {isTitleEmpty && <PostingMessage>제목을 입력해주세요.</PostingMessage>}
+    </PostingTitleBox>
   );
 });
 export default PostingHeader;

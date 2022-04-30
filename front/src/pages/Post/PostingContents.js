@@ -5,6 +5,7 @@ import {
   PostingCategory,
   PostingContent,
   PostingArea,
+  PostingMessage,
 } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 
@@ -35,7 +36,9 @@ const PostingContents = forwardRef(
           <option value={"에세이"}>에세이</option>
           <option value={"etc"}>etc</option>
         </PostingCategory>
-        {isCategoryEmpty === "" && <span>카테고리를 선택해주세요.</span>}
+        {isCategoryEmpty === "" && (
+          <PostingMessage>카테고리를 선택해주세요.</PostingMessage>
+        )}
         <PostingContent>
           <PostingArea
             placeholder="내용을 입력해주세요"
@@ -48,7 +51,9 @@ const PostingContents = forwardRef(
             className={"markdown"}
           ></ReactMarkdown>
         </PostingContent>
-        {isContentEmpty && <span>내용을 입력해주세요.</span>}
+        {isContentEmpty && (
+          <PostingMessage>내용을 입력해주세요.</PostingMessage>
+        )}
       </>
     );
   }

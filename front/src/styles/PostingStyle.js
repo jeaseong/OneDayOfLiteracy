@@ -82,3 +82,14 @@ export const PostingButton = styled.button`
     transition: 0.1s ease-in-out;
   }
 `;
+
+export const PostingTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const PostingMessage = styled.span`
+  font-size: 14px;
+  color: #41d6d6;
+  margin-left: 10px;
+`;
