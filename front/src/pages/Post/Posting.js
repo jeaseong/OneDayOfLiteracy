@@ -10,8 +10,8 @@ import { useGetCurrentUser } from "../../queries/userQuery";
 
 function Posting() {
   const { userState } = useGetCurrentUser();
-  console.log("여기야 여기!", userState._id);
-  console.log("여기야 여기!", userState.nickname);
+  // console.log("여기야 여기!", userState._id);
+  // console.log("여기야 여기!", userState.nickname);
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -21,29 +21,37 @@ function Posting() {
   const [tagArray, setTagArray] = useState([]);
 
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const [istContentEmpty, setIsContentEmpty] = useState(false);
+  const [isContentEmpty, setIsContentEmpty] = useState(false);
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("titleRef : ", titleRef.current.value);
-      console.log("contentRef : ", contentRef.current.value);
-      console.log("categoryRef : ", categoryRef.current.value);
-      console.log("tagRef : ", tagRef.current.value.split(","));
-      setIsTitleEmpty(!titleRef.current.value);
-      setIsContentEmpty(!contentRef.current.value);
+      // console.log("titleRef : ", titleRef.current.value);
+      // console.log("contentRef : ", contentRef.current.value);
+      // console.log("categoryRef : ", categoryRef.current.value);
+      // console.log("tagRef : ", tagRef.current.value);
+      // console.log("tag : ", tagArray);
+
+      setIsTitleEmpty(() => !titleRef.current.value);
+      setIsContentEmpty(() => !contentRef.current.value);
+      setIsCategoryEmpty(() => categoryRef.current.value);
+
+      console.log(isCategoryEmpty);
+      console.log(isContentEmpty);
+      console.log(isTitleEmpty);
+
       console.log({
         title: titleRef.current.value,
         content: contentRef.current.value,
         category: categoryRef.current.value,
-        tags: tagRef.current.value,
+        tags: tagArray,
       });
       // await post("post", {
       //   title: titleRef.current.value,
       //   content: contentRef.current.value,
       //   category: categoryRef.current.value,
-      //   tags: tagRef.current.value,
+      //   tags: tagRef.current.value.split(","),
       // });
     } catch (error) {
       throw new Error(error);
@@ -68,13 +76,15 @@ function Posting() {
     });
 
     if (e.keyCode === 13 && e.target.value.trim() !== "") {
-      console.log("enter! tag 입력", e.target.value);
+      // console.log("enter! tag 입력", e.target.value);
       tagBox.innerHTML = "#" + e.target.value;
       tagsWrapper?.appendChild(tagBox);
       setTagArray((tagArray) => [...tagArray, tag]);
       setTag("");
     }
   };
+
+  const handleClick = (e) => {};
 
   return (
     <PostContainer>
@@ -84,7 +94,8 @@ function Posting() {
           ref={titleRef}
         ></PostingHeader>
         <PostingContents
-          istContentEmpty={istContentEmpty}
+          isContentEmpty={isContentEmpty}
+          isCategoryEmpty={isCategoryEmpty}
           handleSubmit={handleSubmit}
           ref={{ contentRef, categoryRef }}
         ></PostingContents>
@@ -94,7 +105,7 @@ function Posting() {
           handleTagEnter={handleTagEnter}
           ref={tagRef}
         ></PostingTag>
-        <PostingButton>출간하기</PostingButton>
+        <PostingButton onClick={handleClick}>출간하기</PostingButton>
       </form>
     </PostContainer>
   );
