@@ -88,11 +88,11 @@ export default function Slide({ elements }) {
     <>
       <OverFlow>
         <SlideContainer
-          width={`${NEWSIZE * 1024}px`}
+          w={`${NEWSIZE * 1024}px`}
           transform={`translate(${-1024 * curIndex}px)`}
           transition={curTransition}
           onMouseOver={() => setIsSwiping(true)}
-          onMounseOut={() => setIsSwiping(false)}
+          onMouseOut={() => setIsSwiping(false)}
         >
           {infiniteElements.map((e, index) => (
             <SlideInner

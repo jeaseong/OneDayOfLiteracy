@@ -5,7 +5,7 @@ export const OverFlow = styled.div`
 `;
 
 export const SlideContainer = styled.div`
-  width: ${(props) => props.width};
+  width: ${(props) => props.w};
   transform: ${(props) => props.transform};
   transition: ${(props) => props.transition};
   display: flex;
