@@ -25,11 +25,14 @@ export function useGetUserPostList(id) {
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
     const res = await get(`posts?${endpoint}&page=${pageParam}&limit=9`);
-    const { posts, isLast } = res.data;
-    return { posts, nextPage: pageParam + 1, isLast };
+    return { posts: res.data, nextPage: pageParam + 1, isLast: false };
+
+    //TODO 백엔드 작업중
+    // const { posts, isLast } = res.data;
+    // return { posts, nextPage: pageParam + 1, isLast };
   };
 
-  return useInfiniteQuery(["posts"], fetchPostList, {
+  return useInfiniteQuery(["posts", endpoint], fetchPostList, {
     staleTime: 60000,
     cacheTime: 120000,
     getNextPageParam: (lastPage) =>
