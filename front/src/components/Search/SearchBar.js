@@ -10,11 +10,13 @@ import { useGetPostList } from "../../queries/postQuery";
 
 // 입력한 단어가 글 제목에 포함되어 있는지 체크
 function includeSearchTarget(postList, searchTarget) {
-  return postList.reduce((cur, post) => {
+  const filterData = postList.reduce((cur, post) => {
     const { title } = post;
     if (title.includes(searchTarget)) return [...cur, title];
     return [...cur];
   }, []);
+
+  return new Set(filterData);
 }
 
 /**
@@ -34,7 +36,9 @@ function SearchBar({ searchTarget, setSearchTarget }) {
   useEffect(() => {
     const showDropDownList = () => {
       if (searchTarget.length !== 0) {
-        const filteredSearchData = includeSearchTarget(postList, searchTarget);
+        const filteredSearchData = [
+          ...includeSearchTarget(postList, searchTarget),
+        ];
 
         if (filteredSearchData.length > 10) {
           setDropDownList(filteredSearchData.slice(0, 10));
