@@ -11,4 +11,5 @@ export const img = {
   womanBook: `${process.env.PUBLIC_URL}/assets/img/woman_book.png`,
   woman: `${process.env.PUBLIC_URL}/assets/img/woman.png`,
   kakaoIcon: `${process.env.PUBLIC_URL}/assets/img/kakaotalk.png`,
+  notPost: `${process.env.PUBLIC_URL}/assets/img/post_not.png`,
 };
