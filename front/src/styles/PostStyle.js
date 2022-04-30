@@ -65,14 +65,14 @@ export const Tag = styled.span`
 export const PostsLike = styled.span``;
 export const PostContainer = styled.div`
   max-width: 1024px;
-  background-color: white;
+  background-color: #eaf3f5;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 5% auto;
   padding: 5%;
-  box-shadow: 0 0 5px #c48f5a;
+  // box-shadow: 0 0 5px #c48f5a;
 `;
 export const PostHeader = styled.div`
   display: flex;
