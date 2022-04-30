@@ -15,6 +15,9 @@ import TrainingStepTwo from "./pages/Training/TrainingTwo/TrainingStepTwo";
 import TrainingStepThree from "./pages/Training/TrainingThree/TrainingStepThree";
 import TrainingStepFour from "./pages/Training/TrainingFour/TrainingStepFour";
 import TestResult from "./pages/TestResult/TestResult";
+import Posts from "./pages/Post/Posts";
+import Post from "./pages/Post/Post";
+import Posting from "./pages/Post/Posting";
 import { useGetCurrentUser } from "./queries/userQuery";
 
 function App() {
@@ -42,7 +45,13 @@ function App() {
             <Route path="/training/3" element={<TrainingStepThree />} />
             <Route path="/training/4" element={<TrainingStepFour />} />
             <Route path="/test" element={<TestHome />} />
+
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:postId" element={<Post />} />
+            <Route path="/post" element={<Posting />} />
+
             <Route path="/test/result" element={<TestResult />} />
+
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

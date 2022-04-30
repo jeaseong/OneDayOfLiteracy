@@ -1,6 +1,11 @@
 import { useQuery, useQueryClient } from "react-query";
 import { get } from "../utils/api";
 
+/**
+ * 유저 프로필 페이지에서 보여줄 글 목록을 받아옵니다.
+ * @param {string} id
+ * @returns {{userPosts: array, isFetching: boolean, error: boolean}}
+ */
 export function useGetUserPostList(id) {
   const queryclient = useQueryClient();
 
@@ -17,6 +22,10 @@ export function useGetUserPostList(id) {
   return { userPosts: data, isFetching, error };
 }
 
+/**
+ * 전체 글 목록을 받아옵니다.
+ * @returns {{postList: array, isFetching: boolean, error: unknown}}
+ */
 export function useGetPostList() {
   const queryclient = useQueryClient();
 
