@@ -22,7 +22,7 @@ export function useGetUserPostList(id) {
   return { userPosts: data, isFetching, error };
 }
 
-export function useGetPostList(endpoint = "?") {
+export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
     const res = await get(`posts?${endpoint}&page=${pageParam}&limit=9`);
     return { posts: res.data, nextPage: pageParam + 1, isLast: false };
@@ -32,7 +32,7 @@ export function useGetPostList(endpoint = "?") {
     // return { posts, nextPage: pageParam + 1, isLast };
   };
 
-  return useInfiniteQuery(["posts"], fetchPostList, {
+  return useInfiniteQuery(["posts", endpoint], fetchPostList, {
     staleTime: 60000,
     cacheTime: 120000,
     getNextPageParam: (lastPage) =>
