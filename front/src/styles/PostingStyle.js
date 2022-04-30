@@ -9,18 +9,21 @@ export const PostingTitle = styled.input`
   padding: 20px;
   border: none;
   border-radius: 5px;
+  outline: none;
   margin: 10px;
   width: 50%;
   font-size: 30px;
   background-color: #eaf3f5;
+  display: block;
 `;
 
 export const PostingCategory = styled.select`
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #c48f5a;
+  border: none;
+  outline: none;
   margin: 10px;
-  width: 50%;
+  width: 30%;
 `;
 
 export const PostingContent = styled.div`
@@ -37,6 +40,7 @@ export const PostingArea = styled.textarea`
   margin-right: 20px;
   border-radius: 5px;
   padding: 10px;
+  outline: none;
 `;
 
 export const PostingTags = styled.input`
@@ -44,5 +48,32 @@ export const PostingTags = styled.input`
   border: none;
   border-radius: 5px;
   margin: 10px;
-  width: 50%;
+  width: auto;
+  display: inline-flex;
+  background-color: #eaf3f5;
+  outline: none;
+  cursor: text;
+  //   line-height: 2rem;
+  margin-bottom: 0.75rem;
+  min-width: 8rem;
+`;
+
+export const PostingButton = styled.button`
+  background-color: #445656;
+  width: 90px;
+  height: 40px;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 16px;
+  color: #f9f9f9;
+  border: none;
+  position: absolute;
+  left: 45%;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    opacity: 0.7;
+    transition: 0.1s ease-in-out;
+  }
 `;

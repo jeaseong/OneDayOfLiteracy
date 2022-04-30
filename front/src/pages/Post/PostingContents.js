@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef, forwardRef } from "react";
 import { post } from "../../utils/api";
 import ReactMarkdown from "react-markdown";
-import { PostContainer, PostHeader, PostBody } from "../../styles/PostStyle";
 import {
-  PostingTitle,
   PostingCategory,
-  PostingTags,
-  PostingBody,
   PostingContent,
   PostingArea,
 } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 
-function PostingContents() {
+const PostingContents = forwardRef(({ handleSubmit }, ref) => {
   const [markdown, setMarkdown] = useState("");
   const handleMarkdown = (e) => {
     e.preventDefault();
@@ -28,7 +24,11 @@ function PostingContents() {
         <option value={"에세이"}>에세이</option>
       </PostingCategory>
       <PostingContent>
-        <PostingArea onChange={handleMarkdown}></PostingArea>
+        <PostingArea
+          placeholder="내용을 입력해주세요"
+          ref={ref}
+          onChange={handleMarkdown}
+        ></PostingArea>
         <ReactMarkdown
           children={markdown}
           className={"markdown"}
@@ -36,5 +36,5 @@ function PostingContents() {
       </PostingContent>
     </>
   );
-}
+});
 export default PostingContents;

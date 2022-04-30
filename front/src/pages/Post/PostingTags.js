@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { post } from "../../utils/api";
 import ReactMarkdown from "react-markdown";
 import { PostContainer, PostHeader, PostBody } from "../../styles/PostStyle";
@@ -11,9 +11,20 @@ import {
   PostingArea,
 } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
-function PostingTag() {
+const PostingTag = forwardRef(({ handleTagEnter, onChangeTag, tag }, ref) => {
   return (
-    <PostingTags type={"text"} placeholder={"태그를 입력하세요"}></PostingTags>
+    <div className="hashWrap">
+      <div className="tagsWrapper"></div>
+      <PostingTags
+        className="tagsInput"
+        type={"text"}
+        placeholder={"태그를 입력하세요"}
+        value={tag}
+        onChange={onChangeTag}
+        onKeyUp={handleTagEnter}
+        ref={ref}
+      ></PostingTags>
+    </div>
   );
-}
+});
 export default PostingTag;
