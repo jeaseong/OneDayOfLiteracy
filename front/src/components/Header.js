@@ -66,9 +66,16 @@ function Header() {
             e.preventDefault();
             navigate("/");
           }}
-          label="서비스 소개"
         >
           {LABEL.SERVICE_INTRODUCE}
+        </NavList>
+        <NavList
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/posts");
+          }}
+        >
+          게시글
         </NavList>
         {isLogin ? (
           <>

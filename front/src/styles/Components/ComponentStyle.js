@@ -32,7 +32,7 @@ export const HeaderContainer = styled.div`
   background-image: url(${img.leafLeftHeader}), url(${img.leafRightHeader});
   background-repeat: no-repeat;
   background-position: left, right;
-  background-size: auto 100px, auto 100px;
+  background-size: auto 100%, auto 120%;
   background-color: #f5efea;
 `;
 
