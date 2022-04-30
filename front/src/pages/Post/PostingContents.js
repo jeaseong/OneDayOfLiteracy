@@ -16,7 +16,11 @@ const PostingContents = forwardRef(({ handleSubmit }, ref) => {
   };
   return (
     <>
-      <PostingCategory type={"option"} placeholder={"카테고리"}>
+      <PostingCategory
+        ref={ref.categoryRef}
+        type={"option"}
+        placeholder={"카테고리"}
+      >
         <option value={"none"}>Category</option>
         <option value={"자기소개"}>자기소개</option>
         <option value={"시"}>시</option>
@@ -26,7 +30,7 @@ const PostingContents = forwardRef(({ handleSubmit }, ref) => {
       <PostingContent>
         <PostingArea
           placeholder="내용을 입력해주세요"
-          ref={ref}
+          ref={ref.contentRef}
           onChange={handleMarkdown}
         ></PostingArea>
         <ReactMarkdown

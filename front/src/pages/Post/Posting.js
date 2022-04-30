@@ -11,6 +11,7 @@ function Posting() {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
+  const categoryRef = useRef(null);
   const [tag, setTag] = useState("");
   const [tagArray, setTagArray] = useState([]);
 
@@ -72,7 +73,7 @@ function Posting() {
         <PostingContents
           istContentEmpty={istContentEmpty}
           handleSubmit={handleSubmit}
-          ref={contentRef}
+          ref={{ contentRef, categoryRef }}
         ></PostingContents>
         <PostingTag
           tag={tag}
