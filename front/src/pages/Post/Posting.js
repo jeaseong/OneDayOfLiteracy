@@ -14,7 +14,7 @@ function Posting() {
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
 
-  const [posting, setPosting] = useState({});
+  // const [posting, setPosting] = useState({});
 
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
   const [isContentEmpty, setIsContentEmpty] = useState(false);
@@ -28,14 +28,14 @@ function Posting() {
       setIsContentEmpty(() => !contentRef.current.value);
       setIsCategoryEmpty(() => categoryRef.current.value);
 
-      setPosting({
-        title: titleRef.current.value,
-        content: contentRef.current.value,
-        tags: tagRef.current.value,
-        subjectId: "6232e9c20cb9033a0d6d156a",
-        category: categoryRef.current.value,
-      });
-
+      const posting = {
+        title: titleRef.current?.value,
+        content: contentRef.current?.value,
+        tags: tagRef.current.innerText.slice(1).split("\n#"),
+        subjectId: { _id: "6232e9c20cb9033a0d6d156a" },
+        category: categoryRef.current?.value,
+      };
+      console.log("posting : ", posting);
       await post("post", posting);
     } catch (error) {
       throw new Error(error);

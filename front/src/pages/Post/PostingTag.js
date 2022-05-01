@@ -8,11 +8,11 @@ const PostingTag = forwardRef(({}, ref) => {
 
   const onChangeTag = (e) => {
     e.preventDefault();
-    setTag(() => ref.current.value);
+    setTag(() => e.target.value);
   };
 
   const handleTagClick = (e) => {
-    const tagToDelete = e.target.innerHTML.slice(1);
+    const tagToDelete = e.target?.innerHTML.slice(1);
     setTagArray(tagArray.filter((v) => v !== tagToDelete));
   };
 
@@ -20,13 +20,14 @@ const PostingTag = forwardRef(({}, ref) => {
     e.preventDefault();
     if (e.keyCode === 13 && e.target.value.trim() !== "") {
       setTagArray(() => [...tagArray, tag]);
+
       setTag("");
     }
   };
 
   return (
     <div className="hashWrap">
-      <div className="tagsWrapper">
+      <div className="tagsWrapper" ref={ref}>
         {tagArray.map((tag, index) => {
           return (
             <div key={index} className="tagBox" onClick={handleTagClick}>
@@ -43,7 +44,6 @@ const PostingTag = forwardRef(({}, ref) => {
         value={tag}
         onChange={onChangeTag}
         onKeyUp={handleTagEnter}
-        ref={ref}
       />
     </div>
   );

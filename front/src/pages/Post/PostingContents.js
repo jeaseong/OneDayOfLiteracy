@@ -26,7 +26,6 @@ const PostingContents = forwardRef(
             isContentEmpty={isContentEmpty}
             ref={ref}
             onChange={handleMarkdown}
-            // onInput={handleResizeHeight}
           ></PostingArea>
           <ReactMarkdown
             children={markdown}
