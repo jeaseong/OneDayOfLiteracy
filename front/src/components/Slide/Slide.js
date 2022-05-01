@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useWindowSize from "../useWindowSize";
 import {
   OverFlow,
   SlideContainer,
@@ -19,17 +18,9 @@ export default function Slide({ elements }) {
   const [isSwiping, setIsSwiping] = useState(false);
   const [slideX, setSlideX] = useState(null);
   const [prevSlideX, setPrevSlideX] = useState(false);
-  const [windowWidth, windowHeight] = useWindowSize();
   const ORIGINSIZE = elements.length;
   const infiniteElements = [elements[ORIGINSIZE - 1], ...elements, elements[0]];
   const NEWSIZE = infiniteElements.length;
-
-  // 윈도우 사이즈에 맞게 slide item 크기 변화
-  const getNewItemWidth = () => {
-    let itemWidth = windowWidth;
-    itemWidth = itemWidth > 1024 ? 1024 : itemWidth;
-    return itemWidth;
-  };
 
   // 스와이프 가능
   const getClientX = (event) => {
@@ -91,8 +82,8 @@ export default function Slide({ elements }) {
     <>
       <OverFlow>
         <SlideContainer
-          w={`${NEWSIZE * 1024}px`}
-          transform={`translate(${-1024 * curIndex}px)`}
+          w={`${NEWSIZE * 100}vw`}
+          transform={`translate(${-100 * curIndex}vw)`}
           transition={curTransition}
           onMouseOver={() => setIsSwiping(true)}
           onMouseOut={() => setIsSwiping(false)}
@@ -108,7 +99,7 @@ export default function Slide({ elements }) {
               onTouchEnd={handleMouseSwipe}
               onMouseLeave={handleMouseSwipe}
             >
-              <SlideItem width={getNewItemWidth}>{e}</SlideItem>
+              <SlideItem>{e}</SlideItem>
             </SlideInner>
           ))}
         </SlideContainer>

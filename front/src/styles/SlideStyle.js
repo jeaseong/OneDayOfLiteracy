@@ -17,7 +17,10 @@ export const SlideInner = styled.div`
   float: left;
 `;
 export const SlideItem = styled.div`
-  width: ${(props) => props.width}px;
+  width: 100vw;
+  @media only screen and (min-width: 1024px) {
+    width: 1024px;
+  }
 `;
 
 export const Btn = styled.button`
