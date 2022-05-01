@@ -22,7 +22,7 @@ const focusInput = css`
   transition: 0.2s ease-in-out;
 `;
 
-export const PostingCategory = styled.select`
+export const PostingCategoryBox = styled.select`
   padding: 10px;
   border-radius: 5px;
   border: none;
