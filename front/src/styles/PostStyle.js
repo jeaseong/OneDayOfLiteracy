@@ -65,7 +65,7 @@ export const Tag = styled.span`
 export const PostsLike = styled.span``;
 export const PostContainer = styled.div`
   max-width: 1024px;
-  background-color: #eaf3f5;
+  background-color: #dcd0c8;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

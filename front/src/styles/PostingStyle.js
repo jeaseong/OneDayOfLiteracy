@@ -12,16 +12,16 @@ export const PostingTitle = styled.input`
   margin: 10px;
   width: 50%;
   font-size: 30px;
-  background-color: #eaf3f5;
+  background-color: #dcd0c8;
   display: block;
   ${(props) => (props.isTitleEmpty ? focusInput : "outline : none")};
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 500px) {
     font-size: 20px;
   }
 `;
 
 const focusInput = css`
-  outline: 4px solid #41d6d6;
+  outline: 3px solid #c48f5a;
   transition: 0.2s ease-in-out;
 `;
 
@@ -71,7 +71,7 @@ export const PostingTags = styled.input`
   margin: 10px;
   width: auto;
   display: inline-flex;
-  background-color: #eaf3f5;
+  background-color: #dcd0c8;
   outline: none;
   cursor: text;
 
@@ -105,7 +105,7 @@ export const PostingTitleBox = styled.div`
 
 export const PostingMessage = styled.span`
   font-size: 14px;
-  color: #41d6d6;
+  color: #d1985f;
   margin-left: 10px;
   @media only screen and (max-width: 400px) {
     display: none;
