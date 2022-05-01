@@ -7,8 +7,8 @@ import { PostingButton } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 import { post } from "../../utils/api";
 import { useGetCurrentUser } from "../../queries/userQuery";
-
-function Posting() {
+//post 요청할 때 trainingTag를 붙여서 나가면 좋을 것 같음
+function Posting({ trainingTag = [] }) {
   const { userState } = useGetCurrentUser();
   // console.log("여기야 여기!", userState._id);
   // console.log("여기야 여기!", userState.nickname);

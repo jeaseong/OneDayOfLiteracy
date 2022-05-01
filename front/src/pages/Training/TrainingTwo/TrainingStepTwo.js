@@ -1,6 +1,6 @@
 import React from "react";
 import TrainingGuide from "../TrainingGuide";
-
+import Posting from "../../Post/Posting";
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
@@ -8,7 +8,7 @@ import {
   TrainingStepIntroduction,
   Hilight,
 } from "../../../styles/TrainingStyle";
-
+import { tagName } from "../../../utils/tagName";
 import Text from "../../../components/Text";
 
 export default function TrainingStepTwo() {
@@ -39,7 +39,7 @@ export default function TrainingStepTwo() {
           </TrainingSubjectWrap>
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
-      {/* <Post></Post> */}
+      <Posting trainingTag={[...tagName.step2]}></Posting>
     </TrainingGuide>
   );
 }
