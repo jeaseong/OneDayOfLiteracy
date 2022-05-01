@@ -8,20 +8,18 @@ const PostingTag = forwardRef(({}, ref) => {
 
   const onChangeTag = (e) => {
     e.preventDefault();
-    setTag((tag) => e.target.value);
+    setTag(() => ref.current.value);
   };
 
   const handleTagClick = (e) => {
     const tagToDelete = e.target.innerHTML.slice(1);
     setTagArray(tagArray.filter((v) => v !== tagToDelete));
-    console.log(tagArray);
   };
 
   const handleTagEnter = (e) => {
     e.preventDefault();
     if (e.keyCode === 13 && e.target.value.trim() !== "") {
       setTagArray(() => [...tagArray, tag]);
-      console.log(tagArray);
       setTag("");
     }
   };
@@ -45,7 +43,7 @@ const PostingTag = forwardRef(({}, ref) => {
         value={tag}
         onChange={onChangeTag}
         onKeyUp={handleTagEnter}
-        ref={ref.tagRef}
+        ref={ref}
       />
     </div>
   );

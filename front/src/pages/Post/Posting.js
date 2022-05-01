@@ -58,7 +58,7 @@ function Posting() {
       <PostingContents
         isContentEmpty={isContentEmpty}
         setIsContentEmpty={setIsContentEmpty}
-        ref={{ contentRef }}
+        ref={contentRef}
       />
       <div className="postingButton">
         <PostingButton

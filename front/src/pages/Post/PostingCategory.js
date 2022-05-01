@@ -7,7 +7,7 @@ const PostingCategory = forwardRef(
     return (
       <>
         <PostingCategoryBox
-          ref={ref.categoryRef}
+          ref={ref}
           isCategoryEmpty={isCategoryEmpty}
           type={"option"}
           placeholder={"카테고리"}

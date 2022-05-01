@@ -14,7 +14,7 @@ const PostingHeader = forwardRef(({ isTitleEmpty, setIsTitleEmpty }, ref) => {
         isTitleEmpty={isTitleEmpty}
         type={"text"}
         placeholder={"제목을 입력하세요"}
-        ref={ref.titleRef}
+        ref={ref}
       />
       {isTitleEmpty && <PostingMessage>제목을 입력해주세요.</PostingMessage>}
     </PostingTitleBox>

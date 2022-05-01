@@ -14,9 +14,8 @@ const PostingContents = forwardRef(
       e.preventDefault();
       setIsContentEmpty(() => !e.target.value);
       setMarkdown(e.target.value);
-      ref.contentRef.current.style.height = "inherit";
-      ref.contentRef.current.style.height =
-        ref.contentRef.current.scrollHeight + "px";
+      ref.current.style.height = "inherit";
+      ref.current.style.height = ref.current.scrollHeight + "px";
     };
 
     return (
@@ -25,7 +24,7 @@ const PostingContents = forwardRef(
           <PostingArea
             placeholder="내용을 입력해주세요"
             isContentEmpty={isContentEmpty}
-            ref={ref.contentRef}
+            ref={ref}
             onChange={handleMarkdown}
             // onInput={handleResizeHeight}
           ></PostingArea>
