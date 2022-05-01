@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { PostingCategoryBox, PostingMessage } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 
@@ -7,7 +7,7 @@ const PostingCategory = forwardRef(
     return (
       <>
         <PostingCategoryBox
-          ref={ref}
+          ref={ref.categoryRef}
           isCategoryEmpty={isCategoryEmpty}
           type={"option"}
           placeholder={"카테고리"}

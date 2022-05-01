@@ -35,16 +35,20 @@ export const PostingContent = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: auto;
   padding: 10px;
 `;
 
 export const PostingArea = styled.textarea`
   width: 100%;
-  height: 30vh;
+  min-height: 30vh;
   border: none;
   margin-right: 20px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
+  line-height: 1.7;
+  overflow: hidden;
+  resize: none;
   ${(props) => (props.isContentEmpty ? focusInput : "outline : none")};
 `;
 

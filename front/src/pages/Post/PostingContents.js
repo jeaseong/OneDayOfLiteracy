@@ -1,5 +1,4 @@
-import React, { useState, useRef, forwardRef } from "react";
-import { post } from "../../utils/api";
+import React, { useState, forwardRef } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   PostingContent,
@@ -15,7 +14,11 @@ const PostingContents = forwardRef(
       e.preventDefault();
       setIsContentEmpty(() => !e.target.value);
       setMarkdown(e.target.value);
+      ref.contentRef.current.style.height = "inherit";
+      ref.contentRef.current.style.height =
+        ref.contentRef.current.scrollHeight + "px";
     };
+
     return (
       <>
         <PostingContent>
@@ -24,6 +27,7 @@ const PostingContents = forwardRef(
             isContentEmpty={isContentEmpty}
             ref={ref.contentRef}
             onChange={handleMarkdown}
+            // onInput={handleResizeHeight}
           ></PostingArea>
           <ReactMarkdown
             children={markdown}
