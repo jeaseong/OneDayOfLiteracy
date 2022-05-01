@@ -58,7 +58,7 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       try {
         const res = await get(`posts?content=${searchKeyword}`);
         const filteredSearchData = [
-          ...includeSearchTarget(res.data, searchKeyword),
+          ...includeSearchTarget(res.data.posts, searchKeyword),
         ];
 
         setDropDownList(filteredSearchData);
