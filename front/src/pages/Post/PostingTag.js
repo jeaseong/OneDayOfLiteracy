@@ -45,7 +45,7 @@ const PostingTag = forwardRef(({}, ref) => {
         value={tag}
         onChange={onChangeTag}
         onKeyUp={handleTagEnter}
-        ref={ref}
+        ref={ref.tagRef}
       />
     </div>
   );

@@ -73,6 +73,10 @@ export const PostContainer = styled.div`
   margin: 5% auto;
   padding: 5%;
   // box-shadow: 0 0 5px #c48f5a;
+  @media only screen and (max-width: 400px) {
+    margin: 5% 0;
+    padding: 5% 0;
+  }
 `;
 export const PostHeader = styled.div`
   display: flex;

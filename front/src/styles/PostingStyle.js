@@ -15,6 +15,9 @@ export const PostingTitle = styled.input`
   background-color: #eaf3f5;
   display: block;
   ${(props) => (props.isTitleEmpty ? focusInput : "outline : none")};
+  @media only screen and (max-width: 400px) {
+    font-size: 20px;
+  }
 `;
 
 const focusInput = css`
@@ -29,6 +32,9 @@ export const PostingCategoryBox = styled.select`
   ${(props) => (props.isCategoryEmpty === "" ? focusInput : "outline : none")};
   margin: 10px;
   width: 30%;
+  @media only screen and (max-width: 400px) {
+    font-size: 13px;
+  }
 `;
 
 export const PostingContent = styled.div`
@@ -37,6 +43,9 @@ export const PostingContent = styled.div`
   width: 100%;
   height: auto;
   padding: 10px;
+  @media only screen and (max-width: 400px) {
+    padding: 0;
+  }
 `;
 
 export const PostingArea = styled.textarea`
@@ -50,6 +59,9 @@ export const PostingArea = styled.textarea`
   overflow: hidden;
   resize: none;
   ${(props) => (props.isContentEmpty ? focusInput : "outline : none")};
+  @media only screen and (max-width: 400px) {
+    margin-right: 0;
+  }
 `;
 
 export const PostingTags = styled.input`
@@ -95,4 +107,7 @@ export const PostingMessage = styled.span`
   font-size: 14px;
   color: #41d6d6;
   margin-left: 10px;
+  @media only screen and (max-width: 400px) {
+    display: none;
+  }
 `;
