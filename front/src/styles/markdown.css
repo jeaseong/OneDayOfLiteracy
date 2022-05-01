@@ -43,3 +43,7 @@
   margin-right: 5px;
   cursor: pointer;
 }
+.postingButton {
+  display: flex;
+  justify-content: center;
+}

@@ -1,16 +1,8 @@
 import React, { useState, forwardRef } from "react";
-import { post } from "../../utils/api";
-import ReactMarkdown from "react-markdown";
-import { PostContainer, PostHeader, PostBody } from "../../styles/PostStyle";
 import {
   PostingTitle,
   PostingTitleBox,
   PostingMessage,
-  PostingCategory,
-  PostingTags,
-  PostingBody,
-  PostingContent,
-  PostingArea,
 } from "../../styles/PostingStyle";
 import "../../styles/markdown.css";
 

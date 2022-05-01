@@ -72,8 +72,7 @@ export const PostingButton = styled.button`
   font-size: 16px;
   color: #f9f9f9;
   border: none;
-  position: absolute;
-  left: 45%;
+  margin-top: 20px;
   &:hover {
     cursor: pointer;
   }

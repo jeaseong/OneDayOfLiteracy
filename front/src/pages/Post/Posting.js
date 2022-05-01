@@ -60,13 +60,15 @@ function Posting() {
         setIsContentEmpty={setIsContentEmpty}
         ref={{ contentRef, categoryRef }}
       />
-      <PostingButton
-        type="submit"
-        onClick={handleSubmit}
-        disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
-      >
-        출간하기
-      </PostingButton>
+      <div className="postingButton">
+        <PostingButton
+          type="submit"
+          onClick={handleSubmit}
+          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
+        >
+          출간하기
+        </PostingButton>
+      </div>
     </PostContainer>
   );
 }
