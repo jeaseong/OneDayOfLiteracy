@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { get } from "../../utils/api";
-import PostCard from "./PostCard";
 import {
   PostContainer,
   PostHeader,

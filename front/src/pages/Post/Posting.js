@@ -14,8 +14,6 @@ function Posting() {
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
 
-  // const [posting, setPosting] = useState({});
-
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
   const [isContentEmpty, setIsContentEmpty] = useState(false);
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
