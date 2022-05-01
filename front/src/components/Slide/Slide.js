@@ -24,11 +24,14 @@ export default function Slide({ elements }) {
   const infiniteElements = [elements[ORIGINSIZE - 1], ...elements, elements[0]];
   const NEWSIZE = infiniteElements.length;
 
+  // 윈도우 사이즈에 맞게 slide item 크기 변화
   const getNewItemWidth = () => {
     let itemWidth = windowWidth;
     itemWidth = itemWidth > 1024 ? 1024 : itemWidth;
     return itemWidth;
   };
+
+  // 스와이프 가능
   const getClientX = (event) => {
     return event._reactName === "onTouchStart"
       ? event.touches[0].clientX
@@ -37,16 +40,17 @@ export default function Slide({ elements }) {
       : event.clientX;
   };
 
+  // 터치한 위치
   const handleTouchStart = (e) => {
     setPrevSlideX((prevSlideX) => getClientX(e));
   };
-
+  // 터치 움직임
   const handleTouchMove = (e) => {
     if (prevSlideX) {
       setSlideX((slideX) => getClientX(e) - prevSlideX);
     }
   };
-
+  // 터치 움직임에 따라 curIndex 변경
   const handleMouseSwipe = (e) => {
     if (slideX) {
       const currentTouchX = getClientX(e);
@@ -59,19 +63,18 @@ export default function Slide({ elements }) {
     }
     setPrevSlideX((prevSlideX) => null);
   };
-
   const handleSwipe = (direction) => {
     setIsSwiping(true);
     handleSlide(curIndex + direction);
   };
-
+  // 맨 끝, 맨 처음 슬라이드 접근 시 트랜지션 효과 제거
   const replaceSlide = (index) => {
     setTimeout(() => {
       setCurTransition("0s");
       setCurIndex(index);
     }, 500);
   };
-
+  // 맨 처음과 끝 슬라이드 접근 시 인덱스 변화
   const handleSlide = (index) => {
     setCurIndex(index);
     if (index <= 0) {
@@ -88,11 +91,11 @@ export default function Slide({ elements }) {
     <>
       <OverFlow>
         <SlideContainer
-          width={`${NEWSIZE * 1024}px`}
+          w={`${NEWSIZE * 1024}px`}
           transform={`translate(${-1024 * curIndex}px)`}
           transition={curTransition}
           onMouseOver={() => setIsSwiping(true)}
-          onMounseOut={() => setIsSwiping(false)}
+          onMouseOut={() => setIsSwiping(false)}
         >
           {infiniteElements.map((e, index) => (
             <SlideInner
