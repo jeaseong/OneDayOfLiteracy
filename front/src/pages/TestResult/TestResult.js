@@ -12,7 +12,7 @@ import {
 } from "../../styles/TestResultStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useGetCurrentUser } from "../../queries/userQuery";
-import { recommend } from "../../utils/testResult";
+import { RECOMMENDED } from "../../utils/testResult";
 
 export default function TestResult() {
   const navigate = useNavigate();
@@ -20,9 +20,9 @@ export default function TestResult() {
   const { userState } = useGetCurrentUser();
 
   const recommendStep = (score) => {
-    if (score >= 90) return recommend[2];
-    else if (score >= 70) return recommend[1];
-    else return recommend[0];
+    if (score >= 90) return RECOMMENDED[2];
+    else if (score >= 70) return RECOMMENDED[1];
+    else return RECOMMENDED[0];
   };
 
   const handleClickNavBtn = (score) => {
