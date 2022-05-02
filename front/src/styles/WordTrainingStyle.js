@@ -9,23 +9,40 @@ export const WordTrainingContainer = styled.section`
 `;
 
 export const WordSuggestion = styled.h3`
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: lighter;
   margin-bottom: 10px;
+`;
+export const AnswerForm = styled.form`
+  position: relative;
+`;
+
+export const AnswerInput = styled.input`
+  background-color: transparent;
+  border: solid 2px #c48f5a;
+  border-radius: 8px;
+  height: 40px;
+  font-size: 18px;
+  padding: 0 6px;
+`;
+
+export const AnswerBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: #c4c4c4;
+  position: absolute;
+  right: 10px;
+  top: 12px;
 `;
 
 export const WordMeaningBox = styled.div`
-  min-width: 300px;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #445656;
   margin-bottom: 20px;
-  padding: 10px;
 `;
 
 export const WordMeaning = styled.p`
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: bold;
 `;
 
 export const ShowAnswerBtn = styled.button`
@@ -44,6 +61,12 @@ export const ShowAnswerBtn = styled.button`
     transform: scale(1.1);
   }
   cursor: pointer;
+`;
+
+export const ConfirmBox = styled.p`
+  text-align: left;
+  padding: 3px;
+  min-height: 30px;
 `;
 
 export const ProgressBox = styled.div`
