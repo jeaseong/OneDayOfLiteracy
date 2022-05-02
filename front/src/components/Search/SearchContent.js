@@ -4,7 +4,7 @@ import {
   SearchButton,
   SearchContainerBox,
 } from "../../styles/Components/SearchStyle";
-import { LABEL } from "../../utils/constants";
+import { CATEGORY, LABEL } from "../../utils/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,13 +15,13 @@ import { useNavigate } from "react-router-dom";
  */
 function SearchContent() {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(CATEGORY.ALL);
   const [searchTarget, setSearchTarget] = useState("");
 
   const createEndpointURI = () => {
     const contentParam = `content=${searchTarget}`;
 
-    if (category === "all") return `${contentParam}`;
+    if (category === CATEGORY.ALL) return `${contentParam}`;
     return `category=${category}&${contentParam}`;
   };
 

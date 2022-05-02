@@ -14,10 +14,10 @@ function SearchCategory({ setCategory }) {
 
   return (
     <SearchSelect onChange={handleOnSelect}>
-      <option value="all">{CATEGORY.ALL}</option>
-      <option value="novel">{CATEGORY.NOVEL}</option>
-      <option value="essay">{CATEGORY.ESSAY}</option>
-      <option value="poetry">{CATEGORY.POETRY}</option>
+      <option value={CATEGORY.ALL}>{CATEGORY.ALL}</option>
+      <option value={CATEGORY.NOVEL}>{CATEGORY.NOVEL}</option>
+      <option value={CATEGORY.ESSAY}>{CATEGORY.ESSAY}</option>
+      <option value={CATEGORY.POETRY}>{CATEGORY.POETRY}</option>
     </SearchSelect>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import {
   MyPostContainer,
@@ -14,8 +14,12 @@ import PostCard from "../../Post/PostCard";
 
 function UserPostList() {
   const params = useParams();
+  const location = useLocation();
   const [ref, inView] = useInView();
-  const fetchURI = `posts/users/${params.userId}?`;
+  const fetchURI =
+    location.search.substring(1) === "likes"
+      ? `likes/user/${params.userId}?`
+      : `posts/users/${params.userId}?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
 
