@@ -19,6 +19,7 @@ export const StepContainer = styled.article`
   padding: 10px;
   background: #ffffff;
   border-radius: 12px;
+  cursor: pointer;
 `;
 
 export const StepImg = styled.img`
@@ -72,6 +73,7 @@ export const TrainingSubjectContainer = styled.section`
 
 export const TrainingSubjectWrap = styled.div`
   max-width: 1024px;
+  padding: 0 20px;
   margin: 0 auto;
 `;
 
@@ -84,7 +86,9 @@ export const TrainingStepTitle = styled.h3`
 
 export const TrainingStepIntroduction = styled.p`
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 export const Hilight = styled.span`

@@ -5,6 +5,7 @@ export const WordTrainingContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 `;
 
 export const WordSuggestion = styled.h3`
@@ -38,6 +39,11 @@ export const ShowAnswerBtn = styled.button`
   border-radius: 30px;
   padding: 6px 12px;
   margin-bottom: 20px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+  cursor: pointer;
 `;
 
 export const ProgressBox = styled.div`
@@ -78,8 +84,13 @@ export const Btn = styled.button`
   background: none;
   color: #c48f5a;
   text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
   &:disabled {
     color: #c4c4c4;
+  }
+  &:hover {
+    transform: scale(1.2);
   }
 `;
 
