@@ -99,6 +99,19 @@ class likeService {
     
     return likedUsers;
   }
+
+  // 해당 유저의 좋아하는 글 목록 반환
+  static async getLikedPostsByUserId({ userId }) {
+    const user = await User.findById({ userId });
+    if (!user) {
+      return { errorMessage: "User not Found" };
+    }
+
+    const postIds = user.postLikes;
+    const posts = await Like.findByPostIds({ postIds });
+    posts.errorMessage = null;
+    return posts;
+  }
 }
 
 export { likeService };

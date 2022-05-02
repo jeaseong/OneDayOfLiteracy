@@ -8,7 +8,7 @@ const PostSchema = new Schema(
     subjectId: { type: Schema.Types.ObjectId, required: true, ref: "Subject" },
     author: { type: String, required: true},
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
-    imageUrls: [{ type: String, required: false }],
+    imageUrl: { type: String, required: false, default: null },
     category: { 
       type: String, 
       required: false, 
@@ -40,14 +40,6 @@ PostSchema.virtual('subject', {
   foreignField: '_id',
   justOne: true,
 });
-
-// PostSchema.virtual('likes', {
-//   ref: 'Like',
-//   localField: '_id',
-//   foreignField: 'postId',
-//   count: true,
-// });
-
 
 
 // 참고: .populate("virtual 속성값") 의 결과는 디폴트로 array

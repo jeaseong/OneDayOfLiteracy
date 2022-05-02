@@ -1,5 +1,6 @@
 import { UserModel } from "../schemas/user";
 import { mongoose } from "mongoose";
+import { PostModel } from "../schemas/post";
 
 class Like {
   // 좋아요
@@ -8,6 +9,11 @@ class Like {
     return found;
   }
 
+  static async findByPostIds({ postIds }) {
+    const found = await PostModel.find({ _id: { $in: postIds }});
+    return found;
+  }
+  
   static async deleteAllByPostId({ postId }) {
     const updated = await UserModel.updateMany({}, {$pull: { postLikes: postId }})
     return;

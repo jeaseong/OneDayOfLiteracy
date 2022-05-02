@@ -58,6 +58,14 @@ likeRouter.get('/likes/:postId', async (req, res, next) => {
   }
 });
 
+likeRouter.get('/likes/user/:userId', async (req, res, next) => {
+  const { userId } = req.params;
+  const posts = await likeService.getLikedPostsByUserId({ userId });
+  if (posts.errorMessage) {
+    throw new Error(posts.errorMessage);
+  }
 
+  res.status(200).json(posts);
+})
 
 export { likeRouter };
