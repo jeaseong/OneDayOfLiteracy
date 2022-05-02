@@ -19,7 +19,7 @@ const defaultImage =
 function PostCard({ userId, post }) {
   const navigate = useNavigate();
   const handleOnClick = () => {
-    navigate(`/posts/${post.id}`);
+    navigate(`/posts/${post._id}`);
   };
 
   return (

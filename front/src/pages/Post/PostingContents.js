@@ -13,9 +13,9 @@ const PostingContents = forwardRef(({}, ref) => {
     e.preventDefault();
     setMarkdown(e.target.value);
     ref.current.style.height = "inherit";
-    ref.current.style.height = ref.current.scrollHeight + "px";
+    ref.current.style.height = ref.current?.scrollHeight + "px";
   };
-
+  const isContentEmpty = ref.current?.value.length === 0;
   console.log("ref.current.value : ", ref.current?.value);
   console.log("ref.current.value : ", ref.current?.value.length);
 
@@ -26,15 +26,14 @@ const PostingContents = forwardRef(({}, ref) => {
           placeholder="내용을 입력해주세요"
           ref={ref}
           onChange={handleChangeMarkdown}
+          isContentEmpty={isContentEmpty}
         ></PostingArea>
         <ReactMarkdown
           children={markdown}
           className={"markdown"}
         ></ReactMarkdown>
       </PostingContent>
-      {ref.current?.value.length === 0 && (
-        <PostingMessage>내용을 입력해주세요.</PostingMessage>
-      )}
+      {isContentEmpty && <PostingMessage>내용을 입력해주세요.</PostingMessage>}
     </>
   );
 });

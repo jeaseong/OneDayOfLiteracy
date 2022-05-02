@@ -16,9 +16,6 @@ function Posting() {
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
 
-  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-
-  const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
   const [isInputEmpty, setIsInputEmpty] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -26,9 +23,9 @@ function Posting() {
     try {
       setIsInputEmpty(
         () =>
-          contentRef.current.value.length === 0 &&
-          titleRef.current.value.length === 0 &&
-          categoryRef.current.value === 0
+          contentRef.current?.value.length === 0 &&
+          titleRef.current?.value.length === 0 &&
+          categoryRef.current?.value.length === 0
       );
       console.log("isInputEmpty", isInputEmpty);
       const posting = {
@@ -48,16 +45,8 @@ function Posting() {
 
   return (
     <PostContainer>
-      <PostingHeader
-        isTitleEmpty={isTitleEmpty}
-        setIsTitleEmpty={setIsTitleEmpty}
-        ref={titleRef}
-      />
-      <PostingCategory
-        isCategoryEmpty={isCategoryEmpty}
-        setIsCategoryEmpty={setIsCategoryEmpty}
-        ref={categoryRef}
-      />
+      <PostingHeader ref={titleRef} />
+      <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
