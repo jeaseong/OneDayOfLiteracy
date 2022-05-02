@@ -15,8 +15,17 @@ const UserSchema = new Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+UserSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'userId',
+  count: true,
+});
 
 const UserModel = model("User", UserSchema, "users");
 

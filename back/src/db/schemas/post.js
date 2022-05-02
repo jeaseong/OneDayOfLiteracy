@@ -41,14 +41,6 @@ PostSchema.virtual('subject', {
   justOne: true,
 });
 
-// PostSchema.virtual('likes', {
-//   ref: 'Like',
-//   localField: '_id',
-//   foreignField: 'postId',
-//   count: true,
-// });
-
-
 
 // 참고: .populate("virtual 속성값") 의 결과는 디폴트로 array
 // PostModel.findOne({ _id: "5b8fd9eef72e14315b52985f"}).populate("userLikes") 한 결과 예시
