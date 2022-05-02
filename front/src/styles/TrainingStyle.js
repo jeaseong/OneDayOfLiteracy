@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexBoxCenter } from "./CommonStyle";
 
 // Training.js
 export const TrainingContainer = styled.section`
@@ -96,4 +97,15 @@ export const TrainingStepIntroduction = styled.p`
 export const Hilight = styled.span`
   color: #c48f5a;
   font-weight: bole;
+`;
+
+// TrainingPost
+
+export const TrainingPostTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 20px;
+`;
+
+export const Center = styled(FlexBoxCenter)`
+  margin-top: 10px;
 `;
