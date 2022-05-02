@@ -33,12 +33,12 @@ export default function Slide({ elements }) {
 
   // 터치한 위치
   const handleTouchStart = (e) => {
-    setPrevSlideX((prevSlideX) => getClientX(e));
+    setPrevSlideX(() => getClientX(e));
   };
   // 터치 움직임
   const handleTouchMove = (e) => {
     if (prevSlideX) {
-      setSlideX((slideX) => getClientX(e) - prevSlideX);
+      setSlideX(() => getClientX(e) - prevSlideX);
     }
   };
   // 터치 움직임에 따라 curIndex 변경
@@ -50,9 +50,9 @@ export default function Slide({ elements }) {
       } else if (prevSlideX < currentTouchX - 100) {
         handleSlide(curIndex - 1);
       }
-      setSlideX((slideX) => null);
+      setSlideX(() => null);
     }
-    setPrevSlideX((prevSlideX) => null);
+    setPrevSlideX(() => null);
   };
   const handleSwipe = (direction) => {
     setIsSwiping(true);
