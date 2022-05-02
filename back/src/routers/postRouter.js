@@ -3,7 +3,6 @@ import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
 import { postService } from "../services/postService";
 import { userAuthService } from "../services/userService";
-import { isEmptyObj } from "../utils/validation/isEmptyType";
 import { typeName } from "../utils/validation/typeName";
 
 const postRouter = Router();
@@ -109,16 +108,16 @@ postRouter.get('/posts', async (req, res, next) => {
   try {
     const { category, content, page, limit } = req.query;
     
-    const errorIfArray = (variable) => {
-      if (typeName(variable) === "Array" && typeName(variable) == "Object") {
+    const TypeCheck = (variable) => {
+      if (typeName(variable) === "Array" || typeName(variable) == "Object") {
         throw new Error(`${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`);
       }
     };
 
-    errorIfArray(category);
-    errorIfArray(content);
-    errorIfArray(limit);
-    errorIfArray(page);
+    TypeCheck(category);
+    TypeCheck(content);
+    TypeCheck(limit);
+    TypeCheck(page);
 
     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 

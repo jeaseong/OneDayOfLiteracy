@@ -1,4 +1,6 @@
 import { body, validationResult } from "express-validator";
+import { quizzes } from "../load/data/quiz";
+import { UserWord, Quiz } from "../db";
 
 const isValidData = (type) => {
   switch (type) {
@@ -26,6 +28,31 @@ const isValidData = (type) => {
         // body("subjectId", "주제 정보가 올바르지 않습니다.").exists().isMongoId(),
         // body("category", "카테고리 정보가 올바르지 않습니다.").exists().isIn(['소설', '시', '산문', "etc"]),
       ];
+
+      case "userword":
+        return [
+          body("word", "단어 정보가 올바르지 않습니다.").exists().isString().isIn(quizzes.map(v => v.word)).bail()
+          .custom(async (value, {req}) => {
+            try{
+              const { userId } = req.params;
+              if(userId === undefined){ // "/userword" 로 post 요청시 path params는 없다.
+                return Promise.resolve("userWord validation success");
+              }
+
+              const userWord = await UserWord.findByUserId({ userId });
+              if (userWord == null) {
+                throw new Error("해당 유저의 단어가 존재하지 않습니다.")
+              }
+
+              const quiz = await Quiz.findByWord({ word: value });
+              if (quiz == null) {
+                throw new Error("해당 단어는 DB에 존재하지 않습니다.");
+              }
+            } catch(error){
+              return Promise.reject(error);
+            }
+          })
+        ];
   }
 };
 
