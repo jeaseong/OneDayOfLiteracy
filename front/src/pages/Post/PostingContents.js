@@ -17,6 +17,19 @@ const PostingContents = forwardRef(({}, ref) => {
   };
   const isContentEmpty = ref.current?.value.length === 0;
 
+  const handleSetTab = (e) => {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
+      e.target.value =
+        e.target.value.substring(0, start) +
+        "    " +
+        e.target.value.substring(end);
+      handleChangeMarkdown(e);
+    }
+  };
+
   return (
     <>
       <PostingContent>
@@ -25,6 +38,7 @@ const PostingContents = forwardRef(({}, ref) => {
           ref={ref}
           onChange={handleChangeMarkdown}
           isContentEmpty={isContentEmpty}
+          onKeyDown={handleSetTab}
         ></PostingArea>
         <ReactMarkdown
           children={markdown}
