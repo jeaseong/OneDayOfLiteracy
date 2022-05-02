@@ -1,52 +1,41 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
 import { useQueryClient } from "react-query";
-import { useCurrentUser } from "../queries/userQuery";
-import { CustomSnackbar, successAlert } from "./CustomSnackbar";
-
-const logoutSuccessMessage = "로그아웃에 성공하였습니다.";
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
+import { useGetCurrentUser } from "../queries/userQuery";
+import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
+import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
+import { img } from "../utils/imgImport";
+import {
+  HeaderContainer,
+  LogoContainer,
+  Navigation,
+  NavList,
+} from "../styles/Components/ComponentStyle";
+import SearchContent from "./Search/SearchContent";
 
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { isLogin } = useCurrentUser();
+  const { userState, isLogin } = useGetCurrentUser();
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
 
-  const logoutSuccessData = successAlert(
+  const userId = isLogin ? userState._id : null;
+
+  const logoutSuccessData = setAlertData(
     showAlert,
     setShowAlert,
-    logoutSuccessMessage
+    SUCCESS_MESSAGE.LOGOUT,
+    ALERT_TYPE.SUCCESS
   );
 
   const LoginRegisterTab =
     window.location.pathname === "/user/login" ? (
-      <LinkTab
-        value={false}
-        onClick={() => navigate("/user/register")}
-        label="회원가입"
-      />
+      <NavList onClick={() => navigate("/user/register")}>
+        {LABEL.REGISTER}
+      </NavList>
     ) : (
-      <LinkTab
-        value={false}
-        onClick={() => navigate("/user/login")}
-        label="로그인"
-      />
+      <NavList onClick={() => navigate("/user/login")}>{LABEL.LOGIN}</NavList>
     );
 
   const handleChange = (event, newValue) => {
@@ -54,46 +43,53 @@ function Header() {
   };
 
   const handleUserLogout = () => {
-    sessionStorage.removeItem("userToken");
+    localStorage.removeItem("userToken");
     queryClient.removeQueries("userState");
     setShowAlert(true);
+    navigate("/");
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <img
-        onClick={() => navigate("/")}
-        src={`${process.env.PUBLIC_URL}/moonhaeday.png`}
-        alt="logo"
-        width="100"
-      ></img>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        textColor="primary"
-        indicatorColor="primary"
-        aria-label="primary tabs example"
-      >
-        <LinkTab
-          value="one"
+    <HeaderContainer>
+      <LogoContainer>
+        <img
           onClick={() => navigate("/")}
-          label="서비스 소개"
-        />
+          src={img.logoHeader}
+          alt="logo"
+          width="200px"
+        ></img>
+      </LogoContainer>
+      <SearchContent />
+      <Navigation onChange={handleChange}>
+        <NavList
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+        >
+          {LABEL.SERVICE_INTRODUCE}
+        </NavList>
+        <NavList
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/posts");
+          }}
+        >
+          게시글
+        </NavList>
         {isLogin ? (
-          <LinkTab value={false} onClick={handleUserLogout} label="로그아웃" />
+          <>
+            <NavList onClick={() => navigate(`/user/${userId}`)}>
+              {LABEL.PROFILE}
+            </NavList>
+            <NavList onClick={handleUserLogout}>{LABEL.LOGOUT}</NavList>
+          </>
         ) : (
           LoginRegisterTab
         )}
-      </Tabs>
+      </Navigation>
       <CustomSnackbar {...logoutSuccessData} />
-    </Box>
+    </HeaderContainer>
   );
 }
 
