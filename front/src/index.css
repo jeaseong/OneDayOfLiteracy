@@ -34,6 +34,11 @@ img {
   -webkit-user-drag: none;
 }
 
+mark {
+  background-color: transparent;
+  color: #c48f5a;
+}
+
 .App {
   display: flex;
   min-height: 100vh;
