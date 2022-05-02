@@ -13,9 +13,9 @@ class Result {
         return result;
     }
 
-    static async findAllByUserId({ userId }) {
-        const results = await ResultModel.find({ userId }, { __v: 0 });
-        return results;
+    static async findByUserId({ userId }) {
+        const result = await ResultModel.findOne({ userId }, { __v: 0 });
+        return result;
     }
 
     static async findAll() {
@@ -23,11 +23,17 @@ class Result {
         return results;
     }
 
-    static async deleteAllByUserId({ userId }) {
-        const deletedResults = await ResultModel.deleteMany({ userId });
-        return deletedResults;
+    static async updateByUserId({ userId, toUpdate }){
+        const option = { returnOriginal: false };
+        const updatedResult = await ResultModel.findOneAndUpdate({ userId }, toUpdate, option);
+        return updatedResult;
     }
 
+    static async deleteByUserId({ userId }) {
+        const deletedResult = await ResultModel.deleteOne({ userId });
+        return deletedResult;
+    }
+    
     static async delete({ resultId }) {
         const deletedResult = await ResultModel.deleteOne({ _id: resultId });
         return deletedResult;

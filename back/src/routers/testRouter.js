@@ -32,10 +32,15 @@ testRouter.post("/test/result", loginRequired, async (req, res, next) => {
     const score = await testService.evaluateTest(submission);
     if (score.errorMessage) {
       console.error("\x1b[35m%s\x1b[0m", score.errorMessage);
-      res.status(500).json(score);
+      res.status(500).json({success: false, errorMessage: score.errorMessage});
     }
 
-    await resultService.addResult({ userId: currentUserId, result: score.result });
+    const userResult = await resultService.addResult({ userId: currentUserId, result: score.result });
+
+    if(userResult.errorMessage){
+      console.error("\x1b[35m%s\x1b[0m", userResult.errorMessage);
+      res.status(500).json({success: false, errorMessage: `${score.errorMessage}(back-error)`});      
+    }
 
     res.status(200).json(score);
   } catch (error) {

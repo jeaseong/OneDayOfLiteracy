@@ -14,7 +14,11 @@ resultRouter.post("/result", async (req, res, next) => {
 
     const { userId, result } = req.body;
 
-    await resultService.addResult({ userId, result });
+    const userResult = await resultService.addResult({ userId, result });
+
+    if(userResult.errorMessage){
+      throw new Error(userResult.errorMessage);
+    }
 
     res.status(200).json({ success: true });
   } catch (error) {
@@ -27,13 +31,13 @@ resultRouter.get("/results/:userId", async (req, res, next) => {
 
     const userId = req.params.userId;
 
-    const results = await resultService.getResults({ userId });
+    const result = await resultService.getResultByUserId({ userId });
 
-    if (results?.errorMessage) {
-      throw new Error(results.errorMessage);
+    if (result?.errorMessage) {
+      throw new Error(result.errorMessage);
     }
 
-    res.status(200).json(results);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -43,7 +47,7 @@ resultRouter.delete("/results/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
 
-    const deleteResult = await resultService.deleteResults({ userId });
+    const deleteResult = await resultService.deleteResultByUserId({ userId });
     if (deleteResult.deletedCount == 0) {
       throw new Error("정상적으로 삭제되지 않았습니다.");
     }
@@ -68,7 +72,7 @@ resultRouter.get("/result/:resultId", async (req, res, next) => {
   try {
     const resultId = req.params.resultId;
 
-    const result = await resultService.getOneResult({ resultId });
+    const result = await resultService.getResult({ resultId });
     if (result.errorMessage) {
       throw new Error(result.errorMessage);
     }

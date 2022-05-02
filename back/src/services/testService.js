@@ -31,7 +31,7 @@ class testService {
     }
 
     static async getTotallCount(){
-      const counts = await Test.countDocs();
+      const counts = await Test.countTotal();
       return counts;
     }
 
@@ -50,16 +50,16 @@ class testService {
         let query = undefined;
         if (question) {
           query = {
-            question: { $regex: decodeURIComponent(question), $options: "i" },
+            question: { $regex: decodeURIComponent(question), $options: "iu" },
           };
         } 
 
-        const tests = await Test.findByRegex(query);
+        const tests = await Test.findByQuery(query);
         return tests;
     }
 
     static async evaluateTest(submission){
-        const tests = await Test.findByRegex();
+        const tests = await Test.findByQuery();
 
         let score = 0;
         tests.forEach( (v,i) => {
@@ -70,11 +70,15 @@ class testService {
             }
 
             if(submission[v.num] == v.answer){
-                score++;
+              
+
+              score++;
             }
         })
-
-        const result = { result: score, };
+        const total = await Test.countTotal() - 1;
+        const scoreBy100 = Math.round((score / total) * 100 );
+        const result = { result: scoreBy100 };
+        
         return result;
     }
 
