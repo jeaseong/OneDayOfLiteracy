@@ -42,7 +42,7 @@ export const PostingContent = styled.div`
   justify-content: space-between;
   width: 100%;
   height: auto;
-  padding: 10px;
+  white-space: pre-wrap;
   @media only screen and (max-width: 400px) {
     padding: 0;
   }
@@ -95,6 +95,9 @@ export const PostingButton = styled.button`
   &:active {
     opacity: 0.7;
     transition: 0.1s ease-in-out;
+  }
+  &:disabled {
+    opacity: 0.5;
   }
 `;
 
