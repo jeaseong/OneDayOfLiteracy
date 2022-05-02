@@ -58,14 +58,21 @@ likeRouter.get('/likes/:postId', async (req, res, next) => {
   }
 });
 
+// GET /likes/user/:userId => 유저가 좋아요를 누른 글 반환 (페이지네이션 적용)
 likeRouter.get('/likes/user/:userId', async (req, res, next) => {
-  const { userId } = req.params;
-  const posts = await likeService.getLikedPostsByUserId({ userId });
-  if (posts.errorMessage) {
-    throw new Error(posts.errorMessage);
-  }
+  try {
+    const { userId } = req.params;
+    const { page, limit } = req.query;
 
-  res.status(200).json(posts);
+    const posts = await likeService.getLikedPostsByUserId({ userId, page, limit });
+    if (posts.errorMessage) {
+      throw new Error(posts.errorMessage);
+    }
+
+    res.status(200).json(posts);
+  } catch (err) {
+    next(err);
+  }
 })
 
 export { likeRouter };

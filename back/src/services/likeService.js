@@ -101,14 +101,16 @@ class likeService {
   }
 
   // 해당 유저의 좋아하는 글 목록 반환
-  static async getLikedPostsByUserId({ userId }) {
+  static async getLikedPostsByUserId({ userId, page, limit }) {
     const user = await User.findById({ userId });
     if (!user) {
       return { errorMessage: "User not Found" };
     }
 
     const postIds = user.postLikes;
-    const posts = await Like.findByPostIds({ postIds });
+    const query = { _id: { $in: postIds }}
+
+    const posts = await Post.findAll(page, limit, query);
     posts.errorMessage = null;
     return posts;
   }
