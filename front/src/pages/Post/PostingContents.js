@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   PostingContent,
   PostingArea,
@@ -42,6 +43,7 @@ const PostingContents = forwardRef(({}, ref) => {
         ></PostingArea>
         <ReactMarkdown
           children={markdown}
+          remarkPlugins={[remarkGfm]}
           className={"markdown"}
         ></ReactMarkdown>
       </PostingContent>
