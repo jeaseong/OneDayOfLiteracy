@@ -12,8 +12,6 @@ function Posts() {
     const getPosts = async () => {
       try {
         const result = await get("posts");
-        console.log(result);
-        console.log(result.data);
         setPosts([...result?.data]);
       } catch (error) {
         throw new Error(error);
@@ -21,10 +19,11 @@ function Posts() {
     };
     getPosts();
   }, []);
+
   return (
     <PostsContainer>
-      {posts?.map((post, index) => {
-        return <PostCard key={index} post={post} />;
+      {posts?.map((post) => {
+        return <PostCard key={post.id} post={post} />;
       })}
     </PostsContainer>
   );

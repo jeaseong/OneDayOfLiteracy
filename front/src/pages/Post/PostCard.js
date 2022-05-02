@@ -13,6 +13,9 @@ import {
 } from "../../styles/PostStyle";
 import Icon from "@mui/material/Icon";
 
+const defaultImage =
+  "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
+
 function PostCard({ userId, post }) {
   const navigate = useNavigate();
   const handleOnClick = () => {
@@ -23,11 +26,7 @@ function PostCard({ userId, post }) {
     <Posts onClick={handleOnClick}>
       <PostsImage
         alt="게시글 사진"
-        src={
-          post.imageUrls
-            ? post.imageUrls[0]
-            : "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
-        }
+        src={post.imageUrls ? post.imageUrls[0] : defaultImage}
       />
       <PostsSummary>
         <PostsHeader>

@@ -1,23 +1,20 @@
 .markdown {
   width: 100%;
-  height: 30vh;
+  height: auto;
   border: none;
   border-radius: 5px;
-  padding: 10px;
-  background-color: white;
-}
-/* .postingtitle {
   padding: 20px;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  width: 50%;
-  font-size: 30px;
-  background-color: #eaf3f5;
-  display: block;
-} */
+  padding-left: 30px;
+  background-color: white;
+  line-height: 2;
+}
+@media screen and (max-width: 900px) {
+  .markdown {
+    display: none;
+  }
+}
+
 .hashWrap {
-  margin-top: 24px;
   color: rgb(52, 58, 64);
   font-size: 1.125rem;
   display: flex;
@@ -33,19 +30,18 @@
 .tagBox {
   margin-top: 5px;
   background: #f9f9f9;
-  border-radius: 30px;
-  padding: 0 10px;
+  border-radius: 2rem;
+  padding: 10px;
   color: #445656;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  /* line-height: 10px; */
+  height: fit-content;
   margin-right: 5px;
   cursor: pointer;
 }
-.focusInput {
-  outline: 8px ridge rgba(170, 50, 220, 0.6);
-  border-radius: 2rem;
-  background-color: brown;
+.postingButton {
+  display: flex;
+  justify-content: center;
 }
