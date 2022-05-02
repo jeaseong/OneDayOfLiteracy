@@ -17,31 +17,29 @@ function Posting() {
   const categoryRef = useRef(null);
 
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const [isContentEmpty, setIsContentEmpty] = useState(false);
+
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
 
   const handleSubmit = async (e) => {
-    console.log("handleSubmit 실행됨.");
     e.preventDefault();
     try {
-      setIsTitleEmpty(() => !titleRef.current.value);
-      setIsContentEmpty(() => !contentRef.current.value);
-      setIsCategoryEmpty(() => !categoryRef.current.value);
-
       const posting = {
         title: titleRef.current?.value,
         content: contentRef.current?.value,
         tags: tagRef.current.innerText.slice(1).split("\n#"),
-        subjectId: { _id: "6232e9c20cb9033a0d6d156a" },
+        subjectId: null,
         category: categoryRef.current?.value,
       };
-      console.log("posting : ", posting);
+
       await post("post", posting);
       navigate("/posts");
     } catch (error) {
       throw new Error(error);
     }
   };
+
+  console.log(contentRef.current?.value.length === 0);
+  console.log(contentRef.current?.value);
 
   return (
     <PostContainer>
@@ -56,16 +54,12 @@ function Posting() {
         ref={categoryRef}
       />
       <PostingTag ref={tagRef} />
-      <PostingContents
-        isContentEmpty={isContentEmpty}
-        setIsContentEmpty={setIsContentEmpty}
-        ref={contentRef}
-      />
+      <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton
           type="submit"
           onClick={handleSubmit}
-          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty}
+          disabled={contentRef.current?.value.length === 0}
         >
           출간하기
         </PostingButton>
