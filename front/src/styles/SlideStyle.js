@@ -30,7 +30,10 @@ export const Btn = styled.button`
   color: #c48f5a;
   font-size: 20px;
   position: absolute;
-  top: 160px;
+  top: 50%;
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 export const PrevBtn = styled(Btn)`

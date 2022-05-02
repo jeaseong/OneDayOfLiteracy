@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const WordTrainingContainer = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,18 +23,21 @@ export const AnswerInput = styled.input`
   border: solid 2px #c48f5a;
   border-radius: 8px;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 6px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const AnswerBtn = styled.button`
   cursor: pointer;
   border: none;
   background: transparent;
-  color: #c4c4c4;
+  color: ${(props) => props.color};
   position: absolute;
   right: 10px;
-  top: 12px;
+  top: 15px;
 `;
 
 export const WordMeaningBox = styled.div`
@@ -97,9 +101,8 @@ export const ProgressPercent = styled.p`
 
 export const ButtonBox = styled.div`
   min-width: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
 `;
 
 export const Btn = styled.button`
@@ -113,13 +116,26 @@ export const Btn = styled.button`
     color: #c4c4c4;
   }
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 `;
 
-export const PrevBtn = styled(Btn)``;
-export const NextBtn = styled(Btn)``;
+export const PrevBtn = styled(Btn)`
+  position: absolute;
+  left: 0;
+`;
+export const NextBtn = styled(Btn)`
+  position: absolute;
+  right: 0;
+`;
 
-export const Hilight = styled.p`
-  color: #c48f5a;
+export const ClearBtn = styled(Btn)`
+  border: 1px solid #c4c4c4;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #c4c4c4;
+  &:hover {
+    color: #c48f5a;
+    border-color: #c48f5a;
+  }
 `;

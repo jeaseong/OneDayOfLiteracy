@@ -5,7 +5,6 @@ import {
   SlideContainer,
   SlideInner,
   SlideItem,
-  BottonContainer,
   PrevBtn,
   NextBtn,
 } from "../../styles/SlideStyle";
