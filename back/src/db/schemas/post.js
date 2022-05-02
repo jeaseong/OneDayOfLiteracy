@@ -8,7 +8,7 @@ const PostSchema = new Schema(
     subjectId: { type: Schema.Types.ObjectId, required: true, ref: "Subject" },
     author: { type: String, required: true},
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
-    imageUrl: { type: String, required: false, defalut: null },
+    imageUrl: { type: String, required: false, default: null },
     category: { 
       type: String, 
       required: false, 
