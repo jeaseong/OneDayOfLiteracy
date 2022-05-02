@@ -16,8 +16,6 @@ const PostingContents = forwardRef(({}, ref) => {
     ref.current.style.height = ref.current?.scrollHeight + "px";
   };
   const isContentEmpty = ref.current?.value.length === 0;
-  console.log("ref.current.value : ", ref.current?.value);
-  console.log("ref.current.value : ", ref.current?.value.length);
 
   return (
     <>

@@ -40,7 +40,7 @@ function PostCard({ userInfo, isDisabled = true, post }) {
     <Posts>
       <PostsImage
         alt="게시글 사진"
-        src={post.imageUrls ? post.imageUrls[0] : defaultImage}
+        src={post.imageUrls?.length ? post.imageUrls[0] : defaultImage}
       />
       <PostsSummary>
         <PostsHeader>
