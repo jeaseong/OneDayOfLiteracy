@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Posts,
   PostsImage,
@@ -10,51 +10,55 @@ import {
   PostsContent,
   Tag,
   PostsLike,
+  LikeButton,
 } from "../../styles/PostStyle";
-import { LinkButton } from "../../styles/CommonStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { useGetCurrentUser } from "../../queries/userQuery";
+import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
 
 const defaultImage =
   "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
 
-function PostCard({ post }) {
-  const navigate = useNavigate();
-  const { userState } = useGetCurrentUser();
+function PostCard({ userState, isLogin, post }) {
+  const postAddLike = usePostLikeAdd(post._id);
+  const postDislike = usePostDislike(post._id);
   const isPostLike = userState.postLikes.includes(post._id);
 
-  const handleOnClick = () => {
-    navigate(`/posts/${post._id}`);
-  };
+  const handlePostLikeOnClick = () => postAddLike.mutate();
+  const handlePostDisLikeOnClick = () => postDislike.mutate();
 
   const postLikeList = isPostLike ? (
-    <ThumbUpIcon />
+    <LikeButton disabled={!isLogin} onClick={handlePostDisLikeOnClick}>
+      <ThumbUpIcon />
+    </LikeButton>
   ) : (
-    <ThumbUpIcon color="disabled" />
+    <LikeButton disabled={!isLogin} onClick={handlePostLikeOnClick}>
+      <ThumbUpIcon color="disabled" />
+    </LikeButton>
   );
 
   return (
-    <Posts onClick={handleOnClick}>
+    <Posts>
       <PostsImage
         alt="게시글 사진"
         src={post.imageUrls ? post.imageUrls[0] : defaultImage}
       />
       <PostsSummary>
         <PostsHeader>
-          <PostsTitle>{post.title}</PostsTitle>
+          <Link to={`/posts/${post._id}`}>
+            <PostsTitle>{post.title}</PostsTitle>
+          </Link>
           <PostsWriter>
             {!post.author ? "익명 문하생" : post.author}
           </PostsWriter>
         </PostsHeader>
         <PostsContent>{post.content}</PostsContent>
-        {post.tags?.map((tag, index) => {
-          return <Tag key={index}>#{tag}</Tag>;
-        })}
-        <PostsLike>
-          <LinkButton>{postLikeList}</LinkButton>
-        </PostsLike>
+        {post.tags?.map((tag, index) => (
+          <Tag key={index}>#{tag}</Tag>
+        ))}
+        <PostsLike>{postLikeList}</PostsLike>
       </PostsSummary>
     </Posts>
   );
 }
+
 export default PostCard;

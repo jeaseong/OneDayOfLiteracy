@@ -124,3 +124,15 @@ export const PostContent = styled.div`
   text-align: left;
 `;
 export const PostFooter = styled.div``;
+
+export const LikeButton = styled(LinkButton)`
+  transition-duration: 0.3s;
+
+  &:hover {
+    color: red;
+  }
+
+  &:disabled {
+    color: #c48f5a;
+  }
+`;

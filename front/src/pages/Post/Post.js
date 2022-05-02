@@ -12,7 +12,9 @@ import {
   PostImage,
   PostFooter,
   Tag,
+  LikeButton,
 } from "../../styles/PostStyle";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 function Post() {
   const [post, setPost] = useState([]);
@@ -29,6 +31,7 @@ function Post() {
   useEffect(() => {
     getPostData();
   }, []);
+
   return (
     <PostContainer>
       <PostTitle>{post.title}</PostTitle>
@@ -49,6 +52,9 @@ function Post() {
           return <Tag key={index}>#{tag}</Tag>;
         })}
       </PostFooter>
+      <LikeButton>
+        <ThumbUpIcon />
+      </LikeButton>
     </PostContainer>
   );
 }

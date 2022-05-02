@@ -149,6 +149,6 @@ export const ConfirmButton = styled(Button)`
 `;
 
 export const NotFoundPostImg = styled.img`
-  width: 70%;
+  width: 47%;
   margin: 0 auto;
 `;
