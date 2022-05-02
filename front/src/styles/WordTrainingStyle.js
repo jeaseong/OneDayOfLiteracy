@@ -22,18 +22,21 @@ export const AnswerInput = styled.input`
   border: solid 2px #c48f5a;
   border-radius: 8px;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 6px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const AnswerBtn = styled.button`
   cursor: pointer;
   border: none;
   background: transparent;
-  color: #c4c4c4;
+  color: ${(props) => props.color};
   position: absolute;
   right: 10px;
-  top: 12px;
+  top: 15px;
 `;
 
 export const WordMeaningBox = styled.div`
