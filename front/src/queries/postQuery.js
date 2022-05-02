@@ -21,14 +21,16 @@ export const usePostLikeAdd = (postId) => {
 
   return useMutation(() => post(`like/${postId}`), {
     onMutate: () => {
-      const staleUserData = queryClient.getQueryData(["userState"]);
+      const staleCurrentUserData = queryClient.getQueryData(["userState"]);
       queryClient.setQueryData(["userState"], () => ({
-        ...staleUserData,
-        postLikes: [...staleUserData.postLikes, postId],
+        ...staleCurrentUserData,
+        postLikes: [...staleCurrentUserData.postLikes, postId],
       }));
 
       // onError에서 rollback으로 받을 함수
-      return () => queryClient.setQueryData(["userState"], staleUserData);
+      return () => {
+        queryClient.setQueryData(["userState"], staleCurrentUserData);
+      };
     },
     onError: (err, rollback) => rollback(),
   });
@@ -39,17 +41,19 @@ export const usePostDislike = (postId) => {
 
   return useMutation(() => del(`like/${postId}`), {
     onMutate: () => {
-      const staleUserData = queryClient.getQueryData(["userState"]);
-      const newPostLikeList = staleUserData.postLikes.filter(
+      const staleCurrentUserData = queryClient.getQueryData(["userState"]);
+      const newPostLikeList = staleCurrentUserData.postLikes.filter(
         (likeId) => likeId !== postId
       );
       queryClient.setQueryData(["userState"], () => ({
-        ...staleUserData,
+        ...staleCurrentUserData,
         postLikes: newPostLikeList,
       }));
 
       // onError에서 rollback으로 받을 함수
-      return () => queryClient.setQueryData(["userState"], staleUserData);
+      return () => {
+        queryClient.setQueryData(["userState"], staleCurrentUserData);
+      };
     },
     onSettled: () => console.log("좋아요"),
     onError: (err, rollback) => rollback(),

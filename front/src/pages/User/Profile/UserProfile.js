@@ -4,7 +4,10 @@ import UserCard from "./UserCard";
 import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";
 import UserEditForm from "./UserEditForm";
-import { useGetProfileUser } from "../../../queries/userQuery";
+import {
+  useGetCurrentUser,
+  useGetProfileUser,
+} from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
 import ErrorPage from "../../../components/ErrorPage";
 import Loading from "../../../components/Loading";
@@ -16,10 +19,17 @@ import Loading from "../../../components/Loading";
  */
 function UserProfile() {
   const params = useParams();
-  const [isEdit, setIsEdit] = useState(false);
+  const { userState } = useGetCurrentUser();
   const { error, isFetching } = useGetProfileUser(params.userId);
-
+  const [isEdit, setIsEdit] = useState(false);
   const editStateStore = { isEdit, setIsEdit };
+
+  // 프로필의 주인인가?
+  const checkProfileOwner = () => {
+    if (!userState) return false;
+    return userState._id === params.userId;
+  };
+  const isProfileOwner = checkProfileOwner();
 
   const CardContent = isEdit ? (
     <UserEditForm editStateStore={editStateStore} />
@@ -32,8 +42,10 @@ function UserProfile() {
 
   return (
     <MyPageContainer>
-      <UserCard editStateStore={editStateStore}>{CardContent}</UserCard>
-      <UserPostList />
+      <UserCard isProfileOwner={isProfileOwner} editStateStore={editStateStore}>
+        {CardContent}
+      </UserCard>
+      <UserPostList isProfileOwner={isProfileOwner} />
     </MyPageContainer>
   );
 }

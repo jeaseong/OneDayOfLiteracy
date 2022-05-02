@@ -30,8 +30,8 @@ function Posts() {
           <React.Fragment key={index}>
             {page.posts.map((post) => (
               <PostCard
-                userState={userState}
-                isLogin={isLogin}
+                userInfo={userState}
+                isDisabled={isLogin}
                 key={post._id}
                 post={post}
               ></PostCard>

@@ -18,20 +18,20 @@ import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
 const defaultImage =
   "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
 
-function PostCard({ userState, isLogin, post }) {
+function PostCard({ userInfo, isDisabled = true, post }) {
   const postAddLike = usePostLikeAdd(post._id);
   const postDislike = usePostDislike(post._id);
-  const isPostLike = userState.postLikes.includes(post._id);
+  const isPostLike = userInfo.postLikes.includes(post._id);
 
   const handlePostLikeOnClick = () => postAddLike.mutate();
   const handlePostDisLikeOnClick = () => postDislike.mutate();
 
   const postLikeList = isPostLike ? (
-    <LikeButton disabled={!isLogin} onClick={handlePostDisLikeOnClick}>
+    <LikeButton disabled={!isDisabled} onClick={handlePostDisLikeOnClick}>
       <ThumbUpIcon />
     </LikeButton>
   ) : (
-    <LikeButton disabled={!isLogin} onClick={handlePostLikeOnClick}>
+    <LikeButton disabled={!isDisabled} onClick={handlePostLikeOnClick}>
       <ThumbUpIcon color="disabled" />
     </LikeButton>
   );
