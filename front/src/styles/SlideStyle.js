@@ -11,13 +11,16 @@ export const SlideContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 `;
 export const SlideInner = styled.div`
-  width: 100%;
-  float: left;
+  width: 100vw;
 `;
 export const SlideItem = styled.div`
-  width: ${(props) => props.width}px;
+  width: 100vw;
+  @media only screen and (min-width: 1024px) {
+    width: 1024px;
+  }
 `;
 
 export const Btn = styled.button`

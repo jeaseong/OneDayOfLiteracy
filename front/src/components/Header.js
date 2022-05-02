@@ -75,7 +75,7 @@ function Header() {
             navigate("/posts");
           }}
         >
-          게시글
+          {LABEL.POST}
         </NavList>
         {isLogin ? (
           <>
