@@ -9,7 +9,6 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-  Hilight,
 } from "../../styles/TestResultStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useGetCurrentUser } from "../../queries/userQuery";
@@ -33,7 +32,7 @@ export default function TestResult() {
   useEffect(() => {
     const fetchAPI = async () => {
       const res = await get("results/", userState._id);
-      setMyScore(res.data[res.data.length - 1].result);
+      setMyScore(res.data.result);
     };
     fetchAPI();
   }, []);
