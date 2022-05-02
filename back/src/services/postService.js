@@ -1,4 +1,4 @@
-import { User, Post, Subject } from '../db'
+import { User, Post, Subject, Like } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
 class postService {
@@ -157,6 +157,14 @@ class postService {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
     }
 
+    const updated = await Like.deleteAllByPostId({ postId });
+
+    // Boolean indicating everything went smoothly. 
+    //[출처] : https://mongoosejs.com/docs/api.html#model_Model.updateMany
+    if(!updated.acknowledged){
+      return { errorMessage: "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다." };
+    }
+
     return { errorMessage: null };
   }
 
@@ -167,12 +175,25 @@ class postService {
       return { errorMessage: "Error: Invalid userId " };
     }
 
+    const posts = await Post.findByUserId({ userId });
+
     // 정상적으로 지워졌는지 검증 필요
     const result = await Post.deleteByUserId({ userId });
     if (result.deletedCount === 0) {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
     }
 
+    posts.forEach( post => {
+      const postId = post._doc["_id"];
+      const updated = Like.deleteAllByPostId({ postId });
+      if(!updated.acknowledged){
+        return {
+          errorMessage:
+            "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다.",
+        };
+      }
+    });
+    
     return { errorMessage: null };
   }
 }

@@ -10,7 +10,7 @@ class Like {
 
   static async deleteAllByPostId({ postId }) {
     const updated = await UserModel.updateMany({}, {$pull: { postLikes: postId }})
-    return;
+    return updated;
   }
 
   static async create({ userId, postId }) {

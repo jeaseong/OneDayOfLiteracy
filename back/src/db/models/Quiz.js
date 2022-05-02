@@ -15,6 +15,11 @@ class Quiz{
         const quiz = await QuizModel.findOne({ word }, {__v: 0});
         return quiz;
     }
+
+    static async findAll(){
+        const quizzes = await QuizModel.find({},{ num: 1, word: 1, meaning: 1});
+        return quizzes;
+    }
 }
 
 export { Quiz }

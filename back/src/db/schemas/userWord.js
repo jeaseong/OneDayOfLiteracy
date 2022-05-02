@@ -1,17 +1,16 @@
 import { Schema, model } from 'mongoose';
-import data from "../../load/data/quiz";
+import { quizzes } from "../../load/data/quiz";
 
-const UserWord = new Schema(
-    {
-        userId: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-        word: {type: String, required: true, default: data[0].word},
-        meaning: {type: String, required: true, default: data[0].meaning}
-    },
-    {
-        timestamps: true
-    }
-)
+const UserWordSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
+    word: { type: String, required: true, default: quizzes[0].word },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const UserWordModel = model('UserWord', UserWord);
+const UserWordModel = model("UserWord", UserWordSchema);
 
 export { UserWordModel };

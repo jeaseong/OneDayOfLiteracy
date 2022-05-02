@@ -24,4 +24,4 @@ const tests =
   },
 ];
 
-export default tests;
+export { tests };

@@ -1,7 +1,6 @@
-import { Test } from "../db";
-import { Quiz } from "../db";
-import tests from "./data/test";
-import quizzes from "./data/quiz";
+import { Test, Quiz } from "../db";
+import { tests } from "./data/test";
+import { quizzes } from "./data/quiz";
 
 export default async () => {
     const insertOneTest = async (v) => {
@@ -30,9 +29,9 @@ export default async () => {
     const insertOneQuiz = async (v) => {
       try{
         const word = v.word;
-
+        
         const quiz = await Quiz.findByWord({ word });
-        if(!quiz) {
+        if(quiz) {
           // quiz가 이미 있다. => 생성하면 안되고 넘어간다.
           return false;
         }
