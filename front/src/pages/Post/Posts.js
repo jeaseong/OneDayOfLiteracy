@@ -10,7 +10,7 @@ import ErrorPage from "../../components/ErrorPage";
 function Posts() {
   const location = useLocation();
   const { ref, inView } = useInView();
-  const fetchURI = location.search.substring(1);
+  const fetchURI = `posts?${location.search}&`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
 

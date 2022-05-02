@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { MyPostContainer } from "../../../styles/User/ProfileStyle";
-import { useGetUserPostList } from "../../../queries/postQuery";
+import { useGetPostList } from "../../../queries/postQuery";
 import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";
 import ErrorPage from "../../../components/ErrorPage";
@@ -11,8 +11,9 @@ import PostCard from "../../Post/PostCard";
 function UserPostList() {
   const params = useParams();
   const [ref, inView] = useInView();
+  const fetchURI = `posts/users/${params.userId}?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
-    useGetUserPostList(params.userId);
+    useGetPostList(fetchURI);
 
   useEffect(() => {
     if (inView) fetchNextPage();

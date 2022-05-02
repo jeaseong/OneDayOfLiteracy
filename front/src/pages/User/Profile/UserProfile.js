@@ -7,7 +7,6 @@ import UserEditForm from "./UserEditForm";
 import { useGetProfileUser } from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
 import ErrorPage from "../../../components/ErrorPage";
-import { useGetUserPostList } from "../../../queries/postQuery";
 import Loading from "../../../components/Loading";
 
 /**
@@ -19,7 +18,6 @@ function UserProfile() {
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
   const { error, isFetching } = useGetProfileUser(params.userId);
-  const userPostsData = useGetUserPostList(params.userId);
 
   const editStateStore = { isEdit, setIsEdit };
 
@@ -29,8 +27,8 @@ function UserProfile() {
     <UserInfomation />
   );
 
-  if (isFetching || userPostsData.isFetching) return <Loading />;
-  if (error || userPostsData.error) return <ErrorPage />;
+  if (isFetching) return <Loading />;
+  if (error) return <ErrorPage />;
 
   return (
     <MyPageContainer>
