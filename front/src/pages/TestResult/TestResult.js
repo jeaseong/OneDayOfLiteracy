@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../utils/api";
+import { TEST_RESULT } from "../../utils/constants";
 import {
   TestResultContainer,
   TestResultWrap,
@@ -12,7 +13,6 @@ import {
 } from "../../styles/TestResultStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useGetCurrentUser } from "../../queries/userQuery";
-import { RECOMMENDED } from "../../utils/testResult";
 
 export default function TestResult() {
   const navigate = useNavigate();
@@ -20,14 +20,14 @@ export default function TestResult() {
   const { userState } = useGetCurrentUser();
 
   const recommendStep = (score) => {
-    if (score >= 90) return RECOMMENDED[2];
-    else if (score >= 70) return RECOMMENDED[1];
-    else return RECOMMENDED[0];
+    if (score >= 90) return TEST_RESULT.LEVEL_THREE;
+    else if (score >= 70) return TEST_RESULT.LEVEL_TWO;
+    return TEST_RESULT.LEVEL_ONE;
   };
 
   const handleClickNavBtn = (score) => {
     if (score >= 90) return 3;
-    else return 1;
+    return 1;
   };
 
   useEffect(() => {
@@ -42,10 +42,10 @@ export default function TestResult() {
     <TestResultContainer>
       <TestResultWrap>
         <TestResultUserName>
-          <Hilight>{userState.nickname} </Hilight>님의 점수는
+          <mark>{userState.nickname} </mark>님의 점수는
         </TestResultUserName>
         <TestResultUserScore>
-          <Hilight>{myScore || "0"}/100</Hilight> 입니다!
+          <mark>{myScore || "0"}/100</mark> 입니다!
         </TestResultUserScore>
         <TestResultUserRecommand>
           {recommendStep(myScore)}
@@ -55,7 +55,7 @@ export default function TestResult() {
             navigate(`/training/${handleClickNavBtn(myScore)}`);
           }}
         >
-          <>서비스 바로가기</>
+          서비스 바로가기
           <ArrowForwardIcon />
         </TestResultNavBtn>
       </TestResultWrap>
