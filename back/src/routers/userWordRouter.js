@@ -8,7 +8,7 @@ const userWordRouter = Router();
 userWordRouter.post(
   "/userword",
   loginRequired,
-  isValidData("userword"),
+  isValidData("userword-post"),
   invalidCallback,
   async (req, res, next) => {
       try{
@@ -25,7 +25,7 @@ userWordRouter.post(
 
 userWordRouter.get(
   "/userword/:userId",
-  isValidData("userword"),
+  isValidData("userword-get"),
   invalidCallback,
   async (req, res, next) => {
     try {
