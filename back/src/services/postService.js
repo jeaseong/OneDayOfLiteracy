@@ -148,6 +148,7 @@ class postService {
     const posts = await Post.findAll(page, limit, query);
     return posts;
   }
+  
   static async getPostsByTags({ tags }) {}
 
   static async deletePost({ postId }) {
