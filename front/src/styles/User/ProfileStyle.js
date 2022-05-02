@@ -147,3 +147,8 @@ export const ConfirmButton = styled(Button)`
   margin: 10px 7px;
   width: 20%;
 `;
+
+export const NotFoundPostImg = styled.img`
+  width: 70%;
+  margin: 0 auto;
+`;

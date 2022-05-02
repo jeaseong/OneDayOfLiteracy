@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import { MyPostContainer } from "../../../styles/User/ProfileStyle";
-import { useGetUserPostList } from "../../../queries/postQuery";
+import {
+  MyPostContainer,
+  NotFoundPostImg,
+} from "../../../styles/User/ProfileStyle";
+import { PostsContainer } from "../../../styles/PostStyle";
+import { useGetPostList } from "../../../queries/postQuery";
 import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";
 import ErrorPage from "../../../components/ErrorPage";
@@ -11,8 +15,9 @@ import PostCard from "../../Post/PostCard";
 function UserPostList() {
   const params = useParams();
   const [ref, inView] = useInView();
+  const fetchURI = `posts/users/${params.userId}?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
-    useGetUserPostList(params.userId);
+    useGetPostList(fetchURI);
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -21,18 +26,24 @@ function UserPostList() {
   if (status === "loading") return <Loading />;
   if (status === "error") return <ErrorPage />;
 
+  const isHavePost = data.pages[0].posts.length !== 0;
+  const userPosts = isHavePost ? (
+    <PostsContainer>
+      {data.pages.map((page, index) => (
+        <React.Fragment key={index}>
+          {page.posts.map((post) => (
+            <PostCard key={post._id} post={post} />
+          ))}
+        </React.Fragment>
+      ))}
+    </PostsContainer>
+  ) : (
+    <NotFoundPostImg src={img.notPost} alt="notPost" />
+  );
+
   return (
     <>
-      <MyPostContainer>
-        <img src={img.notPost} alt="notPost" />
-        {data.pages.map((page, index) => (
-          <React.Fragment key={index}>
-            {page.posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </React.Fragment>
-        ))}
-      </MyPostContainer>
+      <MyPostContainer>{userPosts}</MyPostContainer>
       {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
     </>
   );
