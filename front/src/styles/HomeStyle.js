@@ -6,7 +6,4 @@ export const HomeContainer = styled.section`
   background-color: #ffffff;
 `;
 
-export const HomeWrap = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
-`;
+export const HomeWrap = styled.div``;

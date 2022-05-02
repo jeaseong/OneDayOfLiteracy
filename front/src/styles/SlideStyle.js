@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const SlideWrap = styled.section`
+  position: relative;
+`;
+
 export const OverFlow = styled.div`
   overflow: hidden;
 `;
@@ -18,9 +22,6 @@ export const SlideInner = styled.div`
 `;
 export const SlideItem = styled.div`
   width: 100vw;
-  @media only screen and (min-width: 1024px) {
-    width: 1024px;
-  }
 `;
 
 export const Btn = styled.button`
@@ -28,13 +29,13 @@ export const Btn = styled.button`
   background: none;
   color: #c48f5a;
   font-size: 20px;
+  position: absolute;
+  top: 160px;
 `;
 
-export const BottonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+export const PrevBtn = styled(Btn)`
+  left: 15%;
 `;
-export const PrevBtn = styled(Btn)``;
-export const NextBtn = styled(Btn)``;
+export const NextBtn = styled(Btn)`
+  right: 15%;
+`;
