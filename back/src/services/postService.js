@@ -60,7 +60,7 @@ class postService {
     const post = await Post.findById({ postId });
 
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
-    if (!("imageUrls" in toUpdate)) {
+    if (!("imageUrl" in toUpdate)) {
       const userId = toUpdate.userId;
       const subjectId = toUpdate.subjectId;
 

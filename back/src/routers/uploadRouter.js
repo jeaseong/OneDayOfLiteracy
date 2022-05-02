@@ -35,14 +35,12 @@ uploadRouter
       try {
         console.log(req.files);
         const { postId } = req.params;
-        const urlList = req.files.map((obj) => {
-          const dirName = obj.bucket.split("/")[1];
-          const imageName = obj.key;
-          return `https://team2.cdn.ntruss.com/${dirName}/${imageName}`;
-        })
-        
+        const obj = req.files[0];
+        const dirName = obj.bucket.split("/")[1];
+        const imageName = obj.key;
+        const imageUrl = `https://team2.cdn.ntruss.com/${dirName}/${imageName}`;
         const toUpdate = {
-            imageUrls: urlList, 
+            imageUrl, 
         };
         const setPost = await postService.setPost({ postId, toUpdate });
         res.status(201).json({ message: "success" });
