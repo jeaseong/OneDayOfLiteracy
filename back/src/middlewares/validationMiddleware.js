@@ -23,8 +23,8 @@ const isValidData = (type) => {
         body("content", "내용 정보가 올바르지 않습니다.").exists().isString(),
         body("tags", "태그 정보가 올바르지 않습니다.").exists(),
         body("userId", "유저 정보가 올바르지 않습니다.").exists().isMongoId(),
-        body("subjectId", "주제 정보가 올바르지 않습니다.").exists().isMongoId(),
-        body("category", "카테고리 정보가 올바르지 않습니다.").exists().isIn(['소설', '시', '산문']),
+        // body("subjectId", "주제 정보가 올바르지 않습니다.").exists().isMongoId(),
+        // body("category", "카테고리 정보가 올바르지 않습니다.").exists().isIn(['소설', '시', '산문', "etc"]),
       ];
   }
 };
