@@ -12,7 +12,7 @@ export const PostsContainer = styled.div`
 `;
 
 export const Posts = styled.div`
-  width: 25%;
+  width: 29%;
   height: 30vh;
   border-radius: 8px;
   padding: 16px;

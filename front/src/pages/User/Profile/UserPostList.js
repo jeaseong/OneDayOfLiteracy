@@ -5,6 +5,7 @@ import {
   MyPostContainer,
   NotFoundPostImg,
 } from "../../../styles/User/ProfileStyle";
+import { PostsContainer } from "../../../styles/PostStyle";
 import { useGetPostList } from "../../../queries/postQuery";
 import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";
@@ -25,18 +26,24 @@ function UserPostList() {
   if (status === "loading") return <Loading />;
   if (status === "error") return <ErrorPage />;
 
+  const isHavePost = data.pages[0].posts.length !== 0;
+  const userPosts = isHavePost ? (
+    <PostsContainer>
+      {data.pages.map((page, index) => (
+        <React.Fragment key={index}>
+          {page.posts.map((post) => (
+            <PostCard key={post._id} post={post} />
+          ))}
+        </React.Fragment>
+      ))}
+    </PostsContainer>
+  ) : (
+    <NotFoundPostImg src={img.notPost} alt="notPost" />
+  );
+
   return (
     <>
-      <MyPostContainer>
-        <NotFoundPostImg src={img.notPost} alt="notPost" />
-        {data.pages.map((page, index) => (
-          <React.Fragment key={index}>
-            {page.posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </React.Fragment>
-        ))}
-      </MyPostContainer>
+      <MyPostContainer>{userPosts}</MyPostContainer>
       {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
     </>
   );
