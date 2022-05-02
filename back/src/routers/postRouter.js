@@ -57,11 +57,13 @@ postRouter.get('/posts/:postId', async (req, res, next) => {
 });
 
 // 2. userId 로 해당 유저의 posts 조회
+// /posts/users/:userId?page={Number}&limit={Number}
 postRouter.get('/posts/users/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
+    const { page, limit } = req.query;
 
-    const posts = await postService.getPostsByUserId({ userId });
+    const posts = await postService.getPostsByUserId({ page, limit, userId });
     res.status(200).json(posts);
   } catch (err) {
     next(err);
