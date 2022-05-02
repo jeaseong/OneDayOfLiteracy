@@ -21,7 +21,6 @@ function SearchContent() {
 
   const createEndpointURI = () => {
     const contentParam = `content=${searchTarget}`;
-
     if (category === CATEGORY.ALL) return `${contentParam}`;
     return `category=${category}&${contentParam}`;
   };

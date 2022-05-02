@@ -11,16 +11,27 @@ import {
   Tag,
   PostsLike,
 } from "../../styles/PostStyle";
-import Icon from "@mui/material/Icon";
+import { LinkButton } from "../../styles/CommonStyle";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { useGetCurrentUser } from "../../queries/userQuery";
 
 const defaultImage =
   "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
 
-function PostCard({ userId, post }) {
+function PostCard({ post }) {
   const navigate = useNavigate();
+  const { userState } = useGetCurrentUser();
+  const isPostLike = userState.postLikes.includes(post._id);
+
   const handleOnClick = () => {
     navigate(`/posts/${post._id}`);
   };
+
+  const postLikeList = isPostLike ? (
+    <ThumbUpIcon />
+  ) : (
+    <ThumbUpIcon color="disabled" />
+  );
 
   return (
     <Posts onClick={handleOnClick}>
@@ -40,7 +51,7 @@ function PostCard({ userId, post }) {
           return <Tag key={index}>#{tag}</Tag>;
         })}
         <PostsLike>
-          <Icon baseClassName="fas" className="fa-solid fa-heart" />
+          <LinkButton>{postLikeList}</LinkButton>
         </PostsLike>
       </PostsSummary>
     </Posts>

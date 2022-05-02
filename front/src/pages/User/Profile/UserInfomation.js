@@ -33,7 +33,7 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname}>
-              <ProfilePostCount>0</ProfilePostCount>
+              <ProfilePostCount>{userProfile.posts}</ProfilePostCount>
             </Link>
           </CardLikeCountBox>
         </CardLikePost>
