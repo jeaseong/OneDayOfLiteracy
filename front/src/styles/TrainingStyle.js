@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 // Training.js
 export const TrainingContainer = styled.section`
-  max-width: 1024px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -10,6 +9,9 @@ export const TrainingContainer = styled.section`
   gap: 20px;
   @media screen and (min-width: 768px) {
     flex-wrap: nowrap;
+  }
+  @media screen and (min-width: 1024px) {
+    max-width: 1024px;
   }
 `;
 
@@ -72,7 +74,7 @@ export const TrainingSubjectContainer = styled.section`
 `;
 
 export const TrainingSubjectWrap = styled.div`
-  max-width: 1024px;
+  width: 100%;
   padding: 0 20px;
   margin: 0 auto;
 `;
