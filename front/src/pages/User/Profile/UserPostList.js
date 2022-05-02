@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import { MyPostContainer } from "../../../styles/User/ProfileStyle";
+import {
+  MyPostContainer,
+  NotFoundPostImg,
+} from "../../../styles/User/ProfileStyle";
 import { useGetPostList } from "../../../queries/postQuery";
 import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";
@@ -25,7 +28,7 @@ function UserPostList() {
   return (
     <>
       <MyPostContainer>
-        <img src={img.notPost} alt="notPost" />
+        <NotFoundPostImg src={img.notPost} alt="notPost" />
         {data.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.posts.map((post, index) => (
