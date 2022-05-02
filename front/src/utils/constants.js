@@ -90,3 +90,11 @@ export const TRAINING_INTRODUNCTION = {
   STEP_FOUR:
     "<mark>필사</mark>는 재밌으셨나요? 지루함을 느끼셨거나, '음?' 하셨다면 매우 정상입니다!\n꾸준히 필사을 하면, 필사 만큼 <mark>재밌는</mark> 일은 없을겁니다!\n이제 혼자 보는 글이 아닌 <mark>타인</mark>을 위한 글, <mark>편지</mark>를 써볼 예정 아닌가 그냥 자유 글이나 할까.",
 };
+
+export const TRANSCRIPTION_INTRODUCTION = {
+  STEP_ONE:
+    "<mark>'나'</mark>를 있는 그대로 표현하기는 어떠셨나요?\n이제는 조금 어렵고 힘든 <mark>‘필사’</mark>을 진행하려고 합니다.\n필사는 단순히 글을 따라 쓰는 것이 아니라, 글을 <mark>음미</mark> 하고 몸으로 <mark>체득</mark>하는 것입니다.\n글자 하나하나 써 내려가 보세요. 내가 보지 못 했던 부분이 보이고, 읽지 못 했던 부분이 <mark>어느샌가</mark> 보이게 됩니다.",
+  STEP_TWO:
+    "<mark>필사</mark>를 잘 하려면 계속 읽고, 읽고 읽고 끊임없이 생각하며 한 자, 한 자, 써 내려가면 읽지 못 했던 부분이 <mark>어느샌가</mark> 보이게 됩니다.",
+  STEP_THREE: "칼럼 소설 수필 연설문 시",
+};
