@@ -19,10 +19,18 @@ function Posting() {
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
 
   const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsInputEmpty(
+        () =>
+          contentRef.current.value.length === 0 &&
+          titleRef.current.value.length === 0 &&
+          categoryRef.current.value === 0
+      );
+      console.log("isInputEmpty", isInputEmpty);
       const posting = {
         title: titleRef.current?.value,
         content: contentRef.current?.value,
@@ -37,9 +45,6 @@ function Posting() {
       throw new Error(error);
     }
   };
-
-  console.log(contentRef.current?.value.length === 0);
-  console.log(contentRef.current?.value);
 
   return (
     <PostContainer>
@@ -59,7 +64,7 @@ function Posting() {
         <PostingButton
           type="submit"
           onClick={handleSubmit}
-          disabled={contentRef.current?.value.length === 0}
+          disabled={isInputEmpty}
         >
           출간하기
         </PostingButton>
