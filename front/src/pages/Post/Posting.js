@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
@@ -9,6 +10,7 @@ import "../../styles/markdown.css";
 import { post } from "../../utils/api";
 
 function Posting() {
+  const navigate = useNavigate();
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
@@ -24,7 +26,7 @@ function Posting() {
     try {
       setIsTitleEmpty(() => !titleRef.current.value);
       setIsContentEmpty(() => !contentRef.current.value);
-      setIsCategoryEmpty(() => categoryRef.current.value);
+      setIsCategoryEmpty(() => !categoryRef.current.value);
 
       const posting = {
         title: titleRef.current?.value,
@@ -35,6 +37,7 @@ function Posting() {
       };
       console.log("posting : ", posting);
       await post("post", posting);
+      navigate("/posts");
     } catch (error) {
       throw new Error(error);
     }
@@ -62,7 +65,7 @@ function Posting() {
         <PostingButton
           type="submit"
           onClick={handleSubmit}
-          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
+          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty}
         >
           출간하기
         </PostingButton>

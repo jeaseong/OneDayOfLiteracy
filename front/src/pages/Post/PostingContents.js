@@ -10,7 +10,7 @@ import "../../styles/markdown.css";
 const PostingContents = forwardRef(
   ({ isContentEmpty, setIsContentEmpty }, ref) => {
     const [markdown, setMarkdown] = useState("");
-    const handleMarkdown = (e) => {
+    const handleChangeMarkdown = (e) => {
       e.preventDefault();
       setIsContentEmpty(() => !e.target.value);
       setMarkdown(e.target.value);
@@ -25,7 +25,7 @@ const PostingContents = forwardRef(
             placeholder="내용을 입력해주세요"
             isContentEmpty={isContentEmpty}
             ref={ref}
-            onChange={handleMarkdown}
+            onChange={handleChangeMarkdown}
           ></PostingArea>
           <ReactMarkdown
             children={markdown}

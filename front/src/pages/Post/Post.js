@@ -21,12 +21,8 @@ function Post() {
   const getPostData = useCallback(async () => {
     try {
       const result = await get("posts/", postId.postId);
-      console.log(result.data);
-      //   result 에 data있는지 확인하기
       setPost(result?.data);
     } catch (error) {
-      // 안내메세지 보여주기
-
       throw new Error(error);
     }
   }, []);
