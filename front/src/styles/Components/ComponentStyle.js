@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { img } from "../../utils/imgImport";
 
-export const TextComponent = styled.p``;
-
-export const ImgComponent = styled.img`
+export const Img = styled.img.attrs((props) => ({
+  src: props.url,
+  alt: props.alt,
+}))`
   width: 100%;
   height: 400px;
 `;

@@ -22,7 +22,6 @@ import { useParams } from "react-router-dom";
 function UserInfomation() {
   const params = useParams();
   const { userProfile } = useGetProfileUser(params.userId);
-  const { userPosts } = useGetUserPostList(params.userId);
 
   return (
     <CardContent>
@@ -34,7 +33,7 @@ function UserInfomation() {
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
-            <ProfilePostCount>{userPosts.length}</ProfilePostCount>
+            <ProfilePostCount>0</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>

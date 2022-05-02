@@ -7,9 +7,6 @@ import {
 import { LABEL } from "../../utils/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetPostList } from "../../queries/postQuery";
-import Loading from "../Loading";
-import ErrorPage from "../ErrorPage";
 
 /**
  * 검색 컴포넌트 입니다.
@@ -18,28 +15,32 @@ import ErrorPage from "../ErrorPage";
  */
 function SearchContent() {
   const navigate = useNavigate();
-  const { isFetching, error } = useGetPostList();
   const [category, setCategory] = useState("all");
   const [searchTarget, setSearchTarget] = useState("");
 
-  const handleSearchOnSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/posts/search?category=${category}&content=${searchTarget}`);
+  const createEndpointURI = () => {
+    const contentParam = `content=${searchTarget}`;
+
+    if (category === "all") return `${contentParam}`;
+    return `category=${category}&${contentParam}`;
   };
 
-  if (isFetching) return <Loading />;
-  if (error) return <ErrorPage />;
+  const handleSearchOnSubmit = (e) => {
+    e.preventDefault();
+    const endpoint = createEndpointURI();
+    navigate(`/posts?${endpoint}`);
+  };
+
+  //TODO 검색 버튼클릭으로 검색 시 자동완성목록이 남아있는 현상
 
   return (
-    <SearchContainerBox>
+    <SearchContainerBox onSubmit={handleSearchOnSubmit}>
       <SearchCategory setCategory={setCategory} />
       <SearchBar
         searchTarget={searchTarget}
         setSearchTarget={setSearchTarget}
       />
-      <SearchButton type="submit" onClick={handleSearchOnSubmit}>
-        {LABEL.SEARCH}
-      </SearchButton>
+      <SearchButton type="submit">{LABEL.SEARCH}</SearchButton>
     </SearchContainerBox>
   );
 }

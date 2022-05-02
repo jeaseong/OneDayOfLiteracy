@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { ProcessContainer, NextBtn } from "../../styles/TestStyle";
 
 export default function TestProcessBtn({
@@ -9,7 +8,6 @@ export default function TestProcessBtn({
   selectedAnswer,
   onSubmit,
 }) {
-  const navigate = useNavigate();
   return (
     <ProcessContainer>
       {totalQuestion !== step ? (
@@ -22,13 +20,7 @@ export default function TestProcessBtn({
           next
         </NextBtn>
       ) : (
-        <NextBtn
-          disabled={false}
-          onClick={() => {
-            onSubmit();
-            navigate("/test/result");
-          }}
-        >
+        <NextBtn disabled={false} onClick={onSubmit}>
           결과보기!
         </NextBtn>
       )}

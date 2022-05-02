@@ -10,15 +10,16 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import TestHome from "./pages/TestSheet/TestHome";
+import TestResult from "./pages/TestResult/TestResult";
 import TrainingStepOne from "./pages/Training/TrainingOne/TrainingStepOne";
 import TrainingStepTwo from "./pages/Training/TrainingTwo/TrainingStepTwo";
 import TrainingStepThree from "./pages/Training/TrainingThree/TrainingStepThree";
 import TrainingStepFour from "./pages/Training/TrainingFour/TrainingStepFour";
-import TestResult from "./pages/TestResult/TestResult";
 import Posts from "./pages/Post/Posts";
 import Post from "./pages/Post/Post";
 import Posting from "./pages/Post/Posting";
 import { useGetCurrentUser } from "./queries/userQuery";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const { isFetching } = useGetCurrentUser();
@@ -28,6 +29,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Header />
         <main className="main">
           <Routes>
@@ -44,12 +46,12 @@ function App() {
             <Route path="/training/2" element={<TrainingStepTwo />} />
             <Route path="/training/3" element={<TrainingStepThree />} />
             <Route path="/training/4" element={<TrainingStepFour />} />
-            <Route path="/test" element={<TestHome />} />
 
             <Route path="/posts" element={<Posts />} />
             <Route path="/posts/:postId" element={<Post />} />
             <Route path="/post" element={<Posting />} />
 
+            <Route path="/test" element={<TestHome />} />
             <Route path="/test/result" element={<TestResult />} />
 
             <Route path="*" element={<Home />} />

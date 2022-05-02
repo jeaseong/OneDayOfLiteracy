@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
@@ -7,6 +8,7 @@ import { useTestQuery } from "../../queries/testQuery";
 import { post } from "../../utils/api";
 
 export default function TestContainer() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { tests } = useTestQuery();
 
@@ -15,10 +17,10 @@ export default function TestContainer() {
   const [curAnswer, setCurAnswer] = useState({});
   const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState({});
 
-  const MyselectedAnswer = (_qustionId, answerId) => {
+  const MyselectedAnswer = (qustionId, answerId) => {
     setCurAnswer((cur) => {
       return {
-        [_qustionId]: answerId,
+        [qustionId]: answerId,
       };
     });
   };
@@ -39,6 +41,7 @@ export default function TestContainer() {
     try {
       await post("test/result", totalMySelectedAnswer);
       queryClient.removeQueries("tests");
+      navigate("/test/result");
     } catch (e) {
       console.log(e);
     }

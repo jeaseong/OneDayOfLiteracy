@@ -13,6 +13,7 @@
   margin: 0;
   padding: 0;
   font-family: "Maplestory";
+
 }
 
 html,
@@ -21,6 +22,7 @@ body {
   height: 100%;
   font-size: 14px;
   background-color: #f5efea;
+  box-sizing: border-box;
 }
 
 a{
@@ -30,6 +32,11 @@ a{
 
 img {
   -webkit-user-drag: none;
+}
+
+mark {
+  background-color: transparent;
+  color: #c48f5a;
 }
 
 .App {
