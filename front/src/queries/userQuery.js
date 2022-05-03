@@ -32,6 +32,7 @@ export function useGetCurrentUser() {
  * @returns {UseQueryResult<{userProfile: object}, unknown>}
  */
 export function useGetProfileUser(id) {
+  const queryClient = useQueryClient();
   return useQuery(
     ["user", id],
     async () => {
@@ -41,6 +42,8 @@ export function useGetProfileUser(id) {
     {
       staleTime: 60000,
       cacheTime: 120000,
+      onError: () =>
+        queryClient.setQueryData(["user", id], { role: "visitor" }),
     }
   );
 }

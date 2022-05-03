@@ -33,7 +33,7 @@ export const usePostLikeAdd = (postId, userId) => {
         },
       }));
 
-      queryClient.setQueryData([["user", userId]], {
+      queryClient.setQueryData(["user", userId], {
         ...profileUser,
         postLikes: [...profileUser.postLikes, postId],
       });
