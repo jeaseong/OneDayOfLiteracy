@@ -8,7 +8,9 @@ import { typeName } from "../utils/validation/typeName";
 const postRouter = Router();
 
 // create
-postRouter.post('/post', 
+// 전 : /post
+// 후 : /posts
+postRouter.post('/posts', 
   loginRequired, 
   isValidData("post"),
   invalidCallback,
@@ -56,8 +58,9 @@ postRouter.get('/posts/:postId', async (req, res, next) => {
 });
 
 // 2. userId 로 해당 유저의 posts 조회
-// /posts/users/:userId?page={Number}&limit={Number}
-postRouter.get('/posts/users/:userId', async (req, res, next) => {
+// 전 : /posts/users/:userId?page={Number}&limit={Number}
+// 후 : /users/:userId/posts?page={Number}&limit={Number}
+postRouter.get('/users/:userId/posts', async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { page, limit } = req.query;
@@ -71,36 +74,37 @@ postRouter.get('/posts/users/:userId', async (req, res, next) => {
 
 
 
-// 4. 태그 별 조회 
-// /posts/tags?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
-postRouter.get('/posts/search/tags', async (req, res, next) => {
-  try {
-    const { tag, page, limit } = req.query;
+// 3. 태그 별 조회 
+// 전 : /posts/tags?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
+// 후 : /posts?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
+// postRouter.get('/posts', async (req, res, next) => {
+//   try {
+//     const { tag, page, limit } = req.query;
     
-    let tags;
-    //tag에 값이 존재
-    if(tag !== undefined){
-      if (typeName(tag) === "Array") {
-        tags = tag;
-      } else {
-        tags = [tag];
-      }
-    } // tag에 값 없음
-    else {
-      const errorMessage = "올바른 URL query로 보내주세요! tag에 값이 없습니다.";
-      throw new Error(errorMessage);
-    }
+//     let tags;
+//     //tag에 값이 존재
+//     if(tag !== undefined){
+//       if (typeName(tag) === "Array") {
+//         tags = tag;
+//       } else {
+//         tags = [tag];
+//       }
+//     } // tag에 값 없음
+//     else {
+//       const errorMessage = "올바른 URL query로 보내주세요! tag에 값이 없습니다.";
+//       throw new Error(errorMessage);
+//     }
     
     
-    // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
-    // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
-    const posts = await postService.getTaggedPosts(page, limit, tags); 
+//     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
+//     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
+//     const posts = await postService.getTaggedPosts(page, limit, tags); 
 
-    res.status(200).json(posts);
-  } catch (err) {
-    next(err);
-  }
-});
+//     res.status(200).json(posts);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // 4. 내용 검색(내용에는 태그, 제목, 컨텐츠, 작성자 모두 포함된다! => 즉 일부라도 일치하는건 모두 반환!)
 // posts?category={String}&content={String}&page={Number}&limit={Number} 
@@ -183,8 +187,9 @@ postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
 postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
   try {
     const { postId } = req.params;
+    const userId = req.currentUserId;
 
-    const result = await postService.deletePost({ postId });
+    const result = await postService.deletePost({ postId, userId });
     if (result.errorMessage) {
       throw new Error(result.errorMessage);
     }
@@ -196,7 +201,9 @@ postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
 })
 
 // 2. userId로 해당 유저의 글 모두 삭제
-postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) => {
+// 전 : /posts/users/:userId
+// 후 : /users/:userId/posts
+postRouter.delete('/users/:userId/posts', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
   
