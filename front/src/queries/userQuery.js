@@ -48,6 +48,22 @@ export function useGetProfileUser(id) {
   );
 }
 
+export function useGetProfileOwner(id) {
+  const queryClient = useQueryClient();
+  return useQuery(
+    ["user", id],
+    async () => {
+      const res = await get(`users/${id}`);
+      return res.data;
+    },
+    {
+      staleTime: Infinity,
+      onError: () =>
+        queryClient.setQueryData(["user", id], { role: "visitor" }),
+    }
+  );
+}
+
 /**
  * 유저 로그인 핸들러입니다.
  * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
