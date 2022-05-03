@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
+import { uploader, deleteImg } from "../middlewares/imageUploadMiddleware";
 import { postService } from "../services/postService";
 import { userAuthService } from "../services/userService";
 import { typeName } from "../utils/validation/typeName";
@@ -235,5 +236,52 @@ postRouter.delete('/users/:userId/posts', loginRequired, async (req, res, next) 
     next(err);
   }
 })
+
+// 글 이미지 업로드 => POST /posts/:postId/uploadImage
+// body = formData(filename: 이미지, prevImage: 이전 이미지 url)
+postRouter
+  .post('/posts/:postId/uploadImage',
+    loginRequired, 
+    uploader('post'), 
+    deleteImg,
+    async (req, res, next) => {
+      try {
+        console.log(req.files);
+        const { postId } = req.params;
+        const obj = req.files[0];
+        const dirName = obj.bucket.split("/")[1];
+        const imageName = obj.key;
+        const imageUrl = `https://team2.cdn.ntruss.com/${dirName}/${imageName}`;
+        const toUpdate = {
+            imageUrl, 
+        };
+        const setPost = await postService.setPost({ postId, toUpdate });
+        res.status(201).json({ message: "success" });
+      } catch (err) {
+          next(err);
+      } 
+});
+
+// 삭제  PATCH /posts/:postId/removeImage
+// body = { key: 파일명 }
+postRouter
+  .patch('/posts/:postId/removeImage',
+    loginRequired,  
+    deleteImg,
+    async (req, res, next) => {
+      try {
+        console.log(req.files);
+        const { postId } = req.params;
+        const toUpdate = {
+            imageUrl: "https://team2.cdn.ntruss.com/posts/default.png", 
+        };
+        const setPost = await postService.setPost({ postId, toUpdate });
+        res.status(200).json({ message: "success" });
+      } catch (err) {
+          next(err);
+      } 
+});
+
+
 
 export { postRouter };

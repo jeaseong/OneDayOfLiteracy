@@ -1,16 +1,22 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { likeService } from "../services/likeService";
+import assert from "assert";
 
 const likeRouter = Router();
 
-// POST /like => 좋아요 추가
-likeRouter.post("/like/:postId", 
+// PATCH /users/:userId/like => 좋아요 추가
+// body = { postId: ~~ }
+likeRouter.patch("/users/:userId/like", 
   loginRequired,
   async (req, res, next) => {
     try {
-      const userId = req.currentUserId;
-      const { postId } = req.params;
+      const loginId = req.currentUserId;
+      const { userId } = req.params;
+      const { postId } = req.body;
+
+      assert(userId === loginId, "유저id가 올바르지 않습니다.");
+
       const newLike = await likeService.addLike({ userId, postId });
 
       if (newLike.errorMessage) {
@@ -23,13 +29,18 @@ likeRouter.post("/like/:postId",
     };
 });
 
-// DELETE /like/:userId/:postId => 좋아요 취소
-likeRouter.delete("/like/:postId", 
+// PATCH /users/:userId/cancelLike => 좋아요 취소
+// body = { postId: ~~ }
+likeRouter.patch("/users/:userId/cancelLike", 
   loginRequired,
   async (req, res, next) => {
     try {
-      const userId = req.currentUserId;
-      const { postId } = req.params;
+      const loginId = req.currentUserId;
+      const { userId } = req.params;
+
+      assert(loginId === userId, "유저 ID가 올바르지 않습니다.");
+
+      const { postId } = req.body;
       const deletedLike = await likeService.deleteLike({ userId, postId });
       
       if (deletedLike.errorMessage) {
@@ -42,8 +53,8 @@ likeRouter.delete("/like/:postId",
     }
 });
 
-// GET /likes/:postId => 글에 "좋아요!"를 누른 사람들 정보 반환
-likeRouter.get('/likes/:postId', async (req, res, next) => {
+// GET /posts/:postId/likes => 글에 "좋아요!"를 누른 사람들 정보 반환
+likeRouter.get('/posts/:postId/likes', async (req, res, next) => {
   try{
     const { postId } = req.params;
 
@@ -58,8 +69,8 @@ likeRouter.get('/likes/:postId', async (req, res, next) => {
   }
 });
 
-// GET /likes/user/:userId => 유저가 좋아요를 누른 글 반환 (페이지네이션 적용)
-likeRouter.get('/likes/user/:userId', async (req, res, next) => {
+// GET /users/:userId/likes => 유저가 좋아요를 누른 글 반환 (페이지네이션 적용)
+likeRouter.get('/users/:userId/likes', async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { page, limit } = req.query;

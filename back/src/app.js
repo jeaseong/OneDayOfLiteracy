@@ -3,7 +3,6 @@ import express from "express";
 
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { userAuthRouter } from "./routers/userRouter";
-import { uploadRouter } from "./routers/uploadRouter";
 import { postRouter } from "./routers/postRouter";
 import { subjectRouter } from "./routers/subjectRouter";
 import { testRouter } from "./routers/testRouter";
@@ -30,7 +29,6 @@ app.get("/", (req, res) => {
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use(userAuthRouter);
-app.use(uploadRouter);
 app.use(postRouter);
 app.use(subjectRouter);
 app.use(testRouter);
