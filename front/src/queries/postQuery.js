@@ -16,13 +16,15 @@ export function useGetPostList(endpoint = "") {
   });
 }
 
-export const usePostLikeAdd = (postId) => {
+export const usePostLikeAdd = (postId, userId) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => post(`like/${postId}`), {
     onMutate: () => {
+      const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
       const { userState, isLogin } = currentUser;
+
       queryClient.setQueryData(["userState"], () => ({
         isLogin,
         userState: {
@@ -31,31 +33,47 @@ export const usePostLikeAdd = (postId) => {
         },
       }));
 
+      queryClient.setQueryData([["user", userId]], {
+        ...profileUser,
+        postLikes: [...profileUser.postLikes, postId],
+      });
+
       // onError에서 rollback으로 받을 함수
       return () => queryClient.setQueryData(["userState"], currentUser);
     },
+    onSuccess: () =>
+      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
     onError: (err, rollback) => rollback(),
   });
 };
 
-export const usePostDislike = (postId) => {
+export const usePostDislike = (postId, userId) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => del(`like/${postId}`), {
     onMutate: () => {
+      const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
       const { userState, isLogin } = currentUser;
       const newPostLikeList = userState.postLikes.filter(
         (likeId) => likeId !== postId
       );
+
       queryClient.setQueryData(["userState"], () => ({
         isLogin,
         userState: { ...userState, postLikes: newPostLikeList },
       }));
 
+      queryClient.setQueryData(["user", userId], () => ({
+        ...profileUser,
+        postLikes: newPostLikeList,
+      }));
+
       // onError에서 rollback으로 받을 함수
       return () => queryClient.setQueryData(["userState"], currentUser);
     },
+    onSuccess: () =>
+      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
     onError: (err, rollback) => rollback(),
   });
 };

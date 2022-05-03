@@ -17,7 +17,11 @@ export function useGetCurrentUser() {
     },
     {
       staleTime: Infinity,
-      onError: () => queryclient.setQueryData("userState", null),
+      onError: () =>
+        queryclient.setQueryData("userState", {
+          isLogin: false,
+          userState: null,
+        }),
     }
   );
 }
