@@ -14,8 +14,8 @@ export function useGetPostList(endpoint = "") {
   };
 
   return useInfiniteQuery(["posts", endpoint], fetchPostList, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 30000,
+    cacheTime: 60000,
     getNextPageParam: (lastPage) =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
   });
@@ -28,8 +28,8 @@ export function useGetPost(id) {
   };
 
   return useQuery(["post", id], fetchPost, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 30000,
+    cacheTime: 60000,
     onError: (err) => console.log(err),
   });
 }
@@ -41,8 +41,8 @@ export function useGetPostLikeCount(id) {
   };
 
   return useQuery(["likeCnt", id], fetchPost, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 30000,
+    cacheTime: 60000,
     onError: (err) => console.log(err),
   });
 }

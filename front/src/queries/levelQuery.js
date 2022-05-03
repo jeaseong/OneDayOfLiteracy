@@ -16,6 +16,7 @@ export const useUserLevelUp = (userId, maxExp) => {
       // onError에서 rollback으로 받을 함수
       return () => queryClient.setQueryData(["user", userId], profileUser);
     },
+    onSuccess: () => queryClient.invalidateQueries(["user", userId]),
     onError: (err, rollback) => rollback(),
   });
 };
