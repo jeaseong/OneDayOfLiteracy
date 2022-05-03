@@ -11,22 +11,23 @@ import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";
 import ErrorPage from "../../../components/ErrorPage";
 import PostCard from "../../Post/PostCard";
-import { useGetCurrentUser } from "../../../queries/userQuery";
+import { useQueryClient } from "react-query";
 
 function UserPostList() {
   const params = useParams();
   const location = useLocation();
   const [ref, inView] = useInView();
-  const queryString = location.search.substring(1);
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
 
   // 유저의 글목록 또는 좋아요 글목록 fetch
+  const queryString = location.search.substring(1);
   const fetchURI =
     queryString === "likes"
       ? `likes/user/${params.userId}?`
       : `posts/users/${params.userId}?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
-  const { userState } = useGetCurrentUser();
 
   useEffect(() => {
     if (inView) fetchNextPage();

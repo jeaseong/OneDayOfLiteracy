@@ -4,13 +4,11 @@ import UserCard from "./UserCard";
 import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";
 import UserEditForm from "./UserEditForm";
-import {
-  useGetCurrentUser,
-  useGetProfileUser,
-} from "../../../queries/userQuery";
+import { useGetProfileUser } from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
-import ErrorPage from "../../../components/ErrorPage";
+import { useQueryClient } from "react-query";
 import Loading from "../../../components/Loading";
+import ErrorPage from "../../../components/ErrorPage";
 
 /**
  * 사용자의 프로필 컴포넌트입니다.
@@ -19,7 +17,8 @@ import Loading from "../../../components/Loading";
  */
 function UserProfile() {
   const params = useParams();
-  const { userState } = useGetCurrentUser();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
   const { error, isFetching } = useGetProfileUser(params.userId);
   const [isEdit, setIsEdit] = useState(false);
   const editStateStore = { isEdit, setIsEdit };

@@ -6,12 +6,13 @@ import { PostsContainer } from "../../styles/PostStyle";
 import { useGetPostList } from "../../queries/postQuery";
 import Loading from "../../components/Loading";
 import ErrorPage from "../../components/ErrorPage";
-import { useGetCurrentUser } from "../../queries/userQuery";
+import { useQueryClient } from "react-query";
 
 function Posts() {
   const location = useLocation();
   const { ref, inView } = useInView();
-  const { userState, isLogin } = useGetCurrentUser();
+  const queryClient = useQueryClient();
+  const { userState, isLogin } = queryClient.getQueryData("userState");
   const fetchURI = `posts?${location.search.substring(1)}&`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);

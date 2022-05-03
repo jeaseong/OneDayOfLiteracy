@@ -16,14 +16,12 @@ import {
   ALERT_TYPE,
 } from "../../../utils/constants";
 import { validation } from "../../../utils/validation";
-import {
-  useChangeProfileHandler,
-  useGetCurrentUser,
-} from "../../../queries/userQuery";
+import { useChangeProfileHandler } from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
+import { useQueryClient } from "react-query";
 
 /**
  * 프로필 수정 컴포넌트입니다.
@@ -32,8 +30,9 @@ import {
  * @constructor
  */
 function UserEditForm({ editStateStore }) {
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
   const { setIsEdit } = editStateStore;
-  const { userState } = useGetCurrentUser();
   const [showAlert, setShowAlert] = useState(false);
   const mutation = useChangeProfileHandler(userState._id, setShowAlert);
   const [editInfo, setEditInfo] = useState({

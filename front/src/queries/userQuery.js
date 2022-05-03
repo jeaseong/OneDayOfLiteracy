@@ -4,43 +4,41 @@ import { useNavigate } from "react-router-dom";
 
 /**
  * 현재 유저상태를 받아오며, token이 없다면 userState는 false를 기본값으로 가집니다.
- * @returns {{userState: (object|boolean), isFetching: boolean, isLogin: boolean, error: string}}
+ * @returns {UseQueryResult<{isLogin:boolean, userState: object}, unknown>}
  */
 export function useGetCurrentUser() {
   const queryclient = useQueryClient();
 
-  const { isFetching, error, data } = useQuery(
+  return useQuery(
     "userState",
-    () => get("user/current").then((res) => res.data),
+    async () => {
+      const res = await get("user/current");
+      return { userState: res.data, isLogin: !!res.data };
+    },
     {
       staleTime: Infinity,
-      onSuccess: (data) => queryclient.setQueryData("userState", data),
       onError: () => queryclient.setQueryData("userState", null),
     }
   );
-
-  return { userState: data, isFetching, isLogin: !!data, error };
 }
 
 /**
  * 유저의 프로필을 받아옵니다.
- * @param {string} id
- * @returns {{isFetching: boolean, error: boolean, userProfile: object}}
+ * @param id
+ * @returns {UseQueryResult<{userProfile: object}, unknown>}
  */
 export function useGetProfileUser(id) {
-  const queryclient = useQueryClient();
-
-  const { isFetching, error, data } = useQuery(
+  return useQuery(
     ["user", id],
-    () => get(`users/${id}`).then((res) => res.data),
+    async () => {
+      const res = await get(`users/${id}`);
+      return res.data;
+    },
     {
       staleTime: 60000,
       cacheTime: 120000,
-      onSuccess: (data) => queryclient.setQueryData(["user", id], data),
     }
   );
-
-  return { userProfile: data, isFetching, error };
 }
 
 /**

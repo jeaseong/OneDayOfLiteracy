@@ -29,8 +29,8 @@ function UserCard({ isProfileOwner, editStateStore, children }) {
   const params = useParams();
   const { isEdit, setIsEdit } = editStateStore;
   const [showAlert, setShowAlert] = useState(false);
-  const { userProfile } = useGetProfileUser(params.userId);
-  const { _id, profileUrl } = userProfile;
+  const userProfile = useGetProfileUser(params.userId);
+  const { _id, profileUrl } = userProfile.data;
 
   // Alert
   const changeFailImage = setAlertData(

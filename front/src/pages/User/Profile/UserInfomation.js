@@ -20,20 +20,20 @@ import { useParams, Link } from "react-router-dom";
  */
 function UserInfomation() {
   const params = useParams();
-  const { userProfile } = useGetProfileUser(params.userId);
+  const { data } = useGetProfileUser(params.userId);
 
   return (
     <CardContent>
       <CardIntroduce>
-        <ProfileNickName>{userProfile.nickname}</ProfileNickName> &nbsp;
-        <ProfileIntroduce>{userProfile.introduce}</ProfileIntroduce>
+        <ProfileNickName>{data.nickname}</ProfileNickName> &nbsp;
+        <ProfileIntroduce>{data.introduce}</ProfileIntroduce>
       </CardIntroduce>
       <CardMyInfo>
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname}>
-              <ProfilePostCount>{userProfile.posts}</ProfilePostCount>
+              <ProfilePostCount>{data.posts}</ProfilePostCount>
             </Link>
           </CardLikeCountBox>
         </CardLikePost>
@@ -41,9 +41,7 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname + "?likes"}>
-              <ProfilePostCount>
-                {userProfile.postLikes.length}
-              </ProfilePostCount>
+              <ProfilePostCount>{data.postLikes.length}</ProfilePostCount>
             </Link>
           </CardLikeCountBox>
         </CardLikePost>

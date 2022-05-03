@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useGetCurrentUser } from "../queries/userQuery";
 import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
 import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
 import { img } from "../utils/imgImport";
@@ -16,7 +15,7 @@ import SearchContent from "./Search/SearchContent";
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { userState, isLogin } = useGetCurrentUser();
+  const { userState, isLogin } = queryClient.getQueryData("userState");
   const [value, setValue] = useState("one");
   const [showAlert, setShowAlert] = useState(false);
 
