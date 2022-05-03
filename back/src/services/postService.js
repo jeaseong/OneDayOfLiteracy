@@ -83,6 +83,7 @@ class postService {
   //pagination 지원
   static async getPostsByUserId({ page, limit, userId }) {
     // userId 에 대한 검증
+    
     const user = await User.findById({ userId });
     if (!user) {
       return { errorMessage: "Error: Invalid userId " };
@@ -153,7 +154,13 @@ class postService {
   }
   static async getPostsByTags({ tags }) {}
 
-  static async deletePost({ postId }) {
+  static async deletePost({ postId, userId }) {
+    const posts = await Post.findByUserId({ userId });
+    
+    if(!(posts.find(obj => obj._id == postId))){
+      return { errorMessage: "자신이 쓴 글만 삭제할 수 있습니다."};
+    }
+
     const result = await Post.delete({ postId });
 
     if (result.deletedCount !== 1) {
@@ -187,7 +194,7 @@ class postService {
     }
 
     posts.forEach( post => {
-      const postId = post._doc["_id"];
+      const postId = post["_id"];
       const updated = Like.deleteAllByPostId({ postId });
       if(!updated.acknowledged){
         return {

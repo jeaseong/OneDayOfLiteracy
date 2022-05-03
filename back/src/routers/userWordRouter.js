@@ -5,10 +5,12 @@ import { isValidData, invalidCallback } from "../middlewares/validationMiddlewar
 
 const userWordRouter = Router();
 
+// create
+// 현재 로그인한 유저가 단어 퀴즈를 어디까지 했는지 알기 위해 단어를 DB에 저장한다.
 userWordRouter.post(
-  "/userword",
+  "/userwords",
   loginRequired,
-  isValidData("userword"),
+  isValidData("userword-post"),
   invalidCallback,
   async (req, res, next) => {
       try{
@@ -23,18 +25,22 @@ userWordRouter.post(
   }
 );
 
+// read
+// 유저의 퀴즈 단어 조회
+// 전 : /userword/:userId
+// 후 : /users/:userId/userword
 userWordRouter.get(
-  "/userword/:userId",
-  isValidData("userword"),
+  "/users/:userId/userword",
+  isValidData("userword-get"),
   invalidCallback,
   async (req, res, next) => {
     try {
-        const { userId } = req.params;
-        const userWord = await userWordService.getUserWord({ userId });
+      const { userId } = req.params;
+      const userWord = await userWordService.getUserWord({ userId });
 
-        res.status(200).json(userWord);
+      res.status(200).json(userWord);
     } catch (error) {
-        next(error);
+      next(error);
     }
   }
 );

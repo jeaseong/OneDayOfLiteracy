@@ -6,19 +6,11 @@ import { loginRequired } from "../middlewares/loginRequired";
 
 const testRouter = Router();
 
-testRouter.get("/tests", async (req, res, next) => {
-  try {
-    const question = req.query.question;
-
-    const tests = await testService.searchTest({ question });
-
-    res.status(200).json(tests);
-  } catch (error) {
-    next(error);
-  }
-});
-
-testRouter.post("/test/result", loginRequired, async (req, res, next) => {
+// create
+// 1. 테스트 제출 => 점수 반환
+// 전 : /test/result
+// 후 : /tests/evaluate
+testRouter.post("/tests/evaluate", loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -48,7 +40,10 @@ testRouter.post("/test/result", loginRequired, async (req, res, next) => {
   }
 });
 
-testRouter.post("/test", async (req, res, next) => {
+// 2. 테스트 문항 생성
+// 전 : /test
+// 후 : /tests
+testRouter.post("/tests", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -82,7 +77,24 @@ testRouter.post("/test", async (req, res, next) => {
   }
 });
 
-testRouter.get("/test/:num", async (req, res, next) => {
+// read
+// 1. 전체 테스트 문항 조회
+testRouter.get("/tests", async (req, res, next) => {
+  try {
+    const question = req.query.question;
+
+    const tests = await testService.searchTest({ question });
+
+    res.status(200).json(tests);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 2. 테스트 문항 조회(by 번호)
+// 전 : /test/:num
+// 후 : /tests/:num
+testRouter.get("/tests/:num", async (req, res, next) => {
   try {
     const num = req.params.num;
 
@@ -97,7 +109,11 @@ testRouter.get("/test/:num", async (req, res, next) => {
   }
 });
 
-testRouter.put("/test/:num", async (req, res, next) => {
+// update
+// 1. 테스트 문항 수정
+// 전 : /test/:num
+// 후 : /tests/:num
+testRouter.put("/tests/:num", async (req, res, next) => {
   try {
     if(is.emptyObject(req.body)){
         throw new Error(
@@ -120,7 +136,11 @@ testRouter.put("/test/:num", async (req, res, next) => {
   }
 });
 
-testRouter.delete("/test/:num", async (req, res, next) => {
+// delete
+// 1. 테스트 문항 삭제
+// 전 : /test/:num
+// 후 : /tests/:num
+testRouter.delete("/tests/:num", async (req, res, next) => {
   try {
       const num = req.params.num;
 
