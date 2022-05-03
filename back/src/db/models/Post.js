@@ -60,7 +60,7 @@ class Post {
   }
 
   static async getLikedUsers({ postId }) {
-    const post = await PostModel.findOne({ postId }).populate("userLikes", {
+    const post = await PostModel.findOne({ _id: postId }).populate("userLikes", {
       _id: 1,
       nickname: 1,
     });
