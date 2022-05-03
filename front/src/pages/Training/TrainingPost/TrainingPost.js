@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { PostContainer } from "../../../styles/PostStyle";
 import {
   PostingContent,
@@ -17,6 +18,18 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
 
   const handleChangeMarkdown = (e) => {
     setMarkdown(e.target.value);
+  };
+  const handleSetTab = (e) => {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
+      e.target.value =
+        e.target.value.substring(0, start) +
+        "    " +
+        e.target.value.substring(end);
+      handleChangeMarkdown(e);
+    }
   };
 
   const submitTrainingPost = async (e) => {
@@ -40,10 +53,12 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
             type="text"
             placeholder="내용을 입력해주세요..."
             onChange={(e) => handleChangeMarkdown(e)}
+            onkeyDown={(e) => handleSetTab(e)}
             required
           />
           <ReactMarkdown
             children={markdown}
+            remarkPlugins={[remarkGfm]}
             className="markdown"
           ></ReactMarkdown>
         </PostingContent>
@@ -52,6 +67,7 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
             type="submit"
             disabled={markdown.length <= 0}
             onClick={(e) => submitTrainingPost(e)}
+            display={tags[0] === "step3" ? "none" : null}
           >
             출간하기
           </PostingButton>
