@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { img } from "../utils/imgImport";
+import { img } from "../../utils/imgImport";
 
 export const ContainerHome = styled.div`
   width: 100%;

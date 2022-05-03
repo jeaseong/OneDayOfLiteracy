@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MyPageContainer } from "../../../styles/User/ProfileStyle";
 import UserCard from "./UserCard";
 import UserPostList from "./UserPostList";
 import UserInfomation from "./UserInfomation";
 import UserEditForm from "./UserEditForm";
-import { useGetProfileUser } from "../../../queries/userQuery";
 import { useParams } from "react-router-dom";
-import ErrorPage from "../../../components/ErrorPage";
-import { useGetUserPostList } from "../../../queries/postQuery";
-import Loading from "../../../components/Loading";
+import { useQueryClient } from "react-query";
 
 /**
  * 사용자의 프로필 컴포넌트입니다.
@@ -17,20 +14,20 @@ import Loading from "../../../components/Loading";
  */
 function UserProfile() {
   const params = useParams();
+  const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
-  const { error, isFetching } = useGetProfileUser(params.userId);
-  const userPostsData = useGetUserPostList(params.userId);
-
   const editStateStore = { isEdit, setIsEdit };
+
+  useEffect(() => {
+    queryClient.invalidateQueries(["user", params.userId]);
+    queryClient.invalidateQueries(["posts", `likes/user/${params.userId}?`]);
+  }, [params.userId, queryClient]);
 
   const CardContent = isEdit ? (
     <UserEditForm editStateStore={editStateStore} />
   ) : (
     <UserInfomation />
   );
-
-  if (isFetching || userPostsData.isFetching) return <Loading />;
-  if (error || userPostsData.error) return <ErrorPage />;
 
   return (
     <MyPageContainer>

@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TrainingGuide from "../TrainingGuide";
 import {
   TrainingSubjectContainer,
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
-} from "../../../styles/TrainingStyle";
-import Posting from "../../Post/Posting";
+} from "../../../styles/Training/TrainingStyle";
+import TrainingPost from "../TrainingPost/TrainingPost";
 import { TAG_NAME, TRAINING_INTRODUNCTION } from "../../../utils/constants";
 import { createMarkup } from "../../../utils/setInnerHTML";
+import { get } from "../../../utils/api";
 export default function TrainingStepFour() {
+  const [subject, setSubject] = useState({});
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await get("subjects/level", "4");
+      setSubject((cur) => res.data);
+    };
+    fetchApi();
+  }, []);
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
@@ -22,7 +31,12 @@ export default function TrainingStepFour() {
           />
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
-      <Posting trainingTag={[...TAG_NAME.STEP_FOUR]}></Posting>
+      <TrainingPost
+        title="요약"
+        tags={TAG_NAME.STEP_THREE}
+        subjectId={subject.subjectId}
+        category={subject.category}
+      />
     </TrainingGuide>
   );
 }

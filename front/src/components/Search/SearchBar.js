@@ -12,11 +12,17 @@ import { get } from "../../utils/api";
  * 검색어 입력 컴포넌트입니다.
  * @param {string} searchTarget
  * @param {function} setSearchTarget
+ * @param {boolean} isHaveSearchContent
+ * @param {function} setIsHaveSearchContent
  * @returns {JSX.Element}
  * @constructor
  */
-function SearchBar({ searchTarget, setSearchTarget }) {
-  const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
+function SearchBar({
+  searchTarget,
+  setSearchTarget,
+  isHaveSearchContent,
+  setIsHaveSearchContent,
+}) {
   const [dropDownList, setDropDownList] = useState([]);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(0);
   const [isError, setIsError] = useState(false);

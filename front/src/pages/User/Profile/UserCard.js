@@ -11,14 +11,14 @@ import {
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
 import {
-  useGetCurrentUser,
-  useGetProfileUser,
-} from "../../../queries/userQuery";
-import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { useGetProfileUser } from "../../../queries/userQuery";
+import Loading from "../../../components/Loading";
+import ErrorPage from "../../../components/ErrorPage";
 
 /**
  * 프로필 페이지의 유저 카드 컴포넌트입니다.
@@ -29,11 +29,14 @@ import { useParams } from "react-router-dom";
  */
 function UserCard({ editStateStore, children }) {
   const params = useParams();
-  const { userState } = useGetCurrentUser();
-  const { userProfile } = useGetProfileUser(params.userId);
-  const [showAlert, setShowAlert] = useState(false);
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
   const { isEdit, setIsEdit } = editStateStore;
-  const { _id, profileUrl } = userProfile;
+  const [showAlert, setShowAlert] = useState(false);
+  const userProfile = useGetProfileUser(params.userId);
+
+  if (userProfile.isFetching) return <Loading />;
+  if (userProfile.error) return <ErrorPage />;
 
   // 프로필의 주인인가?
   const checkProfileOwner = () => {
@@ -53,8 +56,8 @@ function UserCard({ editStateStore, children }) {
   // 프로필 이미지 업로드
   const profileImageData = {
     type: "user",
-    id: _id,
-    prevImage: profileUrl,
+    id: userProfile.data._id,
+    prevImage: userProfile.data.profileUrl,
     showAlert,
     setShowAlert,
   };
@@ -72,7 +75,7 @@ function UserCard({ editStateStore, children }) {
       <CardBox>
         <CardHeader>
           <ProfileImgBox>
-            <ProfileImg src={profileUrl} alt="profileImage" />
+            <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
           </ProfileImgBox>
           {isProfileOwner && (
             <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>

@@ -1,6 +1,6 @@
 import React, { useState, forwardRef } from "react";
-import { PostingTags } from "../../styles/PostingStyle";
-import "../../styles/markdown.css";
+import { PostingTags } from "../../styles/Posts/PostingStyle";
+import "../../styles/Posts/markdown.css";
 
 const PostingTag = forwardRef(({}, ref) => {
   const [tag, setTag] = useState("");

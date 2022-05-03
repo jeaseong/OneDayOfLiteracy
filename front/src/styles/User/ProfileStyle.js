@@ -5,7 +5,7 @@ import {
   FlexBoxCenter,
   HeadingTwo,
   InputBox,
-} from "../CommonStyle";
+} from "../Components/CommonStyle";
 
 export const MyPageContainer = styled(FlexBox)`
   flex-direction: column;
@@ -146,4 +146,9 @@ export const ConfirmButtonBox = styled(FlexBox)`
 export const ConfirmButton = styled(Button)`
   margin: 10px 7px;
   width: 20%;
+`;
+
+export const NotFoundPostImg = styled.img`
+  width: 47%;
+  margin: 0 auto;
 `;

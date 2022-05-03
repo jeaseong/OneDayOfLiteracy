@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "../CommonStyle";
+import { Button } from "./CommonStyle";
 
 export const SearchContainerBox = styled.form`
   max-width: 1024px;
@@ -19,8 +19,8 @@ export const SearchButton = styled(Button)`
 export const SearchInput = styled.input`
   border: solid 2px #c99c6e;
   border-radius: 8px;
-  width: 95%;
-  height: 38px;
+  width: 90%;
+  height: 22px;
   font-size: 1.3rem;
   padding: 6px;
 `;

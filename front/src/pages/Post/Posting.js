@@ -1,27 +1,39 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
-import { PostContainer } from "../../styles/PostStyle";
-import { PostingButton } from "../../styles/PostingStyle";
-import "../../styles/markdown.css";
+import { PostContainer } from "../../styles/Posts/PostStyle";
+import { PostingButton } from "../../styles/Posts/PostingStyle";
+import "../../styles/Posts/markdown.css";
 import { post } from "../../utils/api";
 
 function Posting() {
   const navigate = useNavigate();
+
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
+  const inputEmpty = useRef(true);
 
-  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
+  const [renderer, setRenderer] = useState(true);
+  const [isEditPost, setIsEditPost] = useState(false);
 
-  const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
+  const handleClick = async (e) => {
+    e.preventDefault();
+    setRenderer(!renderer);
+
+    if (!inputEmpty.current) {
+      await handleSubmit();
+    } else {
+      const errorMessage = "빈값을 입력해주세요.";
+      throw new Error(errorMessage);
+    }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
       const posting = {
         title: titleRef.current?.value,
@@ -38,29 +50,22 @@ function Posting() {
     }
   };
 
-  console.log(contentRef.current?.value.length === 0);
-  console.log(contentRef.current?.value);
+  useEffect(() => {
+    inputEmpty.current =
+      contentRef.current?.value.length === 0 ||
+      titleRef.current?.value.length === 0 ||
+      categoryRef.current?.value.length === 0;
+    console.log(inputEmpty.current);
+  }, [renderer]);
 
   return (
     <PostContainer>
-      <PostingHeader
-        isTitleEmpty={isTitleEmpty}
-        setIsTitleEmpty={setIsTitleEmpty}
-        ref={titleRef}
-      />
-      <PostingCategory
-        isCategoryEmpty={isCategoryEmpty}
-        setIsCategoryEmpty={setIsCategoryEmpty}
-        ref={categoryRef}
-      />
+      <PostingHeader ref={titleRef} />
+      <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
-        <PostingButton
-          type="submit"
-          onClick={handleSubmit}
-          disabled={contentRef.current?.value.length === 0}
-        >
+        <PostingButton type="submit" onClick={handleClick}>
           출간하기
         </PostingButton>
       </div>

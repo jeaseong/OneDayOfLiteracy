@@ -9,7 +9,11 @@ import {
   AuthContentForm,
 } from "../../../styles/User/AuthStyle";
 import { img } from "../../../utils/imgImport";
-import { HeadingTwo, Button, LinkButton } from "../../../styles/CommonStyle";
+import {
+  HeadingTwo,
+  Button,
+  LinkButton,
+} from "../../../styles/Components/CommonStyle";
 import {
   CustomSnackbar,
   setAlertData,
