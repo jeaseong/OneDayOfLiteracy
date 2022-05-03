@@ -6,5 +6,3 @@ export const checkUserExpPercent = (level, exp) => {
   const expPercent = ((exp / maxExp) * 100).toFixed(2);
   return { maxExp, expPercent };
 };
-
-export const userLevelUp = (level, exp) => {};
