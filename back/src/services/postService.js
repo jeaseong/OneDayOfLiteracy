@@ -81,7 +81,7 @@ class postService {
   }
 
   //pagination 지원
-  static async getPostsByUserId({ page, limit, userId }) {
+  static async getPostsByUserId({ sort, page, limit, userId }) {
     // userId 에 대한 검증
     
     const user = await User.findById({ userId });
@@ -90,9 +90,18 @@ class postService {
     }
 
     const query = { userId };
-    const posts = await Post.findAll(page, limit, query);
-    
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
 
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList = [{ sort: sortOption }];
+    }
+
+    const posts = await Post.findAll(page, limit, query, extraQueryList);
+    
     return posts;
   }
 
@@ -115,7 +124,7 @@ class postService {
     return posts;
   }
 
-  static async getSearchPosts({ category, content, page, limit }) {
+  static async getSearchPosts({ category, content, sort, page, limit }) {
     const orList = [];
 
     const pushRegexQuery = (fieldName, value) => {
@@ -148,11 +157,21 @@ class postService {
       if (!isEmptyArray(orList)) andList.push({ $or: orList });
       query = { $and: andList };
     }
+    
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
 
-    const posts = await Post.findAll(page, limit, query);
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList = [{ sort: sortOption }];
+    }
+    
+    const posts = await Post.findAll(page, limit, query, extraQueryList);
     return posts;
   }
-  static async getPostsByTags({ tags }) {}
+  
 
   static async deletePost({ postId, userId }) {
     const posts = await Post.findByUserId({ userId });

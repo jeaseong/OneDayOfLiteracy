@@ -108,8 +108,9 @@ class likeService {
     }
 
     const postIds = user.postLikes;
-    const query = { _id: { $in: postIds }}
-
+    const query = { _id: { $in: postIds }};
+    
+    
     const posts = await Post.findAll(page, limit, query);
     posts.errorMessage = null;
     return posts;

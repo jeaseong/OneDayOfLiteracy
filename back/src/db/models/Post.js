@@ -10,7 +10,8 @@ class Post {
   }
 
   static async findById({ postId }) {
-    const post = await PostModel.findOne({ _id: postId })
+    const post1 = PostModel.findOne({ _id: postId });
+    const post = await post1
       .lean()
       .populate("subject", { _id: 0, subject: 1 });
     return post;
@@ -30,20 +31,18 @@ class Post {
 
   // Service의 deletePostsByUserId 메소드에서 post의 _id 리스트 얻기 위해 사용
   static async findByUserId({ userId }) {
-    const posts = await PostModel.find({ userId }, {_id: 1}).lean();
+    const posts = await PostModel.find({ userId }, { _id: 1 }).lean();
     return posts;
   }
 
-  static async findAll(page, limit, query) {
+  static async findAll(page, limit, query, extraQueryList) {
     // pagination 필요
-    const populateField = "subject";
-    const populateOption = { _id: 0, subject: 1 };
+    
     const posts = await findByPagination2(
       PostModel,
-      { page, limit },
+      { page: Number(page), limit: Number(limit) },
       query,
-      populateField,
-      populateOption
+      extraQueryList
     );
 
     return posts;

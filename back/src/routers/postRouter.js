@@ -59,18 +59,28 @@ postRouter.get('/posts/:postId', async (req, res, next) => {
 
 // 2. userId 로 해당 유저의 posts 조회
 // 전 : /posts/users/:userId?page={Number}&limit={Number}
-// 후 : /users/:userId/posts?page={Number}&limit={Number}
-postRouter.get('/users/:userId/posts', async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const { page, limit } = req.query;
+// 후 : /users/:userId/posts?sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+postRouter.get(
+  "/users/:userId/posts",
+  isValidData("post-sorting"),
+  invalidCallback,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { sort, page, limit } = req.query;
 
-    const posts = await postService.getPostsByUserId({ page, limit, userId });
-    res.status(200).json(posts);
-  } catch (err) {
-    next(err);
+      const posts = await postService.getPostsByUserId({
+        sort,
+        page,
+        limit,
+        userId,
+      });
+      res.status(200).json(posts);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 
 
@@ -107,36 +117,44 @@ postRouter.get('/users/:userId/posts', async (req, res, next) => {
 // });
 
 // 4. 내용 검색(내용에는 태그, 제목, 컨텐츠, 작성자 모두 포함된다! => 즉 일부라도 일치하는건 모두 반환!)
-// posts?category={String}&content={String}&page={Number}&limit={Number} 
-postRouter.get('/posts', async (req, res, next) => {
-  try {
-    const { category, content, page, limit } = req.query;
-    
-    const TypeCheck = (variable) => {
-      if (typeName(variable) === "Array" || typeName(variable) == "Object") {
-        throw new Error(`${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`);
-      }
-    };
+// posts?category={String}&content={String}&sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+postRouter.get(
+  "/posts",
+  isValidData("post-sorting"),
+  invalidCallback,
+  async (req, res, next) => {
+    try {
+      const { category, content, sort, page, limit } = req.query;
+      
+      const TypeCheck = (variable) => {
+        if (typeName(variable) === "Array" || typeName(variable) == "Object") {
+          throw new Error(
+            `${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`
+          );
+        }
+      };
 
-    TypeCheck(category);
-    TypeCheck(content);
-    TypeCheck(limit);
-    TypeCheck(page);
+      TypeCheck(category);
+      TypeCheck(content);
+      TypeCheck(limit);
+      TypeCheck(page);
 
-    // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
-    // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
-    const posts = await postService.getSearchPosts({
-      category,
-      content,
-      page,
-      limit,
-    }); 
+      // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]
+      // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다
+      const posts = await postService.getSearchPosts({
+        category,
+        content,
+        sort,
+        page,
+        limit,
+      });
 
-    res.status(200).json(posts);
-  } catch (err) {
-    next(err);
+      res.status(200).json(posts);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 // update
 postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {

@@ -1,48 +1,75 @@
-import { isEmptyArray } from "./validation/isEmptyType";
+import { typeName } from "./validation/typeName";
 
+const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
+  switch(queryPrototype){
+    case "sort":
+      return baseQuery.sort(queryArg);
+
+    case "lean":
+      if(queryArg !== undefined){
+        return baseQuery.lean(queryArg);
+      }
+      return baseQuery.lean();
+
+    case "populate":
+      if(typeName(queryArg) === "String" || typeName(queryArg) === "Object"){
+        return baseQuery.populate(queryArg);
+      } else if(typeName(queryArg) === "Array"){
+        return baseQuery.populate(queryArg[0], queryArg[1]);
+      }
+  }
+}
 // model 과 { query, page, limit } 으로 페이지네이션
 
-async function findByPagination2(model, options = {}, query = {}, populateField = "", populateOption = {}) {
-  const { page, limit } = options;
-
-  //let [posts, next_posts,isLast] = [null,null,null];
-  let posts=null, next_posts=null, isLast=null;
+async function findByPagination2(model, options = {}, query = {}, extraQueryList = [{ sort: { updatedAt: -1 } },]) {
   
+  const page = options?.page ?? null;
+  const limit = options?.limit ?? null;
+
+  
+  let posts = null,
+    isLast = null,
+    totalnum = null;
+
+  const baseQuery = model
+    .find(query)
+    .lean()
+    .select("-__v")
+    .populate("subject", { _id: 0, subject: 1 })
+    .populate({ path: "userLikesCount", select: { _id: 0, userLikesCount: 1 }});
+
+  // extraQueryList 예시
+  // const extraQuery = [
+  //     {lean: undefined},
+  //     {populate: ["userLikesCount", { _id: 0, userLikesCount: 1 }]}
+  //     {sort: { userLikesCount: 1 }}
+  // ];
+
+  const totalQuery = extraQueryList.reduce((acc, cur) => {
+    // cur이 {sort: { userLikesCount: 1 }} 이면 => Object.keys(cur)[0] 은 'sort'
+    return addMatchedQuery(acc, Object.keys(cur)[0], Object.values(cur)[0]);
+  }, baseQuery);
+
   if (page && limit) {
-    [posts, next_posts] = await Promise.all([
-      model
-        .find(query)
-        .lean()
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .populate(populateField, { _id: 0, subject: 1 }),
-      model
-        .find(query)
-        .lean()
-        .skip(page * limit)
-        .limit(limit)
-        .populate(populateField, { _id: 0, subject: 1 }),
+    [posts, totalnum] = await Promise.all([
+      totalQuery.skip((page - 1) * limit).limit(limit),
+      model.find(query).lean().countDocuments(),
     ]);
-    
-    if(isEmptyArray(next_posts)){
+
+    if (totalnum <= page * limit) {
       isLast = true;
     } else {
       isLast = false;
     }
-    
-
   } else {
-    posts = await model
-      .find(query)
-      .lean()
-      .populate(populateField, populateOption);
+    posts = await totalQuery;
     isLast = true;
   }
 
   return {
     isLast,
     posts,
-  }
+  };
 }
 
 // 결과 예시

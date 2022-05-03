@@ -59,6 +59,12 @@ PostSchema.virtual("userLikes", {
   foreignField: "postLikes"
 });
 
+PostSchema.virtual("userLikesCount",{
+  ref: "User",
+  localField: "_id",
+  foreignField: "postLikes",
+  count: true,
+})
 
 const PostModel = model("Post", PostSchema);
 
