@@ -33,7 +33,7 @@ export const LABEL = {
   POST: "게시글",
   USER_POST: "작성한 게시글",
   USER_LIKE_POST: "좋아한 게시글",
-  USER_LIKE_COUNT: "받은 좋아요 수",
+  USER_EXP: "경험치",
   CHANGE_PROFILE: "프로필 수정",
   CHANGE_IMAGE: "이미지 변경",
   ERROR_INTRODUCE: "THE PAGE YOU REQUESTED COULD NOT FOUND",
@@ -98,4 +98,12 @@ export const TRANSCRIPTION_INTRODUCTION = {
     "<mark>필사</mark>를 잘 하려면 계속 읽고, 읽고 읽고 끊임없이 생각하며\n<mark>손</mark>으로 직접 쓰다보면 지나쳤던 단어가 눈에 보이고, 문장이 보이고 글 전체가 보이게 됩니다.",
   STEP_THREE:
     "칼럼, 소설, 수필, 연설문, 시\n마음에 드는 글을 골라 <mark>꾸준하게</mark> 써보세요. 문해한 하루에서 제공하는 글은 짧은 글을 드리지만 긴 글을 시도해보시기를 추천 드립니다.",
+};
+
+export const LEVEL_MAX_EXP = {
+  LEVEL0: 50,
+  LEVEL1: 100,
+  LEVEL2: 170,
+  LEVEL3: 500,
+  LEVEL4: 800,
 };

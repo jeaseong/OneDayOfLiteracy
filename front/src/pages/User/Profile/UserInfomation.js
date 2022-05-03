@@ -12,6 +12,7 @@ import { HeadingTwo } from "../../../styles/Components/CommonStyle";
 import { LABEL } from "../../../utils/constants";
 import { useParams, Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { checkUserExpPercent } from "../../../utils/userLevel";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -22,19 +23,33 @@ function UserInfomation() {
   const params = useParams();
   const queryClient = useQueryClient();
   const userProfile = queryClient.getQueryData(["user", params.userId]);
+  const { nickname, level, introduce, point, posts, postLikes } = userProfile;
+  const { maxExp, expPercent } = checkUserExpPercent(level, point);
 
   return (
     <CardContent>
       <CardIntroduce>
-        <ProfileNickName>{userProfile.nickname}</ProfileNickName> &nbsp;
-        <ProfileIntroduce>{userProfile.introduce}</ProfileIntroduce>
+        <ProfileNickName>
+          {nickname} {level}
+        </ProfileNickName>
+        &nbsp;
+        <ProfileIntroduce>{introduce}</ProfileIntroduce>
       </CardIntroduce>
       <CardMyInfo>
+        <CardLikePost>
+          <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
+          <CardLikeCountBox>
+            <ProfilePostCount>
+              {point} / {maxExp}
+              <progress value={expPercent} max="100" />
+            </ProfilePostCount>
+          </CardLikeCountBox>
+        </CardLikePost>
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname}>
-              <ProfilePostCount>{userProfile.posts}</ProfilePostCount>
+              <ProfilePostCount>{posts}</ProfilePostCount>
             </Link>
           </CardLikeCountBox>
         </CardLikePost>
@@ -42,16 +57,8 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname + "?likes"}>
-              <ProfilePostCount>
-                {userProfile.postLikes.length}
-              </ProfilePostCount>
+              <ProfilePostCount>{postLikes.length}</ProfilePostCount>
             </Link>
-          </CardLikeCountBox>
-        </CardLikePost>
-        <CardLikePost>
-          <HeadingTwo>{LABEL.USER_LIKE_COUNT}</HeadingTwo>
-          <CardLikeCountBox>
-            <ProfilePostCount>3</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
       </CardMyInfo>

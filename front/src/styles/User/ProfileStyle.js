@@ -67,6 +67,7 @@ export const CardLikeCountBox = styled(FlexBoxCenter)`
 
 export const ProfilePostCount = styled(HeadingTwo)`
   margin-top: 6px;
+  text-align: center;
 `;
 
 export const ProfileNickName = styled(HeadingTwo)`
