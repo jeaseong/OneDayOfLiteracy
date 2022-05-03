@@ -15,6 +15,8 @@ import {
   LikeButton,
 } from "../../styles/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function Post() {
   const [post, setPost] = useState([]);
@@ -45,7 +47,10 @@ function Post() {
             return <PostImage key={index} src={image} />;
           })}
         </PostImageBox>
-        <PostContent>{post.content}</PostContent>
+        <ReactMarkdown
+          children={post.content}
+          remarkPlugins={[remarkGfm]}
+        ></ReactMarkdown>
       </PostBody>
       <PostFooter>
         {post.tags?.map((tag, index) => {

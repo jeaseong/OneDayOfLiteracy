@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
@@ -11,18 +11,18 @@ import { post } from "../../utils/api";
 
 function Posting() {
   const navigate = useNavigate();
+
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
-  const buttonRef = useRef(null);
+  const inputEmpty = useRef(true);
 
   const [renderer, setRenderer] = useState(true);
-  const inputEmpty = useRef(true);
+  const [isEditPost, setIsEditPost] = useState(false);
 
   const handleClick = async (e) => {
     e.preventDefault();
-
     setRenderer(!renderer);
 
     if (!inputEmpty.current) {
@@ -35,7 +35,6 @@ function Posting() {
 
   const handleSubmit = async (e) => {
     try {
-      console.log("handleSubmit 실행!");
       const posting = {
         title: titleRef.current?.value,
         content: contentRef.current?.value,
@@ -49,19 +48,6 @@ function Posting() {
     } catch (error) {
       throw new Error(error);
     }
-  };
-
-  const printRef = () => {
-    console.log("titleref : ", titleRef.current?.value);
-    console.log("contentref : ", contentRef.current?.value);
-    console.log("categoryref : ", categoryRef.current?.value);
-    console.log("tagref : ", tagRef.current.innerText.slice(1).split("\n#"));
-    console.log("-===================");
-
-    console.log(inputEmpty.current);
-    console.log(titleRef.current?.value.length === 0);
-    console.log(categoryRef.current?.value.length === 0);
-    console.log(contentRef.current?.value.length === 0);
   };
 
   useEffect(() => {
@@ -79,10 +65,9 @@ function Posting() {
       <PostingTag ref={tagRef} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
-        <PostingButton type="submit" onClick={handleClick} ref={buttonRef}>
+        <PostingButton type="submit" onClick={handleClick}>
           출간하기
         </PostingButton>
-        <button onClick={printRef}>ref 값 출력</button>
       </div>
     </PostContainer>
   );
