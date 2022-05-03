@@ -1,4 +1,5 @@
 import { CommentModel } from '../schemas/comment';
+import { findByPagination2 } from "../../utils/findByPagination";
 
 class Comment {
   static async create({ newComment }) {
@@ -6,8 +7,16 @@ class Comment {
     return createdComment;
   }
 
-  static async findByPostId({ postId }) {
-    const comments = await CommentModel.find({ postId, parentId: null }).populate('childComments');
+  static async findByPostId({ page, limit, query }) {
+    const populateField = "user";
+    const populateOption = { _id: 1, profileUrl: 1, nickname: 1};
+    const comments = await findByPagination2(
+      CommentModel,
+      { page, limit },
+      query,
+      populateField,
+      populateOption,
+    );
     return comments;
   }
 

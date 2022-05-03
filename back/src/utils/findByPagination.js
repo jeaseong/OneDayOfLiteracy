@@ -15,13 +15,13 @@ async function findByPagination2(model, options = {}, query = {}, populateField 
         .lean()
         .skip((page - 1) * limit)
         .limit(limit)
-        .populate(populateField, { _id: 0, subject: 1 }),
+        .populate(populateField, populateOption),
       model
         .find(query)
         .lean()
         .skip(page * limit)
         .limit(limit)
-        .populate(populateField, { _id: 0, subject: 1 }),
+        .populate(populateField, populateOption),
     ]);
     
     if(isEmptyArray(next_posts)){

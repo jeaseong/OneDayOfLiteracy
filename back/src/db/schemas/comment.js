@@ -22,6 +22,12 @@ CommentSchema.virtual('childComments', {
   foreignField: 'parentId',  
 })
 
+CommentSchema.virtual('user', {
+  ref: 'User',
+  localField: 'userId',
+  foreignField: '_id',
+  justOne: true,
+})
 const CommentModel = model('Comment', CommentSchema);
 
 export { CommentModel };

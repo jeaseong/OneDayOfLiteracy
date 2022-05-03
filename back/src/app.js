@@ -4,6 +4,7 @@ import express from "express";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { userAuthRouter } from "./routers/userRouter";
 import { postRouter } from "./routers/postRouter";
+import { commentRouter } from "./routers/commentRouter";
 import { subjectRouter } from "./routers/subjectRouter";
 import { testRouter } from "./routers/testRouter";
 import { resultRouter } from "./routers/resultRouter";
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use(userAuthRouter);
 app.use(postRouter);
+app.use(commentRouter);
 app.use(subjectRouter);
 app.use(testRouter);
 app.use(resultRouter);
