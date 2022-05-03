@@ -64,9 +64,9 @@ function Post() {
   const postLikeList = isPostLike ? (
     <LikeButton
       disabled={!isLogin}
-      onClick={async () => {
-        await postDislike.mutate();
-        await likeMutation.mutate("down");
+      onClick={() => {
+        postDislike.mutate();
+        likeMutation.mutate("down");
       }}
     >
       <ThumbUpIcon />
@@ -74,9 +74,9 @@ function Post() {
   ) : (
     <LikeButton
       disabled={!isLogin}
-      onClick={async () => {
-        await postAddLike.mutate();
-        await likeMutation.mutate("up");
+      onClick={() => {
+        postAddLike.mutate();
+        likeMutation.mutate("up");
       }}
     >
       <ThumbUpIcon color="disabled" />
@@ -114,7 +114,7 @@ function Post() {
       <p>좋아요 수 : {likeCount.data}</p>
       {isPostOwner && (
         <>
-          <button onClick={() => navigate("/post")}>수정</button>
+          <button onClick={() => {}}>수정</button>
           <button onClick={handleDeletePost}>삭제</button>
         </>
       )}
