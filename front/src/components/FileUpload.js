@@ -1,4 +1,4 @@
-import { InputFile } from "../styles/CommonStyle";
+import { InputFile } from "../styles/Components/CommonStyle";
 import { ChangeButton } from "../styles/User/ProfileStyle";
 import { LABEL } from "../utils/constants";
 import { useRef } from "react";

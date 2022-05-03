@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { img } from "../../utils/imgImport";
-import { FlexBoxCenter, InputBox } from "../CommonStyle";
+import { FlexBoxCenter, InputBox } from "../Components/CommonStyle";
 
 // 회원가입 ============================================================
 export const AuthContainer = styled(FlexBoxCenter)`

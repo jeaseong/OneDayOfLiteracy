@@ -4,8 +4,8 @@ import {
   TrainingGuideContainer,
   TrainingGuideContent,
   BackBtn,
-} from "../../styles/TrainingStyle";
-import { FlexBoxCenter } from "../../styles/CommonStyle";
+} from "../../styles/Training/TrainingStyle";
+import { FlexBoxCenter } from "../../styles/Components/CommonStyle";
 
 export default function TrainingGuide({ children }) {
   const navigate = useNavigate();

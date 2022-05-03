@@ -13,7 +13,7 @@ import {
   PostFooter,
   Tag,
   LikeButton,
-} from "../../styles/PostStyle";
+} from "../../styles/Posts/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";

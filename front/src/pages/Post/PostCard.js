@@ -11,7 +11,7 @@ import {
   Tag,
   PostsLike,
   LikeButton,
-} from "../../styles/PostStyle";
+} from "../../styles/Posts/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
 import ReactMarkdown from "react-markdown";

@@ -1,6 +1,9 @@
 import React, { useState, forwardRef } from "react";
-import { PostingCategoryBox, PostingMessage } from "../../styles/PostingStyle";
-import "../../styles/markdown.css";
+import {
+  PostingCategoryBox,
+  PostingMessage,
+} from "../../styles/Posts/PostingStyle";
+import "../../styles/Posts/markdown.css";
 
 const PostingCategory = forwardRef(({}, ref) => {
   const isCategoryEmpty = ref.current?.value.length === 0;

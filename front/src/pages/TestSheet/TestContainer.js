@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import TestPresentation from "./TestPresentation";
 import TestProcessBtn from "./TestProcessBtn";
-import { NextBtn } from "../../styles/TestStyle";
+import { NextBtn } from "../../styles/Test/TestStyle";
 import { useTestQuery } from "../../queries/testQuery";
 import { post } from "../../utils/api";
 

@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PostContainer } from "../../../styles/PostStyle";
+import { PostContainer } from "../../../styles/Posts/PostStyle";
 import {
   PostingContent,
   PostingArea,
   PostingButton,
-} from "../../../styles/PostingStyle";
-import { TrainingPostTitle, Center } from "../../../styles/TrainingStyle";
-import "../../../styles/markdown.css";
+} from "../../../styles/Posts/PostingStyle";
+import {
+  TrainingPostTitle,
+  Center,
+} from "../../../styles/Training/TrainingStyle";
+import "../../../styles/Posts/markdown.css";
 import { post } from "../../../utils/api";
 
 export default function TrainingPost({ title, tags, subjectId, category }) {

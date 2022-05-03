@@ -18,7 +18,7 @@ import {
   PrevBtn,
   NextBtn,
   ClearBtn,
-} from "../../../styles/WordTrainingStyle";
+} from "../../../styles/Training/WordTrainingStyle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { post } from "../../../utils/api";

@@ -9,7 +9,7 @@ import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
-} from "../../../styles/TrainingStyle";
+} from "../../../styles/Training/TrainingStyle";
 import { get } from "../../../utils/api";
 export default function TrainingStepThree() {
   const [subject, setSubject] = useState({});

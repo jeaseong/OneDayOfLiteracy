@@ -14,7 +14,7 @@ import {
   Button,
   LinkButton,
   FlexBoxCenter,
-} from "../../../styles/CommonStyle";
+} from "../../../styles/Components/CommonStyle";
 import {
   AuthContainer,
   CharacterImage,

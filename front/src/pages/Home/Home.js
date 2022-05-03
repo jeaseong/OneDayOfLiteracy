@@ -1,6 +1,6 @@
 import Slide from "../../components/Slide/Slide";
 import { Img } from "../../styles/Components/ComponentStyle";
-import { HomeContainer } from "../../styles/HomeStyle";
+import { HomeContainer } from "../../styles/Home/HomeStyle";
 import { img } from "../../utils/imgImport";
 
 const BANNERS = [

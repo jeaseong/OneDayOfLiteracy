@@ -9,7 +9,7 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-} from "../../styles/TestResultStyle";
+} from "../../styles/Test/TestResultStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useQueryClient } from "react-query";
 

@@ -6,7 +6,7 @@ import {
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
-} from "../../../styles/TrainingStyle";
+} from "../../../styles/Training/TrainingStyle";
 import { TRAINING_INTRODUNCTION } from "../../../utils/constants";
 import { createMarkup } from "../../../utils/setInnerHTML";
 import { get } from "../../../utils/api";

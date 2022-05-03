@@ -8,7 +8,7 @@ import {
   ProfileNickName,
   ProfilePostCount,
 } from "../../../styles/User/ProfileStyle";
-import { HeadingTwo } from "../../../styles/CommonStyle";
+import { HeadingTwo } from "../../../styles/Components/CommonStyle";
 import { LABEL } from "../../../utils/constants";
 import { useParams, Link } from "react-router-dom";
 import { useQueryClient } from "react-query";

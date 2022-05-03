@@ -5,7 +5,7 @@ import {
   MyPostContainer,
   NotFoundPostImg,
 } from "../../../styles/User/ProfileStyle";
-import { PostsContainer } from "../../../styles/PostStyle";
+import { PostsContainer } from "../../../styles/Posts/PostStyle";
 import { useGetPostList } from "../../../queries/postQuery";
 import { img } from "../../../utils/imgImport";
 import Loading from "../../../components/Loading";

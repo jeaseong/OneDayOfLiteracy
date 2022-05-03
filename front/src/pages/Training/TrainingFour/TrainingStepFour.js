@@ -5,7 +5,7 @@ import {
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
-} from "../../../styles/TrainingStyle";
+} from "../../../styles/Training/TrainingStyle";
 import TrainingPost from "../TrainingPost/TrainingPost";
 import { TAG_NAME, TRAINING_INTRODUNCTION } from "../../../utils/constants";
 import { createMarkup } from "../../../utils/setInnerHTML";

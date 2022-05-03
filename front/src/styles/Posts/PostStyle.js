@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LinkButton } from "./CommonStyle";
+import { LinkButton } from "../Components/CommonStyle";
 
 export const PostsContainer = styled.div`
   max-width: 1024px;

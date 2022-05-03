@@ -5,7 +5,7 @@ import {
   FlexBoxCenter,
   HeadingTwo,
   InputBox,
-} from "../CommonStyle";
+} from "../Components/CommonStyle";
 
 export const MyPageContainer = styled(FlexBox)`
   flex-direction: column;

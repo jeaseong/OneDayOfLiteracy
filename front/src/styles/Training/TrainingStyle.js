@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexBoxCenter } from "./CommonStyle";
+import { FlexBoxCenter } from "../Components/CommonStyle";
 
 // Training.js
 export const TrainingContainer = styled.section`
