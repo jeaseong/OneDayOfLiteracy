@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetCurrentUser } from "../../queries/userQuery";
+import { queryClient } from "react-query";
 import {
   WriteComment,
+  InputBox,
   InputComment,
   CommentBtn,
+  Profile,
+  FocusInput,
 } from "../../styles/Comment/CommentStyle";
 import { post } from "../../utils/api";
 export default function CommentInput({ parentId = null }) {
   const postId = useParams();
   const [curComment, setCurComment] = useState("");
-  const { userState } = useGetCurrentUser();
+  const { userState } = queryClient.getQueryData("userState");
   // postId를 얻어야하지 않겠어?
   const onChangeWriteComment = (e) => {
     setCurComment((cur) => e.target.value);
@@ -32,11 +35,15 @@ export default function CommentInput({ parentId = null }) {
   };
   return (
     <WriteComment onSubmit={onSubmiComment}>
-      <InputComment
-        type="text"
-        value={curComment}
-        onChange={onChangeWriteComment}
-      />
+      <Profile />
+      <InputBox>
+        <InputComment
+          type="text"
+          value={curComment}
+          onChange={onChangeWriteComment}
+        />
+        <FocusInput />
+      </InputBox>
       <CommentBtn type="submit" onSubmit={onSubmiComment}>
         댓글
       </CommentBtn>

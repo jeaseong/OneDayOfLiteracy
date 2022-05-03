@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import CommentInput from "./CommentInput";
 import {
   CommentBox,
   UserThumbnail,
@@ -10,6 +11,11 @@ import {
 } from "../../styles/Comment/CommentStyle";
 
 export default function CommentSingle({ comment }) {
+  const [isOpenReply, setIsOpenReply] = useState(false);
+
+  const onClickOpenReplyInput = () => {
+    setIsOpenReply((cur) => !cur);
+  };
   return (
     <CommentBox>
       <UserThumbnail>
@@ -18,7 +24,8 @@ export default function CommentSingle({ comment }) {
       <CommentContent>
         <UserName>박재성</UserName>
         <Comment>이거 댓글이 너무 멋집니다!</Comment>
-        <ReplyCommentBtn>답글</ReplyCommentBtn>
+        <ReplyCommentBtn onClick={onClickOpenReplyInput}>답글</ReplyCommentBtn>
+        {isOpenReply && <CommentInput parentId={1} />}
       </CommentContent>
     </CommentBox>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import CommentSingle from "./CommentSingle";
 import {
+  ReCommentBox,
   CommentBox,
   UserThumbnail,
   Profile,
@@ -9,24 +9,34 @@ import {
   Comment,
   ReplyCommentBtn,
 } from "../../styles/Comment/CommentStyle";
-export default function CommentRePly({ comment }) {
+export default function CommentRePly({ reComment = [1, 2, 3] }) {
   const [isOpenReply, setIsOpenReply] = useState(false);
   //대댓글 열기
-  const onClickOpenReply = () => {
+  const onClickOpenReplyList = () => {
     setIsOpenReply((cur) => !cur);
   };
 
   // 댓글의 아이디가 parentId인 것을 렌더링
   return (
-    <CommentBox>
-      <UserThumbnail>
-        <Profile />
-      </UserThumbnail>
-      <CommentContent>
-        <UserName>박재성</UserName>
-        <Comment>이거 댓글이 너무 멋집니다!</Comment>
-        <ReplyCommentBtn>답글</ReplyCommentBtn>
-      </CommentContent>
-    </CommentBox>
+    <ReCommentBox>
+      {reComment.length > 0 && (
+        <ReplyCommentBtn onClick={onClickOpenReplyList}>
+          {isOpenReply ? "▲" : "▼"} 답글 {reComment.length}개 보기
+        </ReplyCommentBtn>
+      )}
+      {isOpenReply &&
+        reComment?.map((comment, index) => (
+          // key를 어떻게 할지...
+          <CommentBox key={index}>
+            <UserThumbnail>
+              <Profile />
+            </UserThumbnail>
+            <CommentContent>
+              <UserName>{comment.author}</UserName>
+              <Comment>{comment.content}</Comment>
+            </CommentContent>
+          </CommentBox>
+        ))}
+    </ReCommentBox>
   );
 }
