@@ -6,7 +6,7 @@
   padding: 20px;
   padding-left: 30px;
   background-color: white;
-  line-height: 2;
+  line-height: 1.2;
 }
 @media screen and (max-width: 900px) {
   .markdown {

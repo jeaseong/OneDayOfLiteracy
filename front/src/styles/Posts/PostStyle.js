@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { LinkButton } from "../Components/CommonStyle";
 
 export const PostsContainer = styled.div`
   max-width: 1024px;
@@ -12,7 +13,7 @@ export const PostsContainer = styled.div`
 `;
 
 export const Posts = styled.div`
-  width: 25%;
+  width: 29%;
   height: 30vh;
   border-radius: 8px;
   padding: 16px;
@@ -123,3 +124,15 @@ export const PostContent = styled.div`
   text-align: left;
 `;
 export const PostFooter = styled.div``;
+
+export const LikeButton = styled(LinkButton)`
+  transition-duration: 0.3s;
+
+  &:hover {
+    color: red;
+  }
+
+  &:disabled {
+    color: #c48f5a;
+  }
+`;

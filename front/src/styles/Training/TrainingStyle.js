@@ -1,8 +1,8 @@
 import styled from "styled-components";
+import { FlexBoxCenter } from "../Components/CommonStyle";
 
 // Training.js
 export const TrainingContainer = styled.section`
-  max-width: 1024px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -10,6 +10,9 @@ export const TrainingContainer = styled.section`
   gap: 20px;
   @media screen and (min-width: 768px) {
     flex-wrap: nowrap;
+  }
+  @media screen and (min-width: 1024px) {
+    max-width: 1024px;
   }
 `;
 
@@ -61,6 +64,28 @@ export const TrainingGuideContainer = styled.section``;
 
 export const TrainingGuideContent = styled.div``;
 
+export const BackBtn = styled.button`
+  width: 140px;
+  height: 34px;
+  background: #c48f5a;
+  border: 1px solid #c48f5a;
+  box-sizing: border-box;
+  border-radius: 30px;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 3px 3px 3px gray;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  &:active {
+    box-shadow: none;
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    background: var(--button-bg-color, gray);
+  }
+`;
+
 //TrainingGuide step1
 
 export const TrainingSubjectContainer = styled.section`
@@ -72,7 +97,7 @@ export const TrainingSubjectContainer = styled.section`
 `;
 
 export const TrainingSubjectWrap = styled.div`
-  max-width: 1024px;
+  width: 100%;
   padding: 0 20px;
   margin: 0 auto;
 `;
@@ -91,7 +116,13 @@ export const TrainingStepIntroduction = styled.p`
   white-space: pre-wrap;
 `;
 
-export const Hilight = styled.span`
-  color: #c48f5a;
-  font-weight: bole;
+// TrainingPost
+
+export const TrainingPostTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 20px;
+`;
+
+export const Center = styled(FlexBoxCenter)`
+  margin-top: 10px;
 `;

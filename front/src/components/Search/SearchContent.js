@@ -4,7 +4,7 @@ import {
   SearchButton,
   SearchContainerBox,
 } from "../../styles/Components/SearchStyle";
-import { LABEL } from "../../utils/constants";
+import { CATEGORY, LABEL } from "../../utils/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,31 +15,34 @@ import { useNavigate } from "react-router-dom";
  */
 function SearchContent() {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(CATEGORY.ALL);
   const [searchTarget, setSearchTarget] = useState("");
+  const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
 
   const createEndpointURI = () => {
     const contentParam = `content=${searchTarget}`;
-
-    if (category === "all") return `${contentParam}`;
+    if (category === CATEGORY.ALL) return `${contentParam}`;
     return `category=${category}&${contentParam}`;
   };
 
   const handleSearchOnSubmit = (e) => {
     e.preventDefault();
     const endpoint = createEndpointURI();
+    setIsHaveSearchContent(false);
     navigate(`/posts?${endpoint}`);
   };
 
-  //TODO 검색 버튼클릭으로 검색 시 자동완성목록이 남아있는 현상
+  const searchBarStore = {
+    searchTarget,
+    setSearchTarget,
+    isHaveSearchContent,
+    setIsHaveSearchContent,
+  };
 
   return (
     <SearchContainerBox onSubmit={handleSearchOnSubmit}>
       <SearchCategory setCategory={setCategory} />
-      <SearchBar
-        searchTarget={searchTarget}
-        setSearchTarget={setSearchTarget}
-      />
+      <SearchBar {...searchBarStore} />
       <SearchButton type="submit">{LABEL.SEARCH}</SearchButton>
     </SearchContainerBox>
   );

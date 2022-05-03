@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
+  SlideWrap,
   OverFlow,
   SlideContainer,
   SlideInner,
   SlideItem,
-  BottonContainer,
   PrevBtn,
   NextBtn,
-} from "../../styles/SlideStyle";
+} from "../../styles/Components/SlideStyle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -79,7 +79,7 @@ export default function Slide({ elements }) {
   };
 
   return (
-    <>
+    <SlideWrap>
       <OverFlow>
         <SlideContainer
           w={`${NEWSIZE * 100}vw`}
@@ -104,14 +104,12 @@ export default function Slide({ elements }) {
           ))}
         </SlideContainer>
       </OverFlow>
-      <BottonContainer>
-        <PrevBtn onClick={() => handleSwipe(-1)}>
-          <ArrowBackIosIcon fontSize="large" />
-        </PrevBtn>
-        <NextBtn onClick={() => handleSwipe(1)}>
-          <ArrowForwardIosIcon fontSize="large" />
-        </NextBtn>
-      </BottonContainer>
-    </>
+      <PrevBtn onClick={() => handleSwipe(-1)}>
+        <ArrowBackIosIcon fontSize="large" />
+      </PrevBtn>
+      <NextBtn onClick={() => handleSwipe(1)}>
+        <ArrowForwardIosIcon fontSize="large" />
+      </NextBtn>
+    </SlideWrap>
   );
 }

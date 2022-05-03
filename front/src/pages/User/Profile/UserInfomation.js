@@ -8,11 +8,10 @@ import {
   ProfileNickName,
   ProfilePostCount,
 } from "../../../styles/User/ProfileStyle";
-import { HeadingTwo } from "../../../styles/CommonStyle";
+import { HeadingTwo } from "../../../styles/Components/CommonStyle";
 import { LABEL } from "../../../utils/constants";
-import { useGetProfileUser } from "../../../queries/userQuery";
-import { useGetUserPostList } from "../../../queries/postQuery";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useQueryClient } from "react-query";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -21,7 +20,8 @@ import { useParams } from "react-router-dom";
  */
 function UserInfomation() {
   const params = useParams();
-  const { userProfile } = useGetProfileUser(params.userId);
+  const queryClient = useQueryClient();
+  const userProfile = queryClient.getQueryData(["user", params.userId]);
 
   return (
     <CardContent>
@@ -33,13 +33,19 @@ function UserInfomation() {
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
-            <ProfilePostCount>0</ProfilePostCount>
+            <Link to={window.location.pathname}>
+              <ProfilePostCount>{userProfile.posts}</ProfilePostCount>
+            </Link>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
           <CardLikeCountBox>
-            <ProfilePostCount>{userProfile.postLikes.length}</ProfilePostCount>
+            <Link to={window.location.pathname + "?likes"}>
+              <ProfilePostCount>
+                {userProfile.postLikes.length}
+              </ProfilePostCount>
+            </Link>
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>

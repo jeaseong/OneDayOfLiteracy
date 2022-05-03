@@ -9,14 +9,16 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-} from "../../styles/TestResultStyle";
+} from "../../styles/Test/TestResultStyle";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useGetCurrentUser } from "../../queries/userQuery";
+import { useQueryClient } from "react-query";
 
 export default function TestResult() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
   const [myScore, setMyScore] = useState(0);
-  const { userState } = useGetCurrentUser();
 
   const recommendStep = (score) => {
     if (score >= 90) return TEST_RESULT.LEVEL_THREE;
@@ -32,7 +34,7 @@ export default function TestResult() {
   useEffect(() => {
     const fetchAPI = async () => {
       const res = await get("results/", userState._id);
-      setMyScore(res.data[res.data.length - 1].result);
+      setMyScore(res.data.result);
     };
     fetchAPI();
   }, []);
