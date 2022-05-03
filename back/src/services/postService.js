@@ -1,4 +1,4 @@
-import { User, Post, Subject } from '../db'
+import { User, Post, Subject, Like } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
 class postService {
@@ -60,21 +60,21 @@ class postService {
     const post = await Post.findById({ postId });
 
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
-    if (!("imageUrl" in toUpdate)) {
-      const userId = toUpdate.userId;
-      const subjectId = toUpdate.subjectId;
 
-      const user = await User.findById({ userId });
-      const subject = await Subject.findById({ subjectId });
+    const userId = toUpdate.userId;
+    const subjectId = toUpdate.subjectId;
 
-      if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
-      if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
+    const user = await User.findById({ userId });
+    const subject = await Subject.findById({ subjectId });
 
-      const toUpdateField = Object.keys(toUpdate);
-      toUpdateField.forEach((key) => {
-        if (!toUpdate[key]) delete toUpdate[key];
-      });
-    }
+    if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
+    if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
+
+    const toUpdateField = Object.keys(toUpdate);
+    toUpdateField.forEach((key) => {
+      if (!toUpdate[key]) delete toUpdate[key];
+    });
+    
     const updatedPost = await Post.update({ postId, toUpdate });
     updatedPost.errorMessage = null;
     return updatedPost;
@@ -83,6 +83,7 @@ class postService {
   //pagination 지원
   static async getPostsByUserId({ page, limit, userId }) {
     // userId 에 대한 검증
+    
     const user = await User.findById({ userId });
     if (!user) {
       return { errorMessage: "Error: Invalid userId " };
@@ -154,11 +155,25 @@ class postService {
   
   static async getPostsByTags({ tags }) {}
 
-  static async deletePost({ postId }) {
+  static async deletePost({ postId, userId }) {
+    const posts = await Post.findByUserId({ userId });
+    
+    if(!(posts.find(obj => obj._id == postId))){
+      return { errorMessage: "자신이 쓴 글만 삭제할 수 있습니다."};
+    }
+
     const result = await Post.delete({ postId });
 
     if (result.deletedCount !== 1) {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
+    }
+
+    const updated = await Like.deleteAllByPostId({ postId });
+
+    // Boolean indicating everything went smoothly. 
+    //[출처] : https://mongoosejs.com/docs/api.html#model_Model.updateMany
+    if(!updated.acknowledged){
+      return { errorMessage: "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다." };
     }
 
     return { errorMessage: null };
@@ -171,12 +186,25 @@ class postService {
       return { errorMessage: "Error: Invalid userId " };
     }
 
+    const posts = await Post.findByUserId({ userId });
+
     // 정상적으로 지워졌는지 검증 필요
     const result = await Post.deleteByUserId({ userId });
     if (result.deletedCount === 0) {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
     }
 
+    posts.forEach( post => {
+      const postId = post["_id"];
+      const updated = Like.deleteAllByPostId({ postId });
+      if(!updated.acknowledged){
+        return {
+          errorMessage:
+            "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다.",
+        };
+      }
+    });
+    
     return { errorMessage: null };
   }
 }

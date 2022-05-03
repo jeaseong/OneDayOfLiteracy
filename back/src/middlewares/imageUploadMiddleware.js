@@ -40,13 +40,12 @@ const uploader = (type) => {
 
 const deleteImg = async (req, res, next) => {
   let objectKey = null;
-  
   if (req.body.prevImage) {
     objectKey = req.body.prevImage.split("/").slice(-2).join("/");
   } 
 
-  if (req.params.mode) {
-    objectKey = req.params.mode + "/" + req.params.key;
+  if (req.path.split("/")[3] === "removeImage") {
+    objectKey = req.path.split("/")[1] + "/" + req.body.key;
   }
 
   if (objectKey.indexOf("default") !== -1) {
@@ -60,6 +59,7 @@ const deleteImg = async (req, res, next) => {
       Key: objectKey,
     }, function(err, data){
       if (err) console.log(err);
+      console.log(data);
     });
   }
   next();

@@ -3,12 +3,16 @@ import { findByPagination2 } from "../../utils/findByPagination";
 
 class Post {
   static async create({ newPost }) {
-    const createdNewPost = await PostModel.create([newPost], {runValidators: true});
+    const createdNewPost = await PostModel.create([newPost], {
+      runValidators: true,
+    });
     return createdNewPost;
   }
 
   static async findById({ postId }) {
-    const post = await PostModel.findOne({ _id: postId }).lean().populate("subject", {_id: 0, subject: 1});
+    const post = await PostModel.findOne({ _id: postId })
+      .lean()
+      .populate("subject", { _id: 0, subject: 1 });
     return post;
   }
 
@@ -24,19 +28,23 @@ class Post {
     return updatedPost;
   }
 
-  
-  // 페이지네이션 지원하는 버전으로 바꾸면서 
-  // 필요는 없지만, 남겨둠
+  // Service의 deletePostsByUserId 메소드에서 post의 _id 리스트 얻기 위해 사용
   static async findByUserId({ userId }) {
-    const posts = await PostModel.find({ userId }).lean().populate("subject", {_id: 0, subject: 1});
+    const posts = await PostModel.find({ userId }, {_id: 1}).lean();
     return posts;
   }
 
   static async findAll(page, limit, query) {
     // pagination 필요
     const populateField = "subject";
-    const populateOption = {_id: 0, subject: 1};
-    const posts = await findByPagination2(PostModel, { page, limit }, query, populateField, populateOption);
+    const populateOption = { _id: 0, subject: 1 };
+    const posts = await findByPagination2(
+      PostModel,
+      { page, limit },
+      query,
+      populateField,
+      populateOption
+    );
 
     return posts;
   }
@@ -51,11 +59,14 @@ class Post {
     return deletedPosts;
   }
 
-  static async getLikedUsers({ postId }){
-    const post = await PostModel.findOne({ postId }).populate("userLikes", {_id: 1, nickname: 1});
+  static async getLikedUsers({ postId }) {
+    const post = await PostModel.findOne({ postId }).populate("userLikes", {
+      _id: 1,
+      nickname: 1,
+    });
 
     const likedUsers = post.userLikes;
-    
+
     return likedUsers;
   }
 }

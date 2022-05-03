@@ -4,7 +4,7 @@ import { subjectService } from '../services/subjectService';
 const subjectRouter = Router();
 
 // create
-subjectRouter.post('/subject', async (req, res, next) => {
+subjectRouter.post('/subjects', async (req, res, next) => {
   try {
     const subject = req.body.subject ?? null;
     const level = req.body.level ?? null;
@@ -43,9 +43,9 @@ subjectRouter.get('/subjects/:subjectId', async (req, res, next) => {
 });
 
 // 2. level을 통해 해당 레벨에 해당하는 주제들 조회
-subjectRouter.get('/subjects/level/:level', async (req, res, next) => {
+subjectRouter.get('/subjects', async (req, res, next) => {
   try {
-    const { level } = req.params;
+    const { level } = req.query;
     // level의 유효성 검사 필요
     const subjects = await subjectService.getSubjectsByLevel({ level });
 

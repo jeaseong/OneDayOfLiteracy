@@ -4,7 +4,10 @@ import { resultService } from "../services/resultService";
 
 const resultRouter = Router();
 
-resultRouter.post("/result", async (req, res, next) => {
+// create
+// 전 : /result
+// 후 : /results
+resultRouter.post("/results", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -26,9 +29,12 @@ resultRouter.post("/result", async (req, res, next) => {
   }
 });
 
-resultRouter.get("/results/:userId", async (req, res, next) => {
+// read
+// 1. userId로 유저가 했던 결과 조회
+// 전 : /results/:userId
+// 후 : /users/:userId/results
+resultRouter.get("/users/:userId/results", async (req, res, next) => {
   try {
-
     const userId = req.params.userId;
 
     const result = await resultService.getResultByUserId({ userId });
@@ -43,21 +49,7 @@ resultRouter.get("/results/:userId", async (req, res, next) => {
   }
 });
 
-resultRouter.delete("/results/:userId", async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-
-    const deleteResult = await resultService.deleteResultByUserId({ userId });
-    if (deleteResult.deletedCount == 0) {
-      throw new Error("정상적으로 삭제되지 않았습니다.");
-    }
-
-    res.status(200).send({ success: true });
-  } catch (error) {
-    next(error);
-  }
-});
-
+// 2. 전체 결과 조회
 resultRouter.get("/results", async (req, res, next) => {
   try {
     const results = await resultService.getAllResults();
@@ -68,7 +60,10 @@ resultRouter.get("/results", async (req, res, next) => {
   }
 });
 
-resultRouter.get("/result/:resultId", async (req, res, next) => {
+// 3. 결과 하나만 조회
+// 전 : /result/:resultId
+// 후 : /results/:resultId
+resultRouter.get("/results/:resultId", async (req, res, next) => {
   try {
     const resultId = req.params.resultId;
 
@@ -83,7 +78,29 @@ resultRouter.get("/result/:resultId", async (req, res, next) => {
   }
 });
 
-resultRouter.delete("/result/:resultId", async (req, res, next) => {
+// delete
+// 1. userId로 유저가 했던 결과 삭제
+// 전 : /results/:userId
+// 후 : /users/:userId/results
+resultRouter.delete("/users/:userId/results", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    const deleteResult = await resultService.deleteResultByUserId({ userId });
+    if (deleteResult.deletedCount == 0) {
+      throw new Error("정상적으로 삭제되지 않았습니다.");
+    }
+
+    res.status(200).send({ success: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 2. 결과 하나만 삭제
+// 전 : /result/:resultId
+// 후 : /results/:resultId
+resultRouter.delete("/results/:resultId", async (req, res, next) => {
   try {
     const resultId = req.params.resultId;
 

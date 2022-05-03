@@ -145,7 +145,7 @@ class userAuthService {
     if (toUpdate.password) {
       toUpdate["password"] = await bcrypt.hash(toUpdate.password, 10);
     }
-
+    
     user = await User.update({ userId, toUpdate });
     try {
       delete user._doc["password"];
