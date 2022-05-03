@@ -16,10 +16,18 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useQueryClient } from "react-query";
+import { usePostDislike, usePostLikeAdd } from "../../queries/postQuery";
 
 function Post() {
-  const [post, setPost] = useState([]);
   const postId = useParams();
+  const queryClient = useQueryClient();
+  const [post, setPost] = useState([]);
+  const { userState, isLogin } = queryClient.getQueryData("userState");
+  const postAddLike = usePostLikeAdd(post._id, userState._id);
+  const postDislike = usePostDislike(post._id, userState._id);
+  const isPostLike = userState.postLikes.includes(post._id);
+
   const getPostData = useCallback(async () => {
     try {
       const result = await get("posts/", postId.postId);
@@ -28,9 +36,20 @@ function Post() {
       throw new Error(error);
     }
   }, []);
+
   useEffect(() => {
     getPostData();
   }, []);
+
+  const postLikeList = isPostLike ? (
+    <LikeButton disabled={!isLogin} onClick={() => postDislike.mutate()}>
+      <ThumbUpIcon />
+    </LikeButton>
+  ) : (
+    <LikeButton disabled={!isLogin} onClick={() => postAddLike.mutate()}>
+      <ThumbUpIcon color="disabled" />
+    </LikeButton>
+  );
 
   return (
     <PostContainer>
@@ -59,10 +78,9 @@ function Post() {
           </Link>
         ))}
       </PostFooter>
-      <LikeButton>
-        <ThumbUpIcon />
-      </LikeButton>
+      {postLikeList}
     </PostContainer>
   );
 }
+
 export default Post;
