@@ -6,7 +6,7 @@ const CommentSchema = new Schema(
     content: { type: String, required: true },
     author: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, required: true },
-    parentId: { type: Schema.Types.ObjectId, required: false },
+    parentId: { type: Schema.Types.ObjectId, required: false, default: null },
     isDeleted: { type: Boolean, default: false },
   },
   {

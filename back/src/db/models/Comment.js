@@ -7,7 +7,7 @@ class Comment {
   }
 
   static async findByPostId({ postId }) {
-    const comments = await CommentModel.find({ postId }).populate('childComments');
+    const comments = await CommentModel.find({ postId, parentId: null }).populate('childComments');
     return comments;
   }
 
