@@ -45,7 +45,7 @@ const deleteImg = async (req, res, next) => {
   } 
 
   if (req.path.split("/")[3] === "removeImage") {
-    objectKey = req.path.split("/")[1] + "/" + req.query.key;
+    objectKey = req.path.split("/")[1] + "/" + req.body.key;
   }
 
   if (objectKey.indexOf("default") !== -1) {

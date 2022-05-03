@@ -219,7 +219,8 @@ postRouter.delete('/users/:userId/posts', loginRequired, async (req, res, next) 
   }
 })
 
-
+// 글 이미지 업로드 => POST /posts/:postId/uploadImage
+// body = formData(filename: 이미지, prevImage: 이전 이미지 url)
 postRouter
   .post('/posts/:postId/uploadImage',
     loginRequired, 
@@ -243,8 +244,10 @@ postRouter
       } 
 });
 
+// 삭제  PATCH /posts/:postId/removeImage
+// body = { key: 파일명 }
 postRouter
-  .delete('/posts/:postId/removeImage',
+  .patch('/posts/:postId/removeImage',
     loginRequired,  
     deleteImg,
     async (req, res, next) => {

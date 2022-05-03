@@ -5,7 +5,6 @@ import { uploader, deleteImg } from "../middlewares/imageUploadMiddleware";
 import { userAuthService } from "../services/userService";
 import config from "../config";
 import axios from "axios";
-import { JsonWebTokenError } from "jsonwebtoken";
 import assert from "assert";
 
 const userAuthRouter = Router();
@@ -222,13 +221,16 @@ userAuthRouter
   }
 );
 
-userAuthRouter.delete("/users/:userId/removeImage", 
+//삭제 PATCH /users/:userId/removeImage
+// body = { key: 파일명(1234.png) }
+userAuthRouter.patch("/users/:userId/removeImage", 
   loginRequired, 
   deleteImg, 
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      if (req.currentUserId !== userId) throw new Error("Invalid request");
+      assert(req.currentUserId !== userId, "유저 ID가 올바르지 않습니다.");
+
       const toUpdate = {
         profileUrl: "https://team2.cdn.ntruss.com/users/default.png"
       };
