@@ -18,7 +18,7 @@ function UserPostList() {
   const location = useLocation();
   const [ref, inView] = useInView();
   const queryClient = useQueryClient();
-  const { userState } = queryClient.getQueryData("userState");
+  const { userState, isLogin } = queryClient.getQueryData("userState");
 
   // 유저의 글목록 또는 좋아요 글목록 fetch
   const queryString = location.search.substring(1);
@@ -42,7 +42,12 @@ function UserPostList() {
       {data.pages.map((page, index) => (
         <React.Fragment key={index}>
           {page.posts.map((post) => (
-            <PostCard key={post._id} userInfo={userState} post={post} />
+            <PostCard
+              key={post._id}
+              userInfo={userState}
+              isDisabled={isLogin}
+              post={post}
+            />
           ))}
         </React.Fragment>
       ))}
