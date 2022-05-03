@@ -10,12 +10,12 @@ import {
 } from "../../../styles/User/ProfileStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
 import FileUpload from "../../../components/FileUpload";
-import { useGetProfileUser } from "../../../queries/userQuery";
 import {
   CustomSnackbar,
   setAlertData,
 } from "../../../components/CustomSnackbar";
 import { useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
 
 /**
  * 프로필 페이지의 유저 카드 컴포넌트입니다.
@@ -27,10 +27,10 @@ import { useParams } from "react-router-dom";
  */
 function UserCard({ isProfileOwner, editStateStore, children }) {
   const params = useParams();
+  const queryClient = useQueryClient();
+  const userProfile = queryClient.getQueryData(["user", params.userId]);
   const { isEdit, setIsEdit } = editStateStore;
   const [showAlert, setShowAlert] = useState(false);
-  const userProfile = useGetProfileUser(params.userId);
-  const { _id, profileUrl } = userProfile.data;
 
   // Alert
   const changeFailImage = setAlertData(
@@ -43,8 +43,8 @@ function UserCard({ isProfileOwner, editStateStore, children }) {
   // 프로필 이미지 업로드
   const profileImageData = {
     type: "user",
-    id: _id,
-    prevImage: profileUrl,
+    id: userProfile._id,
+    prevImage: userProfile.profileUrl,
     showAlert,
     setShowAlert,
   };
@@ -62,7 +62,7 @@ function UserCard({ isProfileOwner, editStateStore, children }) {
       <CardBox>
         <CardHeader>
           <ProfileImgBox>
-            <ProfileImg src={profileUrl} alt="profileImage" />
+            <ProfileImg src={userProfile.profileUrl} alt="profileImage" />
           </ProfileImgBox>
           {isProfileOwner && (
             <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
