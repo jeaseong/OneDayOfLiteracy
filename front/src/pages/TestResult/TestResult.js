@@ -9,7 +9,6 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-  Hilight,
 } from "../../styles/TestResultStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useGetCurrentUser } from "../../queries/userQuery";
