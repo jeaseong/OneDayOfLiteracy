@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   PostContainer,
   PostHeader,
@@ -25,9 +25,11 @@ import {
 } from "../../queries/postQuery";
 import Loading from "../../components/Loading";
 import { useGetProfileUser } from "../../queries/userQuery";
+import { del } from "../../utils/api";
 
 function Post() {
   const params = useParams();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { data, isFetching } = useGetPost(params.postId);
 
@@ -45,6 +47,19 @@ function Post() {
   const isPostLike = userState.postLikes.includes(params.postId);
 
   if (isFetching || likeCount.isFetching) return <Loading />;
+
+  const isPostOwner = data.userId === userState._id;
+
+  const handleDeletePost = async () => {
+    try {
+      await del(`posts/${params.postId}`);
+      queryClient.invalidateQueries("user");
+      queryClient.invalidateQueries("posts");
+      navigate("/posts");
+    } catch (err) {
+      console.log("삭제실패", err);
+    }
+  };
 
   const postLikeList = isPostLike ? (
     <LikeButton
@@ -97,6 +112,12 @@ function Post() {
       </PostFooter>
       {postLikeList}
       <p>좋아요 수 : {likeCount.data}</p>
+      {isPostOwner && (
+        <>
+          <button onClick={() => navigate("/post")}>수정</button>
+          <button onClick={handleDeletePost}>삭제</button>
+        </>
+      )}
     </PostContainer>
   );
 }
