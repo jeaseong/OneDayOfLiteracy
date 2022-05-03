@@ -6,6 +6,7 @@ import assert from "assert";
 const likeRouter = Router();
 
 // PATCH /users/:userId/like => 좋아요 추가
+// body = { postId: ~~ }
 likeRouter.patch("/users/:userId/like", 
   loginRequired,
   async (req, res, next) => {
@@ -29,6 +30,7 @@ likeRouter.patch("/users/:userId/like",
 });
 
 // PATCH /users/:userId/cancelLike => 좋아요 취소
+// body = { postId: ~~ }
 likeRouter.patch("/users/:userId/cancelLike", 
   loginRequired,
   async (req, res, next) => {
