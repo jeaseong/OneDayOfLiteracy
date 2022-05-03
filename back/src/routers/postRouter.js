@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
+import { uploader, deleteImg } from "../middlewares/imageUploadMiddleware";
 import { postService } from "../services/postService";
 import { userAuthService } from "../services/userService";
 import { typeName } from "../utils/validation/typeName";
@@ -210,5 +211,49 @@ postRouter.delete('/posts/users/:userId', loginRequired, async (req, res, next) 
     next(err);
   }
 })
+
+
+postRouter
+  .post('/posts/:postId/uploadImage',
+    loginRequired, 
+    uploader('post'), 
+    deleteImg,
+    async (req, res, next) => {
+      try {
+        console.log(req.files);
+        const { postId } = req.params;
+        const obj = req.files[0];
+        const dirName = obj.bucket.split("/")[1];
+        const imageName = obj.key;
+        const imageUrl = `https://team2.cdn.ntruss.com/${dirName}/${imageName}`;
+        const toUpdate = {
+            imageUrl, 
+        };
+        const setPost = await postService.setPost({ postId, toUpdate });
+        res.status(201).json({ message: "success" });
+      } catch (err) {
+          next(err);
+      } 
+});
+
+postRouter
+  .delete('/posts/:postId/removeImage',
+    loginRequired,  
+    deleteImg,
+    async (req, res, next) => {
+      try {
+        console.log(req.files);
+        const { postId } = req.params;
+        const toUpdate = {
+            imageUrl: "https://team2.cdn.ntruss.com/posts/default.png", 
+        };
+        const setPost = await postService.setPost({ postId, toUpdate });
+        res.status(200).json({ message: "success" });
+      } catch (err) {
+          next(err);
+      } 
+});
+
+
 
 export { postRouter };

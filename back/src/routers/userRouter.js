@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { isValidData, invalidCallback } from "../middlewares/validationMiddleware";
+import { uploader, deleteImg } from "../middlewares/imageUploadMiddleware";
 import { userAuthService } from "../services/userService";
 import config from "../config";
 import axios from "axios";
@@ -9,9 +10,9 @@ import assert from "assert";
 
 const userAuthRouter = Router();
 
-// POST /user/register : user 추가
+// POST /users/register : user 추가
 userAuthRouter
-  .post("/user/register", 
+  .post("/users/register", 
   isValidData("register"), 
   invalidCallback, 
   async (req, res, next) => {
@@ -95,9 +96,9 @@ userAuthRouter
 });
 
 
-// POST /user/login : 일반 로그인
+// POST /users/login : 일반 로그인
 userAuthRouter
-  .post("/user/login",
+  .post("/users/login",
   isValidData("login"), 
   invalidCallback, 
   async (req, res, next) => {
@@ -128,8 +129,8 @@ userAuthRouter.get("/users", async (req, res, next) => {
   }
 });
 
-// GET /user/current : 현재 로그인 user 조회
-userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
+// GET /users/current : 현재 로그인 user 조회
+userAuthRouter.get("/users/current", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const currentUserInfo = await userAuthService.getUserInfo({
@@ -146,8 +147,8 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
   }
 });
 
-// PUT /user/:userId : user 정보 수정
-userAuthRouter.put("/user/:userId", loginRequired, async (req, res, next) => {
+// PUT /users/:userId : user 정보 수정
+userAuthRouter.put("/users/:userId", loginRequired, async (req, res, next) => {
   try {
     const currentUserId = req.currentUserId;
     const { userId } = req.params;
@@ -198,11 +199,49 @@ userAuthRouter.get(
   }
 );
 
+// POST /users/:userId/uploadImage : 프로필 이미지 등록 / 수정
+userAuthRouter
+  .post('/users/:userId/uploadImage',
+    loginRequired,
+    uploader('user'), 
+    deleteImg,
+    async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      if (req.currentUserId !== userId) throw new Error("Invalid request");
+      const dirName = req.files[0].bucket.split("/")[1];
+      const imageName = req.files[0].key;
+      const toUpdate = {
+        profileUrl: `https://team2.cdn.ntruss.com/${dirName}/${imageName}`
+      };
+      const setUser = await userAuthService.setUser({ userId, toUpdate })
+      res.status(201).json({ message: "success" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
+userAuthRouter.delete("/users/:userId/removeImage", 
+  loginRequired, 
+  deleteImg, 
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      if (req.currentUserId !== userId) throw new Error("Invalid request");
+      const toUpdate = {
+        profileUrl: "https://team2.cdn.ntruss.com/users/default.png"
+      };
+      const setUser = await userAuthService.setUser({ userId, toUpdate })
+      res.status(200).json({ message: "success"});
+    } catch (err) {
+      next(err);
+    }
+})
 
-// DELETE /user/:userId : user 삭제 (회원 탈퇴)
+// DELETE /users/:userId : user 삭제 (회원 탈퇴)
 userAuthRouter.delete(
-  "/user/:userId",
+  "/users/:userId",
   loginRequired,
   async (req, res, next) => {
     try {
