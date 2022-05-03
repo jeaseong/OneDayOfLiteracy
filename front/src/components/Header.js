@@ -43,7 +43,7 @@ function Header() {
 
   const handleUserLogout = () => {
     localStorage.removeItem("userToken");
-    queryClient.setQueryData("userState", { userState: null, isLogin: false });
+    queryClient.invalidateQueries("userState");
     setShowAlert(true);
     navigate("/");
   };
