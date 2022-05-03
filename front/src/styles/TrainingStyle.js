@@ -64,6 +64,28 @@ export const TrainingGuideContainer = styled.section``;
 
 export const TrainingGuideContent = styled.div``;
 
+export const BackBtn = styled.button`
+  width: 140px;
+  height: 34px;
+  background: #c48f5a;
+  border: 1px solid #c48f5a;
+  box-sizing: border-box;
+  border-radius: 30px;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 3px 3px 3px gray;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  &:active {
+    box-shadow: none;
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    background: var(--button-bg-color, gray);
+  }
+`;
+
 //TrainingGuide step1
 
 export const TrainingSubjectContainer = styled.section`
@@ -92,11 +114,6 @@ export const TrainingStepIntroduction = styled.p`
   line-height: 1.6;
   word-break: break-all;
   white-space: pre-wrap;
-`;
-
-export const Hilight = styled.span`
-  color: #c48f5a;
-  font-weight: bole;
 `;
 
 // TrainingPost

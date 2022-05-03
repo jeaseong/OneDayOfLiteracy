@@ -6,7 +6,7 @@ export const WordTrainingContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin: 50px 0;
 `;
 
 export const WordSuggestion = styled.h3`

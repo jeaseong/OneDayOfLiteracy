@@ -80,6 +80,7 @@ export const PostingTags = styled.input`
 `;
 
 export const PostingButton = styled.button`
+  display: ${(props) => props.display};
   background-color: #445656;
   width: 90px;
   height: 40px;
