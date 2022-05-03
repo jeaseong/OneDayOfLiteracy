@@ -50,7 +50,9 @@ function PostCard({ userInfo, isDisabled = true, post }) {
             <PostsTitle>{post.title}</PostsTitle>
           </Link>
           <PostsWriter>
-            {!post.author ? "익명 문하생" : post.author}
+            <Link to={`/user/${post.userId}`}>
+              {!post.author ? "익명 문하생" : post.author}
+            </Link>
           </PostsWriter>
         </PostsHeader>
         <ReactMarkdown
@@ -59,7 +61,9 @@ function PostCard({ userInfo, isDisabled = true, post }) {
         ></ReactMarkdown>
 
         {post.tags?.map((tag, index) => (
-          <Tag key={index}>#{tag}</Tag>
+          <Link to={`/posts?content=${tag}`} key={index}>
+            <Tag>#{tag}</Tag>
+          </Link>
         ))}
         <PostsLike>{postLikeList}</PostsLike>
       </PostsSummary>
