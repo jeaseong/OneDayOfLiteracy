@@ -20,7 +20,7 @@ export function useGetCurrentUser() {
       onError: () =>
         queryclient.setQueryData("userState", {
           isLogin: false,
-          userState: null,
+          userState: { _id: "visitor", postLikes: [] },
         }),
     }
   );

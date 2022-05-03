@@ -7,12 +7,14 @@ import { useGetPostList } from "../../queries/postQuery";
 import Loading from "../../components/Loading";
 import ErrorPage from "../../components/ErrorPage";
 import { useQueryClient } from "react-query";
+import { useGetProfileUser } from "../../queries/userQuery";
 
 function Posts() {
   const location = useLocation();
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
   const { userState, isLogin } = queryClient.getQueryData("userState");
+  useGetProfileUser(userState._id);
   const fetchURI = `posts?${location.search.substring(1)}&`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);

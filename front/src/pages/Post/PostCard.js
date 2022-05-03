@@ -14,6 +14,8 @@ import {
 } from "../../styles/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const defaultImage =
   "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
@@ -51,7 +53,11 @@ function PostCard({ userInfo, isDisabled = true, post }) {
             {!post.author ? "익명 문하생" : post.author}
           </PostsWriter>
         </PostsHeader>
-        <PostsContent>{post.content}</PostsContent>
+        <ReactMarkdown
+          children={post.content.slice(0, 90)}
+          remarkPlugins={[remarkGfm]}
+        ></ReactMarkdown>
+
         {post.tags?.map((tag, index) => (
           <Tag key={index}>#{tag}</Tag>
         ))}
