@@ -1,4 +1,9 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
+import {
+  useQuery,
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "react-query";
 import { del, get, post } from "../utils/api";
 
 export function useGetPostList(endpoint = "") {
@@ -13,6 +18,32 @@ export function useGetPostList(endpoint = "") {
     cacheTime: 120000,
     getNextPageParam: (lastPage) =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
+  });
+}
+
+export function useGetPost(id) {
+  const fetchPost = async () => {
+    const res = await get(`posts/${id}`);
+    return res.data;
+  };
+
+  return useQuery(["post", id], fetchPost, {
+    staleTime: 60000,
+    cacheTime: 120000,
+    onError: (err) => console.log(err),
+  });
+}
+
+export function useGetPostLikeCount(id) {
+  const fetchPost = async () => {
+    const res = await get(`likes/${id}`);
+    return res.data.length;
+  };
+
+  return useQuery(["likeCnt", id], fetchPost, {
+    staleTime: 60000,
+    cacheTime: 120000,
+    onError: (err) => console.log(err),
   });
 }
 
@@ -82,4 +113,29 @@ export const usePostDislike = (postId, userId) => {
       queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
     onError: (err, rollback) => rollback(),
   });
+};
+
+export const usePostLikeCount = (postId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (type) => {
+      const res = await get(`likes/${postId}`);
+      return { data: res.data.length, type };
+    },
+    {
+      onMutate: (type) => {
+        const staleLikeCount = queryClient.getQueryData(["likeCnt", postId]);
+        queryClient.setQueryData(["likeCnt", postId], () => {
+          if (type === "up") return staleLikeCount + 1;
+          return staleLikeCount - 1;
+        });
+
+        // onError에서 rollback으로 받을 함수
+        return () =>
+          queryClient.setQueryData(["likeCnt", postId], staleLikeCount);
+      },
+      onError: (err, rollback) => rollback(),
+    }
+  );
 };

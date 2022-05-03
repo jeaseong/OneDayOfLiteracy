@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { get } from "../../utils/api";
 import {
   PostContainer,
   PostHeader,
@@ -17,68 +16,87 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useQueryClient } from "react-query";
-import { usePostDislike, usePostLikeAdd } from "../../queries/postQuery";
+import {
+  useGetPost,
+  useGetPostLikeCount,
+  usePostDislike,
+  usePostLikeAdd,
+  usePostLikeCount,
+} from "../../queries/postQuery";
+import Loading from "../../components/Loading";
+import { useGetProfileUser } from "../../queries/userQuery";
 
 function Post() {
-  const postId = useParams();
+  const params = useParams();
   const queryClient = useQueryClient();
-  const [post, setPost] = useState([]);
+  const { data, isFetching } = useGetPost(params.postId);
+
+  // 유저 정보
   const { userState, isLogin } = queryClient.getQueryData("userState");
-  const postAddLike = usePostLikeAdd(post._id, userState._id);
-  const postDislike = usePostDislike(post._id, userState._id);
-  const isPostLike = userState.postLikes.includes(post._id);
+  useGetProfileUser(userState._id);
 
-  const getPostData = useCallback(async () => {
-    try {
-      const result = await get("posts/", postId.postId);
-      setPost(result?.data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }, []);
+  // 게시글의 좋아요 카운트 get, 카운트수정 훅
+  const likeCount = useGetPostLikeCount(params.postId);
+  const likeMutation = usePostLikeCount(params.postId);
 
-  useEffect(() => {
-    getPostData();
-  }, []);
+  // 좋아요 추가, 취소 커스텀훅
+  const postAddLike = usePostLikeAdd(params.postId, userState._id);
+  const postDislike = usePostDislike(params.postId, userState._id);
+  const isPostLike = userState.postLikes.includes(params.postId);
+
+  if (isFetching || likeCount.isFetching) return <Loading />;
 
   const postLikeList = isPostLike ? (
-    <LikeButton disabled={!isLogin} onClick={() => postDislike.mutate()}>
+    <LikeButton
+      disabled={!isLogin}
+      onClick={async () => {
+        await postDislike.mutate();
+        await likeMutation.mutate("down");
+      }}
+    >
       <ThumbUpIcon />
     </LikeButton>
   ) : (
-    <LikeButton disabled={!isLogin} onClick={() => postAddLike.mutate()}>
+    <LikeButton
+      disabled={!isLogin}
+      onClick={async () => {
+        await postAddLike.mutate();
+        await likeMutation.mutate("up");
+      }}
+    >
       <ThumbUpIcon color="disabled" />
     </LikeButton>
   );
 
   return (
     <PostContainer>
-      <PostTitle>{post.title}</PostTitle>
+      <PostTitle>{data.title}</PostTitle>
       <PostHeader>
-        <Link to={`/user/${post.userId}`}>
-          <PostWriter>{!post.author ? "익명 문하생" : post.author}</PostWriter>
+        <Link to={`/user/${data.userId}`}>
+          <PostWriter>{!data.author ? "익명 문하생" : data.author}</PostWriter>
         </Link>
-        <PostWriter>{post.createdAt?.slice(0, 10)}</PostWriter>
+        <PostWriter>{data.createdAt?.slice(0, 10)}</PostWriter>
       </PostHeader>
       <PostBody>
         <PostImageBox>
-          {post.imageUrls?.map((image, index) => {
+          {data.imageUrls?.map((image, index) => {
             return <PostImage key={index} src={image} />;
           })}
         </PostImageBox>
         <ReactMarkdown
-          children={post.content}
+          children={data.content}
           remarkPlugins={[remarkGfm]}
         ></ReactMarkdown>
       </PostBody>
       <PostFooter>
-        {post.tags?.map((tag, index) => (
+        {data.tags?.map((tag, index) => (
           <Link to={`/posts?content=${tag}`} key={index}>
             <Tag>#{tag}</Tag>
           </Link>
         ))}
       </PostFooter>
       {postLikeList}
+      <p>좋아요 수 : {likeCount.data}</p>
     </PostContainer>
   );
 }
