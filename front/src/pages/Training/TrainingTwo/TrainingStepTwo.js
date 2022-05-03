@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TrainingGuide from "../TrainingGuide";
 import {
   TrainingSubjectContainer,
@@ -9,8 +9,17 @@ import {
 import TrainingPost from "../TrainingPost/TrainingPost";
 import { TAG_NAME, TRAINING_INTRODUNCTION } from "../../../utils/constants";
 import { createMarkup } from "../../../utils/setInnerHTML";
+import { get } from "../../../utils/api";
 
 export default function TrainingStepTwo() {
+  const [subject, setSubject] = useState({});
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await get("subjects/level", "2");
+      setSubject((cur) => res.data);
+    };
+    fetchApi();
+  }, []);
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
@@ -25,7 +34,12 @@ export default function TrainingStepTwo() {
           </TrainingSubjectWrap>
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
-      <TrainingPost title="자기소개" />
+      <TrainingPost
+        title="나를 소개합니다"
+        tags={TAG_NAME.STEP_TWO}
+        subject={subject.subjectId}
+        category={subject.category}
+      />
     </TrainingGuide>
   );
 }

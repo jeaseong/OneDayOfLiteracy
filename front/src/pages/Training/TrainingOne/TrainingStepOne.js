@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import WordTraining from "./WordTraining";
 import TrainingGuide from "../TrainingGuide";
 import {
@@ -9,7 +9,17 @@ import {
 } from "../../../styles/TrainingStyle";
 import { TRAINING_INTRODUNCTION } from "../../../utils/constants";
 import { createMarkup } from "../../../utils/setInnerHTML";
+import { get } from "../../../utils/api";
+
 function TrainingStepOne() {
+  const [subject, setSubject] = useState({});
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await get("subjects/level", "1");
+      setSubject(res.data);
+    };
+    fetchApi();
+  }, []);
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
@@ -22,7 +32,7 @@ function TrainingStepOne() {
           />
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
-      <WordTraining />
+      <WordTraining subject={subject} />
     </TrainingGuide>
   );
 }

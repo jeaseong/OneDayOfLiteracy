@@ -24,7 +24,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { post } from "../../../utils/api";
 import { dum } from "./wordDumy";
 
-export default function WordTraining() {
+export default function WordTraining({ subject }) {
   const answerRef = useRef();
   const [progress, setProgress] = useState(0);
   const [curIndex, setCurIndex] = useState(progress);
@@ -64,6 +64,7 @@ export default function WordTraining() {
 
   const stopWordTraining = async () => {
     await post("word", progress);
+    await post("", subject);
     navigate("/main");
   };
 
