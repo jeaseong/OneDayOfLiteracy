@@ -67,7 +67,7 @@ export const ContentsContainer = styled.div`
 `;
 
 export const HomeTitle = styled.h1`
-  height: 10vh;
+  height: 8vh;
   font-size: 36px;
   // color: #c48f5a;
   margin: 20px 0;
@@ -88,7 +88,7 @@ export const TextContent = styled.div`
 `;
 
 export const GraphBox = styled.div`
-  border: 1px solid black;
-  width: 20vw;
-  height: 30vh;
+  // border: 1px solid black;
+  width: 45vw;
+  height: 35vh;
 `;
