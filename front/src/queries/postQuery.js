@@ -39,7 +39,10 @@ export const usePostLikeAdd = (postId, userId) => {
       });
 
       // onError에서 rollback으로 받을 함수
-      return () => queryClient.setQueryData(["userState"], currentUser);
+      return () => {
+        queryClient.setQueryData(["userState"], currentUser);
+        queryClient.setQueryData(["user", userId], profileUser);
+      };
     },
     onSuccess: () =>
       queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
@@ -70,7 +73,10 @@ export const usePostDislike = (postId, userId) => {
       }));
 
       // onError에서 rollback으로 받을 함수
-      return () => queryClient.setQueryData(["userState"], currentUser);
+      return () => {
+        queryClient.setQueryData(["userState"], currentUser);
+        queryClient.setQueryData(["user", userId], profileUser);
+      };
     },
     onSuccess: () =>
       queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
