@@ -22,6 +22,7 @@ import PisaTop15Bar from "./PisaTop15Bar";
 import PisaKMeanT from "./PisaKMeanT";
 import PisaKMeanF from "./PisaKMeanF";
 import PisaKMeanM from "./PisaKMeanM";
+import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
@@ -30,6 +31,7 @@ import pisaTop15 from "../../data/pisaTop15.json";
 import pisaKMeanT from "../../data/pisaKMeanT.json";
 import pisaKMeanF from "../../data/pisaKMeanF.json";
 import pisaKMeanM from "../../data/pisaKMeanM.json";
+import pisaKScore from "../../data/pisaKScore.json";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -285,9 +287,9 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>6</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
+            <TextContent>Pisa score by Subjects</TextContent>
             <GraphBox>
-              <PisaKMeanT data={pisaKMeanM}></PisaKMeanT>
+              <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
