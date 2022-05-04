@@ -35,7 +35,13 @@ class likeService {
       return { errorMessage: "좋아요는 한 번만 가능합니다." };
     }
     
-    const newLike = await Like.create({ userId, postId });
+    const toUpdate = { likeCount: post.likeCount + 1 }
+
+    const [ newLike, updatedPost ] = await Promise.all(
+      [
+        Like.create({ userId, postId }),
+        Post.update({ postId, toUpdate })
+      ]);
 
     newLike.errorMessage = null;
     return newLike;
@@ -77,7 +83,12 @@ class likeService {
       return { errorMessage: "좋아요한 게시글만 취소 가능합니다." };
     }
     
-    const deletedLike = await Like.delete({ userId, postId });
+    const toUpdate = { likeCount: post.likeCount - 1 }
+    const [ deletedLike, updatedPost ] = await Promise.all([
+      Like.delete({ userId, postId }),
+      Post.update({ postId, toUpdate })
+    ]); 
+    
     deletedLike.errorMessage = null;
     return deletedLike;
   }
