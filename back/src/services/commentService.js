@@ -34,6 +34,9 @@ class commentService {
     page = Number(page);
     limit = Number(limit);
     const total = await Comment.count({ query });
+
+    if (total === 0) return {};
+    
     const totalPages = Math.ceil(total / limit);
 
     if (total === 0) return {};
