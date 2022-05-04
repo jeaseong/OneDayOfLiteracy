@@ -3,11 +3,11 @@ import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 const PisaGdpScatter = ({ data }) => (
   <ResponsiveScatterPlot
     data={data}
-    margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
+    margin={{ top: 10, right: 100, bottom: 70, left: 90 }}
     xScale={{ type: "linear", min: "auto", max: "auto" }}
     xFormat=">-.2f"
     yScale={{ type: "linear", min: "auto", max: "auto" }}
-    colors={{ scheme: "brown_blueGreen" }}
+    colors={{ scheme: "category10" }}
     blendMode="multiply"
     nodeSize={10}
     axisTop={null}

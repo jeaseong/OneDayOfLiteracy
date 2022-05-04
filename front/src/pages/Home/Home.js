@@ -18,9 +18,11 @@ import { useRef, useEffect, useState } from "react";
 import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaGdpTrendLine from "./PisaGdpTrendLine";
+import PisaTop15Bar from "./PisaTop15Bar";
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
 import ransac from "../../data/ransac.json";
+import pisaTop15 from "../../data/pisaTop15.json";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -167,7 +169,9 @@ function Home() {
           <HomeTitle>4</HomeTitle>
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
-            <GraphBox></GraphBox>
+            <GraphBox>
+              <PisaTop15Bar data={pisaTop15}></PisaTop15Bar>
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
