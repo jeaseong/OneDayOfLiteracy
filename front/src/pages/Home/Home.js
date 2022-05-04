@@ -15,12 +15,12 @@ import {
 import { img } from "../../utils/imgImport";
 import { useRef, useEffect, useState } from "react";
 
-import MyResponsiveBar from "./TestGraph";
 import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
-import { data } from "../../data/testdata";
+import PisaGdpTrendLine from "./PisaGdpTrendLine";
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
+import ransac from "../../data/ransac.json";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -30,8 +30,6 @@ const BANNERS = [
 
 const bannerHeight = 403;
 function Home() {
-  console.log(pisaGdp);
-
   const fullpageRef = useRef();
 
   const [scrollIndex, setScrollIndex] = useState(1);
@@ -146,7 +144,7 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>2</HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수 데이터</TextContent>
+            <TextContent>Gdp와 Pisa</TextContent>
             <GraphBox>
               <PisaGdpScatter data={pisaGdp}></PisaGdpScatter>
             </GraphBox>
@@ -157,8 +155,10 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>3</HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수 데이터</TextContent>
-            <GraphBox></GraphBox>
+            <TextContent>Gdp와 Pisa 추세선</TextContent>
+            <GraphBox>
+              <PisaGdpTrendLine data={ransac}></PisaGdpTrendLine>
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -166,7 +166,7 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>4</HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수 데이터</TextContent>
+            <TextContent>Pisa top 15</TextContent>
             <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
