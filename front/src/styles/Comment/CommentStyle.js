@@ -14,12 +14,12 @@ const inputAnimation = keyframes`
 export const CommentContainer = styled.section`
   padding: 0 20px;
   margin: 0 auto;
+  min-height: 100vh;
 `;
 
 export const WriteComment = styled.form`
   display: flex;
   align-items: center;
-  margin: 10px 0;
 `;
 export const InputBox = styled.div`
   width: 70%;
@@ -32,8 +32,8 @@ export const InputComment = styled.input`
   border-bottom: 2px solid gray;
   outline: 0;
   font-size: 1.3rem;
-  margin: 10px 0 10px 7px;
-  padding: 7px 0;
+  margin: 7px 0 8px 7px;
+  padding: 5px 0;
   background: transparent;
   transition: all 0.5s;
   &:focus {
@@ -94,6 +94,8 @@ export const Comment = styled.p`
   margin-bottom: 10px;
 `;
 
+export const CommentEditContainer = styled.div``;
+
 export const ReplyCommentBtn = styled.button`
   width: auto;
   border: none;
@@ -102,7 +104,10 @@ export const ReplyCommentBtn = styled.button`
   text-align: left;
   color: #c4c4c4;
   transition: all 0.1s ease-in-out;
+  margin-right: 5px;
   &:hover {
     color: black;
   }
 `;
+
+export const CommentEditBtn = styled(ReplyCommentBtn)``;
