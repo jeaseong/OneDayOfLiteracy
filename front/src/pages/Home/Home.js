@@ -148,7 +148,7 @@ function Home() {
           <HomeContents>
             <TextContent>우리나라 Pisa 점수 데이터</TextContent>
             <GraphBox>
-              {/* <PisaGdpScatter data={pisaGdp}></PisaGdpScatter> */}
+              <PisaGdpScatter data={pisaGdp}></PisaGdpScatter>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
