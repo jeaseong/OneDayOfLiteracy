@@ -1,1 +1,17 @@
-[{"Year":2006,"Subject":"Maths","Score":547.0},{"Year":2009,"Subject":"Maths","Score":546.0},{"Year":2012,"Subject":"Maths","Score":554.0},{"Year":2015,"Subject":"Maths","Score":524.0},{"Year":2006,"Subject":"Science","Score":522.0},{"Year":2009,"Subject":"Science","Score":538.0},{"Year":2012,"Subject":"Science","Score":538.0},{"Year":2015,"Subject":"Science","Score":516.0},{"Year":2006,"Subject":"Reading","Score":556.0},{"Year":2009,"Subject":"Reading","Score":539.0},{"Year":2012,"Subject":"Reading","Score":536.0},{"Year":2015,"Subject":"Reading","Score":517.0},{"Year":2018,"Subject":"Maths","Score":526.0},{"Year":2018,"Subject":"Science","Score":519.0},{"Year":2018,"Subject":"Reading","Score":514.0}]
+[
+  { "Year": 2006, "Subject": "Maths", "Score": 547.0 },
+  { "Year": 2009, "Subject": "Maths", "Score": 546.0 },
+  { "Year": 2012, "Subject": "Maths", "Score": 554.0 },
+  { "Year": 2015, "Subject": "Maths", "Score": 524.0 },
+  { "Year": 2006, "Subject": "Science", "Score": 522.0 },
+  { "Year": 2009, "Subject": "Science", "Score": 538.0 },
+  { "Year": 2012, "Subject": "Science", "Score": 538.0 },
+  { "Year": 2015, "Subject": "Science", "Score": 516.0 },
+  { "Year": 2006, "Subject": "Reading", "Score": 556.0 },
+  { "Year": 2009, "Subject": "Reading", "Score": 539.0 },
+  { "Year": 2012, "Subject": "Reading", "Score": 536.0 },
+  { "Year": 2015, "Subject": "Reading", "Score": 517.0 },
+  { "Year": 2018, "Subject": "Maths", "Score": 526.0 },
+  { "Year": 2018, "Subject": "Science", "Score": 519.0 },
+  { "Year": 2018, "Subject": "Reading", "Score": 514.0 }
+]
