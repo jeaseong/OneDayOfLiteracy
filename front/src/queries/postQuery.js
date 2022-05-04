@@ -4,7 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from "react-query";
-import { del, get, post } from "../utils/api";
+import { get, patch } from "../utils/api";
 
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
@@ -50,7 +50,7 @@ export function useGetPostLikeCount(id) {
 export const usePostLikeAdd = (postId, userId) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => post(`like/${postId}`), {
+  return useMutation(() => patch(`users/${userId}/like`, { postId }), {
     onMutate: () => {
       const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
@@ -84,7 +84,7 @@ export const usePostLikeAdd = (postId, userId) => {
 export const usePostDislike = (postId, userId) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => del(`like/${postId}`), {
+  return useMutation(() => patch(`users/${userId}/cancelLike`, { postId }), {
     onMutate: () => {
       const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
