@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\Hye-S\\Desktop\\project_2\\sample-project\\back\\src\\config\\logs\\.ff2e328c33ec6306b8bedf901e1512931d99da59-audit.json",
+    "files": [
+        {
+            "date": 1651664913626,
+            "name": "C:\\Users\\Hye-S\\Desktop\\project_2\\sample-project\\back\\src\\config\\logs\\2022-05-04.log",
+            "hash": "f23e90af2b723f1804c75eab83adf6a3"
+        }
+    ],
+    "hashType": "md5"
+}

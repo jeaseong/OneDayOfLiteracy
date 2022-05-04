@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { morganMiddleware } from "./middlewares/morganMiddleware";
 import { userAuthRouter } from "./routers/userRouter";
 import { postRouter } from "./routers/postRouter";
 import { commentRouter } from "./routers/commentRouter";
@@ -12,8 +13,11 @@ import { likeRouter } from "./routers/likeRouter";
 import { userWordRouter } from "./routers/userWordRouter";
 import { quizRouter } from "./routers/quizRouter";
 
-const app = express();
+import { logger } from "./config/winston";
 
+
+const app = express();
+global.logger = logger;
 // CORS 에러 방지
 app.use(cors());
 
@@ -23,8 +27,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// logging middleware
+app.use(morganMiddleware);
+
 // 기본 페이지
 app.get("/", (req, res) => {
+  logger.info("log test");
   res.send("안녕하세요, 문해한 하루 API 입니다.");
 });
 
