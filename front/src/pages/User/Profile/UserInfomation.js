@@ -4,7 +4,6 @@ import {
   CardLikeCountBox,
   CardLikePost,
   CardMyInfo,
-  LevelImg,
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
@@ -43,7 +42,7 @@ function UserInfomation() {
     <CardContent>
       <CardIntroduce>
         <ProfileTitleBox>
-          <LevelImg src={img.level[level]} alt="level" /> &nbsp;
+          <img src={img.level[level]} alt="level" /> &nbsp;
           <ProfileNickName>{nickname}</ProfileNickName>
         </ProfileTitleBox>
         &nbsp;

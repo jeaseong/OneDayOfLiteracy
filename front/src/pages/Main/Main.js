@@ -1,11 +1,15 @@
 import React from "react";
-import Training from "../Training/Training";
 import { MainContainer, MainHeadingTwo } from "../../styles/Main/MainStyle";
+import { LABEL } from "../../utils/constants";
+import Ranking from "./Ranking";
+import Training from "../Training/Training";
 
 export default function Main() {
   return (
     <MainContainer>
-      <MainHeadingTwo>트레이닝</MainHeadingTwo>
+      <MainHeadingTwo>{LABEL.RANKING}</MainHeadingTwo>
+      <Ranking />
+      <MainHeadingTwo>{LABEL.TRAINING}</MainHeadingTwo>
       <Training />
     </MainContainer>
   );
