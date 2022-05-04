@@ -25,10 +25,8 @@ const colors = {
   error: 'red',
   warn: 'yellow',
   info: 'green',
-  http: 'blue',
+  http: 'cyan',
 }
-
-winston.addColors(colors);
 
 // Define log format
 const logFormat = printf(({ level, message }) => {
@@ -50,6 +48,7 @@ const logger = winston.createLogger({
     // http 레벨 로그를 저장할 파일 설정
     new winstonDaily({
       level: 'http',
+      colorize: true,
       datePattern: 'YYYY-MM-DD',
       dirname: logDir,
       filename: `%DATE%.log`,
@@ -77,5 +76,7 @@ if (process.env.NODE_ENV !== 'production') {
     )
   }));
 }
+
+winston.addColors(colors);
 
 export { logger };

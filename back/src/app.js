@@ -17,7 +17,9 @@ import { logger } from "./config/winston";
 
 
 const app = express();
-global.logger = logger;
+
+if (process.env.NODE_ENV === "production") global.logger = logger;
+
 // CORS 에러 방지
 app.use(cors());
 
@@ -32,7 +34,6 @@ app.use(morganMiddleware);
 
 // 기본 페이지
 app.get("/", (req, res) => {
-  logger.info("log test");
   res.send("안녕하세요, 문해한 하루 API 입니다.");
 });
 
