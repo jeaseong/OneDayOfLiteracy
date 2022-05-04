@@ -4,10 +4,7 @@ import { commentService } from "../services/commentService";
 import assert from "assert";
 
 const commentRouter = Router();
-/**
- * Comment Router는 댓글 생성, 수정, 삭제만 담당할 예정입니다.
- * 조회의 경우 Post Router에서 함께 보내줄 예정이므로 백엔드에서 test용으로만 쓰시면 됩니다.
- */
+
 // 댓글 생성 => POST /posts/:postId/comments
 commentRouter.post('/posts/:postId/comments', loginRequired, async (req, res, next) => {
   try {
