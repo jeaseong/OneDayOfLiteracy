@@ -35,7 +35,7 @@ async function findByPagination2(model, options = {}, query = {}, extraQueryList
     .find(query)
     .lean()
     .select("-__v")
-    .populate("subject", { _id: 0, subject: 1 })
+    .populate("subjectId", "_id subject level category point")
     .populate({ path: "userLikesCount", select: { _id: 0, userLikesCount: 1 }});
 
   // extraQueryList 예시

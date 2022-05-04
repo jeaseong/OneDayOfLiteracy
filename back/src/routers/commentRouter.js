@@ -56,6 +56,7 @@ commentRouter.get('/comments/:commentId',  async (req, res, next) => {
 // 댓글 수정  => PUT /comments/:commentId (/posts/:postId/comments/:commentId ?)
 commentRouter.put('/comments/:commentId', loginRequired, async (req, res, next) => {
   try {
+    const { commentId } = req.params;
     const { content } = req.body;
     const toUpdate = { content }
     const updatedComment = await commentService.setComment({ commentId, toUpdate });

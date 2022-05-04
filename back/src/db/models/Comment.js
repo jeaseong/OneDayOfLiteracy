@@ -18,12 +18,12 @@ class Comment {
         .lean()
         .skip((page - 1) * limit)
         .limit(limit)
-        .populate('user',{ _id: 1, profileUrl: 1, nickname: 1} )
+        .populate('userId',{ _id: 1, profileUrl: 1, nickname: 1} )
         .populate({
           path: 'childComments', 
           select: {postId: 0},
           populate: {
-            path: 'user',
+            path: 'userId',
             select: { _id: 1, profileUrl: 1, nickname: 1}
           }});
         

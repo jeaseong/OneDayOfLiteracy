@@ -35,7 +35,27 @@ class commentService {
 
     const comments = await Comment.findByPostId({ page, limit, query });
     return { isLast, comments };
-}
+  }
+
+  static async setComment({ commentId, toUpdate }){
+    const comment = await Comment.findById({ commentId });
+    if(!comment) return { errorMessage: "존재하지 않는 댓글입니다."};
+    
+    for(key in Object.keys(toUpdate)){
+      if(!toUpdate[key]) delete toUpdate[key];
+    }
+
+    const updatedComment = await Comment.update({ commentId, toUpdate });
+    return updatedComment;
+  }
+
+  static async deleteComment({ commentId }){
+    const comment = await Comment.findById({ commentId });
+    if(!comment) return { errorMessage: "존재하지 않는 댓글입니다."};
+
+    const deletedComment = await Comment.delete({ commentId });
+    return deletedComment;
+  }
 };
 
 export { commentService };
