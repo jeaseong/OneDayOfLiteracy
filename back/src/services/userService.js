@@ -161,6 +161,7 @@ class userAuthService {
     return deletedUser;
   }
 
+  // 카카오 유저 추가(회원가입) 
   static async addUserByKakaoId({ kakaoId }) {
     const user = await User.findByKakaoId({ kakaoId });
     if (user) {
@@ -169,8 +170,16 @@ class userAuthService {
       return { errorMessage };
     }
     // kakaoUser용 임시 email
-    const randomString =  Math.random().toString(10).slice(2,10)
-    const email = `kakaouser${randomString}@test.com`;
+    while (True) {
+      const randomString = Math.random().toString(10).slice(2, 10);
+      const email = `kakaouser${randomString}@test.com`;
+
+      const user = User.findByEmail({ email });
+      if (!user) {
+        break;
+      }
+    }
+
     // kakaoUser용 임시 password
     const password = Math.random().toString(36).slice(2,11);
     // kakaoUser용 임시 nickname

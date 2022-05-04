@@ -1,6 +1,8 @@
 import { User, Post, Subject, Like } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
+import { commentService } from "./commentService";
+
 class postService {
   static async addPost({
     author,
@@ -179,6 +181,11 @@ class postService {
       return { errorMessage: "자신이 쓴 글만 삭제할 수 있습니다."};
     }
 
+    const deletedComment = await commentService.deleteCommentsByPostId({ postId });
+    if(deletedComment.errorMessage){
+      return { errorMessage: deletedComment.errorMessage };
+    }
+
     const result = await Post.delete({ postId });
 
     if (result.deletedCount !== 1) {
@@ -220,7 +227,13 @@ class postService {
             "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다.",
         };
       }
+      const deletedComment = await commentService.deleteCommentsByPostId({ postId });
+      if(deletedComment.errorMessage){
+        return { errorMessage: deletedComment.errorMessage };
+      }
     });
+
+    
     
     return { errorMessage: null };
   }

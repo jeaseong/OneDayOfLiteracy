@@ -269,6 +269,8 @@ userAuthRouter.delete(
         assert(kakaoId === user.kakaoId, "카카오 계정 연결 해제 오류");
       }
       
+      
+
       const deletedUser = await userAuthService.deleteUser({ userId });
 
       if (deletedUser.deletedCount !== 1) {

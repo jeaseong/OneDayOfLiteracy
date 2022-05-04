@@ -12,27 +12,44 @@ class Comment {
     return total;
   }
 
-  static async findByPostId({ page, limit, query }) {  
-    const comments = await CommentModel
-        .find(query)
-        .lean()
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .populate('userId',{ _id: 1, profileUrl: 1, nickname: 1} )
-        .populate({
-          path: 'childComments', 
-          select: {postId: 0},
-          populate: {
-            path: 'userId',
-            select: { _id: 1, profileUrl: 1, nickname: 1}
-          }});
-        
-        
+  static async findByPostId({ page, limit, query }) {
+    const comments = await CommentModel.find(query)
+      .lean()
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .populate("userId", { _id: 1, profileUrl: 1, nickname: 1 })
+      .populate({
+        path: "childComments",
+        select: { postId: 0 },
+        populate: {
+          path: "userId",
+          select: { _id: 1, profileUrl: 1, nickname: 1 },
+        },
+      });
+
+    return comments;
+  }
+
+  static async findAllByPostId({ query }) {
+    const comments = await CommentModel.find(query)
+      .lean()
+      .populate("userId", { _id: 1, profileUrl: 1, nickname: 1 })
+      .populate({
+        path: "childComments",
+        select: { postId: 0 },
+        populate: {
+          path: "userId",
+          select: { _id: 1, profileUrl: 1, nickname: 1 },
+        },
+      });
+
     return comments;
   }
 
   static async findById({ commentId }) {
-    const comment = await CommentModel.findOne({ _id: commentId }).populate('childComments');
+    const comment = await CommentModel.findOne({ _id: commentId }).populate(
+      "childComments"
+    );
     return comment;
   }
 
@@ -57,7 +74,7 @@ class Comment {
     const deletedComment = await CommentModel.findOneAndUpdate(
       filter,
       toUpdate,
-      option,
+      option
     );
 
     return deletedComment;

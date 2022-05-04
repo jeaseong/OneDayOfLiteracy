@@ -29,6 +29,11 @@ class UserWord{
         
         return updatedUserWord;
     }
+
+    static async deleteByUserId({ userId }){
+        const deleted = await UserWordModel.deleteOne({ userId });
+        return deleted;
+    }
 }
 
 export { UserWord }
