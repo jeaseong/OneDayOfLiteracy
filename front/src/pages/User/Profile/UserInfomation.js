@@ -30,6 +30,7 @@ function UserInfomation() {
   const handleLevelUp = useUserLevelUp(userId, maxExp);
 
   if (point >= maxExp) handleLevelUp.mutate();
+  console.log(localStorage.getItem("userToken"));
 
   return (
     <CardContent>
