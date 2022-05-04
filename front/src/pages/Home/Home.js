@@ -16,7 +16,12 @@ import { img } from "../../utils/imgImport";
 import { useRef, useEffect, useState } from "react";
 
 import MyResponsiveBar from "./TestGraph";
+import PisaKoreaLine from "./PisaKoreaLine";
+import PisaGdpScatter from "./PisaGdpScatter";
 import { data } from "../../data/testdata";
+import koreaReadingScore from "../../data/koreaReadingScore.json";
+import pisaGdp from "../../data/pisaGdp.json";
+
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
   <Img url={img.banner2} alt={"banner2"} />,
@@ -25,12 +30,14 @@ const BANNERS = [
 
 const bannerHeight = 403;
 function Home() {
+  console.log(pisaGdp);
+
   const fullpageRef = useRef();
-  const dotsRef = useRef();
+
   const [scrollIndex, setScrollIndex] = useState(1);
-  console.log(fullpageRef);
+
   let dotsLength = fullpageRef.current?.childNodes.length;
-  console.log(dotsLength);
+
   const scroll = (top) => {
     fullpageRef.current.scrollTo({
       top: top,
@@ -118,13 +125,11 @@ function Home() {
     return dots;
   };
 
-  console.log(dotsRendering());
-
   return (
     <HomeContainer ref={fullpageRef}>
       <Slide elements={BANNERS} />
       <DotsBox>
-        <Dots ref={dotsRef}>{dotsRendering().map((dot) => dot)}</Dots>
+        <Dots>{dotsRendering().map((dot) => dot)}</Dots>
       </DotsBox>
       <Homepage bgcolor={"#f7f6cf"}>
         <ContentsContainer>
@@ -132,7 +137,7 @@ function Home() {
           <HomeContents>
             <TextContent>우리나라 Pisa 점수 데이터</TextContent>
             <GraphBox>
-              <MyResponsiveBar data={data}></MyResponsiveBar>
+              <PisaKoreaLine data={koreaReadingScore}></PisaKoreaLine>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -142,7 +147,9 @@ function Home() {
           <HomeTitle>2</HomeTitle>
           <HomeContents>
             <TextContent>우리나라 Pisa 점수 데이터</TextContent>
-            <GraphBox></GraphBox>
+            <GraphBox>
+              {/* <PisaGdpScatter data={pisaGdp}></PisaGdpScatter> */}
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>

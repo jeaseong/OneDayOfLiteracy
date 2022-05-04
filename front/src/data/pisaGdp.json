@@ -1,0 +1,378 @@
+[
+  {
+    "Country": "Albania",
+    "GDP per Capita": 5246.2923063479,
+    "PISA Score": 405.0
+  },
+  {
+    "Country": "Argentina",
+    "GDP per Capita": 8579.0177731568,
+    "PISA Score": 402.0
+  },
+  {
+    "Country": "Australia",
+    "GDP per Capita": 51692.8427477695,
+    "PISA Score": 503.0
+  },
+  {
+    "Country": "Austria",
+    "GDP per Capita": 48586.8013213238,
+    "PISA Score": 484.0
+  },
+  {
+    "Country": "Azerbaijan",
+    "GDP per Capita": 4221.4074784785,
+    "PISA Score": 389.0
+  },
+  {
+    "Country": "Belarus",
+    "GDP per Capita": 6424.1521764272,
+    "PISA Score": 474.0
+  },
+  {
+    "Country": "Belgium",
+    "GDP per Capita": 45159.3482229717,
+    "PISA Score": 493.0
+  },
+  {
+    "Country": "Bosnia and Herzegovina",
+    "GDP per Capita": 6079.7382854484,
+    "PISA Score": 403.0
+  },
+  {
+    "Country": "Brazil",
+    "GDP per Capita": 6796.8445422788,
+    "PISA Score": 413.0
+  },
+  {
+    "Country": "Brunei",
+    "GDP per Capita": 27442.95382794,
+    "PISA Score": 408.0
+  },
+  {
+    "Country": "Bulgaria",
+    "GDP per Capita": 10079.2033812203,
+    "PISA Score": 420.0
+  },
+  {
+    "Country": "Canada",
+    "GDP per Capita": 43294.6481631917,
+    "PISA Score": 520.0
+  },
+  {
+    "Country": "Chile",
+    "GDP per Capita": 13231.7042069381,
+    "PISA Score": 452.0
+  },
+  {
+    "Country": "China",
+    "GDP per Capita": 10434.7751874839,
+    "PISA Score": 555.0
+  },
+  {
+    "Country": "Colombia",
+    "GDP per Capita": 5334.5560423392,
+    "PISA Score": 412.0
+  },
+  {
+    "Country": "Costa Rica",
+    "GDP per Capita": 12140.8541545754,
+    "PISA Score": 426.0
+  },
+  {
+    "Country": "Croatia",
+    "GDP per Capita": 14134.1626811193,
+    "PISA Score": 479.0
+  },
+  {
+    "Country": "Cyprus",
+    "GDP per Capita": 27527.8453055825,
+    "PISA Score": 424.0
+  },
+  {
+    "Country": "Czech Republic",
+    "GDP per Capita": 22931.2745975622,
+    "PISA Score": 490.0
+  },
+  {
+    "Country": "Denmark",
+    "GDP per Capita": 61063.3164304238,
+    "PISA Score": 501.0
+  },
+  {
+    "Country": "Dominican Republic",
+    "GDP per Capita": 7268.1969096591,
+    "PISA Score": 342.0
+  },
+  {
+    "Country": "Estonia",
+    "GDP per Capita": 23027.0269956294,
+    "PISA Score": 523.0
+  },
+  {
+    "Country": "Finland",
+    "GDP per Capita": 48744.9881267787,
+    "PISA Score": 520.0
+  },
+  {
+    "Country": "France",
+    "GDP per Capita": 39030.3603713482,
+    "PISA Score": 493.0
+  },
+  {
+    "Country": "Georgia",
+    "GDP per Capita": 4266.6907945092,
+    "PISA Score": 380.0
+  },
+  {
+    "Country": "Germany",
+    "GDP per Capita": 46208.4294717472,
+    "PISA Score": 498.0
+  },
+  {
+    "Country": "Greece",
+    "GDP per Capita": 17622.5410033504,
+    "PISA Score": 457.0
+  },
+  {
+    "Country": "Hong Kong",
+    "GDP per Capita": 46323.8634424384,
+    "PISA Score": 524.0
+  },
+  {
+    "Country": "Hungary",
+    "GDP per Capita": 15980.740889649,
+    "PISA Score": 476.0
+  },
+  {
+    "Country": "Iceland",
+    "GDP per Capita": 59270.1800510483,
+    "PISA Score": 474.0
+  },
+  {
+    "Country": "Indonesia",
+    "GDP per Capita": 3869.5884270454,
+    "PISA Score": 371.0
+  },
+  {
+    "Country": "Ireland",
+    "GDP per Capita": 85267.7647437582,
+    "PISA Score": 518.0
+  },
+  {
+    "Country": "Israel",
+    "GDP per Capita": 44168.9436355026,
+    "PISA Score": 470.0
+  },
+  {
+    "Country": "Italy",
+    "GDP per Capita": 31714.2209467105,
+    "PISA Score": 476.0
+  },
+  {
+    "Country": "Japan",
+    "GDP per Capita": 40193.2524448357,
+    "PISA Score": 504.0
+  },
+  {
+    "Country": "Jordan",
+    "GDP per Capita": 4282.7658246162,
+    "PISA Score": 419.0
+  },
+  {
+    "Country": "Kazakhstan",
+    "GDP per Capita": 9122.2334302164,
+    "PISA Score": 387.0
+  },
+  {
+    "Country": "Kosovo",
+    "GDP per Capita": 4346.6379306972,
+    "PISA Score": 353.0
+  },
+  {
+    "Country": "Latvia",
+    "GDP per Capita": 17726.2529351368,
+    "PISA Score": 479.0
+  },
+  {
+    "Country": "Lebanon",
+    "GDP per Capita": 4649.5476460784,
+    "PISA Score": 353.0
+  },
+  {
+    "Country": "Lithuania",
+    "GDP per Capita": 20233.6413480843,
+    "PISA Score": 476.0
+  },
+  {
+    "Country": "Macau",
+    "GDP per Capita": 39403.1359073362,
+    "PISA Score": 525.0
+  },
+  {
+    "Country": "Malaysia",
+    "GDP per Capita": 10412.3489834381,
+    "PISA Score": 415.0
+  },
+  {
+    "Country": "Malta",
+    "GDP per Capita": 27884.6428274251,
+    "PISA Score": 448.0
+  },
+  {
+    "Country": "Mexico",
+    "GDP per Capita": 8329.2713126393,
+    "PISA Score": 420.0
+  },
+  {
+    "Country": "Moldova",
+    "GDP per Capita": 4547.0597206467,
+    "PISA Score": 424.0
+  },
+  {
+    "Country": "Montenegro",
+    "GDP per Capita": 7677.1522257,
+    "PISA Score": 421.0
+  },
+  {
+    "Country": "Morocco",
+    "GDP per Capita": 3058.6916886696,
+    "PISA Score": 359.0
+  },
+  {
+    "Country": "Netherlands",
+    "GDP per Capita": 52397.1167129558,
+    "PISA Score": 485.0
+  },
+  {
+    "Country": "New Zealand",
+    "GDP per Capita": 41441.4666667011,
+    "PISA Score": 506.0
+  },
+  {
+    "Country": "North Macedonia",
+    "GDP per Capita": 5917.2625754522,
+    "PISA Score": 393.0
+  },
+  {
+    "Country": "Norway",
+    "GDP per Capita": 67329.6777910967,
+    "PISA Score": 499.0
+  },
+  {
+    "Country": "Panama",
+    "GDP per Capita": 12509.8352901414,
+    "PISA Score": 377.0
+  },
+  { "Country": "Peru", "GDP per Capita": 6126.8745397887, "PISA Score": 401.0 },
+  {
+    "Country": "Philippines",
+    "GDP per Capita": 3298.8295856966,
+    "PISA Score": 340.0
+  },
+  {
+    "Country": "Poland",
+    "GDP per Capita": 15720.994663556,
+    "PISA Score": 512.0
+  },
+  {
+    "Country": "Portugal",
+    "GDP per Capita": 22176.2967116929,
+    "PISA Score": 492.0
+  },
+  {
+    "Country": "Qatar",
+    "GDP per Capita": 50124.3859361728,
+    "PISA Score": 407.0
+  },
+  {
+    "Country": "Republic of Korea",
+    "GDP per Capita": 31631.4694509866,
+    "PISA Score": 514.0
+  },
+  {
+    "Country": "Romania",
+    "GDP per Capita": 12896.0886211622,
+    "PISA Score": 428.0
+  },
+  {
+    "Country": "Russian Federation",
+    "GDP per Capita": 10126.7217935297,
+    "PISA Score": 479.0
+  },
+  {
+    "Country": "Saudi Arabia",
+    "GDP per Capita": 20110.3161924912,
+    "PISA Score": 399.0
+  },
+  {
+    "Country": "Serbia",
+    "GDP per Capita": 7720.5105719523,
+    "PISA Score": 439.0
+  },
+  {
+    "Country": "Singapore",
+    "GDP per Capita": 59797.7521801188,
+    "PISA Score": 549.0
+  },
+  {
+    "Country": "Slovakia",
+    "GDP per Capita": 19266.5135736247,
+    "PISA Score": 458.0
+  },
+  {
+    "Country": "Slovenia",
+    "GDP per Capita": 25517.33066526,
+    "PISA Score": 495.0
+  },
+  {
+    "Country": "Sweden",
+    "GDP per Capita": 52274.4087868798,
+    "PISA Score": 506.0
+  },
+  {
+    "Country": "Switzerland",
+    "GDP per Capita": 87097.0364503764,
+    "PISA Score": 484.0
+  },
+  {
+    "Country": "Thailand",
+    "GDP per Capita": 7186.8740920652,
+    "PISA Score": 393.0
+  },
+  {
+    "Country": "Turkey",
+    "GDP per Capita": 8536.4333196063,
+    "PISA Score": 466.0
+  },
+  {
+    "Country": "Ukraine",
+    "GDP per Capita": 3724.9384368976,
+    "PISA Score": 466.0
+  },
+  {
+    "Country": "United Arab Emirates",
+    "GDP per Capita": 36284.5552429552,
+    "PISA Score": 432.0
+  },
+  {
+    "Country": "United Kingdom",
+    "GDP per Capita": 41059.1688090547,
+    "PISA Score": 504.0
+  },
+  {
+    "Country": "United States",
+    "GDP per Capita": 63593.4436209541,
+    "PISA Score": 505.0
+  },
+  {
+    "Country": "Uruguay",
+    "GDP per Capita": 15438.4116657291,
+    "PISA Score": 427.0
+  },
+  {
+    "Country": "Vietnam",
+    "GDP per Capita": 2785.724160876,
+    "PISA Score": 505.0
+  }
+]
