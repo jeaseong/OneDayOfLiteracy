@@ -4,7 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from "react-query";
-import { del, get, post } from "../utils/api";
+import { get, patch, post } from "../utils/api";
 
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
@@ -14,8 +14,8 @@ export function useGetPostList(endpoint = "") {
   };
 
   return useInfiniteQuery(["posts", endpoint], fetchPostList, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 5000,
+    cacheTime: 1500,
     getNextPageParam: (lastPage) =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
   });
@@ -28,21 +28,21 @@ export function useGetPost(id) {
   };
 
   return useQuery(["post", id], fetchPost, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 5000,
+    cacheTime: 1500,
     onError: (err) => console.log(err),
   });
 }
 
 export function useGetPostLikeCount(id) {
   const fetchPost = async () => {
-    const res = await get(`likes/${id}`);
+    const res = await get(`posts/${id}/likes`);
     return res.data.length;
   };
 
   return useQuery(["likeCnt", id], fetchPost, {
-    staleTime: 60000,
-    cacheTime: 120000,
+    staleTime: 5000,
+    cacheTime: 1500,
     onError: (err) => console.log(err),
   });
 }
@@ -50,7 +50,7 @@ export function useGetPostLikeCount(id) {
 export const usePostLikeAdd = (postId, userId) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => post(`like/${postId}`), {
+  return useMutation(() => patch(`users/${userId}/like`, { postId }), {
     onMutate: () => {
       const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
@@ -76,7 +76,7 @@ export const usePostLikeAdd = (postId, userId) => {
       };
     },
     onSuccess: () =>
-      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
+      queryClient.invalidateQueries("posts", `users/${userId}/likes?`),
     onError: (err, rollback) => rollback(),
   });
 };
@@ -84,7 +84,7 @@ export const usePostLikeAdd = (postId, userId) => {
 export const usePostDislike = (postId, userId) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => del(`like/${postId}`), {
+  return useMutation(() => patch(`users/${userId}/cancelLike`, { postId }), {
     onMutate: () => {
       const profileUser = queryClient.getQueryData(["user", userId]);
       const currentUser = queryClient.getQueryData(["userState"]);
@@ -110,7 +110,7 @@ export const usePostDislike = (postId, userId) => {
       };
     },
     onSuccess: () =>
-      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
+      queryClient.invalidateQueries(["posts", `users/${userId}/likes?`]),
     onError: (err, rollback) => rollback(),
   });
 };
@@ -120,7 +120,7 @@ export const usePostLikeCount = (postId) => {
 
   return useMutation(
     async (type) => {
-      const res = await get(`likes/${postId}`);
+      const res = await get(`posts/${postId}/likes`);
       return { data: res.data.length, type };
     },
     {

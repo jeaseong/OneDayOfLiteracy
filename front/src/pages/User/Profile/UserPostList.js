@@ -24,8 +24,8 @@ function UserPostList() {
   const queryString = location.search.substring(1);
   const fetchURI =
     queryString === "likes"
-      ? `likes/user/${params.userId}?`
-      : `posts/users/${params.userId}?`;
+      ? `users/${params.userId}/likes?`
+      : `users/${params.userId}/posts?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
 
