@@ -38,3 +38,7 @@ export const RankNickName = styled.span`
   font-weight: bold;
   font-size: 1.4rem;
 `;
+
+export const PopularityPostContainer = styled(FlexBoxCenter)`
+  width: 100%;
+`;

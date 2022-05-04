@@ -3,7 +3,7 @@ import { FlexBoxCenter } from "../Components/CommonStyle";
 
 // Training.js
 export const TrainingContainer = styled.section`
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

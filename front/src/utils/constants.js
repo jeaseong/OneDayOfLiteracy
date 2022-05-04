@@ -40,6 +40,8 @@ export const LABEL = {
   SEARCH: "검색",
   TRAINING: "트레이닝",
   RANKING: "랭킹",
+  POPULARITY: "인기글",
+  GET_MORE: "더 보러가기",
 };
 
 export const GUIDE_MESSAGE = {

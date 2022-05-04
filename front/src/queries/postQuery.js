@@ -4,7 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from "react-query";
-import { get, patch, post } from "../utils/api";
+import { get, patch } from "../utils/api";
 
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
