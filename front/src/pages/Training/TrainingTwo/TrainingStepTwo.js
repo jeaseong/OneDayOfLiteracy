@@ -15,7 +15,7 @@ export default function TrainingStepTwo() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("subjects/level", "2");
+      const res = await get(`subjects/level=2`);
       setSubject((cur) => res.data);
     };
     fetchApi();
