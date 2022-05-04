@@ -14,6 +14,7 @@ function Posts() {
   const navigate = useNavigate();
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
+
   const { userState, isLogin } = queryClient.getQueryData("userState");
   useGetProfileOwner(userState._id);
   const fetchURI = `posts?${location.search.substring(1)}&`;

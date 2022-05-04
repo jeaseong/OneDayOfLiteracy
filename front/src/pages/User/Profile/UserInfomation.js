@@ -14,6 +14,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { checkUserExpPercent } from "../../../utils/level";
 import { useUserLevelUp } from "../../../queries/levelQuery";
+import { useEffect } from "react";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -24,12 +25,16 @@ function UserInfomation() {
   const params = useParams();
   const userId = params.userId;
   const queryClient = useQueryClient();
+
   const userProfile = queryClient.getQueryData(["user", userId]);
   const { nickname, level, introduce, point, posts, postLikes } = userProfile;
+
   const { maxExp, expPercent } = checkUserExpPercent(level, point);
   const handleLevelUp = useUserLevelUp(userId, maxExp);
 
-  if (point >= maxExp) handleLevelUp.mutate();
+  useEffect(() => {
+    if (point >= maxExp) handleLevelUp.mutate();
+  }, []);
 
   return (
     <CardContent>

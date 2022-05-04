@@ -108,12 +108,3 @@ export const LEVEL_MAX_EXP = {
   LEVEL4: 800,
   LEVEL5: 999999999,
 };
-
-export const INCREASE_EXP = {
-  LOGIN: 10,
-  POST: 3,
-  TRANING_ONE: 5,
-  TRANING_TWO: 10,
-  TRANING_THREE: 15,
-  TRANING_FOUR: 20,
-};

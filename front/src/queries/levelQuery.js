@@ -16,26 +16,7 @@ export const useUserLevelUp = (userId, maxExp) => {
       // onError에서 rollback으로 받을 함수
       return () => queryClient.setQueryData(["user", userId], profileUser);
     },
-    onSettled: () => queryClient.invalidateQueries(["user", userId]),
-    onError: (err, rollback) => rollback(),
-  });
-};
-
-export const useUserExpIncrease = (userId, exp) => {
-  const queryClient = useQueryClient();
-
-  return useMutation(() => post(`level/${userId}`), {
-    onMutate: () => {
-      const profileUser = queryClient.getQueryData(["user", userId]);
-      queryClient.setQueryData(["user", userId], {
-        ...profileUser,
-        point: profileUser.point + exp,
-      });
-
-      // onError에서 rollback으로 받을 함수
-      return () => queryClient.setQueryData(["user", userId], profileUser);
-    },
-    onSettled: () => queryClient.invalidateQueries(["user", userId]),
+    onSuccess: () => queryClient.invalidateQueries(["user", userId]),
     onError: (err, rollback) => rollback(),
   });
 };
