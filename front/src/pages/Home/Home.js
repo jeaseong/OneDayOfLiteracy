@@ -24,6 +24,7 @@ import PisaKMeanF from "./PisaKMeanF";
 import PisaKMeanM from "./PisaKMeanM";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 import ManLiteracyEmployeeReg from "./ManLiteracyEmployeeReg";
+import WomanLiteracyEmployeeReg from "./WomanLiteracyEmployeeReg";
 
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
@@ -34,6 +35,7 @@ import pisaKMeanF from "../../data/pisaKMeanF.json";
 import pisaKMeanM from "../../data/pisaKMeanM.json";
 import pisaKScore from "../../data/pisaKScore.json";
 import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
+import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -113,6 +115,13 @@ function Home() {
         // 6 -> 7
         scroll(scrollTop + pageHeight);
         setScrollIndex(7);
+      } else if (
+        scrollTop >= pageHeight * 6 + bannerHeight &&
+        scrollTop < pageHeight * 7 + bannerHeight
+      ) {
+        // 7 -> 8
+        scroll(scrollTop + pageHeight);
+        setScrollIndex(8);
       }
     } else {
       // 스크롤 올릴때
@@ -162,6 +171,13 @@ function Home() {
         // 7 -> 6
         scroll(pageHeight * 5 + bannerHeight);
         setScrollIndex(6);
+      } else if (
+        scrollTop >= pageHeight * 7 + bannerHeight &&
+        scrollTop < pageHeight * 8 + bannerHeight
+      ) {
+        // 8 -> 7
+        scroll(pageHeight * 6 + bannerHeight);
+        setScrollIndex(7);
       }
     }
   };
@@ -305,6 +321,19 @@ function Home() {
               <ManLiteracyEmployeeReg
                 data={menliteracyEmployeeReg}
               ></ManLiteracyEmployeeReg>
+            </GraphBox>
+          </HomeContents>
+        </ContentsContainer>
+      </Homepage>
+      <Homepage bgcolor="#f4cfdf">
+        <ContentsContainer>
+          <HomeTitle>8</HomeTitle>
+          <HomeContents>
+            <TextContent>Pisa top 15</TextContent>
+            <GraphBox>
+              <WomanLiteracyEmployeeReg
+                data={womenliteracyEmployeeReg}
+              ></WomanLiteracyEmployeeReg>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
