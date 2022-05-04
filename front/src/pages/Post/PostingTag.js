@@ -19,7 +19,7 @@ const PostingTag = forwardRef(({}, ref) => {
   const handleTagEnter = (e) => {
     e.preventDefault();
     if (e.keyCode === 13 && e.target.value.trim() !== "") {
-      setTagArray(() => [...tagArray, tag]);
+      setTagArray((prev) => [...prev, tag]);
       setTag("");
     }
   };
