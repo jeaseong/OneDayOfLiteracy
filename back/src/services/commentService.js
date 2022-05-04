@@ -28,6 +28,9 @@ class commentService {
     limit = Number(limit);
     const query = { postId, parentId: null };
     const total = await Comment.count({ query });
+
+    if (total === 0) return {};
+    
     const totalPages = Math.ceil(total / limit);
     
     if (totalPages === page) isLast = true;
