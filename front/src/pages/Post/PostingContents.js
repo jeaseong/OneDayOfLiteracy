@@ -5,8 +5,8 @@ import {
   PostingContent,
   PostingArea,
   PostingMessage,
-} from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
+} from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
 
 const PostingContents = forwardRef(({}, ref) => {
   const [markdown, setMarkdown] = useState("");

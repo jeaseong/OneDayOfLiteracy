@@ -1,8 +1,8 @@
-import { InputFile } from "../styles/Components/CommonStyle";
-import { ChangeButton } from "../styles/User/ProfileStyle";
-import { LABEL } from "../utils/constants";
+import { InputFile } from "styles/Components/CommonStyle";
+import { ChangeButton } from "styles/User/ProfileStyle";
+import { LABEL } from "utils/constants";
 import { useRef } from "react";
-import { uploadFile } from "../utils/api";
+import { uploadFile } from "utils/api";
 import { useQueryClient } from "react-query";
 
 /**

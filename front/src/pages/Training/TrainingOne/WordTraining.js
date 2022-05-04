@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useWordsQuery } from "../../../queries/wordsQuery";
+import { useWordsQuery } from "queries/wordsQuery";
 import { useNavigate } from "react-router-dom";
 import {
   WordTrainingContainer,
@@ -18,10 +18,10 @@ import {
   PrevBtn,
   NextBtn,
   ClearBtn,
-} from "../../../styles/Training/WordTrainingStyle";
+} from "styles/Training/WordTrainingStyle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { post } from "../../../utils/api";
+import { post } from "utils/api";
 import { dum } from "./wordDumy";
 
 export default function WordTraining({ subject }) {

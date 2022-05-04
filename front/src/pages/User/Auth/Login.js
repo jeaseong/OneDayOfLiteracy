@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  CustomSnackbar,
-  setAlertData,
-} from "../../../components/CustomSnackbar";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useState } from "react";
-import { FAIL_MESSAGE, ALERT_TYPE, LABEL } from "../../../utils/constants";
-import { validation } from "../../../utils/validation";
-import { useUserLoginHandler } from "../../../queries/userQuery";
+import { FAIL_MESSAGE, ALERT_TYPE, LABEL } from "utils/constants";
+import { validation } from "utils/validation";
+import { useUserLoginHandler } from "queries/userQuery";
 import { useNavigate } from "react-router-dom";
 import {
   HeadingTwo,
@@ -14,7 +11,7 @@ import {
   Button,
   LinkButton,
   FlexBoxCenter,
-} from "../../../styles/Components/CommonStyle";
+} from "styles/Components/CommonStyle";
 import {
   AuthContainer,
   CharacterImage,
@@ -24,7 +21,7 @@ import {
   KakaoIcon,
   LoginImgContentBox,
   LoginContentForm,
-} from "../../../styles/User/AuthStyle";
+} from "styles/User/AuthStyle";
 
 /**
  * 유저의 로그인을 담당하는 컴포넌트 입니다.

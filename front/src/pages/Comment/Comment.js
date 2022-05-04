@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import CommentInput from "./CommentInput";
-import CommentSingle from "./CommentSingle";
-import CommentReply from "./CommentReply";
-import { useGetCommentList } from "../../queries/commentQuery";
-import {
-  CommentContainer,
-  UserCommentList,
-} from "../../styles/Comment/CommentStyle";
+import CommentInput from "pages/Comment/CommentInput";
+import CommentSingle from "pages/Comment/CommentSingle";
+import CommentReply from "pages/Comment/CommentReply";
+import { useGetCommentList } from "queries/commentQuery";
+import { CommentContainer, UserCommentList } from "styles/Comment/CommentStyle";
 export default function Comment() {
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetCommentList();

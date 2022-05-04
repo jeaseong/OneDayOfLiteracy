@@ -1,5 +1,5 @@
-import { SearchSelect } from "../../styles/Components/SearchStyle";
-import { CATEGORY } from "../../utils/constants";
+import { SearchSelect } from "styles/Components/SearchStyle";
+import { CATEGORY } from "utils/constants";
 
 /**
  * 검색 시 카테고리를 설정하는 컴포넌트입니다.

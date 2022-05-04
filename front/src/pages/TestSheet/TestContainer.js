@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import TestPresentation from "./TestPresentation";
-import TestProcessBtn from "./TestProcessBtn";
-import { NextBtn } from "../../styles/Test/TestStyle";
-import { useTestQuery } from "../../queries/testQuery";
-import { post } from "../../utils/api";
+import TestPresentation from "pages/TestSheet/TestPresentation";
+import TestProcessBtn from "pages/TestSheet/TestProcessBtn";
+import { NextBtn } from "styles/Test/TestStyle";
+import { useTestQuery } from "queries/testQuery";
+import { post } from "utils/api";
 
 export default function TestContainer() {
   const navigate = useNavigate();

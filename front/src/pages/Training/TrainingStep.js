@@ -7,7 +7,7 @@ import {
   StepTagContainer,
   StepTag,
   StepDescription,
-} from "../../styles/Training/TrainingStyle";
+} from "styles/Training/TrainingStyle";
 
 export default function TrainingStep({ step, img, title, tag, des }) {
   const navigate = useNavigate();

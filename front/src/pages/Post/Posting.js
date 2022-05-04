@@ -4,10 +4,10 @@ import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
-import { PostContainer } from "../../styles/Posts/PostStyle";
-import { PostingButton } from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
-import { post } from "../../utils/api";
+import { PostContainer } from "styles/Posts/PostStyle";
+import { PostingButton } from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
+import { post } from "utils/api";
 
 function Posting() {
   const navigate = useNavigate();

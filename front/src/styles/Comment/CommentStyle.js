@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { img } from "../../utils/imgImport";
+import { img } from "utils/imgImport";
 
 const inputAnimation = keyframes`
  0%{

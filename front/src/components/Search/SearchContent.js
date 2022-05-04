@@ -1,10 +1,10 @@
-import SearchBar from "./SearchBar";
-import SearchCategory from "./SearchCategory";
+import SearchBar from "components/Search/SearchBar";
+import SearchCategory from "components/Search/SearchCategory";
 import {
   SearchButton,
   SearchContainerBox,
-} from "../../styles/Components/SearchStyle";
-import { CATEGORY, LABEL } from "../../utils/constants";
+} from "styles/Components/SearchStyle";
+import { CATEGORY, LABEL } from "utils/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

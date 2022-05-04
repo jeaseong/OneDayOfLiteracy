@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { img } from "../../utils/imgImport";
+import { img } from "utils/imgImport";
 
 export const Img = styled.img.attrs((props) => ({
   src: props.url,
   alt: props.alt,
 }))`
   width: 100%;
-  height: 400px;
+  height: 100%;
 `;
 
 export const FooterContainer = styled.footer`

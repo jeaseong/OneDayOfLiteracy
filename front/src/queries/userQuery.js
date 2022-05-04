@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { get, post, put } from "../utils/api";
+import { get, post, put } from "utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**

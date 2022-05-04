@@ -11,7 +11,7 @@ import {
   PostFooter,
   Tag,
   LikeButton,
-} from "../../styles/Posts/PostStyle";
+} from "styles/Posts/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -22,10 +22,10 @@ import {
   usePostDislike,
   usePostLikeAdd,
   usePostLikeCount,
-} from "../../queries/postQuery";
-import Loading from "../../components/Loading";
-import { useGetProfileUser } from "../../queries/userQuery";
-import { del } from "../../utils/api";
+} from "queries/postQuery";
+import Loading from "components/Loading";
+import { useGetProfileUser } from "queries/userQuery";
+import { del } from "utils/api";
 
 function Post() {
   const params = useParams();

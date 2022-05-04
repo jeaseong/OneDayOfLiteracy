@@ -8,19 +8,16 @@ import {
   ConfirmButton,
   ConfirmButtonBox,
   EditInputBox,
-} from "../../../styles/User/ProfileStyle";
+} from "styles/User/ProfileStyle";
 import {
   LABEL,
   GUIDE_MESSAGE,
   FAIL_MESSAGE,
   ALERT_TYPE,
-} from "../../../utils/constants";
-import { validation } from "../../../utils/validation";
-import { useChangeProfileHandler } from "../../../queries/userQuery";
-import {
-  CustomSnackbar,
-  setAlertData,
-} from "../../../components/CustomSnackbar";
+} from "utils/constants";
+import { validation } from "utils/validation";
+import { useChangeProfileHandler } from "queries/userQuery";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useQueryClient } from "react-query";
 
 /**

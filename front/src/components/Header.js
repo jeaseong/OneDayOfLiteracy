@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
-import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
-import { img } from "../utils/imgImport";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
+import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "utils/constants";
+import { img } from "utils/imgImport";
 import {
   HeaderContainer,
   LogoContainer,
   Navigation,
   NavList,
-} from "../styles/Components/ComponentStyle";
+} from "styles/Components/ComponentStyle";
 import SearchContent from "./Search/SearchContent";
 
 function Header() {

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SlideWrap = styled.section`
   position: relative;
+  height: 100%;
 `;
 
 export const OverFlow = styled.div`

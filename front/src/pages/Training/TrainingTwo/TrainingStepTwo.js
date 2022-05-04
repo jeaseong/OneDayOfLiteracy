@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import TrainingGuide from "../TrainingGuide";
+import TrainingGuide from "pages/Training/TrainingGuide";
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
   TrainingStepIntroduction,
-} from "../../../styles/Training/TrainingStyle";
+} from "styles/Training/TrainingStyle";
 import TrainingPost from "../TrainingPost/TrainingPost";
-import { TAG_NAME, TRAINING_INTRODUNCTION } from "../../../utils/constants";
-import { createMarkup } from "../../../utils/setInnerHTML";
-import { get } from "../../../utils/api";
+import { TAG_NAME, TRAINING_INTRODUNCTION } from "utils/constants";
+import { createMarkup } from "utils/setInnerHTML";
+import { get } from "utils/api";
 
 export default function TrainingStepTwo() {
   const [subject, setSubject] = useState({});

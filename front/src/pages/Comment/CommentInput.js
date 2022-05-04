@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { queryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import {
   WriteComment,
   InputBox,
@@ -8,10 +8,11 @@ import {
   CommentBtn,
   Profile,
   FocusInput,
-} from "../../styles/Comment/CommentStyle";
-import { post } from "../../utils/api";
+} from "styles/Comment/CommentStyle";
+import { post } from "utils/api";
 export default function CommentInput({ parentId = null }) {
   const postId = useParams();
+  const queryClient = useQueryClient();
   const [curComment, setCurComment] = useState("");
   const { userState } = queryClient.getQueryData("userState");
   // postId를 얻어야하지 않겠어?

@@ -8,7 +8,7 @@ import {
   UserName,
   Comment,
   ReplyCommentBtn,
-} from "../../styles/Comment/CommentStyle";
+} from "styles/Comment/CommentStyle";
 export default function CommentRePly({ reComment = [1, 2, 3] }) {
   const [isOpenReply, setIsOpenReply] = useState(false);
   //대댓글 열기

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import TrainingGuide from "../TrainingGuide";
-import Slide from "../../../components/Slide/Slide";
+import TrainingGuide from "pages/Training/TrainingGuide";
+import Slide from "components/Slide/Slide";
 import TrainingPost from "../TrainingPost/TrainingPost";
 import { TranscriptionDescription } from "./TranscriptionDescription";
-import { TAG_NAME } from "../../../utils/constants";
+import { TAG_NAME } from "utils/constants";
 
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
-} from "../../../styles/Training/TrainingStyle";
-import { get } from "../../../utils/api";
+} from "styles/Training/TrainingStyle";
+import { get } from "utils/api";
 export default function TrainingStepThree() {
   const [subject, setSubject] = useState({});
   useEffect(() => {

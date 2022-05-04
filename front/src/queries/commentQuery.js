@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "react-query";
-import { get } from "../utils/api";
+import { get } from "utils/api";
 
 export function useGetCommentList(postId) {
   const fetchCommentList = async ({ pageParam = 1 }) => {

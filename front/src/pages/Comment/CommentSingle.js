@@ -8,7 +8,7 @@ import {
   UserName,
   Comment,
   ReplyCommentBtn,
-} from "../../styles/Comment/CommentStyle";
+} from "styles/Comment/CommentStyle";
 
 export default function CommentSingle({ comment }) {
   const [isOpenReply, setIsOpenReply] = useState(false);

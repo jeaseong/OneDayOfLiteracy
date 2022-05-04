@@ -3,10 +3,10 @@ import {
   DropDownItem,
   InputBox,
   SearchInput,
-} from "../../styles/Components/SearchStyle";
-import { GUIDE_MESSAGE } from "../../utils/constants";
+} from "styles/Components/SearchStyle";
+import { GUIDE_MESSAGE } from "utils/constants";
 import { useCallback, useState } from "react";
-import { get } from "../../utils/api";
+import { get } from "utils/api";
 
 /**
  * 검색어 입력 컴포넌트입니다.

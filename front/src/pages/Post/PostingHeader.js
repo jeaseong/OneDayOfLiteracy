@@ -3,8 +3,8 @@ import {
   PostingTitle,
   PostingTitleBox,
   PostingMessage,
-} from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
+} from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
 
 const PostingHeader = forwardRef(({}, ref) => {
   const isTitleEmpty = ref.current?.value.length === 0;
