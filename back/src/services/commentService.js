@@ -38,8 +38,6 @@ class commentService {
     if (total === 0) return {};
     
     const totalPages = Math.ceil(total / limit);
-
-    if (total === 0) return {};
     if (totalPages === page) isLast = true;
     if (totalPages < page)
       return { errorMessage: "존재하지 않는 페이지입니다" };
