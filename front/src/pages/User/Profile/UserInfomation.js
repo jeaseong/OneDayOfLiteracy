@@ -4,9 +4,11 @@ import {
   CardLikeCountBox,
   CardLikePost,
   CardMyInfo,
+  LevelImg,
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
+  ProfileTitleBox,
 } from "../../../styles/User/ProfileStyle";
 import { HeadingTwo } from "../../../styles/Components/CommonStyle";
 import { LABEL } from "../../../utils/constants";
@@ -15,6 +17,7 @@ import { useQueryClient } from "react-query";
 import { checkUserExpPercent } from "../../../utils/level";
 import { useUserLevelUp } from "../../../queries/levelQuery";
 import { useEffect } from "react";
+import { img } from "../../../utils/imgImport";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -39,9 +42,10 @@ function UserInfomation() {
   return (
     <CardContent>
       <CardIntroduce>
-        <ProfileNickName>
-          {nickname} {level}
-        </ProfileNickName>
+        <ProfileTitleBox>
+          <LevelImg src={img.level[level]} alt="level" /> &nbsp;
+          <ProfileNickName>{nickname}</ProfileNickName>
+        </ProfileTitleBox>
         &nbsp;
         <ProfileIntroduce>{introduce}</ProfileIntroduce>
       </CardIntroduce>

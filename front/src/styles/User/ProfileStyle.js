@@ -72,7 +72,6 @@ export const ProfilePostCount = styled(HeadingTwo)`
 
 export const ProfileNickName = styled(HeadingTwo)`
   color: black;
-  margin-top: 20px;
   font-size: 2rem;
 `;
 
@@ -152,4 +151,13 @@ export const ConfirmButton = styled(Button)`
 export const NotFoundPostImg = styled.img`
   width: 47%;
   margin: 0 auto;
+`;
+
+export const ProfileTitleBox = styled(FlexBox)`
+  align-items: center;
+  margin-top: 20px;
+`;
+
+export const LevelImg = styled.img`
+  height: 40px;
 `;
