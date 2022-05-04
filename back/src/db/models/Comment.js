@@ -7,16 +7,27 @@ class Comment {
     return createdComment;
   }
 
-  static async findByPostId({ page, limit, query }) {
-    const populateField = "user";
-    const populateOption = { _id: 1, profileUrl: 1, nickname: 1};
-    const comments = await findByPagination2(
-      CommentModel,
-      { page, limit },
-      query,
-      populateField,
-      populateOption,
-    );
+  static async count({ query }) {
+    const total = await CommentModel.countDocuments(query);
+    return total;
+  }
+
+  static async findByPostId({ page, limit, query }) {  
+    const comments = await CommentModel
+        .find(query)
+        .lean()
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .populate('user',{ _id: 1, profileUrl: 1, nickname: 1} )
+        .populate({
+          path: 'childComments', 
+          select: {postId: 0},
+          populate: {
+            path: 'user',
+            select: { _id: 1, profileUrl: 1, nickname: 1}
+          }});
+        
+        
     return comments;
   }
 
