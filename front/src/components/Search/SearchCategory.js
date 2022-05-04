@@ -8,9 +8,7 @@ import { CATEGORY } from "../../utils/constants";
  * @constructor
  */
 function SearchCategory({ setCategory }) {
-  const handleOnSelect = (e) => {
-    setCategory(e.target.value);
-  };
+  const handleOnSelect = (e) => setCategory(e.target.value);
 
   return (
     <SearchSelect onChange={handleOnSelect}>

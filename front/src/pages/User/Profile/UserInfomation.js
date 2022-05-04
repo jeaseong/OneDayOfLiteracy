@@ -12,7 +12,7 @@ import { HeadingTwo } from "../../../styles/Components/CommonStyle";
 import { LABEL } from "../../../utils/constants";
 import { useParams, Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { checkUserExpPercent } from "../../../utils/userLevel";
+import { checkUserExpPercent } from "../../../utils/level";
 import { useUserLevelUp } from "../../../queries/levelQuery";
 
 /**
@@ -30,7 +30,6 @@ function UserInfomation() {
   const handleLevelUp = useUserLevelUp(userId, maxExp);
 
   if (point >= maxExp) handleLevelUp.mutate();
-  console.log(localStorage.getItem("userToken"));
 
   return (
     <CardContent>

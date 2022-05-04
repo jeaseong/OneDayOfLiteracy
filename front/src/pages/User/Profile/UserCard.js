@@ -29,11 +29,12 @@ import ErrorPage from "../../../components/ErrorPage";
  */
 function UserCard({ editStateStore, children }) {
   const params = useParams();
+  const userId = params.userId;
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
   const { isEdit, setIsEdit } = editStateStore;
   const [showAlert, setShowAlert] = useState(false);
-  const userProfile = useGetProfileUser(params.userId);
+  const userProfile = useGetProfileUser(userId);
 
   if (userProfile.isFetching) return <Loading />;
   if (userProfile.error) return <ErrorPage />;
@@ -41,7 +42,7 @@ function UserCard({ editStateStore, children }) {
   // 프로필의 주인인가?
   const checkProfileOwner = () => {
     if (!userState) return false;
-    return userState._id === params.userId;
+    return userState._id === userId;
   };
   const isProfileOwner = checkProfileOwner();
 
