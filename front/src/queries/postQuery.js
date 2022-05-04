@@ -36,7 +36,7 @@ export function useGetPost(id) {
 
 export function useGetPostLikeCount(id) {
   const fetchPost = async () => {
-    const res = await get(`likes/${id}`);
+    const res = await get(`posts/${id}/likes`);
     return res.data.length;
   };
 
@@ -120,7 +120,7 @@ export const usePostLikeCount = (postId) => {
 
   return useMutation(
     async (type) => {
-      const res = await get(`likes/${postId}`);
+      const res = await get(`posts/${postId}/likes`);
       return { data: res.data.length, type };
     },
     {
