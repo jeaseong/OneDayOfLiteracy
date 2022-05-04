@@ -171,7 +171,6 @@ class postService {
     const posts = await Post.findAll(page, limit, query, extraQueryList);
     return posts;
   }
-  
 
   static async deletePost({ postId, userId }) {
     const posts = await Post.findByUserId({ userId });
