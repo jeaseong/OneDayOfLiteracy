@@ -7,6 +7,7 @@ export const Img = styled.img.attrs((props) => ({
 }))`
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 export const FooterContainer = styled.footer`

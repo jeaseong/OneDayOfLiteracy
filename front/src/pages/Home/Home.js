@@ -1,6 +1,6 @@
 import Slide from "components/Slide/Slide";
 import { Img } from "styles/Components/ComponentStyle";
-import { HomeContainer } from "styles/Home/HomeStyle";
+import { HomeContainer, FullBanner } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
 import Comment from "pages/Comment/Comment";
 
@@ -13,7 +13,9 @@ const BANNERS = [
 function Home() {
   return (
     <HomeContainer>
-      <Slide elements={BANNERS} />
+      <FullBanner>
+        <Slide elements={BANNERS} />
+      </FullBanner>
       <Comment />
     </HomeContainer>
   );

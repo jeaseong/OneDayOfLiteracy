@@ -22,7 +22,7 @@ export const SlideInner = styled.div`
   width: 100vw;
 `;
 export const SlideItem = styled.div`
-  width: 100vw;
+  width: 100%;
 `;
 
 export const Btn = styled.button`
