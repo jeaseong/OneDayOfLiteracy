@@ -25,6 +25,7 @@ import PisaKMeanM from "./PisaKMeanM";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 import ManLiteracyEmployeeReg from "./ManLiteracyEmployeeReg";
 import WomanLiteracyEmployeeReg from "./WomanLiteracyEmployeeReg";
+import ManLiteracyEmployeeScatter from "./ManLiteracyEmployeeScatter";
 
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
@@ -36,6 +37,7 @@ import pisaKMeanM from "../../data/pisaKMeanM.json";
 import pisaKScore from "../../data/pisaKScore.json";
 import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
 import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
+import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -318,9 +320,9 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
             <GraphBox>
-              <ManLiteracyEmployeeReg
-                data={menliteracyEmployeeReg}
-              ></ManLiteracyEmployeeReg>
+              <ManLiteracyEmployeeScatter
+                data={menliteracyEmployeeScatter}
+              ></ManLiteracyEmployeeScatter>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
