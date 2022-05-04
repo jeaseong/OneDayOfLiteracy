@@ -187,7 +187,7 @@ class postService {
 
     const updated = await Like.deleteAllByPostId({ postId });
 
-    // Boolean indicating everything went smoothly. 
+    // .acknowledged : Boolean indicating everything went smoothly. 
     //[출처] : https://mongoosejs.com/docs/api.html#model_Model.updateMany
     if(!updated.acknowledged){
       return { errorMessage: "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다." };

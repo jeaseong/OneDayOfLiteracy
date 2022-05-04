@@ -35,18 +35,17 @@ async function findByPagination2(model, options = {}, query = {}, extraQueryList
     .find(query)
     .lean()
     .select("-__v")
-    .populate("subjectId", "_id subject level category point")
-    .populate({ path: "userLikesCount", select: { _id: 0, userLikesCount: 1 }});
+    .populate("subject", "-_id subject")
 
   // extraQueryList 예시
   // const extraQuery = [
   //     {lean: undefined},
-  //     {populate: ["userLikesCount", { _id: 0, userLikesCount: 1 }]}
-  //     {sort: { userLikesCount: 1 }}
+  //     {populate: ["userId", { _id: 0, email: 1, level: 1, point: 1 }]}
+  //     {sort: { title: 1 }}
   // ];
 
   const totalQuery = extraQueryList.reduce((acc, cur) => {
-    // cur이 {sort: { userLikesCount: 1 }} 이면 => Object.keys(cur)[0] 은 'sort'
+    // cur이 {sort: { userId.level: 1 }} 이면 => Object.keys(cur)[0] 은 'sort'
     return addMatchedQuery(acc, Object.keys(cur)[0], Object.values(cur)[0]);
   }, baseQuery);
 
