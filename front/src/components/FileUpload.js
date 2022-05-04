@@ -25,8 +25,8 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
     formData.append("prevImage", prevImage);
 
     try {
-      await uploadFile(`uploads/${type}/${id}`, formData);
-      if (type === "user") {
+      await uploadFile(`${type}/${id}/uploadImage`, formData);
+      if (type === "users") {
         queryClient.invalidateQueries("userState");
         queryClient.invalidateQueries(["user", id]);
       }

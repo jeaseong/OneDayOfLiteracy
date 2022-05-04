@@ -56,7 +56,7 @@ function UserCard({ editStateStore, children }) {
 
   // 프로필 이미지 업로드
   const profileImageData = {
-    type: "user",
+    type: "users",
     id: userProfile.data._id,
     prevImage: userProfile.data.profileUrl,
     showAlert,
