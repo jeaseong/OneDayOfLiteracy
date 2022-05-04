@@ -29,22 +29,23 @@ import { del } from "../../utils/api";
 
 function Post() {
   const params = useParams();
+  const { postId } = params;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data, isFetching } = useGetPost(params.postId);
+  const { data, isFetching } = useGetPost(postId);
 
   // 유저 정보
   const { userState, isLogin } = queryClient.getQueryData("userState");
   useGetProfileUser(userState._id);
 
   // 게시글의 좋아요 카운트 get, 카운트수정 훅
-  const likeCount = useGetPostLikeCount(params.postId);
-  const likeMutation = usePostLikeCount(params.postId);
+  const likeCount = useGetPostLikeCount(postId);
+  const likeMutation = usePostLikeCount(postId);
 
   // 좋아요 추가, 취소 커스텀훅
-  const postAddLike = usePostLikeAdd(params.postId, userState._id);
-  const postDislike = usePostDislike(params.postId, userState._id);
-  const isPostLike = userState.postLikes.includes(params.postId);
+  const postAddLike = usePostLikeAdd(postId, userState._id);
+  const postDislike = usePostDislike(postId, userState._id);
+  const isPostLike = userState.postLikes.includes(postId);
 
   if (isFetching || likeCount.isFetching) return <Loading />;
 
@@ -52,7 +53,7 @@ function Post() {
 
   const handleDeletePost = async () => {
     try {
-      await del(`posts/${params.postId}`);
+      await del(`posts/${postId}`);
       queryClient.invalidateQueries("user");
       queryClient.invalidateQueries("posts");
       navigate("/posts");

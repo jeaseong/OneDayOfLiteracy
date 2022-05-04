@@ -110,3 +110,9 @@ export const LEVEL_MAX_EXP = {
   LEVEL3: 1300,
   LEVEL4: 9999999,
 };
+
+export const URI = {
+  SORT_LIKE: `&sort[field]=likeCount&sort[type]=asc&`,
+  SORT_TITLE: `&sort[field]=title&sort[type]=asc&`,
+  SORT_AUTHOR: `&sort[field]=author&sort[type]=asc&`,
+};

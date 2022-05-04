@@ -3,21 +3,20 @@ import Loading from "../../components/Loading";
 import PostCard from "../Post/PostCard";
 import { useQueryClient } from "react-query";
 import { PopularityPostContainer } from "../../styles/Main/MainStyle";
-import { LABEL } from "../../utils/constants";
+import { LABEL, URI } from "../../utils/constants";
 import { Link } from "react-router-dom";
 
 function PopularityPost() {
   const queryClient = useQueryClient();
   const { userState, isLogin } = queryClient.getQueryData("userState");
 
-  const fetchURI = `posts?&sort[field]=likeCount&sort[type]=asc&`;
-  const { data, isFetching } = useGetPostList(fetchURI);
+  const { data, isFetching } = useGetPostList(`posts?${URI.SORT_LIKE}`);
 
   if (isFetching) return <Loading />;
 
   return (
     <>
-      <Link to={`/${fetchURI}`}>{LABEL.GET_MORE}</Link>
+      <Link to={`/posts?${URI.SORT_LIKE}`}>{LABEL.GET_MORE}</Link>
       <PopularityPostContainer>
         {data.pages[0].posts.map((post) => (
           <PostCard
