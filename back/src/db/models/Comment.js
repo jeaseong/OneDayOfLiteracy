@@ -76,8 +76,21 @@ class Comment {
       toUpdate,
       option
     );
-
+    
     return deletedComment;
+  }
+
+  static async deleteAllByPostId({ postId }){
+    // soft delete 방식 사용
+    const filter = { postId };
+    const toUpdate = { isDeleted: true };
+
+    const deletedComments = await CommentModel.updateMany(
+      filter,
+      toUpdate
+    );
+
+    return deletedComments;
   }
 }
 
