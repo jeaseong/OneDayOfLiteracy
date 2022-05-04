@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { usePostComment } from "queries/commentQuery";
 import {
   WriteComment,
   InputBox,
@@ -9,10 +10,10 @@ import {
   Profile,
   FocusInput,
 } from "styles/Comment/CommentStyle";
-import { post } from "utils/api";
 export default function CommentInput({ parentId = null }) {
-  const postId = useParams();
+  const params = useParams();
   const queryClient = useQueryClient();
+  const postComment = usePostComment();
   const [curComment, setCurComment] = useState("");
   const { userState } = queryClient.getQueryData("userState");
   // postId를 얻어야하지 않겠어?
@@ -22,17 +23,14 @@ export default function CommentInput({ parentId = null }) {
   const onSubmiComment = async (e) => {
     e.preventDefault();
     const comment = {
-      postId: postId,
+      postId: params.postId,
       content: curComment,
       author: userState.nickname,
       userId: userState.id,
       parentId: parentId,
     };
-    try {
-      await post("comments", comment);
-    } catch (e) {
-      console.log(e);
-    }
+    postComment.mutate(comment);
+    setCurComment("");
   };
   return (
     <WriteComment onSubmit={onSubmiComment}>
@@ -41,6 +39,7 @@ export default function CommentInput({ parentId = null }) {
         <InputComment
           type="text"
           value={curComment}
+          required
           onChange={onChangeWriteComment}
         />
         <FocusInput />
