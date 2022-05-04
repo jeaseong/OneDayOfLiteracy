@@ -15,7 +15,7 @@ export default function TrainingStepThree() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("subjects/level", "1");
+      const res = await get(`subjects/level=3`);
       setSubject(res.data);
     };
     fetchApi();
