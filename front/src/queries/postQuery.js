@@ -4,7 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from "react-query";
-import { get, patch } from "../utils/api";
+import { get, patch, post } from "../utils/api";
 
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
@@ -14,8 +14,8 @@ export function useGetPostList(endpoint = "") {
   };
 
   return useInfiniteQuery(["posts", endpoint], fetchPostList, {
-    staleTime: 30000,
-    cacheTime: 60000,
+    staleTime: 5000,
+    cacheTime: 1500,
     getNextPageParam: (lastPage) =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
   });
@@ -28,8 +28,8 @@ export function useGetPost(id) {
   };
 
   return useQuery(["post", id], fetchPost, {
-    staleTime: 30000,
-    cacheTime: 60000,
+    staleTime: 5000,
+    cacheTime: 1500,
     onError: (err) => console.log(err),
   });
 }
@@ -41,8 +41,8 @@ export function useGetPostLikeCount(id) {
   };
 
   return useQuery(["likeCnt", id], fetchPost, {
-    staleTime: 30000,
-    cacheTime: 60000,
+    staleTime: 5000,
+    cacheTime: 1500,
     onError: (err) => console.log(err),
   });
 }
@@ -76,7 +76,7 @@ export const usePostLikeAdd = (postId, userId) => {
       };
     },
     onSuccess: () =>
-      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
+      queryClient.invalidateQueries("posts", `users/${userId}/likes?`),
     onError: (err, rollback) => rollback(),
   });
 };
@@ -110,7 +110,7 @@ export const usePostDislike = (postId, userId) => {
       };
     },
     onSuccess: () =>
-      queryClient.invalidateQueries(["posts", `likes/user/${userId}?`]),
+      queryClient.invalidateQueries(["posts", `users/${userId}/likes?`]),
     onError: (err, rollback) => rollback(),
   });
 };

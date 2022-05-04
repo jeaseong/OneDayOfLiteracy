@@ -40,8 +40,8 @@ export function useGetProfileUser(id) {
       return res.data;
     },
     {
-      staleTime: 30000,
-      cacheTime: 60000,
+      staleTime: 5000,
+      cacheTime: 1500,
       onError: () =>
         queryClient.setQueryData(["user", id], { role: "visitor" }),
     }
