@@ -174,7 +174,7 @@ class userAuthService {
       const randomString = Math.random().toString(10).slice(2, 10);
       const email = `kakaouser${randomString}@test.com`;
 
-      const user = User.findByEmail({ email });
+      const user = await User.findByEmail({ email });
       if (!user) {
         break;
       }

@@ -68,7 +68,7 @@ class commentService {
   // 게시글 삭제 시에 진행할 댓글 삭제 Service
   static async deleteCommentsByPostId({ postId }){
     const comments = await Comment.findAllByPostId({ postId });
-    comments.forEach(comment => {
+    comments.forEach(async (comment) => {
       const deletedComment = await Comment.delete({ commentId: comment.userId._id });
       if(!deletedComment._doc["isDeleted"]){
         return { errorMessage: "댓글이 정상적으로 삭제되지 않았습니다.(back-error)"}

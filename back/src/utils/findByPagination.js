@@ -21,7 +21,7 @@ const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
 }
 // model 과 { query, page, limit } 으로 페이지네이션
 
-async function findByPagination2(model, options = {}, query = {}, extraQueryList = [{ sort: { updatedAt: -1 } },]) {
+async function findByPagination2(model, options = {}, query = {}, extraQueryList = [{ sort: { createdAt: -1 } },]) {
   
   const page = options?.page ?? null;
   const limit = options?.limit ?? null;

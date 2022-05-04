@@ -218,9 +218,9 @@ class postService {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
     }
 
-    posts.forEach( post => {
+    posts.forEach( async (post) => {
       const postId = post["_id"];
-      const updated = Like.deleteAllByPostId({ postId });
+      const updated = await Like.deleteAllByPostId({ postId });
       if(!updated.acknowledged){
         return {
           errorMessage:
@@ -233,8 +233,6 @@ class postService {
       }
     });
 
-    
-    
     return { errorMessage: null };
   }
 }
