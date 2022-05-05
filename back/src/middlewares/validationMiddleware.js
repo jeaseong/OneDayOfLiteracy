@@ -47,6 +47,26 @@ const isValidData = (type) => {
           return Promise.reject(error);
         }
       })
+    
+    case "user-sorting":
+      return query("sort", "sort 쿼리 스트링이 올바르지 않습니다.").custom(async (value) => {
+        try{
+          const sortTypes = ["asc", "desc", "ascending", "descending"];
+          const sortFields = ["nickname", "email", "level", "point"];
+          if(value === undefined){ // sort 쿼리 스트링를 사용하지 않는 경우
+            return Promise.resolve("sorting validation success");
+          }
+          if(!sortTypes.includes(value.type)){
+            throw new Error(`정렬 타입은 ["asc", "desc", "ascending", "descending"] 중에 하나입니다.`);
+          }
+          if(!sortFields.includes(value.field)){
+            throw new Error(`정렬 필드는 ["nickname", "email", "level", "point"] 중에 하나입니다.`);
+          }
+          return Promise.resolve("sorting validation success");
+        } catch(error) {
+          return Promise.reject(error);
+        }
+      })
 
     case "userword-post":
       return body("word", "단어 정보가 올바르지 않습니다.").exists().isString().isIn(quizWords);

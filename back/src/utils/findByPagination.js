@@ -1,6 +1,7 @@
 import { typeName } from "./validation/typeName";
 
 const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
+  
   switch(queryPrototype){
     case "sort":
       return baseQuery.sort(queryArg);
@@ -17,6 +18,9 @@ const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
       } else if(typeName(queryArg) === "Array"){
         return baseQuery.populate(queryArg[0], queryArg[1]);
       }
+
+    case "select":
+      return baseQuery.select(queryArg);
   }
 }
 // model 과 { query, page, limit } 으로 페이지네이션
@@ -35,7 +39,7 @@ async function findByPagination2(model, options = {}, query = {}, extraQueryList
     .find(query)
     .lean()
     .select("-__v")
-    .populate("subject", "-_id subject")
+    
 
   // extraQueryList 예시
   // const extraQuery = [

@@ -6,6 +6,7 @@ import { userAuthService } from "../services/userService";
 import config from "../config";
 import axios from "axios";
 import assert from "assert";
+import { typeName } from "../utils/validation/typeName";
 
 const userAuthRouter = Router();
 
@@ -118,11 +119,27 @@ userAuthRouter
 });
 
 // GET /users : 전체 user 조회
-// /users/category={String}&content={String}&sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
-userAuthRouter.get("/users", async (req, res, next) => {
+// /users?sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+userAuthRouter.get(
+  "/users", 
+  isValidData("user-sorting"),
+  invalidCallback,
+  async (req, res, next) => {
   try {
     // pagination 필요
-    const users = await userAuthService.getUsers();
+    const { sort, page, limit } = req.query;
+    
+    const TypeCheck = (variable) => {
+      if (typeName(variable) === "Array" || typeName(variable) == "Object") {
+        throw new Error(
+          `${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`
+        );
+      }
+    };
+    TypeCheck(limit);
+    TypeCheck(page);
+
+    const users = await userAuthService.getUsers({ sort, page, limit });
     res.status(200).json(users);
   } catch (error) {
     next(error);
