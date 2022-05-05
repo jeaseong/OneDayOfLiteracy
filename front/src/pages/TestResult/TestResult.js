@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { get } from "../../utils/api";
-import { TEST_RESULT } from "../../utils/constants";
+import { get } from "utils/api";
+import { TEST_RESULT } from "utils/constants";
 import {
   TestResultContainer,
   TestResultWrap,
@@ -9,7 +9,8 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-} from "../../styles/Test/TestResultStyle";
+} from "styles/Test/TestResultStyle";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useQueryClient } from "react-query";
 

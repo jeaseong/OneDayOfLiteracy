@@ -1,7 +1,9 @@
-import Slide from "../../components/Slide/Slide";
-import { Img } from "../../styles/Components/ComponentStyle";
+import { useRef, useEffect, useState } from "react";
+import Slide from "components/Slide/Slide";
+import { Img } from "styles/Components/ComponentStyle";
 import {
   HomeContainer,
+  FullBanner,
   Homepage,
   ContentsContainer,
   Dot,
@@ -11,9 +13,8 @@ import {
   HomeContents,
   TextContent,
   GraphBox,
-} from "../../styles/Home/HomeStyle";
-import { img } from "../../utils/imgImport";
-import { useRef, useEffect, useState } from "react";
+} from "styles/Home/HomeStyle";
+import { img } from "utils/imgImport";
 
 import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
@@ -127,7 +128,9 @@ function Home() {
 
   return (
     <HomeContainer ref={fullpageRef}>
-      <Slide elements={BANNERS} />
+      <FullBanner>
+        <Slide elements={BANNERS} />
+      </FullBanner>
       <DotsBox>
         <Dots>{dotsRendering().map((dot) => dot)}</Dots>
       </DotsBox>

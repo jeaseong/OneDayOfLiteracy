@@ -1,5 +1,5 @@
 import React from "react";
-import { ProcessContainer, NextBtn } from "../../styles/Test/TestStyle";
+import { ProcessContainer, NextBtn } from "styles/Test/TestStyle";
 
 export default function TestProcessBtn({
   step,

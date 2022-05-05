@@ -11,9 +11,9 @@ import {
   Tag,
   PostsLike,
   LikeButton,
-} from "../../styles/Posts/PostStyle";
+} from "styles/Posts/PostStyle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
+import { usePostLikeAdd, usePostDislike } from "queries/postQuery";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 

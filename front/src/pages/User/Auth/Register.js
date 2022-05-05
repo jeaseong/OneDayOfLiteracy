@@ -7,26 +7,19 @@ import {
   AuthInput,
   AuthInputTopBox,
   AuthContentForm,
-} from "../../../styles/User/AuthStyle";
-import { img } from "../../../utils/imgImport";
-import {
-  HeadingTwo,
-  Button,
-  LinkButton,
-} from "../../../styles/Components/CommonStyle";
-import {
-  CustomSnackbar,
-  setAlertData,
-} from "../../../components/CustomSnackbar";
+} from "styles/User/AuthStyle";
+import { img } from "utils/imgImport";
+import { HeadingTwo, Button, LinkButton } from "styles/Components/CommonStyle";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useState } from "react";
-import { validation } from "../../../utils/validation";
+import { validation } from "utils/validation";
 import {
   FAIL_MESSAGE,
   ALERT_TYPE,
   LABEL,
   GUIDE_MESSAGE,
-} from "../../../utils/constants";
-import { post } from "../../../utils/api";
+} from "utils/constants";
+import { post } from "utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**

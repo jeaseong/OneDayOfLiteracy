@@ -1,8 +1,8 @@
 import React from "react";
 
-import { TrainingStepIntroduction } from "../../../styles/Training/TrainingStyle";
-import { TRANSCRIPTION_INTRODUCTION } from "../../../utils/constants";
-import { createMarkup } from "../../../utils/setInnerHTML";
+import { TrainingStepIntroduction } from "styles/Training/TrainingStyle";
+import { TRANSCRIPTION_INTRODUCTION } from "utils/constants";
+import { createMarkup } from "utils/setInnerHTML";
 
 export const TranscriptionDescription = [
   <TrainingStepIntroduction

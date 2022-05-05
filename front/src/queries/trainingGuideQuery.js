@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { get } from "../utils/api";
+import { get } from "utils/api";
 
 export function useTrainingGuide() {
   const { isfetching, error, data } = useQuery(

@@ -7,18 +7,15 @@ import {
   ChangeButton,
   ProfileImgBox,
   ProfileChangeBox,
-} from "../../../styles/User/ProfileStyle";
-import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "../../../utils/constants";
-import FileUpload from "../../../components/FileUpload";
-import {
-  CustomSnackbar,
-  setAlertData,
-} from "../../../components/CustomSnackbar";
+} from "styles/User/ProfileStyle";
+import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "utils/constants";
+import FileUpload from "components/FileUpload";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useGetProfileUser } from "../../../queries/userQuery";
-import Loading from "../../../components/Loading";
-import ErrorPage from "../../../components/ErrorPage";
+import { useGetProfileUser } from "queries/userQuery";
+import Loading from "components/Loading";
+import ErrorPage from "components/ErrorPage";
 
 /**
  * 프로필 페이지의 유저 카드 컴포넌트입니다.

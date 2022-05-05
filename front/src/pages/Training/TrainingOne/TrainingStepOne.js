@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import WordTraining from "./WordTraining";
-import TrainingGuide from "../TrainingGuide";
+import WordTraining from "pages/Training/TrainingOne/WordTraining";
+import TrainingGuide from "pages/Training/TrainingGuide";
 import {
   TrainingSubjectContainer,
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
-} from "../../../styles/Training/TrainingStyle";
-import { TRAINING_INTRODUNCTION } from "../../../utils/constants";
-import { createMarkup } from "../../../utils/setInnerHTML";
-import { get } from "../../../utils/api";
+} from "styles/Training/TrainingStyle";
+import { TRAINING_INTRODUNCTION } from "utils/constants";
+import { createMarkup } from "utils/setInnerHTML";
+import { get } from "utils/api";
 
 function TrainingStepOne() {
   const [subject, setSubject] = useState({});

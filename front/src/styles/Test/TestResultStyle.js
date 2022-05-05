@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexBoxCenter } from "../Components/CommonStyle";
+import { FlexBoxCenter } from "styles/Components/CommonStyle";
 
 export const TestResultContainer = styled(FlexBoxCenter)`
   width: 100%;

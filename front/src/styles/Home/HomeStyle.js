@@ -10,6 +10,13 @@ export const HomeContainer = styled.section`
   }
 `;
 
+export const FullBanner = styled.div`
+  height: calc(100vh - 100px);
+  overflow: hidden;
+  background-color: #ffffff;
+  box-sizing: border-box;
+`;
+
 export const HomeWrap = styled.div``;
 
 export const Dot = styled.div`

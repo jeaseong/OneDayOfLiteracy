@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { useUserLevelUp } from "queries/levelQuery";
 import {
   CardContent,
   CardIntroduce,
@@ -9,15 +13,11 @@ import {
   ProfileNickName,
   ProfilePostCount,
   ProfileTitleBox,
-} from "../../../styles/User/ProfileStyle";
-import { HeadingTwo } from "../../../styles/Components/CommonStyle";
-import { LABEL } from "../../../utils/constants";
-import { useParams, Link } from "react-router-dom";
-import { useQueryClient } from "react-query";
-import { checkUserExpPercent } from "../../../utils/level";
-import { useUserLevelUp } from "../../../queries/levelQuery";
-import { useEffect } from "react";
-import { img } from "../../../utils/imgImport";
+} from "styles/User/ProfileStyle";
+import { HeadingTwo } from "styles/Components/CommonStyle";
+import { LABEL } from "utils/constants";
+import { img } from "utils/imgImport";
+import { checkUserExpPercent } from "utils/level";
 
 /**
  * 프로필 정보 컴포넌트입니다.

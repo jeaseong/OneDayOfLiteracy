@@ -1,8 +1,8 @@
 import React from "react";
-import { useTrainingGuide } from "../../queries/trainingGuideQuery";
+import { useTrainingGuide } from "queries/trainingGuideQuery";
 import TrainingStep from "./TrainingStep";
-import CardSkeleton from "../../components/CardSkeleton";
-import { TrainingContainer } from "../../styles/Training/TrainingStyle";
+import CardSkeleton from "components/CardSkeleton";
+import { TrainingContainer } from "styles/Training/TrainingStyle";
 import { dumy } from "./dumyData";
 
 export default function Training() {
