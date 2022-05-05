@@ -49,10 +49,8 @@ class commentService {
   static async setComment({ commentId, toUpdate }){
     const comment = await Comment.findById({ commentId });
     if(!comment) return { errorMessage: "존재하지 않는 댓글입니다."};
-    
-    for(const key in Object.keys(toUpdate)){
-      if(!toUpdate[key]) delete toUpdate[key];
-    }
+
+    if (!toUpdate['content']) return { errorMessage: "수정 내용이 없습니다."};
 
     const updatedComment = await Comment.update({ commentId, toUpdate });
     return updatedComment;

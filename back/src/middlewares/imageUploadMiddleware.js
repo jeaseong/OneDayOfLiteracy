@@ -48,11 +48,11 @@ const deleteImg = async (req, res, next) => {
     objectKey = req.path.split("/")[1] + "/" + req.body.key;
   }
 
-  if (objectKey?.indexOf("default") !== -1) {
+  if (objectKey && objectKey.indexOf("default") !== -1) {
     objectKey = null;
   }
   
-  if (objectKey !== null) {
+  if (!objectKey) {
     console.log("이전파일명", objectKey) 
     S3.deleteObject({
       Bucket : 'team2',
