@@ -23,7 +23,7 @@ class commentService {
     const post = await Post.findById({ postId });
     if (!post) return { errorMessage: "존재하지 않는 게시글입니다. " };
 
-    const query = { postId, parentId: null };
+    const query = { postId, parentId: null, isDeleted: false };
     //page 혹은 limit의 값이 "", undefined 이런 경우 => 페이지네이션 안한다.
     if (!page || !limit) {
       const comments = await Comment.findByPostId({ query })

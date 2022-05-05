@@ -6,6 +6,7 @@ import { commentService } from "./commentService";
 import { postService } from "./postService";
 import { resultService } from "./resultService";
 import { userWordService } from "./userWordService";
+import { likeService } from "./likeService";
 import { typeName } from "../utils/validation/typeName";
 
 class userAuthService {
@@ -164,12 +165,14 @@ class userAuthService {
     // 해당 유저 삭제
     
     try {
+      const user = await User.findById({ userId });
       const deletedResults =
         await Promise.all([
           commentService.deleteCommentsByUserId({ userId }),
           postService.deletePostsByUserId({ userId }),
           resultService.deleteResultByUserId({ userId }),
           userWordService.deleteUserWordByUserId({ userId }),
+          likeService.deleteLikeCountByPostIds({ postIds: user.postLikes }),
         ]);
       
       if(typeName(deletedResults) !== "Array"){
