@@ -269,14 +269,14 @@ userAuthRouter.delete(
         assert(kakaoId === user.kakaoId, "카카오 계정 연결 해제 오류");
       }
       
-      
+      res.status(200).send("success");
 
       const deletedUser = await userAuthService.deleteUser({ userId });
 
       if (deletedUser.deletedCount !== 1) {
         throw new Error("정상적으로 삭제되지 않았습니다.");
       }
-      res.status(200).send("success");
+      
     } catch (error) {
       next(error);
     }

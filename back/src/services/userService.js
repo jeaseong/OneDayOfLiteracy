@@ -2,6 +2,11 @@ import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../config";
+import { commentService } from "./commentService";
+import { postService } from "./postService";
+import { resultService } from "./resultService";
+import { userWordService } from "./userWordService";
+import { typeName } from "../utils/validation/typeName";
 
 class userAuthService {
   // 유저 추가(회원 가입)
@@ -157,6 +162,22 @@ class userAuthService {
   // 유저 삭제 (회원 탈퇴)
   static async deleteUser({ userId }) {
     // 해당 유저 삭제
+    
+    try {
+      const deletedResults =
+        await Promise.all([
+          commentService.deleteCommentsByUserId({ userId }),
+          postService.deletePostsByUserId({ userId }),
+          resultService.deleteResultByUserId({ userId }),
+          userWordService.deleteUserWordByUserId({ userId }),
+        ]);
+      
+      if(typeName(deletedResults) !== "Array"){
+        throw new Error(deletedResults);
+      }
+    } catch (error) {
+      return { errorMessage: error.errorMessage };
+    }
     const deletedUser = await User.delete({ userId });
     return deletedUser;
   }

@@ -50,7 +50,7 @@ class commentService {
     const comment = await Comment.findById({ commentId });
     if(!comment) return { errorMessage: "존재하지 않는 댓글입니다."};
     
-    for(key in Object.keys(toUpdate)){
+    for(const key in Object.keys(toUpdate)){
       if(!toUpdate[key]) delete toUpdate[key];
     }
 
@@ -69,6 +69,16 @@ class commentService {
   // 게시글 삭제 시에 진행할 댓글 삭제 Service
   static async deleteCommentsByPostId({ postId }){
     const deletedComment = await Comment.deleteAllByPostId({ postId });
+
+    if(!deletedComment.acknowledged){
+      return { errorMessage: "댓글이 정상적으로 삭제되지 않았습니다.(back-error)"}
+    }
+    return { success: true };
+  }
+
+  // 유저 탈퇴 시에 진행할 댓글 삭제 Service
+  static async deleteCommentsByUserId({ userId }){
+    const deletedComment = await Comment.deleteAllByUserId({ userId });
 
     if(!deletedComment.acknowledged){
       return { errorMessage: "댓글이 정상적으로 삭제되지 않았습니다.(back-error)"}

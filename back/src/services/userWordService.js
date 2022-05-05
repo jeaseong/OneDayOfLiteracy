@@ -33,9 +33,9 @@ class userWordService{
     }
 
     // 유저 탈퇴 시 진행될 단어 삭제 Service
-    static async deleteUserWord({ userId }){
+    static async deleteUserWordByUserId({ userId }){
         const deleted = await UserWord.deleteByUserId({ userId });
-        if(!deleted.acknowledged){
+        if(!deleted.deletedCount !== 1){
             const errorMessage = "해당 유저의 단어 삭제가 정상적으로 이뤄지지 않았습니다.";
             return { errorMessage };
         }

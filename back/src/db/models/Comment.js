@@ -67,7 +67,7 @@ class Comment {
 
   static async delete({ commentId }) {
     // soft delete 방식 사용
-    const filter = { _id: commentId };
+    const filter = { _id: commentId, isDeleted: { $eq: false } };
     const toUpdate = { isDeleted: true };
     const option = { returnOriginal: false };
 
@@ -82,7 +82,20 @@ class Comment {
 
   static async deleteAllByPostId({ postId }){
     // soft delete 방식 사용
-    const filter = { postId };
+    const filter = { postId, isDeleted: { $eq: false } };
+    const toUpdate = { isDeleted: true };
+
+    const deletedComments = await CommentModel.updateMany(
+      filter,
+      toUpdate
+    );
+
+    return deletedComments;
+  }
+
+  static async deleteAllByUserId({ userId }){
+    // soft delete 방식 사용
+    const filter = { userId, isDeleted: { $eq: false } };
     const toUpdate = { isDeleted: true };
 
     const deletedComments = await CommentModel.updateMany(
