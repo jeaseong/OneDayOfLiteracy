@@ -31,6 +31,7 @@ export const LABEL = {
   CANCLE: "취소",
   PROFILE: "프로필",
   POST: "게시글",
+  POSTING: "새 글 작성",
   USER_POST: "작성한 게시글",
   USER_LIKE_POST: "좋아한 게시글",
   USER_EXP: "경험치",

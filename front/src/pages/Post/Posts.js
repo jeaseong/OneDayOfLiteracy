@@ -9,6 +9,7 @@ import ErrorPage from "components/ErrorPage";
 import { useQueryClient } from "react-query";
 import { useGetProfileOwner } from "queries/userQuery";
 import PostFilter from "./PostFilter";
+import SearchContent from "../../components/Search/SearchContent";
 
 function Posts() {
   const location = useLocation();
@@ -31,7 +32,7 @@ function Posts() {
 
   return (
     <>
-      <button onClick={() => navigate("/post")}>글쓰기</button>
+      <SearchContent />
       <PostFilter />
       <PostsContainer>
         {data?.pages.map((page, index) => (

@@ -7,7 +7,7 @@ export const SearchContainerBox = styled.form`
   display: flex;
   justify-content: center;
   height: 76px;
-  margin: 25px auto;
+  margin: 25px auto 0 auto;
 `;
 
 export const SearchButton = styled(Button)`
