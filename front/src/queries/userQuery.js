@@ -64,6 +64,24 @@ export function useGetProfileOwner(id) {
   );
 }
 
+export function useGetUserRank() {
+  const queryClient = useQueryClient();
+  return useQuery(
+    "expRank",
+    async () => {
+      const res = await get(
+        `users?sort[field]=point&sort[type]=desc&page=1&limit=3`
+      );
+      return res.data;
+    },
+    {
+      staleTime: 5000,
+      cacheTime: 1500,
+      onError: () => queryClient.setQueryData("expRank", []),
+    }
+  );
+}
+
 /**
  * 유저 로그인 핸들러입니다.
  * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
