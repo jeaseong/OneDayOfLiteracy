@@ -8,6 +8,7 @@ import { resultService } from "./resultService";
 import { userWordService } from "./userWordService";
 import { likeService } from "./likeService";
 import { typeName } from "../utils/validation/typeName";
+import { addPoint, getPoint } from "../utils/levelSystem/Point";
 
 class userAuthService {
   // 유저 추가(회원 가입)
@@ -63,7 +64,7 @@ class userAuthService {
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     const loginUser = {
-      ...user._doc,
+      ...user,
       token,
       errorMessage: null,
     };
@@ -88,7 +89,7 @@ class userAuthService {
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     const loginUser = {
-      ...user._doc,
+      ...user,
       token,
       errorMessage: null,
     };
@@ -110,10 +111,12 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
+
     try {
-      delete user._doc["password"];
+      delete user["password"];
     } finally {
-      return user;
+      const userWithExp = getPoint({ user });
+      return userWithExp;
     }
   }
 
@@ -121,7 +124,13 @@ class userAuthService {
   static async getUserByKakaoId({ kakaoId }) {
     const user = await User.findByKakaoId({ kakaoId });
 
-    return user;
+    try {
+      delete user["password"];
+    } finally {
+      const userWithExp = getPoint({ user });
+      return userWithExp;
+    }
+    
   }
 
   // 전체 유저 조회
@@ -154,9 +163,10 @@ class userAuthService {
     
     user = await User.update({ userId, toUpdate });
     try {
-      delete user._doc["password"];
+      delete user["password"];
     } finally {
-      return user;
+      const userWithExp = getPoint({ user });
+      return userWithExp;
     }
   }
 

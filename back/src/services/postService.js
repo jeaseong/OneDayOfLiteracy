@@ -2,6 +2,7 @@ import { User, Post, Subject, Like } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
 import { commentService } from "./commentService";
+import { addPoint, getPoint } from "../utils/levelSystem/Point";
 
 class postService {
   static async addPost({
@@ -41,13 +42,10 @@ class postService {
     const createdNewPost = await Post.create({ newPost });
     createdNewPost.errorMessage = null;
 
-    // 작성한 user의 포인트 적립 (기존 포인트 + 작성한 글 포인트)
-    const points = user.point + subject.point;
-
-    await User.update({
-      userId: user._id,
-      toUpdate: { point: points },
-    });
+    const addPointResult = await addPoint({ subject, user });
+    if(addPointResult.errorMessage){
+      return { errorMessage: addPointResult.errorMessage };
+    }
 
     return createdNewPost;
   }

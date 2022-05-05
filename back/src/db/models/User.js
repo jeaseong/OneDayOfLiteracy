@@ -8,12 +8,12 @@ class User {
 
   static async findById({ userId }) {
     
-    const user = await UserModel.findOne({ _id: userId }, { __v: 0}).populate('posts');
+    const user = await UserModel.findOne({ _id: userId }, { __v: 0}).lean().populate('posts');
     return user;
   }
 
   static async findByKakaoId({ kakaoId }) {
-    const user = await UserModel.findOne({ kakaoId });
+    const user = await UserModel.findOne({ kakaoId }).lean();
     return user;
   }
 
@@ -25,12 +25,12 @@ class User {
       filter,
       toUpdate,
       option
-    );
+    ).lean();
     return updatedUser;
   }
 
   static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email }, {password: 0, __v: 0});
+    const user = await UserModel.findOne({ email }, {password: 0, __v: 0}).lean();
     return user;
   }
 
