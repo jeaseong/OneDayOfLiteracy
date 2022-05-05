@@ -57,7 +57,7 @@ export const Homepage = styled.div`
 export const ContentsContainer = styled.div`
   max-width: 1024px;
   min-height: 50vh;
-  background-color: #dcd0c8;
+  // background-color: #dcd0c8;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@ export const ContentsContainer = styled.div`
   align-items: center;
   margin-bottom: 7%;
   padding: 5%;
-  box-shadow: 0 0 8px #dcd0c8;
+  // box-shadow: 0 0 8px #dcd0c8;
   @media only screen and (max-width: 400px) {
     min-height: 60vh;
     margin-bottom: 30%;

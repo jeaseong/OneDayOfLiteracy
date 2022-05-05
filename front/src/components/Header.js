@@ -10,7 +10,6 @@ import {
   Navigation,
   NavList,
 } from "styles/Components/ComponentStyle";
-import SearchContent from "./Search/SearchContent";
 
 function Header() {
   const navigate = useNavigate();
@@ -58,7 +57,6 @@ function Header() {
           width="200px"
         ></img>
       </LogoContainer>
-      <SearchContent />
       <Navigation onChange={handleChange}>
         <NavList
           onClick={(e) => {
@@ -78,6 +76,7 @@ function Header() {
         </NavList>
         {isLogin ? (
           <>
+            <NavList onClick={() => navigate("/post")}>{LABEL.POSTING}</NavList>
             <NavList onClick={() => navigate(`/user/${userId}`)}>
               {LABEL.PROFILE}
             </NavList>

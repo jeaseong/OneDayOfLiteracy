@@ -1,16 +1,20 @@
+import React, { Fragment } from "react";
 import { ResponsiveBar } from "@nivo/bar";
+import { line } from "d3-shape";
+import pisaKScore from "../../data/pisaKScore.json";
 
-const MyResponsiveBar = ({ data /* see data tab */ }) => (
+const PisaSubjectScoreBar = ({ data }) => (
   <ResponsiveBar
     data={data}
-    keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-    indexBy="country"
+    keys={["Maths", "Science", "Reading"]}
+    indexBy="Year"
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-    padding={0.3}
+    padding={0}
+    // minValue={460}
     groupMode="grouped"
     valueScale={{ type: "linear" }}
-    indexScale={{ type: "band", round: false }}
-    colors={{ scheme: "yellow_orange_brown" }}
+    indexScale={{ type: "band", round: true }}
+    colors={{ scheme: "nivo" }}
     defs={[
       {
         id: "dots",
@@ -45,17 +49,14 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
         id: "lines",
       },
     ]}
-    borderColor={{
-      from: "color",
-      modifiers: [["opacity", "0.3"]],
-    }}
+    borderColor={{ theme: "background" }}
     axisTop={null}
     axisRight={null}
     axisBottom={{
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "country",
+      legend: "Year",
       legendPosition: "middle",
       legendOffset: 32,
     }}
@@ -63,7 +64,7 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "food",
+      legend: "Pisa Score",
       legendPosition: "middle",
       legendOffset: -40,
     }}
@@ -97,12 +98,14 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
         ],
       },
     ]}
+    tooltip={function () {}}
     role="application"
+    isFocusable={true}
     ariaLabel="Nivo bar chart demo"
     barAriaLabel={function (e) {
       return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
     }}
+    layers={["grid", "axes", "bars", "markers", "legends"]}
   />
 );
-
-export default MyResponsiveBar;
+export default PisaSubjectScoreBar;

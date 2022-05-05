@@ -30,6 +30,11 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
         queryClient.invalidateQueries("userState");
         queryClient.invalidateQueries(["user", id]);
       }
+
+      if (type === "posts") {
+        queryClient.invalidateQueries("post");
+        queryClient.invalidateQueries("posts");
+      }
     } catch (err) {
       setShowAlert(true);
     }
