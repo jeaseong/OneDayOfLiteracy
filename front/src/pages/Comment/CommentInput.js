@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { usePostComment } from "queries/commentQuery";
@@ -11,16 +11,21 @@ import {
   FocusInput,
 } from "styles/Comment/CommentStyle";
 export default function CommentInput({ parentId = null }) {
+  const inputRef = useRef();
   const params = useParams();
   const queryClient = useQueryClient();
   const postComment = usePostComment();
   const [curComment, setCurComment] = useState("");
   const { userState } = queryClient.getQueryData("userState");
-  // postId를 얻어야하지 않겠어?
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   const onChangeWriteComment = (e) => {
     setCurComment((cur) => e.target.value);
   };
-  const onSubmiComment = async (e) => {
+  const onSubmiComment = (e) => {
     e.preventDefault();
     const comment = {
       postId: params.postId,
@@ -32,6 +37,7 @@ export default function CommentInput({ parentId = null }) {
     postComment.mutate(comment);
     setCurComment("");
   };
+
   return (
     <WriteComment onSubmit={onSubmiComment}>
       <Profile />
@@ -39,8 +45,9 @@ export default function CommentInput({ parentId = null }) {
         <InputComment
           type="text"
           value={curComment}
-          required
           onChange={onChangeWriteComment}
+          ref={inputRef}
+          required
         />
         <FocusInput />
       </InputBox>
