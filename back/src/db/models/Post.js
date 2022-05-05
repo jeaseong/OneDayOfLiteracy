@@ -13,7 +13,8 @@ class Post {
     const post1 = PostModel.findOne({ _id: postId });
     const post = await post1
       .lean()
-      .populate("subject", { _id: 0, subject: 1 });
+      .populate("subject", { _id: 0, subject: 1 })
+      .populate("userId", { __v:0, password: 0 });
     return post;
   }
 

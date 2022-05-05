@@ -64,7 +64,13 @@ class postService {
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
 
     const userId = toUpdate.userId;
-    const subjectId = toUpdate.subjectId;
+    let subjectId = toUpdate.subjectId;
+
+    // subjectId 에 대한 검증(없는 경우 자유 글쓰기 주제이므로 Id 지정)
+    if (!subjectId) {
+      subjectId = "626f9108187d6e5687442e3b";
+      toUpdate.subjectId = subjectId;
+    }
 
     const user = await User.findById({ userId });
     const subject = await Subject.findById({ subjectId });
@@ -76,7 +82,7 @@ class postService {
     toUpdateField.forEach((key) => {
       if (!toUpdate[key]) delete toUpdate[key];
     });
-    
+
     const updatedPost = await Post.update({ postId, toUpdate });
     updatedPost.errorMessage = null;
     return updatedPost;
@@ -112,7 +118,7 @@ class postService {
     return posts;
   }
 
-  static async getTaggedPosts(page, limit, tags) {
+  static async getTaggedPosts({sort, page, limit, tags}) {
     const andList = [];
     tags.forEach((tag) => {
       const cond = { tags: { $regex: decodeURI(tag), $options: "iu" } };
@@ -122,7 +128,17 @@ class postService {
 
     const query = { $and: andList };
 
-    const posts = await Post.findAll(page, limit, query);
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
+
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList = [{ sort: sortOption }];
+    }
+
+    const posts = await Post.findAll(page, limit, query, extraQueryList);
     return posts;
   }
 

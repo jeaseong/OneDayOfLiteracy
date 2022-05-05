@@ -34,7 +34,7 @@ const isValidData = (type) => {
           const sortTypes = ["asc", "desc", "ascending", "descending"];
           const sortFields = ["title", "content", "author", "category", "createdAt", "updatedAt", "likeCount"];
           if(value === undefined){ // sort 쿼리 스트링를 사용하지 않는 경우
-            return Promise.resolve("post-sorting validation success");
+            return Promise.resolve("sorting validation success");
           }
           if(!sortTypes.includes(value.type)){
             throw new Error(`정렬 타입은 ["asc", "desc", "ascending", "descending"] 중에 하나입니다.`);
@@ -42,7 +42,7 @@ const isValidData = (type) => {
           if(!sortFields.includes(value.field)){
             throw new Error(`정렬 필드는 ["title", "content", "author", "category", "createdAt", "updatedAt"] 중에 하나입니다.`);
           }
-          return Promise.resolve("post-sorting validation success");
+          return Promise.resolve("sorting validation success");
         } catch(error) {
           return Promise.reject(error);
         }

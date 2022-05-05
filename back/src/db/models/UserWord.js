@@ -20,7 +20,6 @@ class UserWord{
             }
         }
 
-        console.log(filter, option, toUpdate);
         const updatedUserWord = await UserWordModel.findOneAndUpdate(
           filter,
           toUpdate,

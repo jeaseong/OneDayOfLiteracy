@@ -118,6 +118,7 @@ userAuthRouter
 });
 
 // GET /users : 전체 user 조회
+// /users/category={String}&content={String}&sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
 userAuthRouter.get("/users", async (req, res, next) => {
   try {
     // pagination 필요
@@ -229,7 +230,8 @@ userAuthRouter.patch("/users/:userId/removeImage",
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      assert(req.currentUserId !== userId, "유저 ID가 올바르지 않습니다.");
+      
+      assert(req.currentUserId === userId, "유저 ID가 올바르지 않습니다.");
 
       const toUpdate = {
         profileUrl: "https://team2.cdn.ntruss.com/users/default.png"

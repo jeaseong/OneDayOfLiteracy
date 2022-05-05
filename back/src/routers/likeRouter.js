@@ -23,7 +23,7 @@ likeRouter.patch("/users/:userId/like",
         throw new Error(newLike.errorMessage);
       }
     
-      res.status(201).send("success");
+      res.status(201).send({message: "success"});
     } catch (error) {
       next(error);
     };
@@ -47,7 +47,7 @@ likeRouter.patch("/users/:userId/cancelLike",
         throw new Error(deletedLike.errorMessage);
       }
 
-      res.status(200).send("성공적으로 삭제가 완료되었습니다.");
+      res.status(200).send({message: "성공적으로 삭제가 완료되었습니다."});
     } catch (error) {
       next(error);
     }
