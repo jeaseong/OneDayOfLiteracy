@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { useUserLevelUp } from "queries/levelQuery";
 import {
   CardContent,
   CardIntroduce,
@@ -16,7 +14,6 @@ import {
 import { HeadingTwo } from "styles/Components/CommonStyle";
 import { LABEL } from "utils/constants";
 import { img } from "utils/imgImport";
-import { checkUserExpPercent } from "utils/level";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -29,14 +26,8 @@ function UserInfomation() {
   const queryClient = useQueryClient();
 
   const userProfile = queryClient.getQueryData(["user", userId]);
-  const { nickname, level, introduce, point, posts, postLikes } = userProfile;
-
-  const { maxExp, expPercent } = checkUserExpPercent(level, point);
-  const handleLevelUp = useUserLevelUp(userId, maxExp);
-
-  useEffect(() => {
-    if (point >= maxExp) handleLevelUp.mutate();
-  }, []);
+  const { nickname, level, introduce, posts, postLikes, curExp, maxExp } =
+    userProfile;
 
   return (
     <CardContent>
@@ -53,8 +44,8 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
           <CardLikeCountBox>
             <ProfilePostCount>
-              {point} / {maxExp}
-              <progress value={expPercent} max="100" />
+              {curExp} / {maxExp}
+              <progress value={curExp} max={maxExp} />
             </ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
