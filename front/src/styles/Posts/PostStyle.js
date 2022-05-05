@@ -4,6 +4,7 @@ export const PostsContainer = styled.div`
   max-width: 1024px;
   display: grid;
   grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
   grid-gap: 16px;
   justify-content: center;
   padding: initial;
@@ -41,18 +42,12 @@ export const Posts = styled.div`
 
 export const PostImgContainer = styled.div`
   width: 100%;
+  height: 200px;
   overflow: hidden;
-  position: relative;
-  padding-top: 50%;
 `;
 
 export const PostsImage = styled.img`
-  position: absolute;
-  top: 0px;
-  left: 0px;
   width: 100%;
-  height: 100%;
-  display: block;
   object-fit: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
