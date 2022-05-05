@@ -10,7 +10,9 @@ import {
   ProfileNickName,
   ProfilePostCount,
   ProfileTitleBox,
-} from "styles/User/ProfileStyle";
+  ProfilecurExp,
+  ProfileExp,
+} from "styles/User/UserInfoStyle";
 import { HeadingTwo } from "styles/Components/CommonStyle";
 import { LABEL } from "utils/constants";
 import { img } from "utils/imgImport";
@@ -36,7 +38,6 @@ function UserInfomation() {
           <img src={img.level[level]} alt="level" /> &nbsp;
           <ProfileNickName>{nickname}</ProfileNickName>
         </ProfileTitleBox>
-        &nbsp;
         <ProfileIntroduce>{introduce}</ProfileIntroduce>
       </CardIntroduce>
       <CardMyInfo>
@@ -44,8 +45,10 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
           <CardLikeCountBox>
             <ProfilePostCount>
-              {curExp} / {maxExp}
-              <progress value={curExp} max={maxExp} />
+              <ProfilecurExp>
+                {curExp} / {maxExp}
+              </ProfilecurExp>
+              <ProfileExp value={curExp} max={maxExp} />
             </ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>

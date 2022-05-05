@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
 export const FlexBox = styled.div`
+  width: 100%;
   display: flex;
 `;
 
 export const FlexBoxCenter = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const HeadingTwo = styled.h2`
+  font-size: 14px;
+  margin-bottom: 5px;
   color: #c48f5a;
 `;
 

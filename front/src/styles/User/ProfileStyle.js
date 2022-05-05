@@ -9,11 +9,13 @@ import {
 
 export const MyPageContainer = styled(FlexBox)`
   flex-direction: column;
-  max-width: 1000px;
-  margin: 30px auto;
+  max-width: 1024px;
+  margin: 0 auto;
 `;
 
 export const MyPostContainer = styled(FlexBox)`
+  width: 100%;
+  height: 100%;
   margin: 25px 0;
 `;
 

@@ -28,13 +28,7 @@ export const Posts = styled.div`
   background-color: #ffffff;
   box-shadow: 0 0 5px #c48f5a;
   transition: all 0.2s ease-in-out;
-  overflow: hidden;
-  @media screen and (min-width: 512px) {
-    flex-basis: calc(50%-20px);
-  }
-  @media screen and (min-width: 768px) {
-    flex-basis: 30%;
-  }
+
   &:hover {
     transform: translateY(-10px);
   }
