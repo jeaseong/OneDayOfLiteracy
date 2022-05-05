@@ -66,3 +66,12 @@ export const LinkButton = styled.button`
 export const InputFile = styled.input`
   display: none;
 `;
+
+export const Img = styled.img.attrs((props) => ({
+  src: props.url,
+  alt: props.alt,
+}))`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;

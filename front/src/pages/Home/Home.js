@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import Slide from "components/Slide/Slide";
-import { Img } from "styles/Components/ComponentStyle";
+import { Img } from "styles/Components/CommonStyle";
 import {
   HomeContainer,
   FullBanner,
