@@ -2,13 +2,19 @@ import styled from "styled-components";
 import { LinkButton } from "styles/Components/CommonStyle";
 
 export const PostsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
   justify-content: center;
-  align-items: center;
+  padding: initial;
   margin: 50px auto;
   padding: 0 20px;
-  gap: 20px;
+  @media screen and (min-width: 512px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 export const Posts = styled.div`
@@ -20,10 +26,9 @@ export const Posts = styled.div`
   box-sizing: border-box;
   background-color: #ffffff;
   box-shadow: 0 0 5px #c48f5a;
-  flex-basis: 100%;
   transition: all 0.2s ease-in-out;
   @media screen and (min-width: 512px) {
-    flex-basis: 45%;
+    flex-basis: calc(50%-20px);
   }
   @media screen and (min-width: 768px) {
     flex-basis: 30%;
