@@ -9,7 +9,7 @@ export const useGetCommentList = (postId) => {
   };
 
   return useInfiniteQuery(["comments", postId], fetchCommentList, {
-    staleTime: 60000,
+    staleTime: 50000,
     cacheTime: 120000,
     getNextPageParam: (lastPage) =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
@@ -21,30 +21,28 @@ export const usePostComment = (postId) => {
   //comment에 parentId가 있으면 대댓글, 없으면 일반 부모 댓글
   // parentId 있으면 setQueryData 해줘야됨. 바로 보이게
   return useMutation(
-    async (comment) => await post(`posts/${comment.postId}/comments`, comment),
+    async (comment) => {
+      await post(`posts/${comment.postId}/comments`, comment);
+    },
     {
-      onMutate: (comment) => {
-        const curComments = queryClient.getQueryData([
-          "comments",
-          comment.postId,
-        ]);
+      onSuccess: () => {
+        queryClient.invalidateQueries("comments");
       },
-      onSuccess: () => queryClient.invalidateQueries(["comments", postId]),
 
       onError: (err) => console.log(err),
     }
   );
 };
 
-export const useUpdateComment = (commentId, content, postId) => {
+export const useUpdateComment = (postId) => {
   const queryClient = useQueryClient();
   return useMutation(
-    (commentId, content) => put(`comments/${commentId}`, content),
+    async (comment) =>
+      await put(`comments/${comment.commentId}`, {
+        content: comment.curComment,
+      }),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["comments", postId]);
-        console.log("성공?");
-      },
+      onSuccess: () => queryClient.invalidateQueries("comments"),
       onError: () => console.log("이게 모얌"),
     }
   );
@@ -52,7 +50,7 @@ export const useUpdateComment = (commentId, content, postId) => {
 
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
-  return useMutation((comment) => del(`comments/`, comment._id), {
+  return useMutation((commentId) => del(`comments/`, commentId), {
     onSuccess: () => {
       queryClient.invalidateQueries("comments");
     },
