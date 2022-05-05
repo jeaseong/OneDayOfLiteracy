@@ -229,7 +229,7 @@ userAuthRouter.patch("/users/:userId/removeImage",
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      assert(req.currentUserId !== userId, "유저 ID가 올바르지 않습니다.");
+      assert(req.currentUserId === userId, "유저 ID가 올바르지 않습니다.");
 
       const toUpdate = {
         profileUrl: "https://team2.cdn.ntruss.com/users/default.png"
