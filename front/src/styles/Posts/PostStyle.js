@@ -21,11 +21,15 @@ export const Posts = styled.div`
   background-color: #ffffff;
   box-shadow: 0 0 5px #c48f5a;
   flex-basis: 100%;
+  transition: all 0.2s ease-in-out;
   @media screen and (min-width: 512px) {
     flex-basis: 45%;
   }
   @media screen and (min-width: 768px) {
     flex-basis: 30%;
+  }
+  &:hover {
+    transform: translateY(-10px);
   }
 `;
 
