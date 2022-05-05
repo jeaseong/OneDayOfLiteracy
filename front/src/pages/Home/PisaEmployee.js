@@ -16,9 +16,45 @@ import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export const options = {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: "문해력과 고용률",
+      font: {
+        size: 20,
+      },
+    },
+    legend: {
+      position: "chartArea",
+      align: "start",
+      borderWidth: 0,
+    },
+  },
   scales: {
     y: {
       beginAtZero: true,
+
+      grid: {
+        display: false,
+      },
+    },
+    x: {
+      grid: {
+        display: false,
+      },
+    },
+  },
+  elements: {
+    point: {
+      radius: 5,
+      borderWidth: 0,
+      hoverRadius: 9,
+    },
+  },
+  datasets: {
+    line: {
+      pointRadius: 0,
     },
   },
 };
@@ -32,7 +68,8 @@ export const data = {
         x: v.x,
         y: v.y,
       })),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      borderColor: "rgba(53, 162, 235, 0.7)",
+      backgroundColor: "rgba(53, 162, 235, 0.8)",
     },
     {
       type: "scatter",
@@ -41,21 +78,22 @@ export const data = {
         x: v.x,
         y: v.y,
       })),
-      backgroundColor: "rgba(255, 99, 132, 1)",
+      borderColor: "rgba(255, 99, 132, 0.7)",
+      backgroundColor: "rgba(255, 99, 132, 0.8)",
     },
     {
       type: "line",
       label: "Male Regression",
       data: menliteracyEmployeeReg[0].data,
-      borderColor: "gray",
-      backgroundColor: "gray",
+      borderColor: "#F7D050",
+      backgroundColor: "#F7D050",
     },
     {
       type: "line",
       label: "Female Regression",
       data: womenliteracyEmployeeReg[0].data,
-      borderColor: "#005555",
-      backgroundColor: "#005555",
+      borderColor: "#0F2157",
+      backgroundColor: "#0F2157",
     },
   ],
 };

@@ -17,7 +17,6 @@ import { useRef, useEffect, useState } from "react";
 
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaKMeanT from "./PisaKMeanT";
-import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 import PisaEmployee from "./PisaEmployee";
 import PisaTop15Bar from "./PisaTop15Bar";
 
@@ -215,9 +214,6 @@ function Home() {
     };
   }, []);
 
-  // console.log(dotsRef);
-  // console.log(dotsIndex);
-
   return (
     <HomeContainer ref={fullpageRef}>
       <Slide elements={BANNERS} />
@@ -230,7 +226,7 @@ function Home() {
           })}
         </Dots>
       </DotsBox>
-      <Homepage bgcolor="#f7f6cf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
@@ -241,7 +237,7 @@ function Home() {
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#b6d8f2">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>2</HomeTitle>
           <HomeContents>
@@ -250,7 +246,7 @@ function Home() {
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>3</HomeTitle>
           <HomeContents>
@@ -261,7 +257,7 @@ function Home() {
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>4</HomeTitle>
           <HomeContents>
@@ -272,7 +268,7 @@ function Home() {
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>5</HomeTitle>
           <HomeContents>
@@ -281,31 +277,31 @@ function Home() {
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>6</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa score by Subjects</TextContent>
+            <TextContent>문해력과 고용률</TextContent>
             <GraphBox>
               <PisaEmployee></PisaEmployee>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>7</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
+            <TextContent></TextContent>
             <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>8</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
+            <TextContent></TextContent>
             <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
