@@ -20,9 +20,6 @@ import { usePostLikeAdd, usePostDislike } from "queries/postQuery";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const defaultImage =
-  "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
-
 function PostCard({ userInfo, isDisabled, post }) {
   const postAddLike = usePostLikeAdd(post._id, userInfo._id);
   const postDislike = usePostDislike(post._id, userInfo._id);
@@ -43,10 +40,7 @@ function PostCard({ userInfo, isDisabled, post }) {
 
   return (
     <Posts>
-      <PostsImage
-        alt="게시글 사진"
-        src={post.imageUrls?.length ? post.imageUrls[0] : defaultImage}
-      />
+      <PostsImage alt="게시글 사진" src={post.imageUrl} />
       <PostsSummary>
         <Link to={`/posts/${post._id}`}>
           <PostsTitle>{post.title}</PostsTitle>

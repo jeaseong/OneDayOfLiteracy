@@ -51,7 +51,7 @@ const BANNERS = [
   <Img url={img.banner3} alt={"banner3"} />,
 ];
 
-const bannerHeight = 403;
+const bannerHeight = window.innerHeight;
 function Home() {
   const fullpageRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);

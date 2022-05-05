@@ -29,6 +29,9 @@ import { useGetProfileUser } from "../../queries/userQuery";
 import { del } from "../../utils/api";
 import PostEditForm from "./PostEditForm";
 import { img } from "../../utils/imgImport";
+import FileUpload from "../../components/FileUpload";
+import { CustomSnackbar, setAlertData } from "../../components/CustomSnackbar";
+import { ALERT_TYPE, FAIL_MESSAGE } from "../../utils/constants";
 
 function Post() {
   const params = useParams();
@@ -36,6 +39,7 @@ function Post() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { data, isFetching } = useGetPost(postId);
+  const [showAlert, setShowAlert] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   // 유저 정보
@@ -64,6 +68,23 @@ function Post() {
     } catch (err) {
       console.log("삭제실패", err);
     }
+  };
+
+  // Alert
+  const changeFailImage = setAlertData(
+    showAlert,
+    setShowAlert,
+    FAIL_MESSAGE.IMAGE,
+    ALERT_TYPE.ERROR
+  );
+
+  // 썸네일 이미지 업로드
+  const thumbnailImageData = {
+    type: "posts",
+    id: postId,
+    prevImage: data.imageUrl,
+    showAlert,
+    setShowAlert,
   };
 
   const postLikeList = isPostLike ? (
@@ -127,11 +148,13 @@ function Post() {
             <p>좋아요 수 : {likeCount.data}</p>
             {isPostOwner && (
               <>
+                <FileUpload {...thumbnailImageData} />
                 <button onClick={() => setIsEdit((cur) => !cur)}>수정</button>
                 <button onClick={handleDeletePost}>삭제</button>
               </>
             )}
           </PostContainer>
+          <CustomSnackbar {...changeFailImage} />
           <Comment postId={params.postId} />
         </>
       )}
