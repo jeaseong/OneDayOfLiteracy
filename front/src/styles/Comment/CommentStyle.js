@@ -14,7 +14,12 @@ const inputAnimation = keyframes`
 export const CommentContainer = styled.section`
   padding: 0 20px;
   margin: 0 auto;
-  min-height: 100vh;
+`;
+
+export const CommentWrap = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const WriteComment = styled.form`
