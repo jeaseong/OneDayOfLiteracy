@@ -4,7 +4,11 @@ import { useGetCommentList } from "queries/commentQuery";
 import CommentInput from "pages/Comment/CommentInput";
 import CommentSingle from "pages/Comment/CommentSingle";
 import CommentReply from "pages/Comment/CommentReply";
-import { CommentContainer, UserCommentList } from "styles/Comment/CommentStyle";
+import {
+  CommentContainer,
+  CommentWrap,
+  UserCommentList,
+} from "styles/Comment/CommentStyle";
 import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
 export default function Comment({ postId }) {
@@ -19,25 +23,31 @@ export default function Comment({ postId }) {
   if (status === "error") return <ErrorPage />;
 
   return (
-    <>
-      <CommentContainer>
+    <CommentContainer>
+      <CommentWrap>
         <CommentInput />
         <UserCommentList>
-          {data?.pages?.map((page, i) => (
-            <React.Fragment key={i}>
-              {page.comments?.map((comment, k) => (
-                <>
-                  <CommentSingle comment={comment} />
-                  {comment.childComments.length > 0 && (
-                    <CommentReply reComment={comment.reply} />
-                  )}
-                </>
-              ))}
-            </React.Fragment>
-          ))}
+          <>
+            {data?.pages?.map((page, i) => (
+              <React.Fragment key={i}>
+                {page.comments?.map((comment, k) => (
+                  <>
+                    {!comment.isDeleted && (
+                      <>
+                        <CommentSingle comment={comment} />
+                        {comment.childComments.length > 0 && (
+                          <CommentReply childComments={comment.childComments} />
+                        )}
+                      </>
+                    )}
+                  </>
+                ))}
+              </React.Fragment>
+            ))}
+          </>
         </UserCommentList>
-      </CommentContainer>
-      {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
-    </>
+        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
+      </CommentWrap>
+    </CommentContainer>
   );
 }
