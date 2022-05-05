@@ -60,7 +60,7 @@ function PostCard({ userInfo, isDisabled, post }) {
           remarkPlugins={[remarkGfm]}
         ></ReactMarkdown>
         {post.tags?.map((tag, index) => (
-          <Link to={`/posts?content=${tag}`} key={index}>
+          <Link to={`/posts?tag=${tag}`} key={index}>
             <Tag>#{tag}</Tag>
           </Link>
         ))}

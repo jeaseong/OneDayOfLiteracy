@@ -75,8 +75,7 @@ export const usePostLikeAdd = (postId, userId) => {
         queryClient.setQueryData(["user", userId], profileUser);
       };
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries("posts", `users/${userId}/likes?`),
+    onSuccess: () => queryClient.invalidateQueries("posts"),
     onError: (err, rollback) => rollback(),
   });
 };
@@ -109,8 +108,7 @@ export const usePostDislike = (postId, userId) => {
         queryClient.setQueryData(["user", userId], profileUser);
       };
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries(["posts", `users/${userId}/likes?`]),
+    onSuccess: () => queryClient.invalidateQueries("posts"),
     onError: (err, rollback) => rollback(),
   });
 };

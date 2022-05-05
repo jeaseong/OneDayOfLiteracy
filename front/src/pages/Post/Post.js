@@ -27,6 +27,7 @@ import Loading from "../../components/Loading";
 import { useGetProfileUser } from "../../queries/userQuery";
 import { del } from "../../utils/api";
 import PostEditForm from "./PostEditForm";
+import { img } from "../../utils/imgImport";
 
 function Post() {
   const params = useParams();
@@ -51,7 +52,7 @@ function Post() {
 
   if (isFetching || likeCount.isFetching) return <Loading />;
 
-  const isPostOwner = data.userId === userState._id;
+  const isPostOwner = data.userId._id === userState._id;
 
   const handleDeletePost = async () => {
     try {
@@ -94,8 +95,9 @@ function Post() {
         <PostContainer>
           <PostTitle>{data.title}</PostTitle>
           <PostHeader>
-            <Link to={`/user/${data.userId}`}>
+            <Link to={`/user/${data.userId._id}`}>
               <PostWriter>
+                <img src={img.level[data.userId.level]} alt="level" />
                 {!data.author ? "익명 문하생" : data.author}
               </PostWriter>
             </Link>
@@ -114,7 +116,7 @@ function Post() {
           </PostBody>
           <PostFooter>
             {data.tags?.map((tag, index) => (
-              <Link to={`/posts?content=${tag}`} key={index}>
+              <Link to={`/posts?tag=${tag}`} key={index}>
                 <Tag>#{tag}</Tag>
               </Link>
             ))}
