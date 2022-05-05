@@ -18,26 +18,31 @@ import { useRef, useEffect, useState } from "react";
 import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaGdpTrendLine from "./PisaGdpTrendLine";
-import PisaTop15Bar from "./PisaTop15Bar";
+
 import PisaKMeanT from "./PisaKMeanT";
-import PisaKMeanF from "./PisaKMeanF";
-import PisaKMeanM from "./PisaKMeanM";
+// import PisaKMeanF from "./PisaKMeanF";
+// import PisaKMeanM from "./PisaKMeanM";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 import ManLiteracyEmployeeReg from "./ManLiteracyEmployeeReg";
 import WomanLiteracyEmployeeReg from "./WomanLiteracyEmployeeReg";
 import ManLiteracyEmployeeScatter from "./ManLiteracyEmployeeScatter";
+import WomanLiteracyEmployeeScatter from "./WomanLiteracyEmployeeScatter";
+import Test from "./Test";
 
 import koreaReadingScore from "../../data/koreaReadingScore.json";
 import pisaGdp from "../../data/pisaGdp.json";
 import ransac from "../../data/ransac.json";
-import pisaTop15 from "../../data/pisaTop15.json";
-import pisaKMeanT from "../../data/pisaKMeanT.json";
-import pisaKMeanF from "../../data/pisaKMeanF.json";
-import pisaKMeanM from "../../data/pisaKMeanM.json";
+
+// import pisaKMeanT from "../../data/pisaKMeanT.json";
+// import pisaKMeanF from "../../data/pisaKMeanF.json";
+// import pisaKMeanM from "../../data/pisaKMeanM.json";
 import pisaKScore from "../../data/pisaKScore.json";
 import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
 import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
 import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
+import womenliteracyEmployeeScatter from "../../data/womenliteracyEmployeeScatter.json";
+
+import PisaTop15Bar from "./PisaTop15Bar";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -188,7 +193,7 @@ function Home() {
     fullpageRef.current.scrollTo({
       top: top,
       left: 0,
-      behavior: "smooth",
+      behavior: "auto",
     });
   };
 
@@ -254,7 +259,7 @@ function Home() {
           <HomeContents>
             <TextContent>우리나라 Pisa 점수 데이터</TextContent>
             <GraphBox>
-              <PisaKoreaLine data={koreaReadingScore}></PisaKoreaLine>
+              <PisaKMeanT></PisaKMeanT>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -265,7 +270,7 @@ function Home() {
           <HomeContents>
             <TextContent>Gdp와 Pisa</TextContent>
             <GraphBox>
-              <PisaGdpScatter data={pisaGdp}></PisaGdpScatter>
+              {/* <PisaGdpScatter data={pisaGdp}></PisaGdpScatter> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -276,7 +281,7 @@ function Home() {
           <HomeContents>
             <TextContent>Gdp와 Pisa 추세선</TextContent>
             <GraphBox>
-              <PisaGdpTrendLine data={ransac}></PisaGdpTrendLine>
+              {/* <PisaGdpTrendLine data={ransac}></PisaGdpTrendLine> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -287,7 +292,7 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
             <GraphBox>
-              <PisaTop15Bar data={pisaTop15}></PisaTop15Bar>
+              <PisaTop15Bar></PisaTop15Bar>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -298,7 +303,7 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa Korea Scores by sex</TextContent>
             <GraphBox>
-              <PisaKMeanT data={pisaKMeanT}></PisaKMeanT>
+              {/* <PisaKMeanT data={pisaKMeanT}></PisaKMeanT> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -309,7 +314,7 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa score by Subjects</TextContent>
             <GraphBox>
-              <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar>
+              {/* <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -320,9 +325,9 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
             <GraphBox>
-              <ManLiteracyEmployeeScatter
+              {/* <ManLiteracyEmployeeScatter
                 data={menliteracyEmployeeScatter}
-              ></ManLiteracyEmployeeScatter>
+              ></ManLiteracyEmployeeScatter> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -333,9 +338,9 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
             <GraphBox>
-              <WomanLiteracyEmployeeReg
-                data={womenliteracyEmployeeReg}
-              ></WomanLiteracyEmployeeReg>
+              {/* <WomanLiteracyEmployeeScatter
+                data={womenliteracyEmployeeScatter}
+              ></WomanLiteracyEmployeeScatter> */}
             </GraphBox>
           </HomeContents>
         </ContentsContainer>

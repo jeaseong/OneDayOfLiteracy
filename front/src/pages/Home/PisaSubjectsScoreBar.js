@@ -1,4 +1,7 @@
+import React, { Fragment } from "react";
 import { ResponsiveBar } from "@nivo/bar";
+import { line } from "d3-shape";
+import pisaKScore from "../../data/pisaKScore.json";
 
 const PisaSubjectScoreBar = ({ data }) => (
   <ResponsiveBar
@@ -7,6 +10,7 @@ const PisaSubjectScoreBar = ({ data }) => (
     indexBy="Year"
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     padding={0}
+    // minValue={460}
     groupMode="grouped"
     valueScale={{ type: "linear" }}
     indexScale={{ type: "band", round: true }}
@@ -101,6 +105,7 @@ const PisaSubjectScoreBar = ({ data }) => (
     barAriaLabel={function (e) {
       return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
     }}
+    layers={["grid", "axes", "bars", "markers", "legends"]}
   />
 );
 export default PisaSubjectScoreBar;

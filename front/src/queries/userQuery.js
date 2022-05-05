@@ -57,15 +57,18 @@ export const useUserLoginHandler = (setShowAlert = () => {}) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation(async (loginData) => await post("user/login", loginData), {
-    onSuccess: (res) => {
-      const jwtToken = res.data.token;
-      localStorage.setItem("userToken", jwtToken);
-      queryClient.invalidateQueries("userState");
-      navigate("/");
-    },
-    onError: () => setShowAlert(true),
-  });
+  return useMutation(
+    async (loginData) => await post("users/login", loginData),
+    {
+      onSuccess: (res) => {
+        const jwtToken = res.data.token;
+        localStorage.setItem("userToken", jwtToken);
+        queryClient.invalidateQueries("userState");
+        navigate("/");
+      },
+      onError: () => setShowAlert(true),
+    }
+  );
 };
 
 /**
