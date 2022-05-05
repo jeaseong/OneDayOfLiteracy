@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
 import { useUpdateComment } from "queries/commentQuery";
 import {
   WriteComment,
@@ -8,13 +7,23 @@ import {
   CommentBtn,
 } from "styles/Comment/CommentStyle";
 
-export default function CommentEditForm({ prev, commentId, postId }) {
+export default function CommentEditForm({
+  prev,
+  commentId,
+  postId,
+  setIsEdit,
+}) {
   const [curComment, setCurComment] = useState(prev);
-  const updateComment = useUpdateComment();
+  const updateComment = useUpdateComment(postId);
 
   const onSubmitComment = (e) => {
     e.preventDefault();
-    updateComment.mutate(commentId, curComment, postId);
+    try {
+      updateComment.mutate({ commentId, curComment });
+      setIsEdit(false);
+    } catch (e) {
+      console.log("에러처리를 어떻게 하지");
+    }
   };
   return (
     <WriteComment onSubmit={onSubmitComment}>
