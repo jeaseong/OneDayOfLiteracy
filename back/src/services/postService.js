@@ -100,10 +100,13 @@ class postService {
     const type = sort?.type ?? null;
     let extraQueryList;
 
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [{ populate: populateOption }];
+
     if (field !== null && type !== null) {
       const sortOption = new Object();
       sortOption[field] = type;
-      extraQueryList = [{ sort: sortOption }];
+      extraQueryList.push({ sort: sortOption });
     }
 
     const posts = await Post.findAll(page, limit, query, extraQueryList);
@@ -130,10 +133,13 @@ class postService {
     const type = sort?.type ?? null;
     let extraQueryList;
 
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [{ populate: populateOption }];
+
     if (field !== null && type !== null) {
       const sortOption = new Object();
       sortOption[field] = type;
-      extraQueryList = [{ sort: sortOption }];
+      extraQueryList.push({ sort: sortOption });
     }
 
     const posts = await Post.findAll(page, limit, query, extraQueryList);
@@ -178,10 +184,13 @@ class postService {
     const type = sort?.type ?? null;
     let extraQueryList;
 
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [({ populate: populateOption })];
+
     if (field !== null && type !== null) {
       const sortOption = new Object();
       sortOption[field] = type;
-      extraQueryList = [{ sort: sortOption }];
+      extraQueryList.push({ sort: sortOption });
     }
     
     const posts = await Post.findAll(page, limit, query, extraQueryList);

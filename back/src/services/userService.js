@@ -7,7 +7,7 @@ import { postService } from "./postService";
 import { resultService } from "./resultService";
 import { userWordService } from "./userWordService";
 import { typeName } from "../utils/validation/typeName";
-import { addPoint, getPoint } from "../utils/levelSystem/Point";
+import { getPoint } from "../utils/levelSystem/Point";
 
 class userAuthService {
   // 유저 추가(회원 가입)
@@ -133,8 +133,23 @@ class userAuthService {
   }
 
   // 전체 유저 조회
-  static async getUsers() {
-    const users = await User.findAll();
+  static async getUsers({ sort, page, limit }) {
+    const query = {};
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
+
+    const selectOption = new Object({ password: 0, __v: 0 });
+    extraQueryList = [{ select: selectOption }];
+
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList.push({ sort: sortOption });
+    }
+    
+    const users = await User.findAll(page, limit, query, extraQueryList);
+
     return users;
   }
 
