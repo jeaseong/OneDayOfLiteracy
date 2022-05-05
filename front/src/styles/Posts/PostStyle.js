@@ -60,9 +60,15 @@ export const PostsSummary = styled.div`
 `;
 export const PostsHeader = styled.div``;
 export const PostsTitle = styled.h2`
+  display: inline-block;
   font-size: 16px;
   margin: 15px 0;
   margin: 0 0 5px 0;
+`;
+export const PostsCategory = styled.p`
+  display: inline-block;
+  color: gray;
+  margin-left: 5px;
 `;
 export const PostsWriter = styled.h4`
   font-size: 12px;
@@ -72,7 +78,7 @@ export const PostsWriter = styled.h4`
 export const PostsContentWrap = styled.div`
   flex: 1 1 0%;
 `;
-export const PostsContent = styled.p`
+export const PostsContent = styled.span`
   font-size: 12px;
   font-weight: lighter;
   word-break: break-word;

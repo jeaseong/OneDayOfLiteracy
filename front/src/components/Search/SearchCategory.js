@@ -16,6 +16,7 @@ function SearchCategory({ setCategory }) {
       <option value={CATEGORY.NOVEL}>{CATEGORY.NOVEL}</option>
       <option value={CATEGORY.ESSAY}>{CATEGORY.ESSAY}</option>
       <option value={CATEGORY.POETRY}>{CATEGORY.POETRY}</option>
+      <option value={CATEGORY.ETC}>{CATEGORY.ETC}</option>
     </SearchSelect>
   );
 }

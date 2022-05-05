@@ -43,6 +43,9 @@ export const RankPoint = styled.span`
   margin-left: 9px;
 `;
 
-export const PopularityPostContainer = styled(FlexBoxCenter)`
-  width: 100%;
+export const PopularityPostContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  padding: 0 20px;
 `;

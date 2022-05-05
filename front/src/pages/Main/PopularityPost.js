@@ -16,7 +16,7 @@ function PopularityPost() {
 
   return (
     <>
-      <Link to={`/posts?${URI.SORT_LIKE}`}>{LABEL.GET_MORE}</Link>
+      <Link to={`/posts?${URI.SORT_LIKE}`}>{LABEL.GET_MORE}</Link> &nbsp;
       <PopularityPostContainer>
         {data.pages[0].posts.map((post) => (
           <PostCard
