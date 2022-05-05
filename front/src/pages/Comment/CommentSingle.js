@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CommentInput from "pages/Comment/CommentInput";
-import CommentEditFrom from "pages/Comment/CommentEditForm";
+import CommentEditForm from "pages/Comment/CommentEditForm";
 import { useQueryClient } from "react-query";
 import { useDeleteComment } from "queries/commentQuery";
 import {
@@ -15,7 +15,7 @@ import {
   CommentEditBtn,
 } from "styles/Comment/CommentStyle";
 
-export default function CommentSingle({ comment }) {
+export default function CommentSingle({ comment, isReComment = false }) {
   const [isOpenReply, setIsOpenReply] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const queryClient = useQueryClient();
@@ -26,7 +26,7 @@ export default function CommentSingle({ comment }) {
     setIsOpenReply((cur) => !cur);
   };
   const deleteSubmitComment = () => {
-    deleteComment.mutate(comment);
+    deleteComment.mutate(comment._id);
   };
   return (
     <CommentBox>
@@ -40,17 +40,20 @@ export default function CommentSingle({ comment }) {
             <Comment>{comment.content}</Comment>
           </>
         ) : (
-          <CommentEditFrom
+          <CommentEditForm
             prev={comment.content}
             commentId={comment._id}
             postId={comment.postId}
+            setIsEdit={setIsEdit}
           />
         )}
 
         <CommentEditContainer>
-          <ReplyCommentBtn onClick={onClickOpenReplyInput}>
-            답글
-          </ReplyCommentBtn>
+          {!isReComment && (
+            <ReplyCommentBtn onClick={onClickOpenReplyInput}>
+              답글
+            </ReplyCommentBtn>
+          )}
           {userState.id === comment.userId && (
             <>
               <CommentEditBtn onClick={() => setIsEdit((cur) => !cur)}>
@@ -62,7 +65,7 @@ export default function CommentSingle({ comment }) {
             </>
           )}
         </CommentEditContainer>
-        {isOpenReply && <CommentInput parentId={1} />}
+        {isOpenReply && !isReComment && <CommentInput parentId={comment._id} />}
       </CommentContent>
     </CommentBox>
   );
