@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { LinkButton } from "styles/Components/CommonStyle";
 
 export const PostsContainer = styled.div`
+  max-width: 1024px;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
@@ -27,6 +27,7 @@ export const Posts = styled.div`
   background-color: #ffffff;
   box-shadow: 0 0 5px #c48f5a;
   transition: all 0.2s ease-in-out;
+  overflow: hidden;
   @media screen and (min-width: 512px) {
     flex-basis: calc(50%-20px);
   }
@@ -38,8 +39,21 @@ export const Posts = styled.div`
   }
 `;
 
-export const PostsImage = styled.img`
+export const PostImgContainer = styled.div`
   width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 50%;
+`;
+
+export const PostsImage = styled.img`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;

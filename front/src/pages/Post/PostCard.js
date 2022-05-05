@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Posts,
+  PostImgContainer,
   PostsImage,
   PostsSummary,
   PostsContentWrap,
@@ -40,7 +41,9 @@ function PostCard({ userInfo, isDisabled, post }) {
 
   return (
     <Posts>
-      <PostsImage alt="게시글 사진" src={post.imageUrl} />
+      <PostImgContainer>
+        <PostsImage alt="게시글 사진" src={post.imageUrl} />
+      </PostImgContainer>
       <PostsSummary>
         <Link to={`/posts/${post._id}`}>
           <PostsTitle>{post.title}</PostsTitle>
