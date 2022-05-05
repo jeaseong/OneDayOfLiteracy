@@ -8,6 +8,7 @@ import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
 import { useQueryClient } from "react-query";
 import { useGetProfileOwner } from "queries/userQuery";
+import PostFilter from "./PostFilter";
 
 function Posts() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function Posts() {
   return (
     <>
       <button onClick={() => navigate("/post")}>글쓰기</button>
+      <PostFilter />
       <PostsContainer>
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>

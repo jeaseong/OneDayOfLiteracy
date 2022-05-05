@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HeadingTwo } from "../Components/CommonStyle";
+import { FlexBox, FlexBoxCenter, HeadingTwo } from "../Components/CommonStyle";
 
 export const MainContainer = styled.section`
   display: flex;
@@ -13,4 +13,32 @@ export const MainContainer = styled.section`
 
 export const MainHeadingTwo = styled(HeadingTwo)`
   margin: 20px 0;
+`;
+
+export const RankingContainer = styled(FlexBox)`
+  border-radius: 8px;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background: #dcd0c8;
+  padding: 10px;
+  margin-bottom: 30px;
+`;
+
+export const RankingBox = styled(FlexBoxCenter)`
+  margin: 10px;
+`;
+
+export const RankImg = styled.img`
+  margin-right: 10px;
+`;
+
+export const RankNickName = styled.span`
+  font-weight: bold;
+  font-size: 1.4rem;
+`;
+
+export const PopularityPostContainer = styled(FlexBoxCenter)`
+  width: 100%;
 `;

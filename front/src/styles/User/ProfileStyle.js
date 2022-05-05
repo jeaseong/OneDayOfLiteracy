@@ -157,7 +157,3 @@ export const ProfileTitleBox = styled(FlexBox)`
   align-items: center;
   margin-top: 20px;
 `;
-
-export const LevelImg = styled.img`
-  height: 40px;
-`;

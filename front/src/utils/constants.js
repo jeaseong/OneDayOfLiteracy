@@ -39,6 +39,9 @@ export const LABEL = {
   ERROR_INTRODUCE: "THE PAGE YOU REQUESTED COULD NOT FOUND",
   SEARCH: "검색",
   TRAINING: "트레이닝",
+  RANKING: "랭킹",
+  POPULARITY: "인기글",
+  GET_MORE: "더 보러가기",
 };
 
 export const GUIDE_MESSAGE = {
@@ -106,4 +109,10 @@ export const LEVEL_MAX_EXP = {
   LEVEL2: 700,
   LEVEL3: 1300,
   LEVEL4: 9999999,
+};
+
+export const URI = {
+  SORT_LIKE: `&sort[field]=likeCount&sort[type]=desc&`,
+  SORT_TITLE: `&sort[field]=title&sort[type]=asc&`,
+  SORT_AUTHOR: `&sort[field]=author&sort[type]=asc&`,
 };

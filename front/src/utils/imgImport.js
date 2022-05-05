@@ -22,4 +22,9 @@ export const img = {
     `${process.env.PUBLIC_URL}/assets/img/level3.png`,
     `${process.env.PUBLIC_URL}/assets/img/level4.png`,
   ],
+  rank: [
+    `${process.env.PUBLIC_URL}/assets/img/rank0.png`,
+    `${process.env.PUBLIC_URL}/assets/img/rank1.png`,
+    `${process.env.PUBLIC_URL}/assets/img/rank2.png`,
+  ],
 };
