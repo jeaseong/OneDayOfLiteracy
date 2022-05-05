@@ -317,7 +317,7 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa score by Subjects</TextContent>
             <GraphBox>
-              {/* <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar> */}
+              <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
