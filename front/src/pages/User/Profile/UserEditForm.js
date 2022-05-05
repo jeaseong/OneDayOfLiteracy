@@ -8,7 +8,7 @@ import {
   ConfirmButton,
   ConfirmButtonBox,
   EditInputBox,
-} from "styles/User/ProfileStyle";
+} from "styles/User/UserEditStyle";
 import {
   LABEL,
   GUIDE_MESSAGE,

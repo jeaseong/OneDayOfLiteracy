@@ -10,7 +10,7 @@ import {
   ProfileNickName,
   ProfilePostCount,
   ProfileTitleBox,
-} from "styles/User/ProfileStyle";
+} from "styles/User/UserInfoStyle";
 import { HeadingTwo } from "styles/Components/CommonStyle";
 import { LABEL } from "utils/constants";
 import { img } from "utils/imgImport";

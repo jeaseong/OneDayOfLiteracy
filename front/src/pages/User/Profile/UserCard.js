@@ -5,9 +5,8 @@ import {
   CardHeader,
   ProfileImg,
   ChangeButton,
-  ProfileImgBox,
   ProfileChangeBox,
-} from "styles/User/ProfileStyle";
+} from "styles/User/UserCardStyle";
 import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "utils/constants";
 import FileUpload from "components/FileUpload";
 import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
@@ -72,9 +71,7 @@ function UserCard({ editStateStore, children }) {
     <CardContainer>
       <CardBox>
         <CardHeader>
-          <ProfileImgBox>
-            <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
-          </ProfileImgBox>
+          <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
           {isProfileOwner && (
             <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
           )}
