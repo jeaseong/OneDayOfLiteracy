@@ -2,7 +2,6 @@ import Slide from "components/Slide/Slide";
 import { Img } from "styles/Components/ComponentStyle";
 import { HomeContainer, FullBanner } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
-import Comment from "pages/Comment/Comment";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -16,7 +15,6 @@ function Home() {
       <FullBanner>
         <Slide elements={BANNERS} />
       </FullBanner>
-      <Comment />
     </HomeContainer>
   );
 }
