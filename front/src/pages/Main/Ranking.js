@@ -3,23 +3,28 @@ import {
   RankingBox,
   RankingContainer,
   RankNickName,
+  RankPoint,
 } from "../../styles/Main/MainStyle";
 import { img } from "../../utils/imgImport";
-
-const tempRanking = [
-  { _id: "1", nickname: "대장유혜선", level: 4 },
-  { _id: "2", nickname: "홍진호", level: 3 },
-  { _id: "3", nickname: "응애나3등", level: 2 },
-];
+import { useGetUserRank } from "../../queries/userQuery";
+import Loading from "../../components/Loading";
+import { LABEL } from "../../utils/constants";
 
 function Ranking() {
+  const { data, isFetching } = useGetUserRank();
+
+  if (isFetching) return <Loading />;
+
   return (
     <RankingContainer>
-      {tempRanking.map((user, index) => (
+      {data.posts.map((user, index) => (
         <RankingBox key={user._id}>
           <RankImg src={img.rank[index]} alt="rankImage" />
           <RankImg src={img.level[user.level]} />
           <RankNickName>{user.nickname}</RankNickName>
+          <RankPoint>
+            {user.point} {LABEL.DOT}
+          </RankPoint>
         </RankingBox>
       ))}
     </RankingContainer>
