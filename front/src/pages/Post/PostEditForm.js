@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
@@ -7,10 +7,16 @@ import PostingCategory from "./PostingCategory";
 import { PostContainer } from "../../styles/Posts/PostStyle";
 import { PostingButton } from "../../styles/Posts/PostingStyle";
 import "../../styles/Posts/markdown.css";
-import { post } from "../../utils/api";
+import { put } from "../../utils/api";
+import { useQueryClient } from "react-query";
 
 function Posting() {
+  const params = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const postInfo = queryClient.getQueryData(["post", params.postId]);
+  const { userState } = queryClient.getQueryData("userState");
+  console.log(localStorage.getItem("userToken"));
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -18,6 +24,13 @@ function Posting() {
   const categoryRef = useRef(null);
   const inputEmpty = useRef(true);
   const [renderer, setRenderer] = useState(true);
+
+  useEffect(() => {
+    titleRef.current.value = postInfo.title;
+    contentRef.current.value = postInfo.content;
+    tagRef.current.value = postInfo.tags;
+    categoryRef.current.value = postInfo.category;
+  }, []);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -42,11 +55,11 @@ function Posting() {
         title: titleRef.current?.value,
         content: contentRef.current?.value,
         tags: tagRef.current.innerText.slice(1).split("\n#"),
-        subjectId: null,
         category: categoryRef.current?.value,
+        userId: userState._id,
       };
 
-      await post("posts", posting);
+      await put(`posts/${params.postId}`, posting);
       navigate("/posts");
     } catch (error) {
       throw new Error(error);
@@ -57,14 +70,15 @@ function Posting() {
     <PostContainer>
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
-      <PostingTag ref={tagRef} />
+      <PostingTag editTagArray={postInfo.tags} ref={tagRef} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>
-          출간하기
+          수정하기
         </PostingButton>
       </div>
     </PostContainer>
   );
 }
+
 export default Posting;

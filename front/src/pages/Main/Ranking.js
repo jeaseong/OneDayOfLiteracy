@@ -17,7 +17,7 @@ function Ranking() {
     <RankingContainer>
       {tempRanking.map((user, index) => (
         <RankingBox key={user._id}>
-          <RankImg src={img.rank[index]} alt="ranking" />
+          <RankImg src={img.rank[index]} alt="rankImage" />
           <RankImg src={img.level[user.level]} />
           <RankNickName>{user.nickname}</RankNickName>
         </RankingBox>

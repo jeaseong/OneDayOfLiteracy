@@ -2,9 +2,9 @@ import React, { useState, forwardRef } from "react";
 import { PostingTags } from "../../styles/Posts/PostingStyle";
 import "../../styles/Posts/markdown.css";
 
-const PostingTag = forwardRef(({}, ref) => {
+const PostingTag = forwardRef(({ editTagArray = [] }, ref) => {
   const [tag, setTag] = useState("");
-  const [tagArray, setTagArray] = useState([]);
+  const [tagArray, setTagArray] = useState(editTagArray);
 
   const onChangeTag = (e) => {
     e.preventDefault();
