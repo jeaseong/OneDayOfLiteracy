@@ -10,7 +10,7 @@ import {
   Profile,
   FocusInput,
 } from "styles/Comment/CommentStyle";
-export default function CommentInput({ parentId = null }) {
+export default function CommentInput({ setIsOpenReply, parentId = null }) {
   const inputRef = useRef();
   const params = useParams();
   const queryClient = useQueryClient();
@@ -36,6 +36,7 @@ export default function CommentInput({ parentId = null }) {
     };
     postComment.mutate(comment);
     setCurComment("");
+    setIsOpenReply(false);
   };
 
   return (

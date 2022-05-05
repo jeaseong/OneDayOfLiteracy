@@ -65,7 +65,12 @@ export default function CommentSingle({ comment, isReComment = false }) {
             </>
           )}
         </CommentEditContainer>
-        {isOpenReply && !isReComment && <CommentInput parentId={comment._id} />}
+        {isOpenReply && !isReComment && (
+          <CommentInput
+            setIsOpenReply={setIsOpenReply}
+            parentId={comment._id}
+          />
+        )}
       </CommentContent>
     </CommentBox>
   );
