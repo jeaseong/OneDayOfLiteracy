@@ -22,6 +22,7 @@ body {
   font-size: 14px;
   background-color: #f5efea;
   box-sizing: border-box;
+  color: #312517;
 }
 
 a {
@@ -50,7 +51,7 @@ mark {
 }
 .main {
   flex: 1;
-  padding-top: 100px;
+  padding-top: 80px;
 }
 body::-webkit-scrollbar {
   display: none;
