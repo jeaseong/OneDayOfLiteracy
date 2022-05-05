@@ -68,7 +68,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await post("user/register", { email, password, nickname });
+      await post("users/register", { email, password, nickname });
       setRegisterInfo(initialInfo);
       navigate("/user/login");
     } catch (err) {

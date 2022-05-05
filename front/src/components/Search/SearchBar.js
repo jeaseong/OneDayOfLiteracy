@@ -48,11 +48,8 @@ function SearchBar({
   };
 
   // 검색어의 길이 체크
-  const checkShowSearchContent = (keyword) => {
-    return keyword.length !== 0
-      ? setIsHaveSearchContent(true)
-      : setIsHaveSearchContent(false);
-  };
+  const checkShowSearchContent = (keyword) =>
+    setIsHaveSearchContent(!!keyword.length);
 
   // 사용자 키워드 입력 검색 디바운스
   const handleInputOnChange = (e) => {

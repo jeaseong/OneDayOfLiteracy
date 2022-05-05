@@ -28,8 +28,8 @@ function SearchContent() {
   const handleSearchOnSubmit = (e) => {
     e.preventDefault();
     const endpoint = createEndpointURI();
-    setIsHaveSearchContent(false);
     navigate(`/posts?${endpoint}`);
+    setIsHaveSearchContent(false);
   };
 
   const searchBarStore = {

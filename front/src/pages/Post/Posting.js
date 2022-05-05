@@ -43,7 +43,7 @@ function Posting() {
         category: categoryRef.current?.value,
       };
 
-      await post("post", posting);
+      await post("posts", posting);
       navigate("/posts");
     } catch (error) {
       throw new Error(error);
