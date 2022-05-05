@@ -266,7 +266,8 @@ userAuthRouter.delete(
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-
+      assert(req.currentUserId === userId, "유저 정보가 일치하지 않습니다.");
+      
       const user = await userAuthService.getUserInfo({ userId });
       
       if (user.kakaoId !== 0) {

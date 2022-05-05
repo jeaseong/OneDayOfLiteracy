@@ -243,13 +243,16 @@ class postService {
 
     posts.forEach( async (post) => {
       const postId = post["_id"];
+      
       const updated = await Like.deleteAllByPostId({ postId });
+
       if(!updated.acknowledged){
         return {
           errorMessage:
             "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다.",
         };
       }
+      
       const deletedComment = await commentService.deleteCommentsByPostId({ postId });
       if(deletedComment.errorMessage){
         return { errorMessage: deletedComment.errorMessage };

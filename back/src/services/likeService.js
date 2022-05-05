@@ -126,6 +126,16 @@ class likeService {
     posts.errorMessage = null;
     return posts;
   }
+
+  static async deleteLikeCountByPostIds({ postIds }) {
+    try {
+      const result = await Like.decreaseLikeCountByPostIds({ postIds });
+
+      return { errorMessage: null };
+    } catch (err) {
+      return { errorMessage: err.message };
+    } 
+  }
 }
 
 export { likeService };
