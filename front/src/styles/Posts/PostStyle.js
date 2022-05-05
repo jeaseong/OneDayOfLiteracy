@@ -2,71 +2,84 @@ import styled from "styled-components";
 import { LinkButton } from "styles/Components/CommonStyle";
 
 export const PostsContainer = styled.div`
-  max-width: 1024px;
   display: flex;
-  flex-flow: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  // justify-content: flex-start;
-  gap: 1rem;
-  margin: 5% auto;
-  border-radius: 8px;
+  margin: 50px auto;
+  padding: 0 20px;
+  gap: 20px;
 `;
 
 export const Posts = styled.div`
-  width: 29%;
-  height: 30vh;
-  border-radius: 8px;
-  padding: 16px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 15px;
-  font-family: Maplestory Light;
-  background-color: white;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #ffffff;
   box-shadow: 0 0 5px #c48f5a;
+  flex-basis: 100%;
+  @media screen and (min-width: 512px) {
+    flex-basis: 45%;
+  }
+  @media screen and (min-width: 768px) {
+    flex-basis: 30%;
+  }
 `;
 
 export const PostsImage = styled.img`
   width: 100%;
-  height: 50%;
-  background-color: #dcc2aa;
-  border-radius: 15px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 export const PostsSummary = styled.div`
   width: 100%;
-  min-height: 80px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  padding: 10px;
 `;
-export const PostsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-export const PostsTitle = styled.h3`
+export const PostsHeader = styled.div``;
+export const PostsTitle = styled.h2`
   font-size: 16px;
   margin: 15px 0;
+  margin: 0 0 5px 0;
 `;
 export const PostsWriter = styled.h4`
   font-size: 12px;
-  font-family: Maplestory Light;
-  color: #666666;
+  font-weight: lighter;
+`;
+
+export const PostsContentWrap = styled.div`
+  flex: 1 1 0%;
 `;
 export const PostsContent = styled.p`
-  display: block;
   font-size: 12px;
-  color: #666666;
+  font-weight: lighter;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  height: 3.9375rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const Tag = styled.span`
-  font-family: Maplestory Light;
+  font-weight: lighter;
   display: inline-block;
-  font-size: 11px;
-  margin: 10px 5px 0 0;
+  font-size: 10px;
+  margin: 0 5px 0 0;
 `;
-export const PostsLike = styled.span``;
+export const PostsLike = styled.div`
+  display: flex;
+  align-items: center;
+`;
 export const PostContainer = styled.div`
-  max-width: 1024px;
-  background-color: #dcd0c8;
+  /* background-color: #dcd0c8;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -77,8 +90,17 @@ export const PostContainer = styled.div`
   @media only screen and (max-width: 400px) {
     margin: 5% 0;
     padding: 5% 0;
-  }
+  } */
 `;
+
+export const PostUserContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+`;
+
 export const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -125,14 +147,22 @@ export const PostContent = styled.div`
 `;
 export const PostFooter = styled.div``;
 
-export const LikeButton = styled(LinkButton)`
-  transition-duration: 0.3s;
-
+export const LikeButton = styled.button`
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  color: #c48f5a;
+  text-decoration: underline;
   &:hover {
-    color: red;
+    text-decoration: none;
   }
 
   &:disabled {
     color: #c48f5a;
   }
+`;
+
+export const PostListcounnt = styled.p`
+  margin-left: 3px;
+  font-size: 12px;
 `;

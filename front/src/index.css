@@ -29,6 +29,11 @@ a {
   color: black;
 }
 
+button {
+  margin: 0;
+  cursor: pointer;
+}
+
 img {
   -webkit-user-drag: none;
 }

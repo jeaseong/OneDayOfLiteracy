@@ -4,14 +4,18 @@ import {
   Posts,
   PostsImage,
   PostsSummary,
-  PostsHeader,
+  PostsContentWrap,
+  PostsContent,
   PostsTitle,
   PostsWriter,
   Tag,
   PostsLike,
   LikeButton,
+  PostUserContainer,
+  PostListcounnt,
 } from "styles/Posts/PostStyle";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { usePostLikeAdd, usePostDislike } from "queries/postQuery";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -29,11 +33,11 @@ function PostCard({ userInfo, isDisabled, post }) {
 
   const postLikeList = isPostLike ? (
     <LikeButton disabled={!isDisabled} onClick={handlePostDisLikeOnClick}>
-      <ThumbUpIcon />
+      <FavoriteIcon fontSize="sm" />
     </LikeButton>
   ) : (
     <LikeButton disabled={!isDisabled} onClick={handlePostLikeOnClick}>
-      <ThumbUpIcon color="disabled" />
+      <FavoriteBorderIcon color="disabled" fontSize="sm" />
     </LikeButton>
   );
 
@@ -44,26 +48,33 @@ function PostCard({ userInfo, isDisabled, post }) {
         src={post.imageUrls?.length ? post.imageUrls[0] : defaultImage}
       />
       <PostsSummary>
-        <PostsHeader>
-          <Link to={`/posts/${post._id}`}>
-            <PostsTitle>{post.title}</PostsTitle>
-          </Link>
-          <PostsWriter>
-            <Link to={`/user/${post.userId}`}>
-              {!post.author ? "익명 문하생" : post.author}
-            </Link>
-          </PostsWriter>
-        </PostsHeader>
-        <ReactMarkdown
-          children={post.content.slice(0, 90)}
-          remarkPlugins={[remarkGfm]}
-        ></ReactMarkdown>
+        <Link to={`/posts/${post._id}`}>
+          <PostsTitle>{post.title}</PostsTitle>
+        </Link>
+        <PostsContentWrap>
+          <PostsContent>
+            <ReactMarkdown
+              children={post.content.slice(0, 90)}
+              remarkPlugins={[remarkGfm]}
+            ></ReactMarkdown>
+          </PostsContent>
+        </PostsContentWrap>
         {post.tags?.map((tag, index) => (
           <Link to={`/posts?tag=${tag}`} key={index}>
             <Tag>#{tag}</Tag>
           </Link>
         ))}
-        <PostsLike>{postLikeList}</PostsLike> {post.likeCount}
+        <PostUserContainer>
+          <PostsWriter>
+            <Link to={`/user/${post.userId}`}>
+              {!post.author ? "익명 문하생" : post.author}
+            </Link>
+          </PostsWriter>
+          <PostsLike>
+            {postLikeList}
+            <PostListcounnt>{post.likeCount}</PostListcounnt>
+          </PostsLike>
+        </PostUserContainer>
       </PostsSummary>
     </Posts>
   );

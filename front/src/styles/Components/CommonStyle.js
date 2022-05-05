@@ -53,10 +53,7 @@ export const LinkButton = styled.button`
   background-color: transparent;
   border: none;
   color: #c48f5a;
-  font-size: 1.1rem;
-  margin: 1rem 0 0 0;
   text-decoration: underline;
-
   &:hover {
     text-decoration: none;
   }
