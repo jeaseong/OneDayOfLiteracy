@@ -60,27 +60,27 @@ class postService {
     const post = await Post.findById({ postId });
 
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
+    if (!toUpdate.imageUrl) {
+      const userId = toUpdate.userId;
+      let subjectId = toUpdate.subjectId;
 
-    const userId = toUpdate.userId;
-    let subjectId = toUpdate.subjectId;
+      // subjectId 에 대한 검증(없는 경우 자유 글쓰기 주제이므로 Id 지정)
+      if (!subjectId) {
+        subjectId = "626f9108187d6e5687442e3b";
+        toUpdate.subjectId = subjectId;
+      }
 
-    // subjectId 에 대한 검증(없는 경우 자유 글쓰기 주제이므로 Id 지정)
-    if (!subjectId) {
-      subjectId = "626f9108187d6e5687442e3b";
-      toUpdate.subjectId = subjectId;
-    }
+      const user = await User.findById({ userId });
+      const subject = await Subject.findById({ subjectId });
 
-    const user = await User.findById({ userId });
-    const subject = await Subject.findById({ subjectId });
+      if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
+      if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
 
-    if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
-    if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
-
-    const toUpdateField = Object.keys(toUpdate);
-    toUpdateField.forEach((key) => {
-      if (!toUpdate[key]) delete toUpdate[key];
-    });
-
+      const toUpdateField = Object.keys(toUpdate);
+      toUpdateField.forEach((key) => {
+        if (!toUpdate[key]) delete toUpdate[key];
+      });
+    };
     const updatedPost = await Post.update({ postId, toUpdate });
     updatedPost.errorMessage = null;
     return updatedPost;
