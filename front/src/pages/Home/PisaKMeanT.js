@@ -31,11 +31,14 @@ const options = {
     title: {
       display: true,
       text: "대한민국 Pisa 점수",
+      font: {
+        size: 20,
+      },
     },
   },
   scales: {
     y: {
-      min: 440,
+      min: 480,
     },
   },
 };

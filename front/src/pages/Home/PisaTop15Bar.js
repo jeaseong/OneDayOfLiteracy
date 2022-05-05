@@ -24,8 +24,7 @@ const options = {
   responsive: true,
   scales: {
     y: {
-      suggestedMin: 50,
-      suggestedMax: 100,
+      min: 480,
     },
   },
   plugins: {
@@ -35,6 +34,9 @@ const options = {
     title: {
       display: true,
       text: "국가별 Pisa 점수 top 15",
+      font: {
+        size: 20,
+      },
     },
   },
 };

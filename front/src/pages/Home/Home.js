@@ -15,33 +15,10 @@ import {
 import { img } from "../../utils/imgImport";
 import { useRef, useEffect, useState } from "react";
 
-import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
-import PisaGdpTrendLine from "./PisaGdpTrendLine";
-
 import PisaKMeanT from "./PisaKMeanT";
-// import PisaKMeanF from "./PisaKMeanF";
-// import PisaKMeanM from "./PisaKMeanM";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
-import ManLiteracyEmployeeReg from "./ManLiteracyEmployeeReg";
-import WomanLiteracyEmployeeReg from "./WomanLiteracyEmployeeReg";
-import ManLiteracyEmployeeScatter from "./ManLiteracyEmployeeScatter";
-import WomanLiteracyEmployeeScatter from "./WomanLiteracyEmployeeScatter";
-import Test from "./Test";
-
-import koreaReadingScore from "../../data/koreaReadingScore.json";
-import pisaGdp from "../../data/pisaGdp.json";
-import ransac from "../../data/ransac.json";
-
-// import pisaKMeanT from "../../data/pisaKMeanT.json";
-// import pisaKMeanF from "../../data/pisaKMeanF.json";
-// import pisaKMeanM from "../../data/pisaKMeanM.json";
-import pisaKScore from "../../data/pisaKScore.json";
-import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
-import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
-import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
-import womenliteracyEmployeeScatter from "../../data/womenliteracyEmployeeScatter.json";
-
+import PisaEmployee from "./PisaEmployee";
 import PisaTop15Bar from "./PisaTop15Bar";
 
 const BANNERS = [
@@ -269,9 +246,7 @@ function Home() {
           <HomeTitle>2</HomeTitle>
           <HomeContents>
             <TextContent>Gdp와 Pisa</TextContent>
-            <GraphBox>
-              {/* <PisaGdpScatter data={pisaGdp}></PisaGdpScatter> */}
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -281,7 +256,7 @@ function Home() {
           <HomeContents>
             <TextContent>Gdp와 Pisa 추세선</TextContent>
             <GraphBox>
-              {/* <PisaGdpTrendLine data={ransac}></PisaGdpTrendLine> */}
+              <PisaGdpScatter></PisaGdpScatter>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -302,9 +277,7 @@ function Home() {
           <HomeTitle>5</HomeTitle>
           <HomeContents>
             <TextContent>Pisa Korea Scores by sex</TextContent>
-            <GraphBox>
-              {/* <PisaKMeanT data={pisaKMeanT}></PisaKMeanT> */}
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -314,7 +287,7 @@ function Home() {
           <HomeContents>
             <TextContent>Pisa score by Subjects</TextContent>
             <GraphBox>
-              {/* <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar> */}
+              <PisaEmployee></PisaEmployee>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -324,11 +297,7 @@ function Home() {
           <HomeTitle>7</HomeTitle>
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
-            <GraphBox>
-              {/* <ManLiteracyEmployeeScatter
-                data={menliteracyEmployeeScatter}
-              ></ManLiteracyEmployeeScatter> */}
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -337,11 +306,7 @@ function Home() {
           <HomeTitle>8</HomeTitle>
           <HomeContents>
             <TextContent>Pisa top 15</TextContent>
-            <GraphBox>
-              {/* <WomanLiteracyEmployeeScatter
-                data={womenliteracyEmployeeScatter}
-              ></WomanLiteracyEmployeeScatter> */}
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
