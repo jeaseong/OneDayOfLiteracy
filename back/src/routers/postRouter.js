@@ -85,12 +85,11 @@ postRouter.get(
 
 
 
-// 3. 태그 별 조회 
-// 전 : /posts/tags?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
-// 후 : /posts?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
-// postRouter.get('/posts', async (req, res, next) => {
+// 3. 태그별 조회 
+// /posts/tags?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
+// postRouter.get('/posts/tags', async (req, res, next) => {
 //   try {
-//     const { tag, page, limit } = req.query;
+//     const { sort, tag, page, limit } = req.query;
     
 //     let tags;
 //     //tag에 값이 존재
@@ -109,7 +108,7 @@ postRouter.get(
     
 //     // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]  
 //     // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다 
-//     const posts = await postService.getTaggedPosts(page, limit, tags); 
+//     const posts = await postService.getTaggedPosts({ sort, page, limit, tags }); 
 
 //     res.status(200).json(posts);
 //   } catch (err) {
@@ -117,40 +116,71 @@ postRouter.get(
 //   }
 // });
 
-// 4. 내용 검색(내용에는 태그, 제목, 컨텐츠, 작성자 모두 포함된다! => 즉 일부라도 일치하는건 모두 반환!)
-// posts?category={String}&content={String}&sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+
+// 3. 내용 검색(내용에는 태그, 제목, 컨텐츠, 작성자 모두 포함된다! => 즉 일부라도 일치하는건 모두 반환!)
+// /posts?category={String}&content={String}&sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+// 4. 태그별 조회 
+// /posts?tag={String}&tag={String}&tag= ...  &page={Number}&limit={Number}
 postRouter.get(
   "/posts",
   isValidData("post-sorting"),
   invalidCallback,
   async (req, res, next) => {
     try {
-      const { category, content, sort, page, limit } = req.query;
       
-      const TypeCheck = (variable) => {
-        if (typeName(variable) === "Array" || typeName(variable) == "Object") {
-          throw new Error(
-            `${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`
-          );
+      const { category, content, tag, sort, page, limit } = req.query;
+
+      // tag가 없으면 [내용 검색]
+      if (tag === undefined) {
+        const TypeCheck = (variable) => {
+          if (
+            typeName(variable) === "Array" ||
+            typeName(variable) == "Object"
+          ) {
+            throw new Error(
+              `${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`
+            );
+          }
+        };
+
+        TypeCheck(category);
+        TypeCheck(content);
+        TypeCheck(limit);
+        TypeCheck(page);
+
+        // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]
+        // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다
+        const posts = await postService.getSearchPosts({
+          category,
+          content,
+          sort,
+          page,
+          limit,
+        });
+
+        res.status(200).json(posts);
+
+        // tag가 있으면 [태그별 조회]
+      } else { 
+        let tags;
+
+        if (typeName(tag) === "Array") {
+          tags = tag;
+        } else {
+          tags = [tag];
         }
-      };
 
-      TypeCheck(category);
-      TypeCheck(content);
-      TypeCheck(limit);
-      TypeCheck(page);
+        // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]
+        // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다
+        const posts = await postService.getTaggedPosts({
+          sort,
+          page,
+          limit,
+          tags,
+        });
 
-      // parameters ex) page: 2, limit: 10, tags: ['elice', encodeURI('봄')]
-      // ※ 예시에서 encodeURI('봄') 으로 표현한 이유는 "유니코드인 한글"은 "URL 인코딩"되기 때문이다
-      const posts = await postService.getSearchPosts({
-        category,
-        content,
-        sort,
-        page,
-        limit,
-      });
-
-      res.status(200).json(posts);
+        res.status(200).json(posts);
+      }
     } catch (err) {
       next(err);
     }
@@ -174,7 +204,7 @@ postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
     const subjectId = req.body.subjectId ?? null;
     const category = req.body.category ?? null;
 
-    if (!userId || !subjectId) {
+    if (!userId) {
       const errorMessage = "Error: Invalid data";
       throw new Error(errorMessage);
     }

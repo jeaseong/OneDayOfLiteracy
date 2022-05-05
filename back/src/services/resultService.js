@@ -35,6 +35,9 @@ class resultService {
 
   static async deleteResultByUserId({ userId }) {
     const deleteResult = await Result.deleteByUserId({ userId });
+    if (deleteResult.deletedCount == 0) {
+      return { errorMessage: "정상적으로 삭제되지 않았습니다." };
+    }
     return deleteResult;
   }
 
@@ -55,6 +58,9 @@ class resultService {
 
   static async deleteResult({ resultId }) {
     const deleteResult = Result.delete({ resultId });
+    if (deleteResult.deletedCount !== 1) {
+      return { errorMessage: "정상적으로 삭제되지 않았습니다."};
+    }
     return deleteResult;
   }
 }

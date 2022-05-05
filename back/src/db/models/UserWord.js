@@ -20,7 +20,6 @@ class UserWord{
             }
         }
 
-        console.log(filter, option, toUpdate);
         const updatedUserWord = await UserWordModel.findOneAndUpdate(
           filter,
           toUpdate,
@@ -28,6 +27,11 @@ class UserWord{
         );
         
         return updatedUserWord;
+    }
+
+    static async deleteByUserId({ userId }){
+        const deleted = await UserWordModel.deleteOne({ userId });
+        return deleted;
     }
 }
 

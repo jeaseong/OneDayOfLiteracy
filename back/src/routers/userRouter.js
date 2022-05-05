@@ -6,6 +6,7 @@ import { userAuthService } from "../services/userService";
 import config from "../config";
 import axios from "axios";
 import assert from "assert";
+import { typeName } from "../utils/validation/typeName";
 
 const userAuthRouter = Router();
 
@@ -118,10 +119,27 @@ userAuthRouter
 });
 
 // GET /users : 전체 user 조회
-userAuthRouter.get("/users", async (req, res, next) => {
+// /users?sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+userAuthRouter.get(
+  "/users", 
+  isValidData("user-sorting"),
+  invalidCallback,
+  async (req, res, next) => {
   try {
     // pagination 필요
-    const users = await userAuthService.getUsers();
+    const { sort, page, limit } = req.query;
+    
+    const TypeCheck = (variable) => {
+      if (typeName(variable) === "Array" || typeName(variable) == "Object") {
+        throw new Error(
+          `${variable}를 보낼 시, api 문서에 기재된 query string 형식을 준수하세요.`
+        );
+      }
+    };
+    TypeCheck(limit);
+    TypeCheck(page);
+
+    const users = await userAuthService.getUsers({ sort, page, limit });
     res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -229,7 +247,7 @@ userAuthRouter.patch("/users/:userId/removeImage",
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      assert(req.currentUserId !== userId, "유저 ID가 올바르지 않습니다.");
+      assert(req.currentUserId === userId, "유저 ID가 올바르지 않습니다.");
 
       const toUpdate = {
         profileUrl: "https://team2.cdn.ntruss.com/users/default.png"
@@ -248,7 +266,8 @@ userAuthRouter.delete(
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-
+      assert(req.currentUserId === userId, "유저 정보가 일치하지 않습니다.");
+      
       const user = await userAuthService.getUserInfo({ userId });
       
       if (user.kakaoId !== 0) {
@@ -269,12 +288,14 @@ userAuthRouter.delete(
         assert(kakaoId === user.kakaoId, "카카오 계정 연결 해제 오류");
       }
       
+      res.status(200).send("success");
+
       const deletedUser = await userAuthService.deleteUser({ userId });
 
       if (deletedUser.deletedCount !== 1) {
         throw new Error("정상적으로 삭제되지 않았습니다.");
       }
-      res.status(200).send("success");
+      
     } catch (error) {
       next(error);
     }

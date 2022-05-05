@@ -5,7 +5,7 @@ class likeService {
   // 좋아요 추가
   static async addLike({ userId, postId }) {
     const user = await User.findById({ userId });
-    console.log(user);
+
     if (!user) {
       return { errorMessage: "존재하지 않는 유저입니다." };
     }
@@ -125,6 +125,16 @@ class likeService {
     const posts = await Post.findAll(page, limit, query);
     posts.errorMessage = null;
     return posts;
+  }
+
+  static async deleteLikeCountByPostIds({ postIds }) {
+    try {
+      const result = await Like.decreaseLikeCountByPostIds({ postIds });
+
+      return { errorMessage: null };
+    } catch (err) {
+      return { errorMessage: err.message };
+    } 
   }
 }
 

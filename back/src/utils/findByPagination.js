@@ -1,6 +1,7 @@
 import { typeName } from "./validation/typeName";
 
 const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
+  
   switch(queryPrototype){
     case "sort":
       return baseQuery.sort(queryArg);
@@ -17,11 +18,14 @@ const addMatchedQuery = (baseQuery, queryPrototype, queryArg) => {
       } else if(typeName(queryArg) === "Array"){
         return baseQuery.populate(queryArg[0], queryArg[1]);
       }
+
+    case "select":
+      return baseQuery.select(queryArg);
   }
 }
 // model 과 { query, page, limit } 으로 페이지네이션
 
-async function findByPagination2(model, options = {}, query = {}, extraQueryList = [{ sort: { updatedAt: -1 } },]) {
+async function findByPagination2(model, options = {}, query = {}, extraQueryList = [{ sort: { createdAt: -1 } },]) {
   
   const page = options?.page ?? null;
   const limit = options?.limit ?? null;
@@ -35,18 +39,33 @@ async function findByPagination2(model, options = {}, query = {}, extraQueryList
     .find(query)
     .lean()
     .select("-__v")
-    .populate("subject", { _id: 0, subject: 1 })
-    .populate({ path: "userLikesCount", select: { _id: 0, userLikesCount: 1 }});
+    
 
   // extraQueryList 예시
   // const extraQuery = [
   //     {lean: undefined},
-  //     {populate: ["userLikesCount", { _id: 0, userLikesCount: 1 }]}
-  //     {sort: { userLikesCount: 1 }}
+  //     {populate: ["userId", { _id: 0, email: 1, level: 1, point: 1 }]}
+  //     {sort: { title: 1 }}
   // ];
 
+  //extraQueryList 요소로 { sort: ~ } 가 있는지 확인하고, 없으면 디폴트 지정
+  let isSortExist = false;
+  for(let i=0; i<extraQueryList.length; i++){
+    const q = extraQueryList[i];
+    if(Object.keys(q)[0] == 'sort'){
+      isSortExist = true;
+      break;
+    }
+  }
+
+  // 이미 다른 쿼리들({select: "nickname -__v"} 등)로 채워진 extraQueryList
+  // 그러나 { sort: ~ } 쿼리가 없다.
+  if(!isSortExist){ 
+    extraQueryList.push({ sort: { createdAt: -1 } });
+  }
+  
   const totalQuery = extraQueryList.reduce((acc, cur) => {
-    // cur이 {sort: { userLikesCount: 1 }} 이면 => Object.keys(cur)[0] 은 'sort'
+    // cur이 {sort: { userId.level: 1 }} 이면 => Object.keys(cur)[0] 은 'sort'
     return addMatchedQuery(acc, Object.keys(cur)[0], Object.values(cur)[0]);
   }, baseQuery);
 

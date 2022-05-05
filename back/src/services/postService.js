@@ -1,6 +1,9 @@
 import { User, Post, Subject, Like } from '../db'
 import { typeName } from "../utils/validation/typeName";
 import { isEmptyArray } from "../utils/validation/isEmptyType";
+import { commentService } from "./commentService";
+import { addPoint, getPoint } from "../utils/levelSystem/Point";
+
 class postService {
   static async addPost({
     author,
@@ -39,13 +42,10 @@ class postService {
     const createdNewPost = await Post.create({ newPost });
     createdNewPost.errorMessage = null;
 
-    // 작성한 user의 포인트 적립 (기존 포인트 + 작성한 글 포인트)
-    const points = user.point + subject.point;
-
-    await User.update({
-      userId: user._id,
-      toUpdate: { point: points },
-    });
+    const addPointResult = await addPoint({ subject, user });
+    if(addPointResult.errorMessage){
+      return { errorMessage: addPointResult.errorMessage };
+    }
 
     return createdNewPost;
   }
@@ -60,21 +60,27 @@ class postService {
     const post = await Post.findById({ postId });
 
     if (!post) return { errorMessage: "해당 글이 존재하지 않습니다." };
+    if (!toUpdate.imageUrl) {
+      const userId = toUpdate.userId;
+      let subjectId = toUpdate.subjectId;
 
-    const userId = toUpdate.userId;
-    const subjectId = toUpdate.subjectId;
+      // subjectId 에 대한 검증(없는 경우 자유 글쓰기 주제이므로 Id 지정)
+      if (!subjectId) {
+        subjectId = "626f9108187d6e5687442e3b";
+        toUpdate.subjectId = subjectId;
+      }
 
-    const user = await User.findById({ userId });
-    const subject = await Subject.findById({ subjectId });
+      const user = await User.findById({ userId });
+      const subject = await Subject.findById({ subjectId });
 
-    if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
-    if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
+      if (!user) return { errorMessage: "해당 유저가 존재하지 않습니다." };
+      if (!subject) return { errorMessage: "해당 주제가 존재하지 않습니다." };
 
-    const toUpdateField = Object.keys(toUpdate);
-    toUpdateField.forEach((key) => {
-      if (!toUpdate[key]) delete toUpdate[key];
-    });
-    
+      const toUpdateField = Object.keys(toUpdate);
+      toUpdateField.forEach((key) => {
+        if (!toUpdate[key]) delete toUpdate[key];
+      });
+    };
     const updatedPost = await Post.update({ postId, toUpdate });
     updatedPost.errorMessage = null;
     return updatedPost;
@@ -94,10 +100,13 @@ class postService {
     const type = sort?.type ?? null;
     let extraQueryList;
 
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [{ populate: populateOption }];
+
     if (field !== null && type !== null) {
       const sortOption = new Object();
       sortOption[field] = type;
-      extraQueryList = [{ sort: sortOption }];
+      extraQueryList.push({ sort: sortOption });
     }
 
     const posts = await Post.findAll(page, limit, query, extraQueryList);
@@ -110,7 +119,7 @@ class postService {
     return posts;
   }
 
-  static async getTaggedPosts(page, limit, tags) {
+  static async getTaggedPosts({sort, page, limit, tags}) {
     const andList = [];
     tags.forEach((tag) => {
       const cond = { tags: { $regex: decodeURI(tag), $options: "iu" } };
@@ -120,7 +129,20 @@ class postService {
 
     const query = { $and: andList };
 
-    const posts = await Post.findAll(page, limit, query);
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
+
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [{ populate: populateOption }];
+
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList.push({ sort: sortOption });
+    }
+
+    const posts = await Post.findAll(page, limit, query, extraQueryList);
     return posts;
   }
 
@@ -162,10 +184,13 @@ class postService {
     const type = sort?.type ?? null;
     let extraQueryList;
 
+    const populateOption = ["subject", { _id: 0, subject: 1 }];
+    extraQueryList = [({ populate: populateOption })];
+
     if (field !== null && type !== null) {
       const sortOption = new Object();
       sortOption[field] = type;
-      extraQueryList = [{ sort: sortOption }];
+      extraQueryList.push({ sort: sortOption });
     }
     
     const posts = await Post.findAll(page, limit, query, extraQueryList);
@@ -179,6 +204,11 @@ class postService {
       return { errorMessage: "자신이 쓴 글만 삭제할 수 있습니다."};
     }
 
+    const deletedComment = await commentService.deleteCommentsByPostId({ postId });
+    if(deletedComment.errorMessage){
+      return { errorMessage: deletedComment.errorMessage };
+    }
+
     const result = await Post.delete({ postId });
 
     if (result.deletedCount !== 1) {
@@ -187,7 +217,7 @@ class postService {
 
     const updated = await Like.deleteAllByPostId({ postId });
 
-    // Boolean indicating everything went smoothly. 
+    // .acknowledged : Boolean indicating everything went smoothly. 
     //[출처] : https://mongoosejs.com/docs/api.html#model_Model.updateMany
     if(!updated.acknowledged){
       return { errorMessage: "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다." };
@@ -211,17 +241,24 @@ class postService {
       return { errorMessage: "Error: 정상적으로 삭제되지 않았습니다." };
     }
 
-    posts.forEach( post => {
+    posts.forEach( async (post) => {
       const postId = post["_id"];
-      const updated = Like.deleteAllByPostId({ postId });
+      
+      const updated = await Like.deleteAllByPostId({ postId });
+
       if(!updated.acknowledged){
         return {
           errorMessage:
             "Error: User의 postLikes필드의 삭제가 제대로 진행되지 않았습니다.",
         };
       }
+      
+      const deletedComment = await commentService.deleteCommentsByPostId({ postId });
+      if(deletedComment.errorMessage){
+        return { errorMessage: deletedComment.errorMessage };
+      }
     });
-    
+
     return { errorMessage: null };
   }
 }

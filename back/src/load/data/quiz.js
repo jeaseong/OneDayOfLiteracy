@@ -22,4 +22,6 @@ const quizzes = [
   }
 ];
 
-export { quizzes };
+const quizWords = quizzes.map((v) => v.word);
+
+export { quizzes, quizWords };

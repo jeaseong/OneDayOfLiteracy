@@ -87,8 +87,8 @@ resultRouter.delete("/users/:userId/results", async (req, res, next) => {
     const userId = req.params.userId;
 
     const deleteResult = await resultService.deleteResultByUserId({ userId });
-    if (deleteResult.deletedCount == 0) {
-      throw new Error("정상적으로 삭제되지 않았습니다.");
+    if(deleteResult.errorMessage){
+      throw new Error(deleteResult.errorMessage);
     }
 
     res.status(200).send({ success: true });
@@ -105,8 +105,8 @@ resultRouter.delete("/results/:resultId", async (req, res, next) => {
     const resultId = req.params.resultId;
 
     const deleteResult = await resultService.deleteResult({ resultId });
-    if (deleteResult.deletedCount !== 1) {
-      throw new Error("정상적으로 삭제되지 않았습니다.");
+    if(deleteResult.errorMessage){
+      throw new Error(deleteResult.errorMessage);
     }
 
     res.status(200).send({ success: true });

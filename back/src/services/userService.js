@@ -2,6 +2,13 @@ import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../config";
+import { commentService } from "./commentService";
+import { postService } from "./postService";
+import { resultService } from "./resultService";
+import { userWordService } from "./userWordService";
+import { likeService } from "./likeService";
+import { typeName } from "../utils/validation/typeName";
+import { getPoint } from "../utils/levelSystem/Point";
 
 class userAuthService {
   // 유저 추가(회원 가입)
@@ -57,7 +64,7 @@ class userAuthService {
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     const loginUser = {
-      ...user._doc,
+      ...user,
       token,
       errorMessage: null,
     };
@@ -82,7 +89,7 @@ class userAuthService {
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     const loginUser = {
-      ...user._doc,
+      ...user,
       token,
       errorMessage: null,
     };
@@ -104,10 +111,12 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
+
     try {
-      delete user._doc["password"];
+      delete user["password"];
     } finally {
-      return user;
+      const userWithExp = getPoint({ user });
+      return userWithExp;
     }
   }
 
@@ -115,12 +124,33 @@ class userAuthService {
   static async getUserByKakaoId({ kakaoId }) {
     const user = await User.findByKakaoId({ kakaoId });
 
-    return user;
+    try {
+      delete user["password"];
+    } finally {
+      const userWithExp = getPoint({ user });
+      return userWithExp;
+    }
+    
   }
 
   // 전체 유저 조회
-  static async getUsers() {
-    const users = await User.findAll();
+  static async getUsers({ sort, page, limit }) {
+    const query = {};
+    const field = sort?.field ?? null;
+    const type = sort?.type ?? null;
+    let extraQueryList;
+
+    const selectOption = new Object({ password: 0, __v: 0 });
+    extraQueryList = [{ select: selectOption }];
+
+    if (field !== null && type !== null) {
+      const sortOption = new Object();
+      sortOption[field] = type;
+      extraQueryList.push({ sort: sortOption });
+    }
+    
+    const users = await User.findAll(page, limit, query, extraQueryList);
+
     return users;
   }
 
@@ -148,19 +178,39 @@ class userAuthService {
     
     user = await User.update({ userId, toUpdate });
     try {
-      delete user._doc["password"];
+      delete user["password"];
     } finally {
-      return user;
+      const userWithExp = getPoint({ user });
+      return userWithExp;
     }
   }
 
   // 유저 삭제 (회원 탈퇴)
   static async deleteUser({ userId }) {
     // 해당 유저 삭제
+    
+    try {
+      const user = await User.findById({ userId });
+      const deletedResults =
+        await Promise.all([
+          commentService.deleteCommentsByUserId({ userId }),
+          postService.deletePostsByUserId({ userId }),
+          resultService.deleteResultByUserId({ userId }),
+          userWordService.deleteUserWordByUserId({ userId }),
+          likeService.deleteLikeCountByPostIds({ postIds: user.postLikes }),
+        ]);
+      
+      if(typeName(deletedResults) !== "Array"){
+        throw new Error(deletedResults);
+      }
+    } catch (error) {
+      return { errorMessage: error.errorMessage };
+    }
     const deletedUser = await User.delete({ userId });
     return deletedUser;
   }
 
+  // 카카오 유저 추가(회원가입) 
   static async addUserByKakaoId({ kakaoId }) {
     const user = await User.findByKakaoId({ kakaoId });
     if (user) {
@@ -169,8 +219,16 @@ class userAuthService {
       return { errorMessage };
     }
     // kakaoUser용 임시 email
-    const randomString =  Math.random().toString(10).slice(2,10)
-    const email = `kakaouser${randomString}@test.com`;
+    while (True) {
+      const randomString = Math.random().toString(10).slice(2, 10);
+      const email = `kakaouser${randomString}@test.com`;
+
+      const user = await User.findByEmail({ email });
+      if (!user) {
+        break;
+      }
+    }
+
     // kakaoUser용 임시 password
     const password = Math.random().toString(36).slice(2,11);
     // kakaoUser용 임시 nickname
