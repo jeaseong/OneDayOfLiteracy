@@ -32,8 +32,10 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "multer-s3": "^2.10.0",
+    "swagger-ui-express": "^4.3.0",
     "uuid": "^8.3.2",
     "winston": "^3.7.2",
-    "winston-daily-rotate-file": "^4.6.1"
+    "winston-daily-rotate-file": "^4.6.1",
+    "yamljs": "^0.3.0"
   }
 }
