@@ -26,14 +26,8 @@ class userWordService{
     static async getUserWord({ userId }){
         const userWord = await UserWord.findByUserId({ userId });
         if(!userWord){
-            const newUserWord = { userId };
-            const createdNewUserWord = await UserWord.create({ newUserWord });
-            
-            const quiz = await Quiz.findByWord({ word: createdNewUserWord.word });
-
             return {
-                word: createdNewUserWord._doc["word"],
-                num: quiz.num,
+                num: 0,
             }
         }
 
