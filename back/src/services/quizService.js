@@ -11,6 +11,15 @@ class quizService{
 
         return quizzes;
     }
+
+    static async getQuizByWord({ word }){
+        const quiz = await Quiz.findByWord({ word });
+        if(!quiz){
+            const errorMessage = "해당 단어에 대한 퀴즈 데이터가 없습니다.";
+            return { errorMessage }; 
+        }
+        return quiz;
+    }
 }
 
 export { quizService };

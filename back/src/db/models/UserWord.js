@@ -7,7 +7,7 @@ class UserWord{
     }
 
     static async findByUserId({ userId }) {
-        const userWord = await UserWordModel.findOne({ userId }, { __v: 0 });
+        const userWord = await UserWordModel.findOne({ userId }, { __v: 0 }).lean();
         return userWord;
     }
 
@@ -24,7 +24,7 @@ class UserWord{
           filter,
           toUpdate,
           option
-        );
+        ).lean();
         
         return updatedUserWord;
     }

@@ -24,12 +24,24 @@ class userWordService{
     }
 
     static async getUserWord({ userId }){
-        const userWord = UserWord.findByUserId({ userId });
+        const userWord = await UserWord.findByUserId({ userId });
         if(!userWord){
             const errorMessage = "해당 유저의 단어가 존재하지 않습니다";
             return { errorMessage };
         }
-        return userWord;
+
+        const quiz = await Quiz.findByWord({ word: userWord.word });
+        if (quiz === null) {
+          const errorMessage = "퀴즈 DB에 해당 단어가 존재하지 않습니다";
+          return { errorMessage };
+        }
+
+        const userWordWithNum = {
+            word: userWord.word,
+            num : quiz.num,
+        }
+        
+        return userWordWithNum;
     }
 
     // 유저 탈퇴 시 진행될 단어 삭제 Service

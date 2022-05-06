@@ -26,7 +26,7 @@ class commentService {
     const query = { postId, parentId: null, isDeleted: false };
     //page 혹은 limit의 값이 "", undefined 이런 경우 => 페이지네이션 안한다.
     if (!page || !limit) {
-      const comments = await Comment.findByPostId({ query })
+      const comments = await Comment.findByPostId({ query, page: 1, limit: Infinity })
       return { isLast: true, comments };
     }
 
