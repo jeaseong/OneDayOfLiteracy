@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
-import { useQueryClient } from "react-query";
-import { useGetProfileUser } from "queries/userQuery";
-import UserPostInfo from "pages/User/Profile/UserPostInfo";
+import { useState } from "react";
 import {
   CardBox,
   CardContainer,
-  UserProfileContainer,
   CardHeader,
   ProfileImg,
-  EditContainer,
+  ChangeButton,
+  ProfileImgBox,
   ProfileChangeBox,
-} from "styles/User/UserCardStyle";
+} from "styles/User/ProfileStyle";
+import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "utils/constants";
+import FileUpload from "components/FileUpload";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
+import { useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { useGetProfileUser } from "queries/userQuery";
 import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
 
@@ -26,6 +29,8 @@ function UserCard({ editStateStore, children }) {
   const userId = params.userId;
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
+  const { isEdit, setIsEdit } = editStateStore;
+  const [showAlert, setShowAlert] = useState(false);
   const userProfile = useGetProfileUser(userId);
 
   if (userProfile.isFetching) return <Loading />;
@@ -38,20 +43,45 @@ function UserCard({ editStateStore, children }) {
   };
   const isProfileOwner = checkProfileOwner();
 
+  // Alert
+  const changeFailImage = setAlertData(
+    showAlert,
+    setShowAlert,
+    FAIL_MESSAGE.IMAGE,
+    ALERT_TYPE.ERROR
+  );
+
+  // 프로필 이미지 업로드
+  const profileImageData = {
+    type: "users",
+    id: userProfile.data._id,
+    prevImage: userProfile.data.profileUrl,
+    showAlert,
+    setShowAlert,
+  };
+
+  const ModifyUserButton = !isEdit ? (
+    <ChangeButton onClick={() => setIsEdit((cur) => !cur)}>
+      {LABEL.CHANGE_PROFILE}
+    </ChangeButton>
+  ) : (
+    <FileUpload {...profileImageData} />
+  );
+
   return (
     <CardContainer>
       <CardBox>
-        <UserProfileContainer>
-          <CardHeader>
+        <CardHeader>
+          <ProfileImgBox>
             <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
-          </CardHeader>
-          <EditContainer>
-            {children}
-            {isProfileOwner && <ProfileChangeBox>수정버튼</ProfileChangeBox>}
-          </EditContainer>
-        </UserProfileContainer>
-        <UserPostInfo />
+          </ProfileImgBox>
+          {isProfileOwner && (
+            <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
+          )}
+        </CardHeader>
+        {children}
       </CardBox>
+      <CustomSnackbar {...changeFailImage} />
     </CardContainer>
   );
 }

@@ -12,14 +12,16 @@ import {
   HomeTitle,
   HomeContents,
   TextContent,
+  TextTitle,
+  TextParagraph,
+  TextEmphasize,
   GraphBox,
 } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
 
+import PisaTop15BarCountries from "./PisaTop15Countries";
 import PisaGdpScatter from "./PisaGdpScatter";
-import PisaKMeanT from "./PisaKMeanT";
 import PisaEmployee from "./PisaEmployee";
-import PisaTop15Bar from "./PisaTop15Bar";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 const BANNERS = [
@@ -232,9 +234,84 @@ function Home() {
       </DotsBox>
       <Homepage>
         <ContentsContainer>
-          <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
+          <HomeTitle>
+            <TextEmphasize>PISA</TextEmphasize> 란 ?
+          </HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수</TextContent>
+            <TextContent>
+              <TextTitle>PISA란 OECD 국제 학력평가 프로그램입니다.</TextTitle>
+              <TextParagraph>
+                3년에 한번 OECD 회원국가의 15세 아동을 대상으로 실생활의 문제를
+                해결하는 <TextEmphasize>읽기, 수학, 과학</TextEmphasize> 능력을
+                측정합니다.
+              </TextParagraph>
+              <TextParagraph>
+                시험 형식이 정말 실생활에 사용되는 문제라는 게 기존의 시험과
+                달라요.
+              </TextParagraph>
+              <TextParagraph>
+                PISA의 창시자는 데이터를 통해{" "}
+                <TextEmphasize>더 나은 교육</TextEmphasize>을 제공하고, 학생이
+                미래에 <TextEmphasize>경제 활동</TextEmphasize>을 잘 할 수
+                있는지 알아보기 위해 PISA를 만들었다고 합니다.
+              </TextParagraph>
+            </TextContent>
+            <GraphBox>
+              <img
+                alt="출처:pisa"
+                style={{ borderRadius: 10, width: 400 }}
+                src={`${process.env.PUBLIC_URL}/assets/img/pisa_world.webp`}
+              ></img>
+            </GraphBox>
+          </HomeContents>
+        </ContentsContainer>
+      </Homepage>
+      <Homepage>
+        <ContentsContainer>
+          <HomeTitle>
+            당신의 <TextEmphasize>문해력</TextEmphasize> 건강하십니까?
+          </HomeTitle>
+          <HomeContents>
+            <GraphBox>
+              <PisaTop15BarCountries />
+            </GraphBox>
+            <TextContent>
+              <TextTitle>
+                이렇게 중요한 PISA 시험 점수의{" "}
+                <TextEmphasize>세계적인 추세</TextEmphasize>를 볼까요?
+              </TextTitle>
+              <TextParagraph>
+                pisa 평균점수가 가장 높은
+                <TextEmphasize> 15개 국가의 </TextEmphasize> 데이터를 연도별로
+                뽑아봤습니다.
+              </TextParagraph>
+              <TextParagraph>
+                <TextEmphasize>우리나라</TextEmphasize> 점수가 다른나라에 비해
+                현저하게 <TextEmphasize>떨어지고</TextEmphasize> 있었습니다.
+              </TextParagraph>
+              <TextParagraph>
+                물론 점수가 하락하는 현상이 우리나라에만 나타나는 것은
+                아니었습니다.
+              </TextParagraph>
+            </TextContent>
+          </HomeContents>
+        </ContentsContainer>
+      </Homepage>
+      <Homepage>
+        <ContentsContainer>
+          <HomeTitle>우리나라 PISA 점수는?</HomeTitle>
+          <HomeContents>
+            <TextContent>
+              <TextTitle>
+                우리나라의 <TextEmphasize>과목별 점수</TextEmphasize>를 좀 더
+                들여다 보겠습니다.
+              </TextTitle>
+              <TextParagraph>
+                수학이나 과학에 비해
+                <TextEmphasize> 읽기 점수 </TextEmphasize> 가 더 큰 폭으로
+                떨어지는 걸 볼 수 있습니다.
+              </TextParagraph>
+            </TextContent>
             <GraphBox>
               <PisaSubjectScoreBar></PisaSubjectScoreBar>
             </GraphBox>
@@ -243,18 +320,22 @@ function Home() {
       </Homepage>
       <Homepage>
         <ContentsContainer>
-          <HomeTitle>2</HomeTitle>
+          <HomeTitle>문해력은 우리 삶에 어떤 영향을 미칠까요?</HomeTitle>
           <HomeContents>
-            <TextContent></TextContent>
-            <GraphBox>{/* <PisaTop15Bar></PisaTop15Bar> */}</GraphBox>
-          </HomeContents>
-        </ContentsContainer>
-      </Homepage>
-      <Homepage>
-        <ContentsContainer>
-          <HomeTitle>3</HomeTitle>
-          <HomeContents>
-            <TextContent></TextContent>
+            <TextContent>
+              <TextTitle>
+                77 개국의 pisa 점수와 <TextEmphasize>GDP</TextEmphasize> 의
+                상관관계를 알아봤습니다.
+              </TextTitle>
+              <TextParagraph>
+                문해력과 GDP가 상관관계가 있다는 것을 확인했습니다.
+              </TextParagraph>
+              <TextParagraph>
+                Pisa를 통해 정말 학생들의 미래{" "}
+                <TextEmphasize>경제활동 가능성</TextEmphasize>을 볼 수 있을 것
+                같습니다.
+              </TextParagraph>
+            </TextContent>
             <GraphBox>
               <PisaGdpScatter></PisaGdpScatter>
             </GraphBox>
@@ -263,21 +344,24 @@ function Home() {
       </Homepage>
       <Homepage>
         <ContentsContainer>
-          <HomeTitle>4</HomeTitle>
+          <HomeTitle>고용률과 문해력의 상관관계</HomeTitle>
           <HomeContents>
-            <TextContent></TextContent>
+            <TextContent>
+              <TextTitle>
+                77 개국의 pisa 점수와 <TextEmphasize>고용률</TextEmphasize> 의
+                상관관계도 알아봤습니다.
+              </TextTitle>
+              <TextParagraph>
+                고용률과 문해력의 상관관계 역시 유의미하게 나타났습니다.
+              </TextParagraph>
+              <TextParagraph>
+                GDP와 고용률 모두와 상관관계가 있지만 문해력은 점점 감소하고
+                있습니다.
+              </TextParagraph>
+            </TextContent>
             <GraphBox>
               <PisaEmployee></PisaEmployee>
             </GraphBox>
-          </HomeContents>
-        </ContentsContainer>
-      </Homepage>
-      <Homepage>
-        <ContentsContainer>
-          <HomeTitle>5</HomeTitle>
-          <HomeContents>
-            <TextContent></TextContent>
-            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>

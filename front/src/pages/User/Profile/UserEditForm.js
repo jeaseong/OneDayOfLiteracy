@@ -8,7 +8,7 @@ import {
   ConfirmButton,
   ConfirmButtonBox,
   EditInputBox,
-} from "styles/User/UserEditStyle";
+} from "styles/User/ProfileStyle";
 import {
   LABEL,
   GUIDE_MESSAGE,
@@ -19,8 +19,6 @@ import { validation } from "utils/validation";
 import { useChangeProfileHandler } from "queries/userQuery";
 import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useQueryClient } from "react-query";
-import EditIcon from "@mui/icons-material/Edit";
-import FileUpload from "../../../components/FileUpload";
 
 /**
  * 프로필 수정 컴포넌트입니다.
@@ -31,7 +29,7 @@ import FileUpload from "../../../components/FileUpload";
 function UserEditForm({ editStateStore }) {
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
-  const { isEdit, setIsEdit } = editStateStore;
+  const { setIsEdit } = editStateStore;
   const [showAlert, setShowAlert] = useState(false);
   const mutation = useChangeProfileHandler(userState._id, setShowAlert);
   const [editInfo, setEditInfo] = useState({
@@ -47,21 +45,6 @@ function UserEditForm({ editStateStore }) {
     setShowAlert,
     FAIL_MESSAGE.CHANGE_PROFILE,
     ALERT_TYPE.ERROR
-  );
-
-  // 프로필 이미지 업로드
-  const profileImageData = {
-    type: "users",
-    id: userState._id,
-    prevImage: userState.profileUrl,
-    showAlert,
-    setShowAlert,
-  };
-
-  const ModifyUserButton = !isEdit ? (
-    <EditIcon onClick={() => setIsEdit((cur) => !cur)} fontSize="medium" />
-  ) : (
-    <FileUpload {...profileImageData} />
   );
 
   // 유효성 검사
@@ -104,14 +87,6 @@ function UserEditForm({ editStateStore }) {
           />
           {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
         </EditInputBox>
-        <EditIntroduceBox>
-          <EditIntroduceInput
-            name="introduce"
-            placeholder="Introduce"
-            value={editInfo.introduce}
-            onChange={handleOnChange}
-          />
-        </EditIntroduceBox>
         <EditInputBox types={userInputGuide.password}>
           <EditInput
             name="password"
@@ -154,7 +129,14 @@ function UserEditForm({ editStateStore }) {
           </ConfirmButton>
         </ConfirmButtonBox>
       </EditBox>
-
+      <EditIntroduceBox>
+        <EditIntroduceInput
+          name="introduce"
+          placeholder="Introduce"
+          value={editInfo.introduce}
+          onChange={handleOnChange}
+        />
+      </EditIntroduceBox>
       <CustomSnackbar {...changeFailUserProfile} />
     </EditContainer>
   );
