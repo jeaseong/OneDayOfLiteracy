@@ -32,7 +32,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const swaggerSpec = YAML.load(__dirname + "/swagger/openapi.yaml")
+const swaggerSpec = YAML.load(__dirname + "/../swagger/openapi.yaml")
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
