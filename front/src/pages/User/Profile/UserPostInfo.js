@@ -35,7 +35,7 @@ function UserPostInfo() {
               <ProfilecurExp>
                 {curExp} / {maxExp}
               </ProfilecurExp>
-              {/* <ProfileExp value={curExp} max={maxExp} /> */}
+              <ProfileExp value={curExp} max={maxExp} />
             </ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>

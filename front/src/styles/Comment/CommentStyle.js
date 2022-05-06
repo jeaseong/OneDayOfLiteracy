@@ -27,7 +27,7 @@ export const WriteComment = styled.form`
   align-items: center;
 `;
 export const InputBox = styled.div`
-  width: 70%;
+  width: 100%;
   position: relative;
 `;
 

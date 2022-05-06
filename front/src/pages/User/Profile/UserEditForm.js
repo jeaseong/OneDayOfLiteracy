@@ -8,7 +8,7 @@ import {
   ConfirmButton,
   ConfirmButtonBox,
   EditInputBox,
-} from "styles/User/ProfileStyle";
+} from "styles/User/UserEditStyle";
 import {
   LABEL,
   GUIDE_MESSAGE,
@@ -87,6 +87,14 @@ function UserEditForm({ editStateStore }) {
           />
           {userInputGuide.nickname && <p>{GUIDE_MESSAGE.NICKNAME}</p>}
         </EditInputBox>
+        <EditIntroduceBox>
+          <EditIntroduceInput
+            name="introduce"
+            placeholder="Introduce"
+            value={editInfo.introduce}
+            onChange={handleOnChange}
+          />
+        </EditIntroduceBox>
         <EditInputBox types={userInputGuide.password}>
           <EditInput
             name="password"
@@ -129,14 +137,7 @@ function UserEditForm({ editStateStore }) {
           </ConfirmButton>
         </ConfirmButtonBox>
       </EditBox>
-      <EditIntroduceBox>
-        <EditIntroduceInput
-          name="introduce"
-          placeholder="Introduce"
-          value={editInfo.introduce}
-          onChange={handleOnChange}
-        />
-      </EditIntroduceBox>
+
       <CustomSnackbar {...changeFailUserProfile} />
     </EditContainer>
   );

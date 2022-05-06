@@ -20,7 +20,6 @@ export const HeadingTwo = styled.h2`
 
 export const InputBox = styled.input`
   border: solid 2px #c99c6e;
-  width: 50%;
   border-radius: 8px;
   height: 30px;
   margin: 1.7rem 0 0 0;
