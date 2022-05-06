@@ -1,13 +1,10 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { get } from "utils/api";
 
 export function useWordsQuery() {
-  const queryClient = useQueryClient();
-  const { userState } = queryClient.getQueryData("userState");
-  const { isFetching, error, words } = useQuery(
+  const { isFetching, error, data } = useQuery(
     "words",
-    async () =>
-      await get(`users/${userState._id}/userword`).then((res) => res.data),
+    async () => await get(`quizzes`).then((res) => res.data),
     {
       staleTime: Infinity,
       onSuccess: () => console.log("단어가 준비되었습니다."),
@@ -16,5 +13,5 @@ export function useWordsQuery() {
       },
     }
   );
-  return { words, isFetching, error };
+  return { words: data, isFetching, error };
 }

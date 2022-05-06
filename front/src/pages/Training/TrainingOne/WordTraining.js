@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useWordsQuery } from "queries/wordsQuery";
+import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import {
   WordTrainingContainer,
@@ -21,7 +22,7 @@ import {
 } from "styles/Training/WordTrainingStyle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { post } from "utils/api";
+import { post, get } from "utils/api";
 
 export default function WordTraining({ subject }) {
   const answerRef = useRef();
@@ -29,8 +30,23 @@ export default function WordTraining({ subject }) {
   const [curIndex, setCurIndex] = useState(progress);
   const [myAnswer, setMyAnswer] = useState("");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
 
   const { words } = useWordsQuery();
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      try {
+        const res = await get(`users/${userState._id}/userword`);
+        setProgress((cur) => res.data.num - 1);
+        setCurIndex((cur) => res.data.num - 1);
+      } catch (e) {
+        console.log("단어를 처음 보는 사람이라 0부터 시작합니다.");
+      }
+    };
+    fetchApi();
+  }, []);
 
   // next, prev 버튼
   const clickSetQuiz = (direction) => {
@@ -62,54 +78,58 @@ export default function WordTraining({ subject }) {
   };
 
   const stopWordTraining = async () => {
-    await post("word", words[progress]);
+    await post("userwords", { word: words[progress - 1].word });
     // await post("", subject);
     navigate("/main");
   };
 
   return (
     <WordTrainingContainer>
-      <WordMeaningBox>
-        <WordMeaning>의미: {words[curIndex].meaning}</WordMeaning>
-      </WordMeaningBox>
-      <WordSuggestion>힌트: {displayAnswer()}</WordSuggestion>
-      <AnswerForm onSubmit={(e) => handleSubmitAnswer(e)}>
-        <AnswerInput
-          type="text"
-          placeholder="정답을 입력해주세요.."
-          value={myAnswer}
-          onChange={(e) => handleChangeAnswer(e)}
-        />
-        <AnswerBtn
-          color={myAnswer.length > 0 ? "#c48f5a" : "#c4c4c4"}
-          onSubmit={(e) => handleSubmitAnswer(e)}
-        >
-          확인
-        </AnswerBtn>
-        <ConfirmBox ref={answerRef}></ConfirmBox>
-      </AnswerForm>
-      <ProgressBox>
-        <ProgressBar>
-          <Progress
-            width={`${Math.ceil(((curIndex + 1) / words.length) * 100)}%`}
-          />
-        </ProgressBar>
-        <ProgressPercent>
-          {Math.ceil(((curIndex + 1) / words.length) * 100)}%
-        </ProgressPercent>
-      </ProgressBox>
-      <ButtonBox>
-        <PrevBtn disabled={curIndex === 0} onClick={() => clickSetQuiz(-1)}>
-          <ArrowBackIosIcon fontSize="large" />
-        </PrevBtn>
-        <NextBtn
-          onClick={() => clickSetQuiz(1)}
-          disabled={curIndex === words.length - 1 || progress <= curIndex}
-        >
-          <ArrowForwardIosIcon fontSize="large" />
-        </NextBtn>
-      </ButtonBox>
-      <ClearBtn onClick={() => stopWordTraining()}>그만하기</ClearBtn>
+      {words && (
+        <>
+          <WordMeaningBox>
+            <WordMeaning>의미: {words[curIndex].meaning}</WordMeaning>
+          </WordMeaningBox>
+          <WordSuggestion>힌트: {displayAnswer()}</WordSuggestion>
+          <AnswerForm onSubmit={(e) => handleSubmitAnswer(e)}>
+            <AnswerInput
+              type="text"
+              placeholder="정답을 입력해주세요.."
+              value={myAnswer}
+              onChange={(e) => handleChangeAnswer(e)}
+            />
+            <AnswerBtn
+              color={myAnswer.length > 0 ? "#c48f5a" : "#c4c4c4"}
+              onSubmit={(e) => handleSubmitAnswer(e)}
+            >
+              확인
+            </AnswerBtn>
+            <ConfirmBox ref={answerRef}></ConfirmBox>
+          </AnswerForm>
+          <ProgressBox>
+            <ProgressBar>
+              <Progress
+                width={`${Math.ceil(((curIndex + 1) / words.length) * 100)}%`}
+              />
+            </ProgressBar>
+            <ProgressPercent>
+              {Math.ceil(((curIndex + 1) / words.length) * 100)}%
+            </ProgressPercent>
+          </ProgressBox>
+          <ButtonBox>
+            <PrevBtn disabled={curIndex === 0} onClick={() => clickSetQuiz(-1)}>
+              <ArrowBackIosIcon fontSize="large" />
+            </PrevBtn>
+            <NextBtn
+              onClick={() => clickSetQuiz(1)}
+              disabled={curIndex === words.length - 1 || progress <= curIndex}
+            >
+              <ArrowForwardIosIcon fontSize="large" />
+            </NextBtn>
+          </ButtonBox>
+          <ClearBtn onClick={() => stopWordTraining()}>그만하기</ClearBtn>
+        </>
+      )}
     </WordTrainingContainer>
   );
 }
