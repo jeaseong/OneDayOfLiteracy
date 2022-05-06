@@ -38,7 +38,6 @@ export const Dots = styled.div`
 `;
 
 export const Homepage = styled.div`
-  // background-color: ${(props) => props.bgcolor};
   background-color: #f5efea;
   height: 100vh;
   display: flex;
@@ -94,9 +93,23 @@ export const GraphBox = styled.div`
 `;
 
 export const CountryButton = styled.button`
-  width: 30;
-  height: 22;
-  margin-right: 1rem;
-  border: none;
+  width: 40px;
+  height: 31px;
+  margin: 1rem 1rem 0 0;
+  padding: 0;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #503d3f;
+  transition-duration: 0.3s;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    margin-top: 14px;
+    margin-left: 1px;
+    box-shadow: none;
+  }
 `;
-export const Buttons = styled.div``;
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+`;

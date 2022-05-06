@@ -17,7 +17,6 @@ import { useRef, useEffect, useState } from "react";
 
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaEmployee from "./PisaEmployee";
-import PisaTop15Bar from "./PisaTop15Bar";
 import PisaTop15BarCountries from "./PisaTop15Countries";
 
 const BANNERS = [
@@ -231,9 +230,7 @@ function Home() {
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
             <TextContent>우리나라 Pisa 점수</TextContent>
-            <GraphBox>
-              <PisaTop15BarCountries />
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -243,7 +240,7 @@ function Home() {
           <HomeContents>
             <TextContent></TextContent>
             <GraphBox>
-              <PisaTop15Bar></PisaTop15Bar>
+              <PisaTop15BarCountries />
             </GraphBox>
           </HomeContents>
         </ContentsContainer>

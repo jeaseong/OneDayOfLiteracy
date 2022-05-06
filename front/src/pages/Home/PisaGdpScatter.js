@@ -48,14 +48,15 @@ const options = {
         size: 20,
       },
     },
-    tooltips: {
+    tooltip: {
       callbacks: {
-        label: function (tooltipItems, data) {
-          let label = data.dataset[tooltipItems.datasetIndex].label || "";
-          console.log("label", label);
+        label: function (context) {
+          let label = context.dataset.label || "";
+
           if (label) {
-            label = label + ": " + tooltipItems.yLabel;
+            label = label[context.dataIndex];
           }
+
           return label;
         },
       },
