@@ -123,4 +123,4 @@ yarn start
 |     [김영곤](https://github.com/)      |   백엔드   |
 |     [박재성](https://github.com/)      | 프론트엔드 |
 | [손정웅](https://github.com/Handwoong) | 프론트엔드 |
-|     [손현주](https://github.com/)      | 프론트엔드 |
+| [손현주](https://github.com/guswn2521) | 프론트엔드 |
