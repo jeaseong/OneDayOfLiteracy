@@ -64,6 +64,70 @@ const graphMaker = (country) => {
   return <Bar options={options} data={data} />;
 };
 
+const options = {
+  responsive: true,
+  scales: {
+    y: {
+      min: 480,
+    },
+  },
+  plugins: {
+    legend: {
+      position: "bottom",
+    },
+    title: {
+      display: true,
+      text: "국가별 Pisa 점수 top 15",
+      font: {
+        size: 20,
+      },
+    },
+  },
+};
+
+const labels = pisaTop15.map((v) => v.Country);
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: "2006",
+      data: pisaTop15.map((v) => v["2006"]),
+      backgroundColor: "#e279a1",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
+    },
+    {
+      label: "2009",
+      data: pisaTop15.map((v) => v["2009"]),
+      backgroundColor: "#ff9770",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
+    },
+    {
+      label: "2012",
+      data: pisaTop15.map((v) => v["2012"]),
+      backgroundColor: "#ffd670",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
+    },
+    {
+      label: "2015",
+      data: pisaTop15.map((v) => v["2015"]),
+      backgroundColor: "#e9ff70",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
+    },
+    {
+      label: "2018",
+      data: pisaTop15.map((v) => v["2018"]),
+      backgroundColor: "#adeacb",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
+    },
+  ],
+};
+
 const PisaTop15BarCountries = () => {
   const [button, setButton] = useState("");
   const [countryTitle, setCountryTitle] = useState("");
@@ -216,7 +280,11 @@ const PisaTop15BarCountries = () => {
           />
         </CountryButton>
       </Buttons>
-      {button ? graphMaker(countryTitle) : null}
+      {button ? (
+        graphMaker(countryTitle)
+      ) : (
+        <Bar options={options} data={data} />
+      )}
     </>
   );
 };

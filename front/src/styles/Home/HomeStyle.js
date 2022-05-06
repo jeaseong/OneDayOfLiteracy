@@ -96,7 +96,7 @@ export const GraphBox = styled.div`
 export const CountryButton = styled.button`
   width: 30;
   height: 22;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   border: none;
 `;
 export const Buttons = styled.div``;
