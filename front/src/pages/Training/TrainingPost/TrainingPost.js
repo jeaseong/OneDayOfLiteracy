@@ -5,7 +5,6 @@ import remarkGfm from "remark-gfm";
 import {
   PostingBody,
   PostingTitle,
-  PostingMessage,
   PostingContent,
   PostingArea,
   PostingButton,
