@@ -22,7 +22,6 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { post } from "utils/api";
-import { dum } from "./wordDumy";
 
 export default function WordTraining({ subject }) {
   const answerRef = useRef();
@@ -31,7 +30,7 @@ export default function WordTraining({ subject }) {
   const [myAnswer, setMyAnswer] = useState("");
   const navigate = useNavigate();
 
-  // const { words } = useWordsQuery();
+  const { words } = useWordsQuery();
 
   // next, prev 버튼
   const clickSetQuiz = (direction) => {
@@ -42,7 +41,7 @@ export default function WordTraining({ subject }) {
 
   // 유저가 진행한 문제보다 뒤를 풀면 답이 나오게 출력, 아니라면 빈 칸으로 출력
   const displayAnswer = () => {
-    const curWord = dum[curIndex].word;
+    const curWord = words[curIndex].word;
     if (curIndex < progress) return curWord;
     return new Array(curWord.replace(/(\s*)/g, "").length)
       .fill("O")
@@ -56,22 +55,22 @@ export default function WordTraining({ subject }) {
   //공백을 제거해서 답변으로 적어도 인정.
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
-    if (myAnswer === dum[curIndex].word.replace(/(\s*)/g, "")) {
+    if (myAnswer === words[curIndex].word.replace(/(\s*)/g, "")) {
       answerRef.current.innerHTML = "<mark>정답입니다!<mark>";
       if (curIndex === progress) setProgress((cur) => cur + 1);
     } else answerRef.current.innerHTML = "틀렸습니다..";
   };
 
   const stopWordTraining = async () => {
-    await post("word", progress);
-    await post("", subject);
+    await post("word", words[progress]);
+    // await post("", subject);
     navigate("/main");
   };
 
   return (
     <WordTrainingContainer>
       <WordMeaningBox>
-        <WordMeaning>의미: {dum[curIndex].meaning}</WordMeaning>
+        <WordMeaning>의미: {words[curIndex].meaning}</WordMeaning>
       </WordMeaningBox>
       <WordSuggestion>힌트: {displayAnswer()}</WordSuggestion>
       <AnswerForm onSubmit={(e) => handleSubmitAnswer(e)}>
@@ -92,11 +91,11 @@ export default function WordTraining({ subject }) {
       <ProgressBox>
         <ProgressBar>
           <Progress
-            width={`${Math.ceil(((curIndex + 1) / dum.length) * 100)}%`}
+            width={`${Math.ceil(((curIndex + 1) / words.length) * 100)}%`}
           />
         </ProgressBar>
         <ProgressPercent>
-          {Math.ceil(((curIndex + 1) / dum.length) * 100)}%
+          {Math.ceil(((curIndex + 1) / words.length) * 100)}%
         </ProgressPercent>
       </ProgressBox>
       <ButtonBox>
@@ -105,7 +104,7 @@ export default function WordTraining({ subject }) {
         </PrevBtn>
         <NextBtn
           onClick={() => clickSetQuiz(1)}
-          disabled={curIndex === dum.length - 1 || progress <= curIndex}
+          disabled={curIndex === words.length - 1 || progress <= curIndex}
         >
           <ArrowForwardIosIcon fontSize="large" />
         </NextBtn>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PostContainer } from "styles/Posts/PostStyle";
+import { useQueryClient } from "react-query";
 import {
   PostingContent,
   PostingArea,
@@ -15,6 +16,8 @@ import { post } from "utils/api";
 export default function TrainingPost({ title, tags, subjectId, category }) {
   const navigate = useNavigate();
   const [markdown, setMarkdown] = useState("");
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
 
   const handleChangeMarkdown = (e) => {
     setMarkdown(e.target.value);
@@ -36,11 +39,12 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
     e.preventDefault();
     const curPost = {
       title,
+      content: markdown,
       tags,
       subjectId,
       category,
     };
-    await post("post", curPost);
+    await post("posts", curPost);
     navigate("/posts");
   };
 
@@ -52,8 +56,8 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
           <PostingArea
             type="text"
             placeholder="내용을 입력해주세요..."
-            onChange={(e) => handleChangeMarkdown(e)}
-            onkeyDown={(e) => handleSetTab(e)}
+            onChange={handleChangeMarkdown}
+            onKeyDown={handleSetTab}
             required
           />
           <ReactMarkdown
@@ -67,7 +71,6 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
             type="submit"
             disabled={markdown.length <= 0}
             onClick={(e) => submitTrainingPost(e)}
-            display={tags[0] === "step3" ? "none" : null}
           >
             출간하기
           </PostingButton>
