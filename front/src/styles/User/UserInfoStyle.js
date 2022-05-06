@@ -1,17 +1,21 @@
 import styled from "styled-components";
-import {
-  FlexBox,
-  FlexBoxCenter,
-  HeadingTwo,
-} from "styles/Components/CommonStyle";
+import { FlexBox, HeadingTwo } from "styles/Components/CommonStyle";
+
 export const CardContent = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CardIntroduce = styled.div`
   word-break: break-all;
   width: 100%;
-  height: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`;
+
+export const UserLevelImg = styled.img`
+  margin-right: 5px;
 `;
 
 export const CardLikeCountBox = styled.span`
@@ -21,18 +25,24 @@ export const CardLikeCountBox = styled.span`
 export const CardLikePost = styled(FlexBox)`
   flex-direction: column;
   align-items: center;
-  height: 100%;
 `;
 
 export const CardMyInfo = styled(FlexBox)``;
 
 export const ProfileIntroduce = styled.p`
-  font-size: 1.4rem;
+  font-size: 16px;
+  @media only screen and (min-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const ProfileNickName = styled(HeadingTwo)`
-  color: black;
-  font-size: 2rem;
+  color: inherit;
+  font-size: 20px;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 28px;
+  }
 `;
 
 export const ProfilePostCount = styled(HeadingTwo)`
@@ -42,7 +52,9 @@ export const ProfilePostCount = styled(HeadingTwo)`
 
 export const ProfileTitleBox = styled(FlexBox)`
   align-items: center;
-  margin-top: 20px;
+  box-sizing: border-box;
+
+  margin-bottom: 10px;
 `;
 
 export const ProfileExp = styled.progress`

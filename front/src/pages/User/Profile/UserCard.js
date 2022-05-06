@@ -1,21 +1,24 @@
 import { useState } from "react";
-import {
-  CardBox,
-  CardContainer,
-  CardHeader,
-  ProfileImg,
-  ChangeButton,
-  ProfileImgBox,
-  ProfileChangeBox,
-} from "styles/User/ProfileStyle";
-import { ALERT_TYPE, FAIL_MESSAGE, LABEL } from "utils/constants";
-import FileUpload from "components/FileUpload";
-import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { useGetProfileUser } from "queries/userQuery";
+import UserPostInfo from "pages/User/Profile/UserPostInfo";
+import {
+  CardBox,
+  CardContainer,
+  UserProfileContainer,
+  CardHeader,
+  ProfileImg,
+  EditContainer,
+  ProfileChangeBox,
+} from "styles/User/UserCardStyle";
+import EditIcon from "@mui/icons-material/Edit";
+
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
+import { ALERT_TYPE, FAIL_MESSAGE } from "utils/constants";
+import FileUpload from "components/FileUpload";
 
 /**
  * 프로필 페이지의 유저 카드 컴포넌트입니다.
@@ -61,9 +64,7 @@ function UserCard({ editStateStore, children }) {
   };
 
   const ModifyUserButton = !isEdit ? (
-    <ChangeButton onClick={() => setIsEdit((cur) => !cur)}>
-      {LABEL.CHANGE_PROFILE}
-    </ChangeButton>
+    <EditIcon onClick={() => setIsEdit((cur) => !cur)} fontSize="medium" />
   ) : (
     <FileUpload {...profileImageData} />
   );
@@ -71,15 +72,19 @@ function UserCard({ editStateStore, children }) {
   return (
     <CardContainer>
       <CardBox>
-        <CardHeader>
-          <ProfileImgBox>
+        <UserProfileContainer>
+          <CardHeader>
             <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
-          </ProfileImgBox>
-          {isProfileOwner && (
-            <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
-          )}
-        </CardHeader>
-        {children}
+          </CardHeader>
+          <EditContainer>
+            {children}
+            {isProfileOwner && (
+              <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
+            )}
+          </EditContainer>
+        </UserProfileContainer>
+
+        <UserPostInfo />
       </CardBox>
       <CustomSnackbar {...changeFailImage} />
     </CardContainer>

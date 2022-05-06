@@ -1,20 +1,14 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import {
   CardContent,
   CardIntroduce,
-  CardLikeCountBox,
-  CardLikePost,
-  CardMyInfo,
   ProfileIntroduce,
+  UserLevelImg,
   ProfileNickName,
-  ProfilePostCount,
   ProfileTitleBox,
-  ProfilecurExp,
-  ProfileExp,
 } from "styles/User/UserInfoStyle";
-import { HeadingTwo } from "styles/Components/CommonStyle";
-import { LABEL } from "utils/constants";
+
 import { img } from "utils/imgImport";
 
 /**
@@ -28,47 +22,17 @@ function UserInfomation() {
   const queryClient = useQueryClient();
 
   const userProfile = queryClient.getQueryData(["user", userId]);
-  const { nickname, level, introduce, posts, postLikes, curExp, maxExp } =
-    userProfile;
+  const { nickname, level, introduce } = userProfile;
 
   return (
     <CardContent>
       <CardIntroduce>
         <ProfileTitleBox>
-          <img src={img.level[level]} alt="level" /> &nbsp;
+          <UserLevelImg src={img.level[level]} alt="level" />
           <ProfileNickName>{nickname}</ProfileNickName>
         </ProfileTitleBox>
         <ProfileIntroduce>{introduce}</ProfileIntroduce>
       </CardIntroduce>
-      <CardMyInfo>
-        <CardLikePost>
-          <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
-          <CardLikeCountBox>
-            <ProfilePostCount>
-              <ProfilecurExp>
-                {curExp} / {maxExp}
-              </ProfilecurExp>
-              <ProfileExp value={curExp} max={maxExp} />
-            </ProfilePostCount>
-          </CardLikeCountBox>
-        </CardLikePost>
-        <CardLikePost>
-          <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
-          <CardLikeCountBox>
-            <Link to={window.location.pathname}>
-              <ProfilePostCount>{posts}</ProfilePostCount>
-            </Link>
-          </CardLikeCountBox>
-        </CardLikePost>
-        <CardLikePost>
-          <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
-          <CardLikeCountBox>
-            <Link to={window.location.pathname + "?likes"}>
-              <ProfilePostCount>{postLikes.length}</ProfilePostCount>
-            </Link>
-          </CardLikeCountBox>
-        </CardLikePost>
-      </CardMyInfo>
     </CardContent>
   );
 }
