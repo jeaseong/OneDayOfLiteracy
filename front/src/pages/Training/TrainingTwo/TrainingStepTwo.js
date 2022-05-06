@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TrainingGuide from "pages/Training/TrainingGuide";
+
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
@@ -15,8 +16,9 @@ export default function TrainingStepTwo() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get(`subjects/level=2`);
+      const res = await get(`subjects/?level=2`);
       setSubject((cur) => res.data);
+      console.log(res.data);
     };
     fetchApi();
   }, []);
@@ -37,7 +39,7 @@ export default function TrainingStepTwo() {
       <TrainingPost
         title="나를 소개합니다"
         tags={TAG_NAME.STEP_TWO}
-        subject={subject.subjectId}
+        subject={subject.subject}
         category={subject.category}
       />
     </TrainingGuide>

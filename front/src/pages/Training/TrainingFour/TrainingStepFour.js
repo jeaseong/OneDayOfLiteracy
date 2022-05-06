@@ -14,7 +14,7 @@ export default function TrainingStepFour() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get(`subjects/level=4`);
+      const res = await get(`subjects/?level=4`);
       setSubject((cur) => res.data);
     };
     fetchApi();

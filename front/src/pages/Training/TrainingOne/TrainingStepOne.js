@@ -15,7 +15,7 @@ function TrainingStepOne() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get(`subjects/level=1`);
+      const res = await get(`subjects/?level=1`);
       setSubject(res.data);
     };
     fetchApi();
