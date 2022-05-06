@@ -1,12 +1,13 @@
 .markdown {
   width: 100%;
-  height: auto;
-  border: none;
+  font-size: 1.2rem;
   border-radius: 5px;
   padding: 10px;
-  /* padding-left: 30px; */
-  background-color: white;
   line-height: 1.2;
+  letter-spacing: 1px;
+  height: auto;
+  border: none;
+  background-color: white;
   box-sizing: border-box;
 }
 @media screen and (max-width: 900px) {

@@ -72,6 +72,8 @@ export const PostingArea = styled.textarea`
   padding: 10px;
   border-radius: 5px;
   line-height: 1.8;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
   border: none;
   resize: none;
   ${(props) => (props.isContentEmpty ? focusInput : "outline : none")};

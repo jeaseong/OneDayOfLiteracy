@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useQueryClient } from "react-query";
-import { PostingBody, PostingTitle } from "styles/Posts/PostingStyle";
 import {
+  PostingBody,
+  PostingTitle,
+  PostingMessage,
   PostingContent,
   PostingArea,
   PostingButton,
@@ -55,10 +56,11 @@ export default function TrainingPost({ tags, subjectId, category }) {
     <form>
       <PostingBody>
         <PostingTitle
+          isContentEmpty={!title.length}
           onChange={onChangeTitle}
           value={title}
           type="text"
-          placeholder="자기소개"
+          placeholder="제목을 입력해주세요.."
           required
         />
 
