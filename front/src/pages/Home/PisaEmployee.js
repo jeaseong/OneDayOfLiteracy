@@ -8,8 +8,7 @@ import {
   Legend,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
-import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
-import womenliteracyEmployeeScatter from "../../data/womenliteracyEmployeeScatter.json";
+import literacyEmployeeScatter from "../../data/literacyEmployeeScatter.json";
 import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -62,18 +61,8 @@ export const data = {
   datasets: [
     {
       type: "scatter",
-      label: "Male",
-      data: Array.from(menliteracyEmployeeScatter[0].data, (v) => ({
-        x: v.x,
-        y: v.y,
-      })),
-
-      backgroundColor: "rgba(53, 162, 235, 0.8)",
-    },
-    {
-      type: "scatter",
-      label: "Female",
-      data: Array.from(womenliteracyEmployeeScatter[0].data, (v) => ({
+      label: "literacy employee",
+      data: Array.from(literacyEmployeeScatter[0].data, (v) => ({
         x: v.x,
         y: v.y,
       })),

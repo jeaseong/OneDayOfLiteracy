@@ -29,7 +29,7 @@ const options = {
   },
   plugins: {
     legend: {
-      position: "top",
+      position: "bottom",
     },
     title: {
       display: true,
@@ -49,27 +49,37 @@ const data = {
     {
       label: "2006",
       data: pisaTop15.map((v) => v["2006"]),
-      backgroundColor: "#EF476F",
+      backgroundColor: "#e279a1",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
     },
     {
       label: "2009",
       data: pisaTop15.map((v) => v["2009"]),
-      backgroundColor: "#FFD166",
+      backgroundColor: "#ff9770",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
     },
     {
       label: "2012",
       data: pisaTop15.map((v) => v["2012"]),
-      backgroundColor: "#06D6A0",
+      backgroundColor: "#ffd670",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
     },
     {
       label: "2015",
       data: pisaTop15.map((v) => v["2015"]),
-      backgroundColor: "#118AB2",
+      backgroundColor: "#e9ff70",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
     },
     {
       label: "2018",
       data: pisaTop15.map((v) => v["2018"]),
-      backgroundColor: "#073B4C",
+      backgroundColor: "#adeacb",
+      categoryPercentage: 1.0,
+      barPercentage: 0.8,
     },
   ],
 };

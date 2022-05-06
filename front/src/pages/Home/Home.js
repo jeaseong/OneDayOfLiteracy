@@ -16,9 +16,9 @@ import { img } from "../../utils/imgImport";
 import { useRef, useEffect, useState } from "react";
 
 import PisaGdpScatter from "./PisaGdpScatter";
-import PisaKMeanT from "./PisaKMeanT";
 import PisaEmployee from "./PisaEmployee";
 import PisaTop15Bar from "./PisaTop15Bar";
+import PisaTop15BarCountries from "./PisaTop15Countries";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -231,7 +231,9 @@ function Home() {
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
             <TextContent>우리나라 Pisa 점수</TextContent>
-            <GraphBox></GraphBox>
+            <GraphBox>
+              <PisaTop15BarCountries />
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
