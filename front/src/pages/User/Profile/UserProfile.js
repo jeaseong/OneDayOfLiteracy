@@ -23,18 +23,16 @@ function UserProfile() {
     queryClient.invalidateQueries(["posts", `likes/user/${params.userId}?`]);
   }, [params.userId, queryClient]);
 
+  const CardContent = isEdit ? (
+    <UserEditForm editStateStore={editStateStore} />
+  ) : (
+    <UserInfomation />
+  );
+
   return (
     <MyPageContainer>
-      {isEdit ? (
-        <UserEditForm editStateStore={editStateStore} />
-      ) : (
-        <>
-          <UserCard editStateStore={editStateStore}>
-            <UserInfomation />
-          </UserCard>
-          <UserPostList />
-        </>
-      )}
+      <UserCard editStateStore={editStateStore}>{CardContent}</UserCard>
+      <UserPostList />
     </MyPageContainer>
   );
 }

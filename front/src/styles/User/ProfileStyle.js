@@ -4,17 +4,16 @@ import {
   FlexBox,
   FlexBoxCenter,
   HeadingTwo,
+  InputBox,
 } from "styles/Components/CommonStyle";
 
 export const MyPageContainer = styled(FlexBox)`
   flex-direction: column;
-  max-width: 1024px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 30px auto;
 `;
 
 export const MyPostContainer = styled(FlexBox)`
-  width: 100%;
-  height: 100%;
   margin: 25px 0;
 `;
 
@@ -38,7 +37,7 @@ export const CardHeader = styled(FlexBoxCenter)`
 `;
 
 export const CardContent = styled.div`
-  width: 100%;
+  width: 70%;
   height: 100%;
 `;
 
@@ -99,6 +98,54 @@ export const ProfileChangeBox = styled(FlexBoxCenter)`
 
 export const ChangeButton = styled(Button)`
   margin: 10px auto;
+`;
+
+export const EditContainer = styled(CardContent)`
+  display: flex;
+  height: 100%;
+`;
+
+export const EditBox = styled.div`
+  width: 50%;
+  height: 100%;
+`;
+
+export const EditIntroduceBox = styled.div`
+  width: 50%;
+`;
+
+export const EditInputBox = styled.div`
+  margin-bottom: ${(props) => (props.types || props.kakao ? 0 : "16px")};
+
+  &:first-child {
+    margin-top: 1.1rem;
+  }
+`;
+
+export const EditInput = styled(InputBox)`
+  width: 90%;
+  height: 20px;
+  margin: 0 auto;
+`;
+
+export const EditIntroduceInput = styled.textarea`
+  width: 90%;
+  height: 85%;
+  padding: 10px;
+  margin: 1.1rem 0 0 0;
+  border: solid 2px #c99c6e;
+  border-radius: 8px;
+  font-size: 1.3rem;
+`;
+
+export const ConfirmButtonBox = styled(FlexBox)`
+  justify-content: center;
+  margin-top: ${(props) => (props.types || props.kakao ? "5px" : "21px")};
+`;
+
+export const ConfirmButton = styled(Button)`
+  margin: 10px 7px;
+  width: 20%;
 `;
 
 export const NotFoundPostImg = styled.img`
