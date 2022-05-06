@@ -1,37 +1,45 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Comment from "pages/Comment/Comment";
-import {
-  PostContainer,
-  PostHeader,
-  PostTitle,
-  PostWriter,
-  PostBody,
-  PostImageBox,
-  PostImage,
-  PostFooter,
-  Tag,
-  LikeButton,
-} from "styles/Posts/PostStyle";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useQueryClient } from "react-query";
+import { useGetProfileUser } from "queries/userQuery";
+import PostEditForm from "./PostEditForm";
+import Loading from "components/Loading";
+import FileUpload from "components/FileUpload";
+import Comment from "pages/Comment/Comment";
 import {
   useGetPost,
   useGetPostLikeCount,
   usePostDislike,
   usePostLikeAdd,
   usePostLikeCount,
-} from "../../queries/postQuery";
-import Loading from "../../components/Loading";
-import { useGetProfileUser } from "../../queries/userQuery";
-import { del } from "../../utils/api";
-import PostEditForm from "./PostEditForm";
-import { img } from "../../utils/imgImport";
-import FileUpload from "../../components/FileUpload";
-import { CustomSnackbar, setAlertData } from "../../components/CustomSnackbar";
-import { ALERT_TYPE, FAIL_MESSAGE } from "../../utils/constants";
+} from "queries/postQuery";
+import {
+  PostContainer,
+  PostHeader,
+  PostHeaderWrap,
+  PostTitle,
+  PostWriter,
+  PostDate,
+  PostBody,
+  PostBodyWrap,
+  PostImageBox,
+  PostImage,
+  PostFooter,
+  Tag,
+  LikeButton,
+  PostEditContainer,
+  PostEditBtn,
+  PostLikeContainer,
+  PostLikeCount,
+} from "styles/Posts/PostStyle";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
+import { del } from "utils/api";
+import { img } from "utils/imgImport";
+import { ALERT_TYPE, FAIL_MESSAGE } from "utils/constants";
 
 function Post() {
   const params = useParams();
@@ -95,7 +103,7 @@ function Post() {
         likeMutation.mutate("down");
       }}
     >
-      <ThumbUpIcon />
+      <FavoriteIcon />
     </LikeButton>
   ) : (
     <LikeButton
@@ -105,7 +113,7 @@ function Post() {
         likeMutation.mutate("up");
       }}
     >
-      <ThumbUpIcon color="disabled" />
+      <FavoriteBorderIcon />
     </LikeButton>
   );
 
@@ -117,26 +125,30 @@ function Post() {
         <>
           <PostContainer>
             <PostTitle>{data.title}</PostTitle>
+            {isPostOwner && (
+              <PostEditContainer>
+                {/* <FileUpload {...thumbnailImageData} /> */}
+                <PostEditBtn onClick={() => setIsEdit((cur) => !cur)}>
+                  수정
+                </PostEditBtn>
+                <PostEditBtn onClick={handleDeletePost}>삭제</PostEditBtn>
+              </PostEditContainer>
+            )}
             <PostHeader>
-              <Link to={`/user/${data.userId._id}`}>
-                <PostWriter>
-                  <img src={img.level[data.userId.level]} alt="level" />
-                  {!data.author ? "익명 문하생" : data.author}
-                </PostWriter>
-              </Link>
-              <PostWriter>{data.createdAt?.slice(0, 10)}</PostWriter>
+              <PostHeaderWrap>
+                <Link to={`/user/${data.userId._id}`}>
+                  <PostWriter>
+                    <img src={img.level[data.userId.level]} alt="level" />
+                    {!data.author ? "익명 문하생" : data.author}
+                  </PostWriter>
+                </Link>
+                <PostDate>{data.createdAt?.slice(0, 10)}</PostDate>
+              </PostHeaderWrap>
+              <PostLikeContainer>
+                {postLikeList}
+                <PostLikeCount>{likeCount.data}</PostLikeCount>
+              </PostLikeContainer>
             </PostHeader>
-            <PostBody>
-              <PostImageBox>
-                {data.imageUrls?.map((image, index) => {
-                  return <PostImage key={index} src={image} />;
-                })}
-              </PostImageBox>
-              <ReactMarkdown
-                children={data.content}
-                remarkPlugins={[remarkGfm]}
-              ></ReactMarkdown>
-            </PostBody>
             <PostFooter>
               {data.tags?.map((tag, index) => (
                 <Link to={`/posts?tag=${tag}`} key={index}>
@@ -144,15 +156,19 @@ function Post() {
                 </Link>
               ))}
             </PostFooter>
-            {postLikeList}
-            <p>좋아요 수 : {likeCount.data}</p>
-            {isPostOwner && (
-              <>
-                <FileUpload {...thumbnailImageData} />
-                <button onClick={() => setIsEdit((cur) => !cur)}>수정</button>
-                <button onClick={handleDeletePost}>삭제</button>
-              </>
-            )}
+            <PostBody>
+              <PostBodyWrap>
+                <PostImageBox>
+                  {data.imageUrls?.map((image, index) => {
+                    return <PostImage key={index} src={image} />;
+                  })}
+                </PostImageBox>
+                <ReactMarkdown
+                  children={data.content}
+                  remarkPlugins={[remarkGfm]}
+                ></ReactMarkdown>
+              </PostBodyWrap>
+            </PostBody>
           </PostContainer>
           <CustomSnackbar {...changeFailImage} />
           <Comment postId={params.postId} />

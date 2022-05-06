@@ -4,11 +4,11 @@ import { useQueryClient } from "react-query";
 import { usePostComment } from "queries/commentQuery";
 import {
   WriteComment,
-  InputBox,
+  WriteCommentWrap,
   InputComment,
+  ButtonWrap,
   CommentBtn,
   Profile,
-  FocusInput,
 } from "styles/Comment/CommentStyle";
 export default function CommentInput({ setIsOpenReply, parentId = null }) {
   const inputRef = useRef();
@@ -31,7 +31,7 @@ export default function CommentInput({ setIsOpenReply, parentId = null }) {
       postId: params.postId,
       content: curComment,
       author: userState.nickname,
-      userId: userState.id,
+      userId: userState._id,
       parentId: parentId,
     };
     postComment.mutate(comment);
@@ -41,8 +41,8 @@ export default function CommentInput({ setIsOpenReply, parentId = null }) {
 
   return (
     <WriteComment onSubmit={onSubmiComment}>
-      <Profile />
-      <InputBox>
+      <WriteCommentWrap>
+        <Profile />
         <InputComment
           type="text"
           value={curComment}
@@ -50,11 +50,12 @@ export default function CommentInput({ setIsOpenReply, parentId = null }) {
           ref={inputRef}
           required
         />
-        <FocusInput />
-      </InputBox>
-      <CommentBtn type="submit" onSubmit={onSubmiComment}>
-        댓글
-      </CommentBtn>
+      </WriteCommentWrap>
+      <ButtonWrap>
+        <CommentBtn type="submit" onSubmit={onSubmiComment}>
+          댓글 작성
+        </CommentBtn>
+      </ButtonWrap>
     </WriteComment>
   );
 }

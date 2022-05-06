@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useUpdateComment } from "queries/commentQuery";
 import {
   WriteComment,
-  InputBox,
+  WriteCommentWrap,
   InputComment,
+  ButtonWrap,
   CommentBtn,
 } from "styles/Comment/CommentStyle";
 
@@ -15,6 +16,11 @@ export default function CommentEditForm({
 }) {
   const [curComment, setCurComment] = useState(prev);
   const updateComment = useUpdateComment(postId);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus({ cursor: "end" });
+  }, []);
 
   const onSubmitComment = (e) => {
     e.preventDefault();
@@ -27,17 +33,20 @@ export default function CommentEditForm({
   };
   return (
     <WriteComment onSubmit={onSubmitComment}>
-      <InputBox>
+      <WriteCommentWrap>
         <InputComment
-          type="text"
+          row="1"
           value={curComment}
           onChange={(e) => setCurComment((cur) => e.target.value)}
+          ref={inputRef}
           required
         />
-      </InputBox>
-      <CommentBtn type="submit" onSubmit={onSubmitComment}>
-        저장
-      </CommentBtn>
+      </WriteCommentWrap>
+      <ButtonWrap>
+        <CommentBtn type="submit" onSubmit={onSubmitComment}>
+          저장
+        </CommentBtn>
+      </ButtonWrap>
     </WriteComment>
   );
 }

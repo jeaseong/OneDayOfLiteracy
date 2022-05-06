@@ -89,26 +89,20 @@ export const PostsContent = styled.span`
 export const Tag = styled.span`
   font-weight: lighter;
   display: inline-block;
-  font-size: 10px;
-  margin: 0 5px 0 0;
+  font-size: 1rem;
+  margin: 0 7px 0 0;
 `;
 export const PostsLike = styled.div`
   display: flex;
   align-items: center;
 `;
 export const PostContainer = styled.div`
-  /* background-color: #dcd0c8;
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 5% auto;
-  padding: 5%;
-  // box-shadow: 0 0 5px #c48f5a;
-  @media only screen and (max-width: 400px) {
-    margin: 5% 0;
-    padding: 5% 0;
-  } */
+  border-radius: 5px;
+  margin: 50px auto 0;
+  padding: 0 20px;
+  max-width: 1024px;
 `;
 
 export const PostUserContainer = styled.div`
@@ -119,35 +113,63 @@ export const PostUserContainer = styled.div`
   margin-top: 10px;
 `;
 
+export const PostTitle = styled.div`
+  font-size: 2.25rem;
+  margin-bottom: 2rem;
+`;
+
+export const PostEditContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-bottom: 1.5rem;
+`;
+
+export const PostEditBtn = styled.button`
+  border: none;
+  background: transparent;
+`;
+
 export const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 4%;
+  align-items: center;
+  margin-bottom: 0.75rem;
 `;
 
-export const PostTitle = styled.div`
-  font-size: 40px;
-  text-align: center;
+export const PostHeaderWrap = styled.div``;
+
+export const PostFooter = styled.div`
+  margin-bottom: 2rem;
 `;
 
 export const PostWriter = styled.div`
-  font-size: 18px;
-  font-family: Maplestory Light;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  font-family: lighter;
+`;
+
+export const PostDate = styled.p`
+  font-size: 1rem;
 `;
 
 export const PostBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 0 3px #c48f5a;
-  border-radius: 5px;
-  padding: 5%;
+  width: 100%;
+  margin: 3rem auto;
+  box-sizing: border-box;
+`;
+
+export const PostBodyWrap = styled.div`
+  width: 100%;
+  max-width: 1024px;
+  font-size: 1.2rem;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 `;
 
 export const PostImageBox = styled.div`
-  margin-bottom: 5%;
   display: flex;
-  justify-content: center;
 `;
 
 export const PostImage = styled.img`
@@ -156,31 +178,38 @@ export const PostImage = styled.img`
   margin: 0 20px;
 `;
 
-export const PostContent = styled.div`
-  font-size: 18px;
-  font-family: Maplestory Light;
-  width: 80%;
-  min-height: 15vh;
-  text-align: left;
+export const PostContent = styled.div``;
+
+export const PostListcounnt = styled.p`
+  margin-left: 3px;
+  font-size: 12px;
 `;
-export const PostFooter = styled.div``;
+
+export const PostLikeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #adb5bd;
+  padding: 2px 12px 1px;
+  border-radius: 20px;
+`;
+
+export const PostLikeCount = styled.span`
+  font-size: 1.1rem;
+  line-height: 1.2;
+`;
 
 export const LikeButton = styled.button`
   border: none;
   background-color: transparent;
   text-align: center;
   color: #c48f5a;
-  text-decoration: underline;
+  line-height: 0.8;
   &:hover {
     text-decoration: none;
   }
 
   &:disabled {
-    color: #c48f5a;
+    color: #adb5bd;
   }
-`;
-
-export const PostListcounnt = styled.p`
-  margin-left: 3px;
-  font-size: 12px;
 `;

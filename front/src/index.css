@@ -33,6 +33,7 @@ a {
 button {
   margin: 0;
   cursor: pointer;
+  border-width: 0px;
 }
 
 img {

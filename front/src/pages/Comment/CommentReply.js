@@ -18,15 +18,11 @@ export default function CommentRePly({ childComments }) {
       {isOpenReply &&
         childComments?.map((comment, index) => (
           // key를 어떻게 할지...
-          <>
+          <React.Fragment key={comment._id}>
             {!comment.isDeleted && (
-              <CommentSingle
-                key={comment._id}
-                comment={comment}
-                isReComment={true}
-              />
+              <CommentSingle comment={comment} isReComment={true} />
             )}
-          </>
+          </React.Fragment>
         ))}
     </ReCommentBox>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useGetCommentList } from "queries/commentQuery";
 import CommentInput from "pages/Comment/CommentInput";
@@ -8,12 +8,14 @@ import {
   CommentContainer,
   CommentWrap,
   UserCommentList,
+  CommentTitle,
 } from "styles/Comment/CommentStyle";
 import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
 export default function Comment({ postId }) {
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetCommentList(postId);
+  console.log(data);
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -25,13 +27,14 @@ export default function Comment({ postId }) {
   return (
     <CommentContainer>
       <CommentWrap>
+        <CommentTitle>댓글</CommentTitle>
         <CommentInput />
         <UserCommentList>
           <>
             {data?.pages?.map((page, i) => (
               <React.Fragment key={i}>
                 {page.comments?.map((comment, k) => (
-                  <>
+                  <React.Fragment key={comment._id}>
                     {!comment.isDeleted && (
                       <>
                         <CommentSingle comment={comment} />
@@ -40,7 +43,7 @@ export default function Comment({ postId }) {
                         )}
                       </>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </React.Fragment>
             ))}

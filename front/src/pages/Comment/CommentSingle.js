@@ -51,10 +51,10 @@ export default function CommentSingle({ comment, isReComment = false }) {
         <CommentEditContainer>
           {!isReComment && (
             <ReplyCommentBtn onClick={onClickOpenReplyInput}>
-              답글
+              {isOpenReply ? "취소" : "답글"}
             </ReplyCommentBtn>
           )}
-          {userState.id === comment.userId && (
+          {userState._id === comment.userId && (
             <>
               <CommentEditBtn onClick={() => setIsEdit((cur) => !cur)}>
                 {isEdit ? "취소" : "수정"}
