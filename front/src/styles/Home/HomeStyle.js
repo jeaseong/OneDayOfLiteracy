@@ -131,15 +131,13 @@ export const GraphBox = styled.div`
 `;
 
 export const CountryButton = styled.button`
-  display: flex;
-  flex-wrap: wrap;
-  width: 32px;
-  height: 25px;
+  width: 28px;
+  height: 21px;
   margin: 1rem 0.5rem 0 0;
   padding: 0;
-  border-radius: 5px;
+  // border-radius: 5px;
   box-shadow: 2px 2px 2px #503d3f;
-  transition-duration: 0.3s;
+  transition-duration: 0.5s;
   &:hover {
     cursor: pointer;
   }

@@ -22,6 +22,7 @@ import { img } from "utils/imgImport";
 import PisaTop15BarCountries from "./PisaTop15Countries";
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaEmployee from "./PisaEmployee";
+import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -311,7 +312,9 @@ function Home() {
                 떨어지는 걸 볼 수 있습니다.
               </TextParagraph>
             </TextContent>
-            <GraphBox></GraphBox>
+            <GraphBox>
+              <PisaSubjectScoreBar></PisaSubjectScoreBar>
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
