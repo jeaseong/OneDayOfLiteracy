@@ -17,7 +17,7 @@ export const CommentContainer = styled.section`
 `;
 
 export const CommentWrap = styled.div`
-  max-width: 1024px;
+  max-width: 768px;
   height: 100%;
   display: flex;
   flex-direction: column;

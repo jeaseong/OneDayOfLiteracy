@@ -15,7 +15,6 @@ import ErrorPage from "components/ErrorPage";
 export default function Comment({ postId }) {
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetCommentList(postId);
-  console.log(data);
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView) fetchNextPage();

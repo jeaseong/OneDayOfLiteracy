@@ -102,7 +102,7 @@ export const PostContainer = styled.div`
   border-radius: 5px;
   margin: 50px auto 0;
   padding: 0 20px;
-  max-width: 1024px;
+  max-width: 768px;
 `;
 
 export const PostUserContainer = styled.div`
@@ -160,7 +160,6 @@ export const PostBody = styled.div`
 
 export const PostBodyWrap = styled.div`
   width: 100%;
-  max-width: 1024px;
   font-size: 1.2rem;
   word-break: keep-all;
   overflow-wrap: break-word;
