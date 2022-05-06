@@ -20,6 +20,7 @@ class Comment {
       .populate("userId", { _id: 1, profileUrl: 1, nickname: 1 })
       .populate({
         path: "childComments",
+        match: { isDeleted: { $eq: false } },
         select: { postId: 0 },
         populate: {
           path: "userId",
