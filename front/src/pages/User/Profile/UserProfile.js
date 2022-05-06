@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { MyPageContainer } from "styles/User/ProfileStyle";
-import { CardContent } from "styles/User/UserInfoStyle";
 import UserCard from "pages/User/Profile/UserCard";
 import UserPostList from "pages/User/Profile/UserPostList";
 import UserInfomation from "pages/User/Profile/UserInfomation";
-import UserPostInfo from "pages/User/Profile/UserPostInfo";
 import UserEditForm from "pages/User/Profile/UserEditForm";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
@@ -25,16 +23,18 @@ function UserProfile() {
     queryClient.invalidateQueries(["posts", `likes/user/${params.userId}?`]);
   }, [params.userId, queryClient]);
 
-  const CardContents = isEdit ? (
-    <UserEditForm editStateStore={editStateStore} />
-  ) : (
-    <UserInfomation />
-  );
-
   return (
     <MyPageContainer>
-      <UserCard editStateStore={editStateStore}>{CardContents}</UserCard>
-      <UserPostList />
+      {isEdit ? (
+        <UserEditForm editStateStore={editStateStore} />
+      ) : (
+        <>
+          <UserCard editStateStore={editStateStore}>
+            <UserInfomation />
+          </UserCard>
+          <UserPostList />
+        </>
+      )}
     </MyPageContainer>
   );
 }
