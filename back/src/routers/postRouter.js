@@ -8,21 +8,20 @@ import { typeName } from "../utils/validation/typeName";
 
 const postRouter = Router();
 
-// create
-// 전 : /post
-// 후 : /posts
+
+// POST /posts : 게시글 생성
 postRouter.post('/posts', 
   loginRequired, 
   isValidData("post"),
   invalidCallback,
   async (req, res, next) => {
     try {
-      const { title, content, tags, subjectId, category } = req.body;
+      const { title, content, subjectId, category } = req.body;
       
       const userId = req.currentUserId;
       const user = await userAuthService.getUserInfo({ userId });
       const author = user.nickname;
-      
+      const tags = req.body.tags ?? null;
       const newPost = await postService.addPost({
         author,
         title,
@@ -42,8 +41,8 @@ postRouter.post('/posts',
     }
 });
 
-// read
-// 1. postId 로 해당 post 조회
+
+// GET /posts/:postId : postId 로 해당 post 조회
 postRouter.get('/posts/:postId', async (req, res, next) => {
   try {
     const { postId } = req.params;
@@ -58,9 +57,8 @@ postRouter.get('/posts/:postId', async (req, res, next) => {
   }
 });
 
-// 2. userId 로 해당 유저의 posts 조회
-// 전 : /posts/users/:userId?page={Number}&limit={Number}
-// 후 : /users/:userId/posts?sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+// GET /users/:userId/posts?sort[field]={String}&sort[type]={String}&page={Number}&limit={Number}
+// userId 로 해당 유저의 posts 조회
 postRouter.get(
   "/users/:userId/posts",
   isValidData("post-sorting"),
@@ -187,7 +185,7 @@ postRouter.get(
   }
 );
 
-// update
+// PUT /posts/:postId : 게시글 수정
 postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
   try {
     const { postId } = req.params;
@@ -231,8 +229,7 @@ postRouter.put('/posts/:postId', loginRequired, async (req, res, next) => {
 });
 
 
-// delete
-// 1. postId 로 해당 글 삭제
+// DELETE /posts/:postId : postId 로 해당 글 삭제
 postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
   try {
     const { postId } = req.params;
@@ -249,9 +246,7 @@ postRouter.delete('/posts/:postId', loginRequired, async (req, res, next) => {
   }
 })
 
-// 2. userId로 해당 유저의 글 모두 삭제
-// 전 : /posts/users/:userId
-// 후 : /users/:userId/posts
+// DELETE /users/:userId/posts : userId로 해당 유저의 글 모두 삭제
 postRouter.delete('/users/:userId/posts', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -267,7 +262,7 @@ postRouter.delete('/users/:userId/posts', loginRequired, async (req, res, next) 
   }
 })
 
-// 글 이미지 업로드 => POST /posts/:postId/uploadImage
+// POST /posts/:postId/uploadImage : 글 대표 이미지 업로드
 // body = formData(filename: 이미지, prevImage: 이전 이미지 url)
 postRouter
   .post('/posts/:postId/uploadImage',
@@ -292,7 +287,7 @@ postRouter
       } 
 });
 
-// 삭제  PATCH /posts/:postId/removeImage
+// PATCH /posts/:postId/removeImage : 글 대표 이미지 삭제
 // body = { key: 파일명 }
 postRouter
   .patch('/posts/:postId/removeImage',

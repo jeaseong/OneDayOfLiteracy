@@ -14,8 +14,6 @@ commentRouter.post('/posts/:postId/comments', loginRequired, async (req, res, ne
     const parentId = req.body.parentId ?? null;
     assert(loginId === userId, "유저 ID가 올바르지 않습니다.");
 
-    
-
     const createdComment = await commentService.addComment({ postId, content, author, userId, parentId });
     
     if (createdComment?.errorMessage) throw new Error(createdComment.errorMessage);
