@@ -26,8 +26,9 @@ class userWordService{
     static async getUserWord({ userId }){
         const userWord = await UserWord.findByUserId({ userId });
         if(!userWord){
-            const errorMessage = "해당 유저의 단어가 존재하지 않습니다";
-            return { errorMessage };
+            return {
+                num: 0,
+            }
         }
 
         const quiz = await Quiz.findByWord({ word: userWord.word });
