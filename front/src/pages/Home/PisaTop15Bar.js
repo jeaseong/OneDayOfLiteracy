@@ -25,8 +25,11 @@ const options = {
   scales: {
     y: {
       min: 480,
+<<<<<<< HEAD
       suggestedMin: 50,
       suggestedMax: 100,
+=======
+>>>>>>> front-home
     },
   },
   plugins: {
@@ -53,39 +56,45 @@ const options = {
     title: {
       display: true,
       text: "국가별 Pisa 점수 top 15",
+      font: {
+        size: 20,
+      },
     },
   },
 };
 
 const initLabels = pisaTop15.map((v) => v.Country);
 
-const initData = [
-  {
-    label: "2006",
-    data: pisaTop15.map((v) => v["2006"]),
-    backgroundColor: "rgba(255, 99, 132, 0.5)",
-  },
-  {
-    label: "2009",
-    data: pisaTop15.map((v) => v["2009"]),
-    backgroundColor: "rgba(255, 159, 64, 0.5)",
-  },
-  {
-    label: "2012",
-    data: pisaTop15.map((v) => v["2012"]),
-    backgroundColor: "rgba(153, 102, 255, 0.5)",
-  },
-  {
-    label: "2015",
-    data: pisaTop15.map((v) => v["2015"]),
-    backgroundColor: "rgba(75, 192, 192, 0.5)",
-  },
-  {
-    label: "2018",
-    data: pisaTop15.map((v) => v["2018"]),
-    backgroundColor: "rgba(53, 162, 235, 0.5)",
-  },
-];
+const data = {
+  labels,
+  datasets: [
+    {
+      label: "2006",
+      data: pisaTop15.map((v) => v["2006"]),
+      backgroundColor: "#EF476F",
+    },
+    {
+      label: "2009",
+      data: pisaTop15.map((v) => v["2009"]),
+      backgroundColor: "#FFD166",
+    },
+    {
+      label: "2012",
+      data: pisaTop15.map((v) => v["2012"]),
+      backgroundColor: "#06D6A0",
+    },
+    {
+      label: "2015",
+      data: pisaTop15.map((v) => v["2015"]),
+      backgroundColor: "#118AB2",
+    },
+    {
+      label: "2018",
+      data: pisaTop15.map((v) => v["2018"]),
+      backgroundColor: "#073B4C",
+    },
+  ],
+};
 
 const PisaTop15Bar = () => {
   const [data, setData] = useState({ labels: initLabels, datasets: initData });

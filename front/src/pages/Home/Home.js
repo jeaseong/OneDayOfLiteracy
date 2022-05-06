@@ -16,33 +16,9 @@ import {
 } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
 
-import PisaKoreaLine from "./PisaKoreaLine";
 import PisaGdpScatter from "./PisaGdpScatter";
-import PisaGdpTrendLine from "./PisaGdpTrendLine";
-
 import PisaKMeanT from "./PisaKMeanT";
-// import PisaKMeanF from "./PisaKMeanF";
-// import PisaKMeanM from "./PisaKMeanM";
-import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
-import ManLiteracyEmployeeReg from "./ManLiteracyEmployeeReg";
-import WomanLiteracyEmployeeReg from "./WomanLiteracyEmployeeReg";
-import ManLiteracyEmployeeScatter from "./ManLiteracyEmployeeScatter";
-import WomanLiteracyEmployeeScatter from "./WomanLiteracyEmployeeScatter";
-import Test from "./Test";
-
-import koreaReadingScore from "../../data/koreaReadingScore.json";
-import pisaGdp from "../../data/pisaGdp.json";
-import ransac from "../../data/ransac.json";
-
-// import pisaKMeanT from "../../data/pisaKMeanT.json";
-// import pisaKMeanF from "../../data/pisaKMeanF.json";
-// import pisaKMeanM from "../../data/pisaKMeanM.json";
-import pisaKScore from "../../data/pisaKScore.json";
-import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
-import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
-import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
-import womenliteracyEmployeeScatter from "../../data/womenliteracyEmployeeScatter.json";
-
+import PisaEmployee from "./PisaEmployee";
 import PisaTop15Bar from "./PisaTop15Bar";
 
 const BANNERS = [
@@ -239,9 +215,6 @@ function Home() {
     };
   }, []);
 
-  // console.log(dotsRef);
-  // console.log(dotsIndex);
-
   return (
     <HomeContainer ref={fullpageRef}>
       <FullBanner>
@@ -256,95 +229,88 @@ function Home() {
           })}
         </Dots>
       </DotsBox>
-      <Homepage bgcolor="#f7f6cf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수 데이터</TextContent>
-            <GraphBox>
-              <PisaKMeanT></PisaKMeanT>
-            </GraphBox>
+            <TextContent>우리나라 Pisa 점수</TextContent>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#b6d8f2">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>2</HomeTitle>
           <HomeContents>
-            <TextContent>Gdp와 Pisa</TextContent>
-            <GraphBox>
-              {/* <PisaGdpScatter data={pisaGdp}></PisaGdpScatter> */}
-            </GraphBox>
-          </HomeContents>
-        </ContentsContainer>
-      </Homepage>
-      <Homepage bgcolor="#f4cfdf">
-        <ContentsContainer>
-          <HomeTitle>3</HomeTitle>
-          <HomeContents>
-            <TextContent>Gdp와 Pisa 추세선</TextContent>
-            <GraphBox>
-              {/* <PisaGdpTrendLine data={ransac}></PisaGdpTrendLine> */}
-            </GraphBox>
-          </HomeContents>
-        </ContentsContainer>
-      </Homepage>
-      <Homepage bgcolor="#f4cfdf">
-        <ContentsContainer>
-          <HomeTitle>4</HomeTitle>
-          <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
+            <TextContent></TextContent>
             <GraphBox>
               <PisaTop15Bar></PisaTop15Bar>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
-          <HomeTitle>5</HomeTitle>
+          <HomeTitle>3</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa Korea Scores by sex</TextContent>
+            <TextContent></TextContent>
             <GraphBox>
-              {/* <PisaKMeanT data={pisaKMeanT}></PisaKMeanT> */}
+              <PisaGdpScatter></PisaGdpScatter>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
+        <ContentsContainer>
+          <HomeTitle>4</HomeTitle>
+          <HomeContents>
+            <TextContent></TextContent>
+            <GraphBox>
+              <PisaEmployee></PisaEmployee>
+            </GraphBox>
+          </HomeContents>
+        </ContentsContainer>
+      </Homepage>
+      <Homepage>
+        <ContentsContainer>
+          <HomeTitle>5</HomeTitle>
+          <HomeContents>
+            <TextContent></TextContent>
+            <GraphBox></GraphBox>
+          </HomeContents>
+        </ContentsContainer>
+      </Homepage>
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>6</HomeTitle>
           <HomeContents>
+<<<<<<< HEAD
             <TextContent>Pisa score by Subjects</TextContent>
             <GraphBox>
               <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar>
             </GraphBox>
+=======
+            <TextContent></TextContent>
+            <GraphBox></GraphBox>
+>>>>>>> front-home
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>7</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
-            <GraphBox>
-              {/* <ManLiteracyEmployeeScatter
-                data={menliteracyEmployeeScatter}
-              ></ManLiteracyEmployeeScatter> */}
-            </GraphBox>
+            <TextContent></TextContent>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
-      <Homepage bgcolor="#f4cfdf">
+      <Homepage>
         <ContentsContainer>
           <HomeTitle>8</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
-            <GraphBox>
-              {/* <WomanLiteracyEmployeeScatter
-                data={womenliteracyEmployeeScatter}
-              ></WomanLiteracyEmployeeScatter> */}
-            </GraphBox>
+            <TextContent></TextContent>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>

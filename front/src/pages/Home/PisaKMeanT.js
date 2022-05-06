@@ -20,22 +20,44 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-// ChartJS.defaults.scales.linear.min = 440;
 
 const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top",
+      position: "right",
+      align: "start",
+      borderWidth: 0,
     },
     title: {
       display: true,
       text: "대한민국 Pisa 점수",
+      font: {
+        size: 20,
+      },
     },
   },
   scales: {
     y: {
-      min: 440,
+      min: 490,
+      step: 20,
+    },
+    x: {
+      grid: {
+        display: false,
+      },
+    },
+  },
+  elements: {
+    point: {
+      radius: 6,
+      borderWidth: 0,
+      hoverRadius: 9,
+    },
+  },
+  layout: {
+    padding: {
+      left: 10,
     },
   },
 };
@@ -48,20 +70,20 @@ const data = {
     {
       label: "Male",
       data: pisaKMeanT[0].data,
-      borderColor: "rgba(53, 162, 235, 0.5)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      borderColor: "rgba(53, 162, 235, 0.8)",
+      backgroundColor: "rgba(53, 162, 235, 0.8)",
     },
     {
       label: "Female",
       data: pisaKMeanT[1].data,
-      borderColor: "rgba(255, 99, 132, 0.5)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: "rgba(255, 99, 132, 0.8)",
+      backgroundColor: "rgba(255, 99, 132, 0.8)",
     },
     {
       label: "Total",
       data: pisaKMeanT[2].data,
-      borderColor: "#5BAEAE",
-      backgroundColor: "#5BAEAE",
+      borderColor: "#F7D050",
+      backgroundColor: "#F7D050",
     },
   ],
 };
