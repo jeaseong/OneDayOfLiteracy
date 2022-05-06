@@ -98,13 +98,11 @@ export const UserThumbnail = styled.div`
   margin-right: 14px;
 `;
 
-export const Profile = styled.img.attrs({
-  src: img.banner1,
-  alt: "user thumbnail",
-})`
+export const Profile = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 export const CommentContent = styled.div`
@@ -115,6 +113,7 @@ export const CommentContent = styled.div`
 
 export const UserName = styled.span`
   margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 export const Comment = styled.p`

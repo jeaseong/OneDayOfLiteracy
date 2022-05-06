@@ -42,7 +42,7 @@ export default function CommentInput({ setIsOpenReply, parentId = null }) {
   return (
     <WriteComment onSubmit={onSubmiComment}>
       <WriteCommentWrap>
-        <Profile />
+        <Profile src={userState.profileUrl} alt="user thumbnail" />
         <InputComment
           type="text"
           value={curComment}

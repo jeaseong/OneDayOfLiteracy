@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CommentInput from "pages/Comment/CommentInput";
 import CommentEditForm from "pages/Comment/CommentEditForm";
 import { useQueryClient } from "react-query";
@@ -21,6 +22,7 @@ export default function CommentSingle({ comment, isReComment = false }) {
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
   const deleteComment = useDeleteComment();
+  const navigate = useNavigate();
 
   const onClickOpenReplyInput = () => {
     setIsOpenReply((cur) => !cur);
@@ -31,12 +33,18 @@ export default function CommentSingle({ comment, isReComment = false }) {
   return (
     <CommentBox>
       <UserThumbnail>
-        <Profile />
+        <Profile
+          onClick={() => navigate(`/user/${comment.userId}`)}
+          src={comment.user.profileUrl}
+          alt="user thumbnail"
+        />
       </UserThumbnail>
       <CommentContent>
         {!isEdit ? (
           <>
-            <UserName>{comment.author}</UserName>
+            <UserName onClick={() => navigate(`/user/${comment.userId}`)}>
+              {comment.author}
+            </UserName>
             <Comment>{comment.content}</Comment>
           </>
         ) : (
