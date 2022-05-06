@@ -37,8 +37,8 @@ const options = {
   },
   plugins: {
     legend: {
-      position: "right",
-      align: "start",
+      position: "top",
+      // align: "start",
       borderWidth: 0,
     },
     title: {

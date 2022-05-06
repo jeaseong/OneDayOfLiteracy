@@ -10,7 +10,6 @@ import {
 import { Scatter } from "react-chartjs-2";
 import menliteracyEmployeeScatter from "../../data/menliteracyEmployeeScatter.json";
 import womenliteracyEmployeeScatter from "../../data/womenliteracyEmployeeScatter.json";
-import menliteracyEmployeeReg from "../../data/menliteracyEmployeeReg.json";
 import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -68,7 +67,7 @@ export const data = {
         x: v.x,
         y: v.y,
       })),
-      borderColor: "rgba(53, 162, 235, 0.7)",
+
       backgroundColor: "rgba(53, 162, 235, 0.8)",
     },
     {
@@ -78,22 +77,16 @@ export const data = {
         x: v.x,
         y: v.y,
       })),
-      borderColor: "rgba(255, 99, 132, 0.7)",
-      backgroundColor: "rgba(255, 99, 132, 0.8)",
+
+      backgroundColor: "rgba(53, 162, 235, 0.8)",
     },
+
     {
       type: "line",
-      label: "Male Regression",
-      data: menliteracyEmployeeReg[0].data,
-      borderColor: "#F7D050",
-      backgroundColor: "#F7D050",
-    },
-    {
-      type: "line",
-      label: "Female Regression",
+      label: "Regression",
       data: womenliteracyEmployeeReg[0].data,
-      borderColor: "#0F2157",
-      backgroundColor: "#0F2157",
+      borderColor: "#F8D563",
+      backgroundColor: "#F8D563",
     },
   ],
 };

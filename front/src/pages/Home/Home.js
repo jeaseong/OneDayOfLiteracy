@@ -230,10 +230,8 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
-            <TextContent>우리나라 Pisa 점수 데이터</TextContent>
-            <GraphBox>
-              <PisaKMeanT></PisaKMeanT>
-            </GraphBox>
+            <TextContent>우리나라 Pisa 점수</TextContent>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -241,8 +239,10 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>2</HomeTitle>
           <HomeContents>
-            <TextContent>Gdp와 Pisa</TextContent>
-            <GraphBox></GraphBox>
+            <TextContent></TextContent>
+            <GraphBox>
+              <PisaTop15Bar></PisaTop15Bar>
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -250,7 +250,7 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>3</HomeTitle>
           <HomeContents>
-            <TextContent>Gdp와 Pisa 추세선</TextContent>
+            <TextContent></TextContent>
             <GraphBox>
               <PisaGdpScatter></PisaGdpScatter>
             </GraphBox>
@@ -261,9 +261,9 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>4</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa top 15</TextContent>
+            <TextContent></TextContent>
             <GraphBox>
-              <PisaTop15Bar></PisaTop15Bar>
+              <PisaEmployee></PisaEmployee>
             </GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -272,7 +272,7 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>5</HomeTitle>
           <HomeContents>
-            <TextContent>Pisa Korea Scores by sex</TextContent>
+            <TextContent></TextContent>
             <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
@@ -281,10 +281,8 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>6</HomeTitle>
           <HomeContents>
-            <TextContent>문해력과 고용률</TextContent>
-            <GraphBox>
-              <PisaEmployee></PisaEmployee>
-            </GraphBox>
+            <TextContent></TextContent>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
