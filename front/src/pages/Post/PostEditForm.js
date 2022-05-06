@@ -4,13 +4,12 @@ import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
-import { PostContainer } from "../../styles/Posts/PostStyle";
-import { PostingButton } from "../../styles/Posts/PostingStyle";
+import { PostingButton, PostingBody } from "../../styles/Posts/PostingStyle";
 import "../../styles/Posts/markdown.css";
 import { put } from "../../utils/api";
 import { useQueryClient } from "react-query";
 
-function Posting() {
+function PostingEditForm() {
   const params = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -67,7 +66,7 @@ function Posting() {
   };
 
   return (
-    <PostContainer>
+    <PostingBody>
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag editTagArray={postInfo.tags} ref={tagRef} />
@@ -77,8 +76,8 @@ function Posting() {
           수정하기
         </PostingButton>
       </div>
-    </PostContainer>
+    </PostingBody>
   );
 }
 
-export default Posting;
+export default PostingEditForm;

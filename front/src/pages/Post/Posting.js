@@ -4,8 +4,7 @@ import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
-import { PostContainer } from "styles/Posts/PostStyle";
-import { PostingButton } from "styles/Posts/PostingStyle";
+import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
 import "styles/Posts/markdown.css";
 import { post } from "utils/api";
 
@@ -54,7 +53,7 @@ function Posting() {
   };
 
   return (
-    <PostContainer>
+    <PostingBody>
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
@@ -64,7 +63,7 @@ function Posting() {
           출간하기
         </PostingButton>
       </div>
-    </PostContainer>
+    </PostingBody>
   );
 }
 export default Posting;

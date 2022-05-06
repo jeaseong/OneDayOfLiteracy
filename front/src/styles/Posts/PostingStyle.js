@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 export const PostingBody = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
+  margin-top: 3rem;
 `;
 
 export const PostingTitle = styled.input`
