@@ -70,29 +70,6 @@ const isValidData = (type) => {
 
     case "userword-post":
       return body("word", "단어 정보가 올바르지 않습니다.").exists().isString().isIn(quizWords);
-    case "userword-get":
-      return param("userId", "유저 정보가 올바르지 않습니다.")
-        .exists()
-        .isMongoId()
-        .bail()
-        .custom(async (value, { req }) => {
-          try {
-            const userId = value;
-            
-            if (userId === undefined) {
-              // "/userword" 로 post 요청시 path params는 없다.
-              return Promise.resolve("userWord validation success");
-            }
-
-            const userWord = await UserWord.findByUserId({ userId });
-            if (userWord == null) {
-              throw new Error("해당 유저의 단어가 존재하지 않습니다.");
-            }
-
-          } catch (error) {
-            return Promise.reject(error);
-          }
-        });
   }
 };
 

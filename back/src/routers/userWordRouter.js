@@ -31,8 +31,6 @@ userWordRouter.post(
 // 후 : /users/:userId/userword
 userWordRouter.get(
   "/users/:userId/userword",
-  isValidData("userword-get"),
-  invalidCallback,
   async (req, res, next) => {
     try {
       const { userId } = req.params;
