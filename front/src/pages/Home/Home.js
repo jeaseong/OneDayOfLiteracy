@@ -19,7 +19,6 @@ import { img } from "../../utils/imgImport";
 import { useRef, useEffect, useState } from "react";
 
 import PisaTop15BarCountries from "./PisaTop15Countries";
-import PisaSubjectScore from "./PisaSubjectScore";
 import PisaGdpScatter from "./PisaGdpScatter";
 import PisaEmployee from "./PisaEmployee";
 
@@ -309,9 +308,7 @@ function Home() {
                 떨어지는 걸 볼 수 있습니다.
               </TextParagraph>
             </TextContent>
-            <GraphBox>
-              <PisaSubjectScore></PisaSubjectScore>
-            </GraphBox>
+            <GraphBox></GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
