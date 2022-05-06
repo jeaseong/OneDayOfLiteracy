@@ -139,9 +139,7 @@ export const PostHeader = styled.div`
 
 export const PostHeaderWrap = styled.div``;
 
-export const PostFooter = styled.div`
-  margin-bottom: 2rem;
-`;
+export const PostFooter = styled.div``;
 
 export const PostWriter = styled.div`
   font-size: 1.2rem;
@@ -156,7 +154,7 @@ export const PostDate = styled.p`
 
 export const PostBody = styled.div`
   width: 100%;
-  margin: 3rem auto;
+  margin: 5rem auto;
   box-sizing: border-box;
 `;
 
