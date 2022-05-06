@@ -20,6 +20,7 @@ import PisaGdpScatter from "./PisaGdpScatter";
 import PisaKMeanT from "./PisaKMeanT";
 import PisaEmployee from "./PisaEmployee";
 import PisaTop15Bar from "./PisaTop15Bar";
+import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 const BANNERS = [
   <Img url={img.banner1} alt={"banner1"} />,
@@ -234,7 +235,9 @@ function Home() {
           <HomeTitle>당신의 문해력 건강하십니까? 1</HomeTitle>
           <HomeContents>
             <TextContent>우리나라 Pisa 점수</TextContent>
-            <GraphBox></GraphBox>
+            <GraphBox>
+              <PisaSubjectScoreBar></PisaSubjectScoreBar>
+            </GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -243,9 +246,7 @@ function Home() {
           <HomeTitle>2</HomeTitle>
           <HomeContents>
             <TextContent></TextContent>
-            <GraphBox>
-              <PisaTop15Bar></PisaTop15Bar>
-            </GraphBox>
+            <GraphBox>{/* <PisaTop15Bar></PisaTop15Bar> */}</GraphBox>
           </HomeContents>
         </ContentsContainer>
       </Homepage>
@@ -284,15 +285,8 @@ function Home() {
         <ContentsContainer>
           <HomeTitle>6</HomeTitle>
           <HomeContents>
-<<<<<<< HEAD
-            <TextContent>Pisa score by Subjects</TextContent>
-            <GraphBox>
-              <PisaSubjectScoreBar data={pisaKScore}></PisaSubjectScoreBar>
-            </GraphBox>
-=======
             <TextContent></TextContent>
             <GraphBox></GraphBox>
->>>>>>> front-home
           </HomeContents>
         </ContentsContainer>
       </Homepage>
