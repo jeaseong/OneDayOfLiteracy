@@ -44,7 +44,7 @@ const PostingContents = forwardRef(({}, ref) => {
         <ReactMarkdown
           children={markdown}
           remarkPlugins={[remarkGfm]}
-          className={"markdown"}
+          className="markdown"
         ></ReactMarkdown>
       </PostingContent>
       {isContentEmpty && <PostingMessage>내용을 입력해주세요.</PostingMessage>}
