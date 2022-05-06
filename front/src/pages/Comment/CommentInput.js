@@ -10,7 +10,11 @@ import {
   CommentBtn,
   Profile,
 } from "styles/Comment/CommentStyle";
-export default function CommentInput({ setIsOpenReply, parentId = null }) {
+export default function CommentInput({
+  setIsOpenReply,
+  isOpenReply,
+  parentId = null,
+}) {
   const inputRef = useRef();
   const params = useParams();
   const queryClient = useQueryClient();
@@ -19,7 +23,7 @@ export default function CommentInput({ setIsOpenReply, parentId = null }) {
   const { userState } = queryClient.getQueryData("userState");
 
   useEffect(() => {
-    inputRef.current.focus();
+    isOpenReply && inputRef.current.focus();
   }, []);
 
   const onChangeWriteComment = (e) => {
