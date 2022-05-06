@@ -44,6 +44,7 @@ export const LABEL = {
   POPULARITY: "인기글",
   GET_MORE: "더 보러가기",
   DOT: "점",
+  CATEGORY: "카테고리",
 };
 
 export const GUIDE_MESSAGE = {
@@ -60,8 +61,9 @@ export const GUIDE_MESSAGE = {
 export const CATEGORY = {
   ALL: "전체",
   NOVEL: "소설",
-  ESSAY: "에세이",
+  ESSAY: "산문",
   POETRY: "시",
+  ETC: "etc",
 };
 
 export const TEST_RESULT = {

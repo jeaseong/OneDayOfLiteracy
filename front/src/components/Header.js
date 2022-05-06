@@ -53,7 +53,9 @@ function Header() {
     <HeaderContainer>
       <HeaderWrap>
         <LogoImg
-          onClick={() => navigate("/")}
+          onClick={() => {
+            isLogin ? navigate("/main") : navigate("/");
+          }}
           src={img.logoHeader}
           alt="logo"
         ></LogoImg>
@@ -90,7 +92,9 @@ function Header() {
         </Navigation>
       </HeaderWrap>
       <CustomSnackbar {...logoutSuccessData} />
-      <LogOutBtn onClick={handleUserLogout}>{LABEL.LOGOUT}</LogOutBtn>
+      {isLogin && (
+        <LogOutBtn onClick={handleUserLogout}>{LABEL.LOGOUT}</LogOutBtn>
+      )}
     </HeaderContainer>
   );
 }

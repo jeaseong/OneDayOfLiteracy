@@ -14,6 +14,7 @@ import {
   LikeButton,
   PostUserContainer,
   PostListcounnt,
+  PostsCategory,
 } from "styles/Posts/PostStyle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -42,11 +43,16 @@ function PostCard({ userInfo, isDisabled, post }) {
   return (
     <Posts>
       <PostImgContainer>
-        <PostsImage alt="게시글 사진" src={post.imageUrl} />
+        <Link to={`/posts/${post._id}`}>
+          <PostsImage alt="게시글 사진" src={post.imageUrl} />
+        </Link>
       </PostImgContainer>
       <PostsSummary>
         <Link to={`/posts/${post._id}`}>
           <PostsTitle>{post.title}</PostsTitle>
+        </Link>
+        <Link to={`/posts?category=${post.category}`}>
+          <PostsCategory>{post.category}</PostsCategory>
         </Link>
         <PostsContentWrap>
           <PostsContent>

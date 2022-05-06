@@ -1,6 +1,7 @@
-import React, { useState, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { PostingCategoryBox, PostingMessage } from "styles/Posts/PostingStyle";
 import "styles/Posts/markdown.css";
+import { CATEGORY, LABEL } from "../../utils/constants";
 
 const PostingCategory = forwardRef(({}, ref) => {
   const isCategoryEmpty = ref.current?.value.length === 0;
@@ -14,11 +15,11 @@ const PostingCategory = forwardRef(({}, ref) => {
         placeholder={"카테고리"}
         // onChange={(e) => setIsCategoryEmpty(() => !e.target.value)}
       >
-        <option value={""}>Category</option>
-        <option value={"시"}>시</option>
-        <option value={"소설"}>소설</option>
-        <option value={"산문"}>산문</option>
-        <option value={"etc"}>etc</option>
+        <option value={LABEL.CATEGORY}>{LABEL.CATEGORY}</option>
+        <option value={CATEGORY.NOVEL}>{CATEGORY.NOVEL}</option>
+        <option value={CATEGORY.ESSAY}>{CATEGORY.ESSAY}</option>
+        <option value={CATEGORY.POETRY}>{CATEGORY.POETRY}</option>
+        <option value={CATEGORY.ETC}>{CATEGORY.ETC}</option>
       </PostingCategoryBox>
       {isCategoryEmpty && (
         <PostingMessage>카테고리를 선택해주세요.</PostingMessage>

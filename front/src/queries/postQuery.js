@@ -8,7 +8,7 @@ import { get, patch } from "utils/api";
 
 export function useGetPostList(endpoint = "") {
   const fetchPostList = async ({ pageParam = 1 }) => {
-    const res = await get(`${endpoint}page=${pageParam}&limit=9`);
+    const res = await get(`${endpoint}page=${pageParam}&limit=6`);
     const { posts, isLast } = res.data;
     return { posts, nextPage: pageParam + 1, isLast };
   };

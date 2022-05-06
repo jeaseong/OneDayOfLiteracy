@@ -44,16 +44,28 @@ const data = {
   labels,
   datasets: [
     {
-      label: "읽기",
-      data: pisaKScore.map((data) => data.Reading),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
+      type: "bar",
       label: "수학",
       data: pisaKScore.map((data) => data.Maths),
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
     {
+      type: "bar",
+      label: "읽기",
+      data: pisaKScore.map((data) => data.Reading),
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      type: "line",
+      label: "읽기",
+      borderColor: "rgb(255, 99, 132)",
+      borderWidth: 2,
+      fill: false,
+      data: pisaKScore.map((data) => data.Reading),
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      type: "bar",
       label: "과학",
       data: pisaKScore.map((data) => data.Science),
       backgroundColor: "rgba(53, 162, 235, 0.5)",
