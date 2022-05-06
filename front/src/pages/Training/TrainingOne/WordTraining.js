@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useWordsQuery } from "queries/wordsQuery";
 import { useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
 import {
   WordTrainingContainer,
   WordSuggestion,
@@ -29,7 +28,6 @@ export default function WordTraining({ subject }) {
   const [progress, setProgress] = useState(0);
   const [curIndex, setCurIndex] = useState(progress);
   const [myAnswer, setMyAnswer] = useState("");
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
 
@@ -79,8 +77,6 @@ export default function WordTraining({ subject }) {
 
   const stopWordTraining = async () => {
     await post("userwords", { word: words[progress - 1].word });
-    // await post("", subject);
-    navigate("/main");
   };
 
   return (
@@ -127,7 +123,7 @@ export default function WordTraining({ subject }) {
               <ArrowForwardIosIcon fontSize="large" />
             </NextBtn>
           </ButtonBox>
-          <ClearBtn onClick={() => stopWordTraining()}>그만하기</ClearBtn>
+          <ClearBtn onClick={() => stopWordTraining()}>저장하기</ClearBtn>
         </>
       )}
     </WordTrainingContainer>
