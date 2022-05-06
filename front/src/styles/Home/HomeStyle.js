@@ -48,17 +48,15 @@ export const Homepage = styled.div`
 
 export const ContentsContainer = styled.div`
   max-width: 1024px;
-  min-height: 50vh;
-  // background-color: #dcd0c8;
-  border-radius: 5px;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 7%;
-  padding: 5%;
+
   // box-shadow: 0 0 8px #dcd0c8;
   @media only screen and (max-width: 400px) {
+    width: 100%;
     min-height: 60vh;
     margin-bottom: 30%;
     padding: 5%;
@@ -68,34 +66,69 @@ export const ContentsContainer = styled.div`
 export const HomeTitle = styled.h1`
   height: 8vh;
   font-size: 36px;
-  // color: #c48f5a;
   margin: 20px 0;
+  @media only screen and (max-width: 400px) {
+    font-size: 1.6rem;
+  }
 `;
 
 export const HomeContents = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  width: 70vw;
+  justify-content: space-between;
+  width: 1024px;
   @media only screen and (max-width: 400px) {
     flex-direction: column;
   }
 `;
 
 export const TextContent = styled.div`
-  font-size: 20px;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  width: 32%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+`;
+
+export const TextEmphasize = styled.span`
+  color: #c48f5a;
+`;
+
+export const TextParagraph = styled.p`
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin-bottom: 1.4rem;
+  word-break: keep-all;
+  font-weight: lighter;
+`;
+
+export const TextTitle = styled.h1`
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  margin-bottom: 1.6rem;
+  word-break: keep-all;
 `;
 
 export const GraphBox = styled.div`
-  // border: 1px solid black;
-  width: 45vw;
-  height: 35vh;
+  width: 60%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 400px) {
+    width: 100%;
+  }
 `;
 
 export const CountryButton = styled.button`
-  width: 40px;
-  height: 31px;
-  margin: 1rem 1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 32px;
+  height: 25px;
+  margin: 1rem 0.5rem 0 0;
   padding: 0;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #503d3f;

@@ -33,7 +33,7 @@ const options = {
   responsive: true,
   interaction: {
     mode: "point",
-    intersect: false,
+    intersect: true,
   },
   plugins: {
     legend: {
@@ -45,18 +45,17 @@ const options = {
       display: true,
       text: "Pisa 점수와 Gdp 상관관계",
       font: {
-        size: 20,
+        size: 15,
       },
     },
     tooltip: {
       callbacks: {
         label: function (context) {
           let label = context.dataset.label || "";
-
+          const val = `pisa : ${context.parsed.x}, GDP : ${context.parsed.y}`;
           if (label) {
-            label = label[context.dataIndex];
+            label = label[context.dataIndex] + " " + val;
           }
-
           return label;
         },
       },
@@ -64,7 +63,7 @@ const options = {
   },
   elements: {
     point: {
-      radius: 6,
+      radius: 5,
       borderWidth: 0,
       hoverRadius: 10,
     },

@@ -20,7 +20,7 @@ export const options = {
       display: true,
       text: "문해력과 고용률",
       font: {
-        size: 20,
+        size: 15,
       },
     },
     legend: {
@@ -45,7 +45,7 @@ export const options = {
   },
   elements: {
     point: {
-      radius: 5,
+      radius: 4,
       borderWidth: 0,
       hoverRadius: 9,
     },

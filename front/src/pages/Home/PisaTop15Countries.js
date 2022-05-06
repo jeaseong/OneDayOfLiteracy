@@ -77,7 +77,7 @@ const options = {
       display: true,
       text: "국가별 Pisa 점수 top 15",
       font: {
-        size: 20,
+        size: 15,
       },
     },
   },
@@ -149,8 +149,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/kr.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="South Korea"
             className="South Korea"
           />
@@ -158,8 +158,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/au.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Australia"
             className="Australia"
           />
@@ -167,8 +167,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/be.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Belgium"
             className="Belgium"
           />
@@ -177,8 +177,8 @@ const PisaTop15BarCountries = () => {
           <img
             src={"https://flagcdn.com/w40/ca.png"}
             // srcset="https://flagcdn.com/w80/ca.png 2x"
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Canada"
             className="Canada"
           />
@@ -186,8 +186,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/dk.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Denmark"
             className="Denmark"
           />
@@ -195,8 +195,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/ee.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Estonia"
             className="Estonia"
           />
@@ -204,8 +204,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/fi.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Finland"
             className="Finland"
           />
@@ -213,8 +213,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/fr.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="France"
             className="France"
           />
@@ -222,8 +222,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/de.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Germany"
             className="Germany"
           />
@@ -231,8 +231,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/ie.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Ireland"
             className="Ireland"
           />
@@ -240,8 +240,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/jp.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Japan"
             className="Japan"
           />
@@ -249,8 +249,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/nz.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="New Zealand"
             className="New Zealand"
           />
@@ -258,8 +258,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/pl.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Poland"
             className="Poland"
           />
@@ -267,8 +267,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/gb.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="Taiwan"
             className="Taiwan"
           />
@@ -276,8 +276,8 @@ const PisaTop15BarCountries = () => {
         <CountryButton onClick={handleClick}>
           <img
             src={"https://flagcdn.com/w40/tw.png"}
-            width="36"
-            height="27"
+            width="28"
+            height="21"
             alt="United Kingdom"
             className="United Kingdom"
           />
