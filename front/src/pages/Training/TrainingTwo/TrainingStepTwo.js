@@ -18,7 +18,6 @@ export default function TrainingStepTwo() {
     const fetchApi = async () => {
       const res = await get(`subjects/?level=2`);
       setSubject((cur) => res.data);
-      console.log(res.data);
     };
     fetchApi();
   }, []);
@@ -37,7 +36,6 @@ export default function TrainingStepTwo() {
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
       <TrainingPost
-        title="나를 소개합니다"
         tags={TAG_NAME.STEP_TWO}
         subject={subject.subject}
         category={subject.category}

@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PostContainer } from "styles/Posts/PostStyle";
 import { useQueryClient } from "react-query";
+import { PostingBody, PostingTitle } from "styles/Posts/PostingStyle";
 import {
   PostingContent,
   PostingArea,
   PostingButton,
 } from "styles/Posts/PostingStyle";
-import { TrainingPostTitle, Center } from "styles/Training/TrainingStyle";
+import { Center } from "styles/Training/TrainingStyle";
 import "styles/Posts/markdown.css";
 import { post } from "utils/api";
 
-export default function TrainingPost({ title, tags, subjectId, category }) {
+export default function TrainingPost({ tags, subjectId, category }) {
   const navigate = useNavigate();
   const [markdown, setMarkdown] = useState("");
-  const queryClient = useQueryClient();
-  const { userState } = queryClient.getQueryData("userState");
+  const [title, setTitle] = useState("");
 
   const handleChangeMarkdown = (e) => {
     setMarkdown(e.target.value);
@@ -35,10 +34,14 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
     }
   };
 
+  const onChangeTitle = (e) => {
+    setTitle((cur) => e.target.value);
+  };
+
   const submitTrainingPost = async (e) => {
     e.preventDefault();
     const curPost = {
-      title,
+      title: title,
       content: markdown,
       tags,
       subjectId,
@@ -49,9 +52,16 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
   };
 
   return (
-    <PostContainer>
-      <TrainingPostTitle>{title}</TrainingPostTitle>
-      <form>
+    <form>
+      <PostingBody>
+        <PostingTitle
+          onChange={onChangeTitle}
+          value={title}
+          type="text"
+          placeholder="자기소개"
+          required
+        />
+
         <PostingContent>
           <PostingArea
             type="text"
@@ -75,7 +85,7 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
             출간하기
           </PostingButton>
         </Center>
-      </form>
-    </PostContainer>
+      </PostingBody>
+    </form>
   );
 }

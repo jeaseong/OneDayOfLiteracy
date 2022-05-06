@@ -11,8 +11,8 @@ const PostingCategory = forwardRef(({}, ref) => {
       <PostingCategoryBox
         ref={ref}
         isCategoryEmpty={isCategoryEmpty}
-        type={"option"}
-        placeholder={"카테고리"}
+        type="option"
+        placeholder="카테고리"
         // onChange={(e) => setIsCategoryEmpty(() => !e.target.value)}
       >
         <option value={LABEL.CATEGORY}>{LABEL.CATEGORY}</option>

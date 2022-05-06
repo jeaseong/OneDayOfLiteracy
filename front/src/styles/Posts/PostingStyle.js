@@ -4,21 +4,23 @@ export const PostingBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  margin-top: 3rem;
+  margin: 3rem 0;
 `;
 
+// Title
+export const PostingTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
 export const PostingTitle = styled.input`
-  padding: 20px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
   border: none;
-  border-radius: 10px;
-  margin: 10px;
-  width: 50%;
-  font-size: 30px;
-  background-color: #dcd0c8;
-  display: block;
+  background-color: transparent;
   ${(props) => (props.isTitleEmpty ? focusInput : "outline : none")};
   @media only screen and (max-width: 500px) {
-    font-size: 20px;
+    font-size: 2rem;
   }
 `;
 
@@ -28,20 +30,34 @@ const focusInput = css`
 `;
 
 export const PostingCategoryBox = styled.select`
-  padding: 10px;
+  width: 5.2rem;
+  padding: 10px 3px;
   border-radius: 5px;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
   border: none;
+  background-color: transparent;
+  cursor: pointer;
+
   ${(props) => (props.isCategoryEmpty === "" ? focusInput : "outline : none")};
-  margin: 10px;
-  width: 30%;
-  @media only screen and (max-width: 400px) {
-    font-size: 13px;
-  }
+`;
+
+export const PostingTags = styled.input`
+  min-width: 8rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  border: none;
+  display: inline-flex;
+  background-color: transparent;
+  outline: none;
+  cursor: text;
 `;
 
 export const PostingContent = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   width: 100%;
   height: auto;
   white-space: pre-wrap;
@@ -52,33 +68,13 @@ export const PostingContent = styled.div`
 
 export const PostingArea = styled.textarea`
   width: 100%;
-  min-height: 30vh;
-  border: none;
-  margin-right: 20px;
+  min-height: 50vh;
+  padding: 10px;
   border-radius: 5px;
-  padding: 20px;
   line-height: 1.8;
-  overflow: hidden;
+  border: none;
   resize: none;
   ${(props) => (props.isContentEmpty ? focusInput : "outline : none")};
-  @media only screen and (max-width: 400px) {
-    margin-right: 0;
-  }
-`;
-
-export const PostingTags = styled.input`
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  width: auto;
-  display: inline-flex;
-  background-color: #dcd0c8;
-  outline: none;
-  cursor: text;
-
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
 `;
 
 export const PostingButton = styled.button`
@@ -102,11 +98,6 @@ export const PostingButton = styled.button`
   &:disabled {
     opacity: 0.5;
   }
-`;
-
-export const PostingTitleBox = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export const PostingMessage = styled.span`

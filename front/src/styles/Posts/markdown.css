@@ -3,10 +3,11 @@
   height: auto;
   border: none;
   border-radius: 5px;
-  padding: 20px;
-  padding-left: 30px;
+  padding: 10px;
+  /* padding-left: 30px; */
   background-color: white;
   line-height: 1.2;
+  box-sizing: border-box;
 }
 @media screen and (max-width: 900px) {
   .markdown {
