@@ -164,6 +164,8 @@ export const PostBodyWrap = styled.div`
   font-size: 1.2rem;
   word-break: keep-all;
   overflow-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.8;
 `;
 
 export const PostImageBox = styled.div`
