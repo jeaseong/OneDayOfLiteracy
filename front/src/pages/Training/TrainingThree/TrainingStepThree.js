@@ -28,26 +28,30 @@ export default function TrainingStepThree() {
     setIsOpenTranscription((cur) => !cur);
   };
   return (
-    <TrainingGuide>
-      <TrainingSubjectContainer>
-        <TrainingSubjectWrap>
-          <TrainingStepTitle>3단계</TrainingStepTitle>
-          <Slide elements={TranscriptionDescription} />
-        </TrainingSubjectWrap>
-      </TrainingSubjectContainer>
-      <ButtonWrap>
-        <FetchTranscriptionBtn onClick={openTranscription}>
-          {isOpenTranscription ? "닫기" : "필사 불러오기"}
-        </FetchTranscriptionBtn>
-      </ButtonWrap>
+    <>
+      {subject && (
+        <TrainingGuide>
+          <TrainingSubjectContainer>
+            <TrainingSubjectWrap>
+              <TrainingStepTitle>3단계</TrainingStepTitle>
+              <Slide elements={TranscriptionDescription} />
+            </TrainingSubjectWrap>
+          </TrainingSubjectContainer>
+          <ButtonWrap>
+            <FetchTranscriptionBtn onClick={openTranscription}>
+              {isOpenTranscription ? "닫기" : "필사 불러오기"}
+            </FetchTranscriptionBtn>
+          </ButtonWrap>
 
-      <TrainingTransription
-        title="필사"
-        tags={TAG_NAME.STEP_THREE}
-        subjectId={subject.subjectId}
-        category={subject.category}
-        content={subject.content}
-      />
-    </TrainingGuide>
+          <TrainingTransription
+            title="필사"
+            tags={TAG_NAME.STEP_THREE}
+            subjectId={subject.subjectId}
+            category={subject.category}
+            content={subject.subject}
+          />
+        </TrainingGuide>
+      )}
+    </>
   );
 }

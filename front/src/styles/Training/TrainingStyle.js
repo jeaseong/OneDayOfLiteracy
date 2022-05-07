@@ -23,22 +23,28 @@ export const StepContainer = styled.article`
   background: #ffffff;
   border-radius: 12px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
 `;
 
 export const StepImg = styled.img`
   width: 100%;
   height: 200px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 `;
 export const StepTitle = styled.h2`
-  margin-bottom: 5px;
-  font-size: 18px;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
 `;
 export const StepTagContainer = styled.ul`
   width: 100%;
   display: flex;
   list-style: none;
-  margin-bottom: 5px;
+  margin-bottom: 0.75rem;
+  padding-left: 0;
 `;
 
 export const StepTag = styled.li`
