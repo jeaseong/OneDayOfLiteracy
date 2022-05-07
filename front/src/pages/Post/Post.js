@@ -86,15 +86,6 @@ function Post() {
     ALERT_TYPE.ERROR
   );
 
-  // 썸네일 이미지 업로드
-  const thumbnailImageData = {
-    type: "posts",
-    id: postId,
-    prevImage: data.imageUrl,
-    showAlert,
-    setShowAlert,
-  };
-
   const postLikeList = isPostLike ? (
     <LikeButton
       disabled={!isLogin}
@@ -127,7 +118,6 @@ function Post() {
             <PostTitle>{data.title}</PostTitle>
             {isPostOwner && (
               <PostEditContainer>
-                {/* <FileUpload {...thumbnailImageData} /> */}
                 <PostEditBtn onClick={() => setIsEdit((cur) => !cur)}>
                   수정
                 </PostEditBtn>

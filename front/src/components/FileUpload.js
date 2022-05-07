@@ -12,7 +12,7 @@ import { useQueryClient } from "react-query";
  * @returns {JSX.Element}
  * @constructor
  */
-function FileUpload({ prevImage = "", setEditProfileImg, setImgUrl }) {
+function FileUpload({ prevImage = "", setEditImg, setImgUrl }) {
   const refFileUpload = useRef();
 
   const handleUploadFile = async (e) => {
@@ -22,7 +22,7 @@ function FileUpload({ prevImage = "", setEditProfileImg, setImgUrl }) {
     formData.append("prevImage", prevImage);
 
     setImgUrl(URL.createObjectURL(e.target.files[0]));
-    setEditProfileImg(formData);
+    setEditImg(formData);
   };
 
   return (

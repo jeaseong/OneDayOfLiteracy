@@ -34,7 +34,6 @@ function UserCard({ editProfileImgStore, editStateStore, children }) {
   const [showAlert, setShowAlert] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
   const userProfile = useGetProfileUser(userId);
-  console.log(userProfile);
 
   if (userProfile.isFetching) return <Loading />;
   if (userProfile.error) return <ErrorPage />;
@@ -57,7 +56,7 @@ function UserCard({ editProfileImgStore, editStateStore, children }) {
   // 프로필 이미지 업로드
   const profileImageData = {
     prevImage: userProfile.data.profileUrl,
-    setEditProfileImg,
+    setEditImg: setEditProfileImg,
     setImgUrl,
   };
 
@@ -74,7 +73,6 @@ function UserCard({ editProfileImgStore, editStateStore, children }) {
       <CardBox>
         <CardHeader>
           <ProfileImgBox>
-            {/*<ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />*/}
             <ProfileImg
               src={imgUrl ? imgUrl : userProfile.data.profileUrl}
               alt="profileImage"
