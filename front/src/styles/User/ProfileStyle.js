@@ -70,6 +70,7 @@ export const ProfilePostCount = styled(HeadingTwo)`
   margin-top: 6px;
   text-align: center;
   display: flex;
+  flex-direction: column;
   gap: 5px;
 `;
 
