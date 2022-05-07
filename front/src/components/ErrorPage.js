@@ -5,9 +5,9 @@ import {
   ErrorHeader,
   ErrorCode,
   ErrorMessage,
-} from "../styles/Components/ComponentStyle";
+} from "styles/Components/ComponentStyle";
 import { useNavigate } from "react-router-dom";
-import { LABEL, GUIDE_MESSAGE } from "../utils/constants";
+import { LABEL, GUIDE_MESSAGE } from "utils/constants";
 
 function ErrorPage() {
   const navigate = useNavigate();

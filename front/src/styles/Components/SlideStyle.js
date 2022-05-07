@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SlideWrap = styled.section`
   position: relative;
+  height: 100%;
 `;
 
 export const OverFlow = styled.div`
@@ -21,7 +22,7 @@ export const SlideInner = styled.div`
   width: 100vw;
 `;
 export const SlideItem = styled.div`
-  width: 100vw;
+  width: 100%;
 `;
 
 export const Btn = styled.button`
@@ -31,7 +32,7 @@ export const Btn = styled.button`
   font-size: 20px;
   position: absolute;
   top: 50%;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 564px) {
     display: none;
   }
 `;

@@ -1,22 +1,25 @@
 import styled from "styled-components";
 
 export const FlexBox = styled.div`
+  width: 100%;
   display: flex;
 `;
 
 export const FlexBoxCenter = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const HeadingTwo = styled.h2`
+  font-size: 1.2rem;
+  margin-bottom: 5px;
   color: #c48f5a;
 `;
 
 export const InputBox = styled.input`
   border: solid 2px #c99c6e;
-  width: 50%;
   border-radius: 8px;
   height: 30px;
   margin: 1.7rem 0 0 0;
@@ -53,10 +56,9 @@ export const LinkButton = styled.button`
   background-color: transparent;
   border: none;
   color: #c48f5a;
-  font-size: 1.1rem;
-  margin: 1rem 0 0 0;
+  padding: 3px;
   text-decoration: underline;
-
+  margin-top: 0.7rem;
   &:hover {
     text-decoration: none;
   }

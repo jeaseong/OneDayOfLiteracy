@@ -1,3 +1,5 @@
+import { useParams, Link } from "react-router-dom";
+import { useQueryClient } from "react-query";
 import {
   CardContent,
   CardIntroduce,
@@ -7,11 +9,11 @@ import {
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
-} from "../../../styles/User/ProfileStyle";
-import { HeadingTwo } from "../../../styles/Components/CommonStyle";
-import { LABEL } from "../../../utils/constants";
-import { useParams, Link } from "react-router-dom";
-import { useQueryClient } from "react-query";
+  ProfileTitleBox,
+} from "styles/User/ProfileStyle";
+import { HeadingTwo } from "styles/Components/CommonStyle";
+import { LABEL } from "utils/constants";
+import { img } from "utils/imgImport";
 
 /**
  * 프로필 정보 컴포넌트입니다.
@@ -20,21 +22,38 @@ import { useQueryClient } from "react-query";
  */
 function UserInfomation() {
   const params = useParams();
+  const userId = params.userId;
   const queryClient = useQueryClient();
-  const userProfile = queryClient.getQueryData(["user", params.userId]);
+
+  const userProfile = queryClient.getQueryData(["user", userId]);
+  const { nickname, level, introduce, posts, postLikes, curExp, maxExp } =
+    userProfile;
 
   return (
     <CardContent>
       <CardIntroduce>
-        <ProfileNickName>{userProfile.nickname}</ProfileNickName> &nbsp;
-        <ProfileIntroduce>{userProfile.introduce}</ProfileIntroduce>
+        <ProfileTitleBox>
+          <img src={img.level[level]} alt="level" /> &nbsp;
+          <ProfileNickName>{nickname}</ProfileNickName>
+        </ProfileTitleBox>
+        &nbsp;
+        <ProfileIntroduce>{introduce}</ProfileIntroduce>
       </CardIntroduce>
       <CardMyInfo>
+        <CardLikePost>
+          <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
+          <CardLikeCountBox>
+            <ProfilePostCount>
+              {curExp} / {maxExp}
+              <progress value={curExp} max={maxExp} />
+            </ProfilePostCount>
+          </CardLikeCountBox>
+        </CardLikePost>
         <CardLikePost>
           <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname}>
-              <ProfilePostCount>{userProfile.posts}</ProfilePostCount>
+              <ProfilePostCount>{posts}</ProfilePostCount>
             </Link>
           </CardLikeCountBox>
         </CardLikePost>
@@ -42,16 +61,8 @@ function UserInfomation() {
           <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
           <CardLikeCountBox>
             <Link to={window.location.pathname + "?likes"}>
-              <ProfilePostCount>
-                {userProfile.postLikes.length}
-              </ProfilePostCount>
+              <ProfilePostCount>{postLikes.length}</ProfilePostCount>
             </Link>
-          </CardLikeCountBox>
-        </CardLikePost>
-        <CardLikePost>
-          <HeadingTwo>{LABEL.USER_LIKE_COUNT}</HeadingTwo>
-          <CardLikeCountBox>
-            <ProfilePostCount>3</ProfilePostCount>
           </CardLikeCountBox>
         </CardLikePost>
       </CardMyInfo>

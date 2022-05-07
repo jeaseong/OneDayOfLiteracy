@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { get, post, put } from "../utils/api";
+import { get, post, put } from "utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -12,7 +12,7 @@ export function useGetCurrentUser() {
   return useQuery(
     "userState",
     async () => {
-      const res = await get("user/current");
+      const res = await get("users/current");
       return { userState: res.data, isLogin: !!res.data };
     },
     {
@@ -40,10 +40,44 @@ export function useGetProfileUser(id) {
       return res.data;
     },
     {
-      staleTime: 60000,
-      cacheTime: 120000,
+      staleTime: 5000,
+      cacheTime: 1500,
       onError: () =>
         queryClient.setQueryData(["user", id], { role: "visitor" }),
+    }
+  );
+}
+
+export function useGetProfileOwner(id) {
+  const queryClient = useQueryClient();
+  return useQuery(
+    ["user", id],
+    async () => {
+      const res = await get(`users/${id}`);
+      return res.data;
+    },
+    {
+      staleTime: Infinity,
+      onError: () =>
+        queryClient.setQueryData(["user", id], { role: "visitor" }),
+    }
+  );
+}
+
+export function useGetUserRank() {
+  const queryClient = useQueryClient();
+  return useQuery(
+    "expRank",
+    async () => {
+      const res = await get(
+        `users?sort[field]=point&sort[type]=desc&page=1&limit=3`
+      );
+      return res.data;
+    },
+    {
+      staleTime: 5000,
+      cacheTime: 1500,
+      onError: () => queryClient.setQueryData("expRank", []),
     }
   );
 }
@@ -57,15 +91,18 @@ export const useUserLoginHandler = (setShowAlert = () => {}) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation(async (loginData) => await post("user/login", loginData), {
-    onSuccess: (res) => {
-      const jwtToken = res.data.token;
-      localStorage.setItem("userToken", jwtToken);
-      queryClient.invalidateQueries("userState");
-      navigate("/");
-    },
-    onError: () => setShowAlert(true),
-  });
+  return useMutation(
+    async (loginData) => await post("users/login", loginData),
+    {
+      onSuccess: (res) => {
+        const jwtToken = res.data.token;
+        localStorage.setItem("userToken", jwtToken);
+        queryClient.invalidateQueries("userState");
+        navigate("/");
+      },
+      onError: () => setShowAlert(true),
+    }
+  );
 };
 
 /**
@@ -78,7 +115,7 @@ export const useChangeProfileHandler = (id, setShowAlert = () => {}) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (changeProfileData) => await put(`user/${id}`, changeProfileData),
+    async (changeProfileData) => await put(`users/${id}`, changeProfileData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("userState");

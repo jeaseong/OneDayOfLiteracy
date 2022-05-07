@@ -1,10 +1,10 @@
 import React, { useState, forwardRef } from "react";
-import { PostingTags } from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
+import { PostingTags } from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
 
-const PostingTag = forwardRef(({}, ref) => {
+const PostingTag = forwardRef(({ editTagArray = [] }, ref) => {
   const [tag, setTag] = useState("");
-  const [tagArray, setTagArray] = useState([]);
+  const [tagArray, setTagArray] = useState(editTagArray);
 
   const onChangeTag = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const PostingTag = forwardRef(({}, ref) => {
   const handleTagEnter = (e) => {
     e.preventDefault();
     if (e.keyCode === 13 && e.target.value.trim() !== "") {
-      setTagArray(() => [...tagArray, tag]);
+      setTagArray((prev) => [...prev, tag]);
       setTag("");
     }
   };

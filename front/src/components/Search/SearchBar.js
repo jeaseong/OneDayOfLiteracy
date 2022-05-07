@@ -3,10 +3,10 @@ import {
   DropDownItem,
   InputBox,
   SearchInput,
-} from "../../styles/Components/SearchStyle";
-import { GUIDE_MESSAGE } from "../../utils/constants";
+} from "styles/Components/SearchStyle";
+import { GUIDE_MESSAGE } from "utils/constants";
 import { useCallback, useState } from "react";
-import { get } from "../../utils/api";
+import { get } from "utils/api";
 
 /**
  * 검색어 입력 컴포넌트입니다.
@@ -48,11 +48,8 @@ function SearchBar({
   };
 
   // 검색어의 길이 체크
-  const checkShowSearchContent = (keyword) => {
-    return keyword.length !== 0
-      ? setIsHaveSearchContent(true)
-      : setIsHaveSearchContent(false);
-  };
+  const checkShowSearchContent = (keyword) =>
+    setIsHaveSearchContent(!!keyword.length);
 
   // 사용자 키워드 입력 검색 디바운스
   const handleInputOnChange = (e) => {

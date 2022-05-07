@@ -15,4 +15,16 @@ export const img = {
   banner1: `${process.env.PUBLIC_URL}/assets/img/banner1.png`,
   banner2: `${process.env.PUBLIC_URL}/assets/img/banner2.png`,
   banner3: `${process.env.PUBLIC_URL}/assets/img/banner3.png`,
+  level: [
+    `${process.env.PUBLIC_URL}/assets/img/level0.png`,
+    `${process.env.PUBLIC_URL}/assets/img/level1.png`,
+    `${process.env.PUBLIC_URL}/assets/img/level2.png`,
+    `${process.env.PUBLIC_URL}/assets/img/level3.png`,
+    `${process.env.PUBLIC_URL}/assets/img/level4.png`,
+  ],
+  rank: [
+    `${process.env.PUBLIC_URL}/assets/img/rank0.png`,
+    `${process.env.PUBLIC_URL}/assets/img/rank1.png`,
+    `${process.env.PUBLIC_URL}/assets/img/rank2.png`,
+  ],
 };

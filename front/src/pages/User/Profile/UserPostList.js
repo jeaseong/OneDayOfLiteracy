@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import {
-  MyPostContainer,
-  NotFoundPostImg,
-} from "../../../styles/User/ProfileStyle";
-import { PostsContainer } from "../../../styles/Posts/PostStyle";
-import { useGetPostList } from "../../../queries/postQuery";
-import { img } from "../../../utils/imgImport";
-import Loading from "../../../components/Loading";
-import ErrorPage from "../../../components/ErrorPage";
-import PostCard from "../../Post/PostCard";
+import { MyPostContainer, NotFoundPostImg } from "styles/User/ProfileStyle";
+import { PostsContainer } from "styles/Posts/PostStyle";
+import { useGetPostList } from "queries/postQuery";
+import { img } from "utils/imgImport";
+import Loading from "components/Loading";
+import ErrorPage from "components/ErrorPage";
+import PostCard from "pages/Post/PostCard";
 import { useQueryClient } from "react-query";
 
 function UserPostList() {
@@ -24,8 +21,8 @@ function UserPostList() {
   const queryString = location.search.substring(1);
   const fetchURI =
     queryString === "likes"
-      ? `likes/user/${params.userId}?`
-      : `posts/users/${params.userId}?`;
+      ? `users/${params.userId}/likes?`
+      : `users/${params.userId}/posts?`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
 

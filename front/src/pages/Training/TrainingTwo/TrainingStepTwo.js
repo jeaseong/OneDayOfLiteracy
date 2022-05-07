@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
-import TrainingGuide from "../TrainingGuide";
+import TrainingGuide from "pages/Training/TrainingGuide";
+
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
   TrainingStepIntroduction,
-} from "../../../styles/Training/TrainingStyle";
+} from "styles/Training/TrainingStyle";
 import TrainingPost from "../TrainingPost/TrainingPost";
-import { TAG_NAME, TRAINING_INTRODUNCTION } from "../../../utils/constants";
-import { createMarkup } from "../../../utils/setInnerHTML";
-import { get } from "../../../utils/api";
+import { TAG_NAME, TRAINING_INTRODUNCTION } from "utils/constants";
+import { createMarkup } from "utils/setInnerHTML";
+import { get } from "utils/api";
 
 export default function TrainingStepTwo() {
   const [subject, setSubject] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("subjects/level", "2");
+      const res = await get(`subjects/?level=2`);
       setSubject((cur) => res.data);
     };
     fetchApi();
@@ -35,9 +36,8 @@ export default function TrainingStepTwo() {
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
       <TrainingPost
-        title="나를 소개합니다"
         tags={TAG_NAME.STEP_TWO}
-        subject={subject.subjectId}
+        subject={subject.subject}
         category={subject.category}
       />
     </TrainingGuide>

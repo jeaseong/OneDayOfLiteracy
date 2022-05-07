@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { CustomSnackbar, setAlertData } from "./CustomSnackbar";
-import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "../utils/constants";
-import { img } from "../utils/imgImport";
+import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
+import { SUCCESS_MESSAGE, ALERT_TYPE, LABEL } from "utils/constants";
+import { img } from "utils/imgImport";
 import {
   HeaderContainer,
-  LogoContainer,
+  HeaderWrap,
+  LogoImg,
   Navigation,
   NavList,
-} from "../styles/Components/ComponentStyle";
-import SearchContent from "./Search/SearchContent";
+  LogOutBtn,
+} from "styles/Components/HeaderStyle";
 
 function Header() {
   const navigate = useNavigate();
@@ -50,44 +51,58 @@ function Header() {
 
   return (
     <HeaderContainer>
-      <LogoContainer>
-        <img
-          onClick={() => navigate("/")}
+      <HeaderWrap>
+        <LogoImg
+          onClick={() => {
+            isLogin ? navigate("/main") : navigate("/");
+          }}
           src={img.logoHeader}
           alt="logo"
-          width="200px"
-        ></img>
-      </LogoContainer>
-      <SearchContent />
-      <Navigation onChange={handleChange}>
-        <NavList
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/");
-          }}
-        >
-          {LABEL.SERVICE_INTRODUCE}
-        </NavList>
-        <NavList
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/posts");
-          }}
-        >
-          {LABEL.POST}
-        </NavList>
-        {isLogin ? (
-          <>
-            <NavList onClick={() => navigate(`/user/${userId}`)}>
-              {LABEL.PROFILE}
-            </NavList>
-            <NavList onClick={handleUserLogout}>{LABEL.LOGOUT}</NavList>
-          </>
-        ) : (
-          LoginRegisterTab
-        )}
-      </Navigation>
+        ></LogoImg>
+
+        <Navigation onChange={handleChange}>
+          <NavList
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          >
+            {LABEL.SERVICE_INTRODUCE}
+          </NavList>
+          <NavList
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/test");
+            }}
+          >
+            {LABEL.TEST}
+          </NavList>
+          <NavList
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/posts");
+            }}
+          >
+            {LABEL.POST}
+          </NavList>
+          {isLogin ? (
+            <>
+              <NavList onClick={() => navigate("/post")}>
+                {LABEL.POSTING}
+              </NavList>
+              <NavList onClick={() => navigate(`/user/${userId}`)}>
+                {LABEL.PROFILE}
+              </NavList>
+            </>
+          ) : (
+            LoginRegisterTab
+          )}
+        </Navigation>
+      </HeaderWrap>
       <CustomSnackbar {...logoutSuccessData} />
+      {isLogin && (
+        <LogOutBtn onClick={handleUserLogout}>{LABEL.LOGOUT}</LogOutBtn>
+      )}
     </HeaderContainer>
   );
 }

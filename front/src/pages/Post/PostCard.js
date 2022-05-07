@@ -2,23 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Posts,
+  PostImgContainer,
   PostsImage,
   PostsSummary,
-  PostsHeader,
+  PostsContentWrap,
+  PostsContent,
   PostsTitle,
   PostsWriter,
-  PostsContent,
   Tag,
   PostsLike,
   LikeButton,
-} from "../../styles/Posts/PostStyle";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { usePostLikeAdd, usePostDislike } from "../../queries/postQuery";
+  PostUserContainer,
+  PostListcounnt,
+  PostsCategory,
+} from "styles/Posts/PostStyle";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { usePostLikeAdd, usePostDislike } from "queries/postQuery";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-const defaultImage =
-  "https://images.unsplash.com/photo-1532362996300-fbce5a30bd6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80";
 
 function PostCard({ userInfo, isDisabled, post }) {
   const postAddLike = usePostLikeAdd(post._id, userInfo._id);
@@ -30,42 +32,54 @@ function PostCard({ userInfo, isDisabled, post }) {
 
   const postLikeList = isPostLike ? (
     <LikeButton disabled={!isDisabled} onClick={handlePostDisLikeOnClick}>
-      <ThumbUpIcon />
+      <FavoriteIcon />
     </LikeButton>
   ) : (
     <LikeButton disabled={!isDisabled} onClick={handlePostLikeOnClick}>
-      <ThumbUpIcon color="disabled" />
+      <FavoriteBorderIcon color="disabled" />
     </LikeButton>
   );
 
   return (
     <Posts>
-      <PostsImage
-        alt="게시글 사진"
-        src={post.imageUrls?.length ? post.imageUrls[0] : defaultImage}
-      />
+      <PostImgContainer>
+        <Link to={`/posts/${post._id}`}>
+          <PostsImage alt="게시글 사진" src={post.imageUrl} />
+        </Link>
+      </PostImgContainer>
       <PostsSummary>
-        <PostsHeader>
-          <Link to={`/posts/${post._id}`}>
-            <PostsTitle>{post.title}</PostsTitle>
-          </Link>
+        <Link to={`/posts/${post._id}`}>
+          <PostsTitle>{post.title}</PostsTitle>
+        </Link>
+        <Link to={`/posts?category=${post.category}`}>
+          <PostsCategory>{post.category}</PostsCategory>
+        </Link>
+        <PostsContentWrap>
+          <PostsContent>
+            <ReactMarkdown
+              children={post.content.slice(0, 80)}
+              remarkPlugins={[remarkGfm]}
+            ></ReactMarkdown>
+          </PostsContent>
+        </PostsContentWrap>
+        <PostsContentWrap>
+          {post.tags?.map((tag, index) => (
+            <Link to={`/posts?tag=${tag}`} key={index}>
+              <Tag>#{tag}</Tag>
+            </Link>
+          ))}
+        </PostsContentWrap>
+        <PostUserContainer>
           <PostsWriter>
             <Link to={`/user/${post.userId}`}>
-              {!post.author ? "익명 문하생" : post.author}
+              by. {!post.author ? "익명 문하생" : post.author}
             </Link>
           </PostsWriter>
-        </PostsHeader>
-        <ReactMarkdown
-          children={post.content.slice(0, 90)}
-          remarkPlugins={[remarkGfm]}
-        ></ReactMarkdown>
-
-        {post.tags?.map((tag, index) => (
-          <Link to={`/posts?content=${tag}`} key={index}>
-            <Tag>#{tag}</Tag>
-          </Link>
-        ))}
-        <PostsLike>{postLikeList}</PostsLike>
+          <PostsLike>
+            {postLikeList}
+            <PostListcounnt>{post.likeCount}</PostListcounnt>
+          </PostsLike>
+        </PostUserContainer>
       </PostsSummary>
     </Posts>
   );

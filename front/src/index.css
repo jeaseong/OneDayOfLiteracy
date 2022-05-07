@@ -3,7 +3,7 @@
   src: url("styles/fonts/Maplestory_Bold.ttf");
   font-weight: normal;
 }
-@font-face{
+@font-face {
   font-family: "Maplestory";
   src: url("styles/fonts/Maplestory_Light.ttf");
   font-weight: lighter;
@@ -22,11 +22,24 @@ body {
   font-size: 14px;
   background-color: #f5efea;
   box-sizing: border-box;
+  color: #312517;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
+}
+
+button {
+  margin: 0;
+  cursor: pointer;
+  border-width: 0px;
+}
+
+ul{
+  padding-left: 20px;
+  line-height: 1;
+  
 }
 
 img {
@@ -45,5 +58,8 @@ mark {
 }
 .main {
   flex: 1;
-  padding-top: 100px;
+  padding-top: 80px;
+}
+body::-webkit-scrollbar {
+  display: none;
 }

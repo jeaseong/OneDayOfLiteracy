@@ -1,29 +1,40 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
-import { PostContainer } from "../../styles/Posts/PostStyle";
-import { PostingButton } from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
-import { post } from "../../utils/api";
+import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
+import { post, uploadFile } from "utils/api";
+import FileUpload from "../../components/FileUpload";
+import { useQueryClient } from "react-query";
+import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
 
 function Posting() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
+  const [editPostImg, setEditPostImg] = useState("");
+  const [imgUrl, setImgUrl] = useState(
+    "https://team2.cdn.ntruss.com/posts/default.png"
+  );
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
   const inputEmpty = useRef(true);
-
   const [renderer, setRenderer] = useState(true);
-  const [isEditPost, setIsEditPost] = useState(false);
 
   const handleClick = async (e) => {
     e.preventDefault();
     setRenderer(!renderer);
+
+    inputEmpty.current =
+      contentRef.current?.value.length === 0 ||
+      titleRef.current?.value.length === 0 ||
+      categoryRef.current?.value.length === 0;
 
     if (!inputEmpty.current) {
       await handleSubmit();
@@ -43,33 +54,38 @@ function Posting() {
         category: categoryRef.current?.value,
       };
 
-      await post("post", posting);
-      navigate("/posts");
+      const res = await post("posts", posting);
+      const postId = res.data.newPost[0]._id;
+      await uploadFile(`posts/${postId}/uploadImage`, editPostImg);
+      navigate(`/posts/${postId}`);
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  useEffect(() => {
-    inputEmpty.current =
-      contentRef.current?.value.length === 0 ||
-      titleRef.current?.value.length === 0 ||
-      categoryRef.current?.value.length === 0;
-    console.log(inputEmpty.current);
-  }, [renderer]);
+  // 썸네일 이미지 업로드
+  const thumbnailImageData = {
+    prevImage: userState.profileUrl,
+    setEditImg: setEditPostImg,
+    setImgUrl,
+  };
 
   return (
-    <PostContainer>
+    <PostingBody>
+      <PreviewImg imgUrl={imgUrl}></PreviewImg>
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
+      <PostChangeImgBox>
+        <FileUpload {...thumbnailImageData} />
+      </PostChangeImgBox>
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>
           출간하기
         </PostingButton>
       </div>
-    </PostContainer>
+    </PostingBody>
   );
 }
 export default Posting;

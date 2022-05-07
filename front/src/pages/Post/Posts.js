@@ -1,20 +1,24 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import PostCard from "./PostCard";
-import { PostsContainer } from "../../styles/Posts/PostStyle";
-import { useGetPostList } from "../../queries/postQuery";
-import Loading from "../../components/Loading";
-import ErrorPage from "../../components/ErrorPage";
+import { PostsContainer } from "styles/Posts/PostStyle";
+import { useGetPostList } from "queries/postQuery";
+import Loading from "components/Loading";
+import ErrorPage from "components/ErrorPage";
 import { useQueryClient } from "react-query";
-import { useGetProfileUser } from "../../queries/userQuery";
+import { useGetProfileOwner } from "queries/userQuery";
+import PostFilter from "./PostFilter";
+import SearchContent from "../../components/Search/SearchContent";
 
 function Posts() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
+
   const { userState, isLogin } = queryClient.getQueryData("userState");
-  useGetProfileUser(userState._id);
+  useGetProfileOwner(userState._id);
   const fetchURI = `posts?${location.search.substring(1)}&`;
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetPostList(fetchURI);
@@ -28,6 +32,8 @@ function Posts() {
 
   return (
     <>
+      <SearchContent />
+      <PostFilter />
       <PostsContainer>
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>

@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { PostContainer } from "../../../styles/Posts/PostStyle";
 import {
+  PostingBody,
+  PostingTitle,
   PostingContent,
   PostingArea,
   PostingButton,
-} from "../../../styles/Posts/PostingStyle";
-import {
-  TrainingPostTitle,
-  Center,
-} from "../../../styles/Training/TrainingStyle";
-import "../../../styles/Posts/markdown.css";
-import { post } from "../../../utils/api";
+} from "styles/Posts/PostingStyle";
+import { Center } from "styles/Training/TrainingStyle";
+import "styles/Posts/markdown.css";
+import { post } from "utils/api";
 
-export default function TrainingPost({ title, tags, subjectId, category }) {
+export default function TrainingPost({ tags, subjectId, category }) {
   const navigate = useNavigate();
   const [markdown, setMarkdown] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleChangeMarkdown = (e) => {
     setMarkdown(e.target.value);
@@ -35,28 +34,41 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
     }
   };
 
+  const onChangeTitle = (e) => {
+    setTitle((cur) => e.target.value);
+  };
+
   const submitTrainingPost = async (e) => {
     e.preventDefault();
     const curPost = {
-      title,
+      title: title,
+      content: markdown,
       tags,
       subjectId,
       category,
     };
-    await post("post", curPost);
+    await post("posts", curPost);
     navigate("/posts");
   };
 
   return (
-    <PostContainer>
-      <TrainingPostTitle>{title}</TrainingPostTitle>
-      <form>
+    <form>
+      <PostingBody>
+        <PostingTitle
+          isContentEmpty={!title.length}
+          onChange={onChangeTitle}
+          value={title}
+          type="text"
+          placeholder="제목을 입력해주세요.."
+          required
+        />
+
         <PostingContent>
           <PostingArea
             type="text"
             placeholder="내용을 입력해주세요..."
-            onChange={(e) => handleChangeMarkdown(e)}
-            onkeyDown={(e) => handleSetTab(e)}
+            onChange={handleChangeMarkdown}
+            onKeyDown={handleSetTab}
             required
           />
           <ReactMarkdown
@@ -70,12 +82,11 @@ export default function TrainingPost({ title, tags, subjectId, category }) {
             type="submit"
             disabled={markdown.length <= 0}
             onClick={(e) => submitTrainingPost(e)}
-            display={tags[0] === "step3" ? "none" : null}
           >
             출간하기
           </PostingButton>
         </Center>
-      </form>
-    </PostContainer>
+      </PostingBody>
+    </form>
   );
 }

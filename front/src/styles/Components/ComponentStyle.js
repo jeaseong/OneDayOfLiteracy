@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { img } from "../../utils/imgImport";
+import { img } from "utils/imgImport";
 
 export const Img = styled.img.attrs((props) => ({
   src: props.url,
   alt: props.alt,
 }))`
   width: 100%;
-  height: 400px;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const FooterContainer = styled.footer`
@@ -26,50 +27,6 @@ export const FooterBackground = styled.img`
   height: auto;
   position: absolute;
   bottom: 10px;
-`;
-
-export const HeaderContainer = styled.div`
-  min-width: 1100px;
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  z-index: 9999;
-
-  background-image: url(${img.leafLeftHeader}), url(${img.leafRightHeader});
-  background-repeat: no-repeat;
-  background-position: left, right;
-  background-size: auto 100%, auto 120%;
-  background-color: #f5efea;
-`;
-
-export const LogoContainer = styled.div`
-  position: absolute;
-  left: 8%;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const Navigation = styled.div`
-  position: absolute;
-  right: 4%;
-  font-family: Maplestory Light;
-`;
-
-export const NavList = styled.button`
-  margin-right: 20px;
-  font-size: 17px;
-  border: none;
-  padding-bottom: 5px;
-  &:hover {
-    cursor: pointer;
-    color: #c48f5a;
-    transition: 0.1s linear;
-    box-sizing: border-box;
-  }
 `;
 
 export const ErrorContainer = styled.div`

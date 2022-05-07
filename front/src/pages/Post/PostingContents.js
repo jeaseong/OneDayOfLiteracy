@@ -5,8 +5,8 @@ import {
   PostingContent,
   PostingArea,
   PostingMessage,
-} from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
+} from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
 
 const PostingContents = forwardRef(({}, ref) => {
   const [markdown, setMarkdown] = useState("");
@@ -44,7 +44,7 @@ const PostingContents = forwardRef(({}, ref) => {
         <ReactMarkdown
           children={markdown}
           remarkPlugins={[remarkGfm]}
-          className={"markdown"}
+          className="markdown"
         ></ReactMarkdown>
       </PostingContent>
       {isContentEmpty && <PostingMessage>내용을 입력해주세요.</PostingMessage>}
