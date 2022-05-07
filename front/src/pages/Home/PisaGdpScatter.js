@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Chart as ChartJS,
-  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -38,7 +37,6 @@ const options = {
   plugins: {
     legend: {
       position: "top",
-      // align: "start",
       borderWidth: 0,
     },
     title: {
