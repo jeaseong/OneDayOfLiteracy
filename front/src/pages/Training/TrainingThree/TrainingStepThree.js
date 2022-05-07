@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import TrainingGuide from "pages/Training/TrainingGuide";
 import Slide from "components/Slide/Slide";
-import TrainingPost from "../TrainingPost/TrainingPost";
+import TrainingPost from "pages/Training/TrainingPost/TrainingPost";
 import { TranscriptionDescription } from "./TranscriptionDescription";
 import { TAG_NAME } from "utils/constants";
-
+import { useTranscriptionQuery } from "queries/transcriptionQuery";
 import {
   TrainingSubjectContainer,
   TrainingSubjectWrap,
   TrainingStepTitle,
+  ButtonWrap,
+  FetchTranscriptionBtn,
+  TranscriptionContainer,
 } from "styles/Training/TrainingStyle";
 import { get } from "utils/api";
 export default function TrainingStepThree() {
+  const { isFetching, data } = useTranscriptionQuery();
   const [subject, setSubject] = useState({});
+  const [isOpenTranscription, setIsOpenTranscription] = useState(false);
   useEffect(() => {
     const fetchApi = async () => {
       const res = await get(`subjects/?level=3`);
@@ -20,6 +27,9 @@ export default function TrainingStepThree() {
     };
     fetchApi();
   }, []);
+  const openTranscription = () => {
+    setIsOpenTranscription((cur) => !cur);
+  };
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
@@ -28,6 +38,19 @@ export default function TrainingStepThree() {
           <Slide elements={TranscriptionDescription} />
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
+      <ButtonWrap>
+        <FetchTranscriptionBtn onClick={openTranscription}>
+          {isOpenTranscription ? "닫기" : "필사 불러오기"}
+        </FetchTranscriptionBtn>
+      </ButtonWrap>
+      {isOpenTranscription && (
+        <TranscriptionContainer>
+          <ReactMarkdown
+            className="markdown"
+            remarkPlugins={[remarkGfm]}
+          ></ReactMarkdown>
+        </TranscriptionContainer>
+      )}
 
       <TrainingPost
         title="필사"

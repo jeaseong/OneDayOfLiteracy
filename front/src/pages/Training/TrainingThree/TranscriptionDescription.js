@@ -16,4 +16,7 @@ export const TranscriptionDescription = [
       TRANSCRIPTION_INTRODUCTION.STEP_THREE
     )}
   />,
+  <TrainingStepIntroduction
+    dangerouslySetInnerHTML={createMarkup(TRANSCRIPTION_INTRODUCTION.STEP_FOUR)}
+  />,
 ];

@@ -89,11 +89,12 @@ export const BackBtn = styled.button`
 //TrainingGuide step1
 
 export const TrainingSubjectContainer = styled.section`
-  display: flex;
-  align-items: center;
   width: 100%;
   height: 300px;
+  display: flex;
+  align-items: center;
   background-color: #ffffff;
+  margin-bottom: 2rem;
 `;
 
 export const TrainingSubjectWrap = styled.div`
@@ -118,11 +119,39 @@ export const TrainingStepIntroduction = styled.p`
 
 // TrainingPost
 
-export const TrainingPostTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
 export const Center = styled(FlexBoxCenter)`
   margin-top: 10px;
+`;
+
+// Transcription
+
+export const ButtonWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+`;
+
+export const FetchTranscriptionBtn = styled.button`
+  padding: 8px 20px;
+  border: 1px solid #868e96;
+  border-radius: 20px;
+  background: transparent;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #ffffff;
+    border: 1px solid #c48f5a;
+    background-color: #c48f5a;
+  }
+`;
+
+export const TranscriptionContainer = styled.div`
+  height: 30rem;
+  margin: 0 auto;
+  background-color: #ffffff;
+  resize: none;
+  overflow: scroll;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 `;
