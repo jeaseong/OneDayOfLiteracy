@@ -25,9 +25,9 @@ import PisaEmployee from "./PisaEmployee";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 const BANNERS = [
-  <Img url={img.banner1} alt={"banner1"} />,
-  <Img url={img.banner2} alt={"banner2"} />,
-  <Img url={img.banner3} alt={"banner3"} />,
+  <Img url={img.bannerImage1} alt={"banner5"} />,
+  <Img url={img.bannerImage2} alt={"banner5"} />,
+  <Img url={img.bannerImage3} alt={"banner5"} />,
 ];
 
 function Home() {
@@ -167,7 +167,7 @@ function Home() {
             </TextTitle>
 
             <TextParagraph>
-              3년에 한번씩 95개 국가의 15세 아동을 대상으로 실생활의 문제를
+              3년에 한번씩 79개 국가의 15세 아동을 대상으로 실생활의 문제를
               해결하는 <TextEmphasize>읽기, 수학, 과학</TextEmphasize> 능력을
               측정합니다.
             </TextParagraph>

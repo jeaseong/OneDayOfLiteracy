@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
 import literacyEmployeeScatter from "../../data/literacyEmployeeScatter.json";
-import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
+import literacyEmployeeReg from "../../data/literacyEmployeeReg.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -73,7 +73,7 @@ export const data = {
     {
       type: "line",
       label: "Regression",
-      data: womenliteracyEmployeeReg[0].data,
+      data: literacyEmployeeReg[0].data,
       borderColor: "#F8D563",
       backgroundColor: "#F8D563",
     },
