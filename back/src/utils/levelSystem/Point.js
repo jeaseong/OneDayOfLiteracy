@@ -34,6 +34,7 @@ const addPoint = async ({ subject, user }) => {
 
 const getPoint = ({ user }) => {
 
+  if (!user) { return null; }
   // 현재 유저 포인트(= 누적 EXP)
   const points = user.point;
   

@@ -219,16 +219,17 @@ class userAuthService {
       return { errorMessage };
     }
     // kakaoUser용 임시 email
-    while (True) {
-      const randomString = Math.random().toString(10).slice(2, 10);
-      const email = `kakaouser${randomString}@test.com`;
+    let tempUser = true;
+    let randomString = null;
+    let email = null;
+    do { 
+      randomString = Math.random().toString(10).slice(2, 10);
+      email = `kakaouser${randomString}@test.com`;
 
-      const user = await User.findByEmail({ email });
-      if (!user) {
-        break;
-      }
+      tempUser = await User.findByEmail({ email });
     }
-
+    while (tempUser);
+    console.log("randomString: ", randomString)
     // kakaoUser용 임시 password
     const password = Math.random().toString(36).slice(2,11);
     // kakaoUser용 임시 nickname
