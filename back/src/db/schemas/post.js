@@ -2,15 +2,6 @@ import { Schema, model } from "mongoose";
 
 const PostSchema = new Schema(
   {
-<<<<<<< HEAD
-    title: { type: String, required: true, },
-    content: { type: String, required: true,},
-    subject: { type: String, required: true, },
-    userId: { type: Schema.Types.ObjectId, required: true, ref: "User"},
-  },
-  {
-    timestamps: true,
-=======
     title: { type: String, required: true },
     content: { type: String, required: true },
     tags: [{ type: String, required: false }],
@@ -32,7 +23,6 @@ const PostSchema = new Schema(
   {
     timestamps: true,
     selectPopulatedPaths: false,
->>>>>>> dev-back
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
@@ -45,16 +35,6 @@ PostSchema.virtual('user', {
   justOne: true,
 });
 
-<<<<<<< HEAD
-PostSchema.virtual('likes', {
-  ref: 'Like',
-  localField: '_id',
-  foreignField: 'postId',
-  count: true,
-});
-
-
-=======
 PostSchema.virtual('subject', {
   ref: 'Subject',
   localField: 'subjectId',
@@ -80,9 +60,6 @@ PostSchema.virtual("userLikes", {
   foreignField: "postLikes"
 });
 
-
-
->>>>>>> dev-back
 const PostModel = model("Post", PostSchema);
 
 export { PostModel };
