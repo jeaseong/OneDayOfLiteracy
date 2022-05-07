@@ -66,7 +66,6 @@ REACT_APP_KAKAO_AUTH_URL={AUTH_URL}
 ```
 
 bash
-
 ```bash
 npm install -g yarn
 

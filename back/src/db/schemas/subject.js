@@ -4,7 +4,7 @@ const SubjectSchema = new Schema(
   {
     subject: { type: String, required: true, },
     level: { type: Number, required: true, index: true, },
-    category: { type: String, required: true, },
+    category: { type: String, required: false, default: "" },
     point: { type: Number, required: true,},
   },
   {
