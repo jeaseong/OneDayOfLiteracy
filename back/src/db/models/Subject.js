@@ -12,6 +12,11 @@ class Subject {
     return subject;
   }
 
+  static async findByThree({ subject, level, category }){
+    const oneSubject = await SubjectModel.findOne({ subject, level, category },{ __v: 0 });
+    return oneSubject;
+  }
+
   static async findByLevel({ level }) {
     const subjects = await SubjectModel.find({ level });
     return subjects;
