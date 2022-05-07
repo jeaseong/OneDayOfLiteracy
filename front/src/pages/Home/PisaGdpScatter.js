@@ -20,12 +20,20 @@ const options = {
       grid: {
         display: false,
       },
+      title: {
+        display: true,
+        text: "GDP",
+      },
     },
     x: {
       min: 330,
       max: 560,
       grid: {
         display: false,
+      },
+      title: {
+        display: true,
+        text: "PISA",
       },
     },
   },

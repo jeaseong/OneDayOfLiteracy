@@ -24,7 +24,7 @@ export const options = {
       },
     },
     legend: {
-      position: "chartArea",
+      position: "top",
       align: "start",
       borderWidth: 0,
     },
@@ -36,10 +36,18 @@ export const options = {
       grid: {
         display: false,
       },
+      title: {
+        display: true,
+        text: "employees(%)",
+      },
     },
     x: {
       grid: {
         display: false,
+      },
+      title: {
+        display: true,
+        text: "PISA",
       },
     },
   },
@@ -61,7 +69,7 @@ export const data = {
   datasets: [
     {
       type: "scatter",
-      label: "literacy employee",
+      label: "employee",
       data: Array.from(literacyEmployeeScatter[0].data, (v) => ({
         x: v.x,
         y: v.y,
