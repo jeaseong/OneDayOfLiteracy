@@ -27,7 +27,6 @@ import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 const BANNERS = [
   <Img url={img.bannerImage1} alt={"banner5"} />,
   <Img url={img.bannerImage2} alt={"banner5"} />,
-  <Img url={img.bannerImage3} alt={"banner5"} />,
 ];
 
 function Home() {
