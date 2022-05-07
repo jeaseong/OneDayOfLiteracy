@@ -12,6 +12,7 @@ export const MainContainer = styled.section`
 `;
 
 export const MainHeadingTwo = styled(HeadingTwo)`
+  font-size: 2rem;
   margin: 20px 0;
 `;
 
