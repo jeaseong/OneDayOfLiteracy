@@ -146,6 +146,7 @@ export const FetchTranscriptionBtn = styled.button`
 `;
 
 export const TranscriptionContainer = styled.div`
+  width: 100%;
   height: 30rem;
   margin: 0 auto;
   background-color: #ffffff;
@@ -154,4 +155,16 @@ export const TranscriptionContainer = styled.div`
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+`;
+
+export const TranscriptionContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  height: auto;
+  white-space: pre-wrap;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;

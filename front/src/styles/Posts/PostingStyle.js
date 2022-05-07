@@ -61,9 +61,6 @@ export const PostingContent = styled.div`
   width: 100%;
   height: auto;
   white-space: pre-wrap;
-  @media only screen and (max-width: 400px) {
-    padding: 0;
-  }
 `;
 
 export const PostingArea = styled.textarea`
