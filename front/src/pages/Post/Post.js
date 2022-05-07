@@ -120,7 +120,7 @@ function Post() {
   return (
     <>
       {isEdit ? (
-        <PostEditForm />
+        <PostEditForm setIsEdit={setIsEdit} />
       ) : (
         <>
           <PostContainer>
