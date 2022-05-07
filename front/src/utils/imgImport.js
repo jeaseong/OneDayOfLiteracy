@@ -34,6 +34,6 @@ export const img = {
     `${process.env.PUBLIC_URL}/assets/img/letter.png`,
   ],
 
-  bannerImage1: `${process.env.PUBLIC_URL}/assets/img/bannerImage1.png`,
+  bannerImage: `${process.env.PUBLIC_URL}/assets/img/bannerImage.png`,
   bannerImage2: `${process.env.PUBLIC_URL}/assets/img/bannerImage2.png`,
 };
