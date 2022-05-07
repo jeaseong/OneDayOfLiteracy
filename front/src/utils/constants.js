@@ -45,6 +45,7 @@ export const LABEL = {
   GET_MORE: "더 보러가기",
   DOT: "점",
   CATEGORY: "카테고리",
+  TEST: "테스트",
 };
 
 export const GUIDE_MESSAGE = {
