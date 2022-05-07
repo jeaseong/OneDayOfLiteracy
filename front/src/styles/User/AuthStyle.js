@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { img } from "../../utils/imgImport";
-import { FlexBoxCenter, InputBox } from "../CommonStyle";
+import { img } from "utils/imgImport";
+import { FlexBoxCenter, InputBox } from "styles/Components/CommonStyle";
 
 // 회원가입 ============================================================
 export const AuthContainer = styled(FlexBoxCenter)`
@@ -81,4 +81,7 @@ export const LoginImgContentBox = styled.div`
 export const LoginContentForm = styled.form`
   width: 60%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

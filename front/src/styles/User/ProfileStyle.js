@@ -5,7 +5,7 @@ import {
   FlexBoxCenter,
   HeadingTwo,
   InputBox,
-} from "../CommonStyle";
+} from "styles/Components/CommonStyle";
 
 export const MyPageContainer = styled(FlexBox)`
   flex-direction: column;
@@ -66,12 +66,15 @@ export const CardLikeCountBox = styled(FlexBoxCenter)`
 `;
 
 export const ProfilePostCount = styled(HeadingTwo)`
+  font-size: 1.2rem;
   margin-top: 6px;
+  text-align: center;
+  display: flex;
+  gap: 5px;
 `;
 
 export const ProfileNickName = styled(HeadingTwo)`
   color: black;
-  margin-top: 20px;
   font-size: 2rem;
 `;
 
@@ -146,4 +149,14 @@ export const ConfirmButtonBox = styled(FlexBox)`
 export const ConfirmButton = styled(Button)`
   margin: 10px 7px;
   width: 20%;
+`;
+
+export const NotFoundPostImg = styled.img`
+  width: 47%;
+  margin: 0 auto;
+`;
+
+export const ProfileTitleBox = styled(FlexBox)`
+  align-items: center;
+  margin-top: 20px;
 `;

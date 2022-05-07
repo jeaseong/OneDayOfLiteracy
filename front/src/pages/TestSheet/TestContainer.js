@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import TestPresentation from "./TestPresentation";
-import TestProcessBtn from "./TestProcessBtn";
-import { NextBtn } from "../../styles/TestStyle";
-import { useTestQuery } from "../../queries/testQuery";
-import { post } from "../../utils/api";
+import TestPresentation from "pages/TestSheet/TestPresentation";
+import TestProcessBtn from "pages/TestSheet/TestProcessBtn";
+import { NextBtn } from "styles/Test/TestStyle";
+import { useTestQuery } from "queries/testQuery";
+import { post } from "utils/api";
 
 export default function TestContainer() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
+  console.log(userState);
   const { tests } = useTestQuery();
 
   const [step, setStep] = useState(0);
@@ -15,10 +19,10 @@ export default function TestContainer() {
   const [curAnswer, setCurAnswer] = useState({});
   const [totalMySelectedAnswer, setTotalMySelectedAnswer] = useState({});
 
-  const MyselectedAnswer = (_qustionId, answerId) => {
+  const MyselectedAnswer = (qustionId, answerId) => {
     setCurAnswer((cur) => {
       return {
-        [_qustionId]: answerId,
+        [qustionId]: answerId,
       };
     });
   };
@@ -37,8 +41,13 @@ export default function TestContainer() {
 
   const onSubmit = async () => {
     try {
-      await post("test/result", totalMySelectedAnswer);
+      const res = await post(`tests/evaluate`, {
+        userId: userState._id,
+        submission: totalMySelectedAnswer,
+      });
+      console.log(res.status);
       queryClient.removeQueries("tests");
+      navigate("/test/result", { state: { result: res.result } });
     } catch (e) {
       console.log(e);
     }

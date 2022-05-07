@@ -47,3 +47,13 @@ export async function del(endpoint, params = "") {
     },
   });
 }
+
+export async function patch(endpoint, data) {
+  const bodyData = JSON.stringify(data);
+  return axios.patch(serverUrl + endpoint, bodyData, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+    },
+  });
+}

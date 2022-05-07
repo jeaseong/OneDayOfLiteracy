@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "../CommonStyle";
+import { Button } from "styles/Components/CommonStyle";
 
 export const SearchContainerBox = styled.form`
   max-width: 1024px;
@@ -22,7 +22,6 @@ export const SearchInput = styled.input`
   width: 90%;
   height: 22px;
   font-size: 1.3rem;
-  margin-right: 10px;
   padding: 6px;
 `;
 
@@ -37,6 +36,7 @@ export const SearchSelect = styled.select`
 
 export const InputBox = styled.div`
   margin-top: 16px;
+  position: relative;
 `;
 
 export const DropDownBox = styled.ul`
@@ -51,6 +51,7 @@ export const DropDownBox = styled.ul`
   box-shadow: 0 10px 10px rgb(0, 0, 0, 0.3);
   list-style-type: none;
   z-index: 3;
+  position: absolute;
 `;
 
 export const DropDownItem = styled.li`

@@ -3,20 +3,26 @@ import {
   DropDownItem,
   InputBox,
   SearchInput,
-} from "../../styles/Components/SearchStyle";
-import { GUIDE_MESSAGE } from "../../utils/constants";
+} from "styles/Components/SearchStyle";
+import { GUIDE_MESSAGE } from "utils/constants";
 import { useCallback, useState } from "react";
-import { get } from "../../utils/api";
+import { get } from "utils/api";
 
 /**
  * 검색어 입력 컴포넌트입니다.
  * @param {string} searchTarget
  * @param {function} setSearchTarget
+ * @param {boolean} isHaveSearchContent
+ * @param {function} setIsHaveSearchContent
  * @returns {JSX.Element}
  * @constructor
  */
-function SearchBar({ searchTarget, setSearchTarget }) {
-  const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
+function SearchBar({
+  searchTarget,
+  setSearchTarget,
+  isHaveSearchContent,
+  setIsHaveSearchContent,
+}) {
   const [dropDownList, setDropDownList] = useState([]);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(0);
   const [isError, setIsError] = useState(false);
@@ -42,11 +48,8 @@ function SearchBar({ searchTarget, setSearchTarget }) {
   };
 
   // 검색어의 길이 체크
-  const checkShowSearchContent = (keyword) => {
-    return keyword.length !== 0
-      ? setIsHaveSearchContent(true)
-      : setIsHaveSearchContent(false);
-  };
+  const checkShowSearchContent = (keyword) =>
+    setIsHaveSearchContent(!!keyword.length);
 
   // 사용자 키워드 입력 검색 디바운스
   const handleInputOnChange = (e) => {
@@ -58,7 +61,7 @@ function SearchBar({ searchTarget, setSearchTarget }) {
       try {
         const res = await get(`posts?content=${searchKeyword}`);
         const filteredSearchData = [
-          ...includeSearchTarget(res.data, searchKeyword),
+          ...includeSearchTarget(res.data.posts, searchKeyword),
         ];
 
         setDropDownList(filteredSearchData);

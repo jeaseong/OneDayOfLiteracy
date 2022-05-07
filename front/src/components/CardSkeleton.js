@@ -4,7 +4,7 @@ import {
   SkeletonImg,
   SkeletonTag,
   SkeletonText,
-} from "../styles/CardSkeletonStyle";
+} from "styles/Components/CardSkeletonStyle";
 
 export default function CardSkeleton() {
   return (

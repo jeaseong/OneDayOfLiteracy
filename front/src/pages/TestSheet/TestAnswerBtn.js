@@ -3,7 +3,7 @@ import {
   AnswerBtn,
   AnswerText,
   AnswerBtnContainer,
-} from "../../styles/TestStyle";
+} from "styles/Test/TestStyle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function TestAnswerBtn({

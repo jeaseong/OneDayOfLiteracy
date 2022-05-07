@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "react-query";
-import { get } from "../utils/api";
+import { get } from "utils/api";
 
 export function useTestQuery() {
   const queryClient = useQueryClient();

@@ -1,10 +1,10 @@
-import SearchBar from "./SearchBar";
-import SearchCategory from "./SearchCategory";
+import SearchBar from "components/Search/SearchBar";
+import SearchCategory from "components/Search/SearchCategory";
 import {
   SearchButton,
   SearchContainerBox,
-} from "../../styles/Components/SearchStyle";
-import { LABEL } from "../../utils/constants";
+} from "styles/Components/SearchStyle";
+import { CATEGORY, LABEL } from "utils/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,13 +15,13 @@ import { useNavigate } from "react-router-dom";
  */
 function SearchContent() {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(CATEGORY.ALL);
   const [searchTarget, setSearchTarget] = useState("");
+  const [isHaveSearchContent, setIsHaveSearchContent] = useState(false);
 
   const createEndpointURI = () => {
     const contentParam = `content=${searchTarget}`;
-
-    if (category === "all") return `${contentParam}`;
+    if (category === CATEGORY.ALL) return `${contentParam}`;
     return `category=${category}&${contentParam}`;
   };
 
@@ -29,17 +29,20 @@ function SearchContent() {
     e.preventDefault();
     const endpoint = createEndpointURI();
     navigate(`/posts?${endpoint}`);
+    setIsHaveSearchContent(false);
   };
 
-  //TODO 검색 버튼클릭으로 검색 시 자동완성목록이 남아있는 현상
+  const searchBarStore = {
+    searchTarget,
+    setSearchTarget,
+    isHaveSearchContent,
+    setIsHaveSearchContent,
+  };
 
   return (
     <SearchContainerBox onSubmit={handleSearchOnSubmit}>
       <SearchCategory setCategory={setCategory} />
-      <SearchBar
-        searchTarget={searchTarget}
-        setSearchTarget={setSearchTarget}
-      />
+      <SearchBar {...searchBarStore} />
       <SearchButton type="submit">{LABEL.SEARCH}</SearchButton>
     </SearchContainerBox>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { get } from "../../utils/api";
+import { useNavigate, useLocation } from "react-router-dom";
+import { get } from "utils/api";
+import { TEST_RESULT } from "utils/constants";
 import {
   TestResultContainer,
   TestResultWrap,
@@ -8,54 +9,64 @@ import {
   TestResultUserScore,
   TestResultUserRecommand,
   TestResultNavBtn,
-  Hilight,
-} from "../../styles/TestResultStyle";
+} from "styles/Test/TestResultStyle";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useGetCurrentUser } from "../../queries/userQuery";
-import { RECOMMENDED } from "../../utils/testResult";
+import { useQueryClient } from "react-query";
 
 export default function TestResult() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const location = useLocation();
+  const { userState } = queryClient.getQueryData("userState");
   const [myScore, setMyScore] = useState(0);
-  const { userState } = useGetCurrentUser();
+
+  const isVisitor = userState._id === "visitor";
+  const data = {
+    nickname: isVisitor ? "visitor" : userState.nickname,
+    score: isVisitor ? myScore : location.state.result,
+  };
 
   const recommendStep = (score) => {
-    if (score >= 90) return RECOMMENDED[2];
-    else if (score >= 70) return RECOMMENDED[1];
-    else return RECOMMENDED[0];
+    if (score >= 90) return TEST_RESULT.LEVEL_THREE;
+    else if (score >= 70) return TEST_RESULT.LEVEL_TWO;
+    return TEST_RESULT.LEVEL_ONE;
   };
 
   const handleClickNavBtn = (score) => {
-    if (score >= 90) return 3;
-    else return 1;
+    if (score >= 90) return 2;
+    return 1;
   };
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const res = await get("results/", userState._id);
-      setMyScore(res.data[res.data.length - 1].result);
+      if (!isVisitor) {
+        const res = await get(`users/${userState._id}/results`);
+        setMyScore(res.data.result);
+      }
     };
     fetchAPI();
   }, []);
+
+  const userNavigate = () => {
+    if (isVisitor) navigate(`/user/login`);
+    else navigate(`/training/${handleClickNavBtn(data.score)}`);
+  };
 
   return (
     <TestResultContainer>
       <TestResultWrap>
         <TestResultUserName>
-          <Hilight>{userState.nickname} </Hilight>님의 점수는
+          <mark>{data.nickname} </mark>님의 점수는
         </TestResultUserName>
         <TestResultUserScore>
-          <Hilight>{myScore || "0"}/100</Hilight> 입니다!
+          <mark>{data.score || "0"}/100</mark> 입니다!
         </TestResultUserScore>
         <TestResultUserRecommand>
-          {recommendStep(myScore)}
+          {recommendStep(data.score)}
         </TestResultUserRecommand>
-        <TestResultNavBtn
-          onClick={() => {
-            navigate(`/training/${handleClickNavBtn(myScore)}`);
-          }}
-        >
-          <>서비스 바로가기</>
+        <TestResultNavBtn onClick={userNavigate}>
+          {isVisitor ? "로그인 하러가기" : "서비스 바로가기"}
           <ArrowForwardIcon />
         </TestResultNavBtn>
       </TestResultWrap>

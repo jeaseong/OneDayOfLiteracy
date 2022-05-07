@@ -1,33 +1,38 @@
-import React from "react";
-import WordTraining from "./WordTraining";
-import TrainingGuide from "../TrainingGuide";
+import React, { useState, useEffect } from "react";
+import WordTraining from "pages/Training/TrainingOne/WordTraining";
+import TrainingGuide from "pages/Training/TrainingGuide";
 import {
   TrainingSubjectContainer,
   TrainingStepTitle,
   TrainingSubjectWrap,
   TrainingStepIntroduction,
-  Hilight,
-} from "../../../styles/TrainingStyle";
-import Text from "../../../components/Text";
+} from "styles/Training/TrainingStyle";
+import { TRAINING_INTRODUNCTION } from "utils/constants";
+import { createMarkup } from "utils/setInnerHTML";
+import { get } from "utils/api";
+
 function TrainingStepOne() {
+  const [subject, setSubject] = useState({});
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await get(`subjects/?level=1`);
+      setSubject(res.data);
+    };
+    fetchApi();
+  }, []);
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
         <TrainingSubjectWrap>
           <TrainingStepTitle>1단계</TrainingStepTitle>
-          <TrainingStepIntroduction>
-            <Text>
-              가장 기본은 문장의 의미를 <Hilight>정확하게 아는 것</Hilight>이
-              중요합니다.
-            </Text>
-            <Text>
-              간단한 단어 퀴즈를 통해 <Hilight>어휘력</Hilight>을 길러봅시다!
-            </Text>
-            <Text>제시된 단어의 뜻을 생각해보세요.</Text>
-          </TrainingStepIntroduction>
+          <TrainingStepIntroduction
+            dangerouslySetInnerHTML={createMarkup(
+              TRAINING_INTRODUNCTION.STEP_ONE
+            )}
+          />
         </TrainingSubjectWrap>
       </TrainingSubjectContainer>
-      <WordTraining />
+      <WordTraining subject={subject} />
     </TrainingGuide>
   );
 }

@@ -1,111 +1,91 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
-import PostingTag from "./PostingTags";
-import { PostContainer } from "../../styles/PostStyle";
-import { PostingButton } from "../../styles/PostingStyle";
-import "../../styles/markdown.css";
-import { post } from "../../utils/api";
-import { useGetCurrentUser } from "../../queries/userQuery";
+import PostingTag from "./PostingTag";
+import PostingCategory from "./PostingCategory";
+import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
+import { post, uploadFile } from "utils/api";
+import FileUpload from "../../components/FileUpload";
+import { useQueryClient } from "react-query";
+import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
 
 function Posting() {
-  const { userState } = useGetCurrentUser();
-  // console.log("여기야 여기!", userState._id);
-  // console.log("여기야 여기!", userState.nickname);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
+  const [editPostImg, setEditPostImg] = useState("");
+  const [imgUrl, setImgUrl] = useState(
+    "https://team2.cdn.ntruss.com/posts/default.png"
+  );
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const tagRef = useRef(null);
   const categoryRef = useRef(null);
-  const [tag, setTag] = useState("");
-  const [tagArray, setTagArray] = useState([]);
+  const inputEmpty = useRef(true);
+  const [renderer, setRenderer] = useState(true);
 
-  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-  const [isContentEmpty, setIsContentEmpty] = useState(false);
-  const [isCategoryEmpty, setIsCategoryEmpty] = useState(false);
+  const handleClick = async (e) => {
+    e.preventDefault();
+    setRenderer(!renderer);
+
+    inputEmpty.current =
+      contentRef.current?.value.length === 0 ||
+      titleRef.current?.value.length === 0 ||
+      categoryRef.current?.value.length === 0;
+
+    if (!inputEmpty.current) {
+      await handleSubmit();
+    } else {
+      const errorMessage = "빈값을 입력해주세요.";
+      throw new Error(errorMessage);
+    }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
-      // setIsTitleEmpty(() => !titleRef.current.value);
-      // setIsContentEmpty(() => !contentRef.current.value);
-      // setIsCategoryEmpty(() => categoryRef.current.value);
+      const posting = {
+        title: titleRef.current?.value,
+        content: contentRef.current?.value,
+        tags: tagRef.current.innerText.slice(1).split("\n#"),
+        subjectId: null,
+        category: categoryRef.current?.value,
+      };
 
-      console.log({
-        title: titleRef.current.value,
-        content: contentRef.current.value,
-        category: categoryRef.current.value,
-        tags: tagArray,
-      });
-      // await post("post", {
-      //   title: titleRef.current.value,
-      //   content: contentRef.current.value,
-      //   category: categoryRef.current.value,
-      //   tags: tagRef.current.value.split(","),
-      // });
+      const res = await post("posts", posting);
+      const postId = res.data.newPost[0]._id;
+      await uploadFile(`posts/${postId}/uploadImage`, editPostImg);
+      navigate(`/posts/${postId}`);
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  const onChangeTag = (e) => {
-    e.preventDefault();
-    setTag((tag) => e.target.value);
+  // 썸네일 이미지 업로드
+  const thumbnailImageData = {
+    prevImage: userState.profileUrl,
+    setEditImg: setEditPostImg,
+    setImgUrl,
   };
 
-  const handleTagEnter = (e) => {
-    e.preventDefault();
-    const tagsWrapper = document.querySelector(".tagsWrapper");
-    const tagBox = document.createElement("div");
-    tagBox.className = "tagBox";
-
-    tagBox.addEventListener("click", () => {
-      tagsWrapper.removeChild(tagBox);
-      setTagArray(tagArray.filter((tag) => tag));
-      console.log(tagArray);
-    });
-
-    if (e.keyCode === 13 && e.target.value.trim() !== "") {
-      // console.log("enter! tag 입력", e.target.value);
-      tagBox.innerHTML = "#" + e.target.value;
-      tagsWrapper?.appendChild(tagBox);
-      setTagArray((tagArray) => [...tagArray, tag]);
-      setTag("");
-    }
-  };
-
-  console.log(
-    "=======================",
-    isTitleEmpty || isContentEmpty || isCategoryEmpty === ""
-  );
   return (
-    <PostContainer>
-      <form onSubmit={handleSubmit}>
-        <PostingHeader
-          setIsTitleEmpty={setIsTitleEmpty}
-          isTitleEmpty={isTitleEmpty}
-          ref={titleRef}
-        ></PostingHeader>
-        <PostingContents
-          isContentEmpty={isContentEmpty}
-          isCategoryEmpty={isCategoryEmpty}
-          setIsContentEmpty={setIsContentEmpty}
-          setIsCategoryEmpty={setIsCategoryEmpty}
-          ref={{ contentRef, categoryRef }}
-        ></PostingContents>
-        <PostingTag
-          tag={tag}
-          onChangeTag={onChangeTag}
-          handleTagEnter={handleTagEnter}
-          ref={tagRef}
-        ></PostingTag>
-        <PostingButton
-          disabled={isTitleEmpty || isContentEmpty || isCategoryEmpty === ""}
-        >
+    <PostingBody>
+      <PreviewImg imgUrl={imgUrl}></PreviewImg>
+      <PostingHeader ref={titleRef} />
+      <PostingCategory ref={categoryRef} />
+      <PostingTag ref={tagRef} />
+      <PostChangeImgBox>
+        <FileUpload {...thumbnailImageData} />
+      </PostChangeImgBox>
+      <PostingContents ref={contentRef} />
+      <div className="postingButton">
+        <PostingButton type="submit" onClick={handleClick}>
           출간하기
         </PostingButton>
-      </form>
-    </PostContainer>
+      </div>
+    </PostingBody>
   );
 }
 export default Posting;
