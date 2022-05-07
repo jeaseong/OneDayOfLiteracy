@@ -19,7 +19,7 @@ testRouter.post("/tests/evaluate", async (req, res, next) => {
     }
     
     const userId = req.body.userId ?? null;
-    const submission = req.body;
+    const submission = req.body.submission;
 
     const score = await testService.evaluateTest(submission);
     if (score.errorMessage) {
@@ -37,7 +37,8 @@ testRouter.post("/tests/evaluate", async (req, res, next) => {
 
     if(userResult.errorMessage){
       console.error("\x1b[35m%s\x1b[0m", userResult.errorMessage);
-      res.status(500).json({success: false, errorMessage: `${score.errorMessage}(back-error)`});      
+      res.status(500).json({success: false, errorMessage: `${score.errorMessage}(back-error)`});
+      return;      
     }
 
     res.status(200).json(score);
