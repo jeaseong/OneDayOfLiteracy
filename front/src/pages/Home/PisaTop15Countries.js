@@ -153,19 +153,18 @@ const data = {
 };
 
 const PisaTop15BarCountries = () => {
-  const [button, setButton] = useState("");
   const [countryTitle, setCountryTitle] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
     const title = e.target.className.split(" ").slice(-1)[0];
-    setButton(!button);
+    if (countryTitle === title) return setCountryTitle(null);
     setCountryTitle(title);
   };
 
   return (
     <>
-      {button ? (
+      {countryTitle ? (
         graphMaker(countryTitle)
       ) : (
         <Bar options={options} data={data} />
