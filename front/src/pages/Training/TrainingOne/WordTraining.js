@@ -38,8 +38,8 @@ export default function WordTraining({ subject }) {
     const fetchApi = async () => {
       try {
         const res = await get(`users/${userState._id}/userword`);
-        setProgress((cur) => res.data.num - 1);
-        setCurIndex((cur) => res.data.num - 1);
+        setProgress((cur) => res.data.num);
+        setCurIndex((cur) => res.data.num);
       } catch (e) {
         console.log("단어를 처음 보는 사람이라 0부터 시작합니다.");
       }
@@ -79,7 +79,10 @@ export default function WordTraining({ subject }) {
   };
 
   const stopWordTraining = async () => {
-    await post("userwords", { word: words[progress - 1].word });
+    try {
+      await post("userwords", { word: words[progress - 1].word });
+      alert("저장 되었습니다.");
+    } catch (e) {}
   };
 
   return (
