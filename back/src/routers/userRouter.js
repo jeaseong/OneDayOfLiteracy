@@ -59,7 +59,7 @@ userAuthRouter
           params: {
             grant_type: "authorization_code",
             client_id: config.kakao.clientId,
-            redirect_uri: config.kakao.redirectUrl2,
+            redirect_uri: config.kakao.redirectUrl,
             code: code,
           },
         }
@@ -80,7 +80,7 @@ userAuthRouter
       );
 
       const kakaoId = result.data.id;
-
+      console.log("KAKAO ID", kakaoId);
       let user = await userAuthService.getUserByKakaoId({ kakaoId });
 
       if (!user) {
