@@ -192,7 +192,7 @@ function Home() {
           <TextContent>
             <TextTitle>여러 나라의 PISA 점수 어떻게 변하고 있을까요?</TextTitle>
             <TextParagraph>
-              2006년부터 2018년까지 PISA 평균점수가 가장 높은
+              2006년부터 2018년까지 PISA 평균 읽기점수가 가장 높은
               <TextEmphasize> 15개 국가의 </TextEmphasize> 데이터를 연도별로
               뽑아봤습니다.
             </TextParagraph>
@@ -206,7 +206,7 @@ function Home() {
               </TextParagraph>
             </TextParagraph>
             <TextParagraph>
-              나라별 PISA 점수를 확인해보세요.{" "}
+              나라별 PISA 읽기점수를 확인해보세요.{" "}
               <TextParagraph>
                 국기를 선택하시면 각 나라의 PISA 점수를 연도별로 확인할 수
                 있어요.
@@ -268,8 +268,7 @@ function Home() {
             <TextParagraph>
               GDP가 높다고 무조건 잘 사는 나라이거나 행복한 나라는 아니지만,
               Pisa를 통해 어느정도 학생들의 미래
-              <TextEmphasize> 경제활동 가능성</TextEmphasize>을 볼 수 있을 것
-              같아요.
+              <TextEmphasize> 경제활동 가능성</TextEmphasize>을 볼 수 있습니다.
             </TextParagraph>
           </TextContent>
           <GraphBox>
