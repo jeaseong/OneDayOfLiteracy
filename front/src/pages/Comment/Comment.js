@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useGetCommentList } from "queries/commentQuery";
+import { useQueryClient } from "react-query";
 import CommentInput from "pages/Comment/CommentInput";
 import CommentSingle from "pages/Comment/CommentSingle";
 import CommentReply from "pages/Comment/CommentReply";
@@ -16,6 +17,8 @@ export default function Comment({ postId }) {
   const { data, status, fetchNextPage, isFetchingNextPage } =
     useGetCommentList(postId);
   const { ref, inView } = useInView();
+  const queryClient = useQueryClient();
+  const { isLogin } = queryClient.getQueryData("userState");
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
@@ -27,7 +30,8 @@ export default function Comment({ postId }) {
     <CommentContainer>
       <CommentWrap>
         <CommentTitle>댓글</CommentTitle>
-        <CommentInput />
+        {isLogin && <CommentInput />}
+
         <UserCommentList>
           <>
             {data?.pages?.map((page, i) => (

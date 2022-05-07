@@ -20,7 +20,7 @@ export default function CommentSingle({ comment, isReComment = false }) {
   const [isOpenReply, setIsOpenReply] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const queryClient = useQueryClient();
-  const { userState } = queryClient.getQueryData("userState");
+  const { userState, isLogin } = queryClient.getQueryData("userState");
   const deleteComment = useDeleteComment();
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ export default function CommentSingle({ comment, isReComment = false }) {
         )}
 
         <CommentEditContainer>
-          {!isReComment && (
+          {!isReComment && isLogin && (
             <ReplyCommentBtn onClick={onClickOpenReplyInput}>
               {isOpenReply ? "취소" : "답글"}
             </ReplyCommentBtn>
