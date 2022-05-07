@@ -45,7 +45,6 @@ userAuthRouter
   .get("/oauth/kakao",
   async (req, res, next) => {
     const code = req.query.code;
-    console.log("48: ", code);
 
     try {
       // 토큰 발급
@@ -80,7 +79,7 @@ userAuthRouter
       );
 
       const kakaoId = result.data.id;
-      console.log("KAKAO ID", kakaoId);
+      
       let user = await userAuthService.getUserByKakaoId({ kakaoId });
 
       if (!user) {

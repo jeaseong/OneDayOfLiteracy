@@ -229,7 +229,7 @@ class userAuthService {
       tempUser = await User.findByEmail({ email });
     }
     while (tempUser);
-    console.log("randomString: ", randomString)
+   
     // kakaoUser용 임시 password
     const password = Math.random().toString(36).slice(2,11);
     // kakaoUser용 임시 nickname
