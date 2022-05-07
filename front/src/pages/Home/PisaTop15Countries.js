@@ -28,6 +28,7 @@ ChartJS.register(
 const graphMaker = (country) => {
   const options = {
     responsive: false,
+    width: 400,
     scales: {
       y: {
         min: 480,
@@ -54,7 +55,7 @@ const graphMaker = (country) => {
   };
   const labels = Object.keys(pisaTop15[0]).slice(0, -1);
   const filteredData = Object.entries(
-    pisaTop15.find((v) => v.Country === "대한민국")
+    pisaTop15.find((v) => v.Country === country)
   )
     .slice(0, -1)
     .reduce((obj, cur) => {
@@ -75,7 +76,7 @@ const graphMaker = (country) => {
           "#91a7ff",
           "#74c0fc",
         ],
-        barThickness: 24,
+        barThickness: "24",
       },
     ],
   };
@@ -87,6 +88,11 @@ const options = {
   scales: {
     y: {
       min: 480,
+    },
+    x: {
+      grid: {
+        offset: true,
+      },
     },
   },
   plugins: {

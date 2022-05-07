@@ -83,7 +83,7 @@ export const HomeContents = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 1300px;
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1300px) {
     flex-direction: column-reverse;
     justify-content: center;
   }
@@ -96,7 +96,7 @@ export const GraphBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1300px) {
     width: 60%;
   }
 `;
@@ -127,6 +127,13 @@ export const TextTitle = styled.h1`
   line-height: 2.5rem;
   margin-bottom: 1.6rem;
   word-break: keep-all;
+`;
+
+export const Quote = styled.span`
+  display: block;
+  font-size: 13px;
+  line-height: 1rem;
+  color: grey;
 `;
 
 export const CountryButton = styled.button`
