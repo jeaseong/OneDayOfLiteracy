@@ -40,8 +40,10 @@ export default function TestResult() {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const res = await get(`users/${userState._id}/results`);
-      setMyScore(res.data.result);
+      if (!isVisitor) {
+        const res = await get(`users/${userState._id}/results`);
+        setMyScore(res.data.result);
+      }
     };
     fetchAPI();
   }, []);
