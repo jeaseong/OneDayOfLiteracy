@@ -9,14 +9,16 @@ import "styles/Posts/markdown.css";
 import { post, uploadFile } from "utils/api";
 import FileUpload from "../../components/FileUpload";
 import { useQueryClient } from "react-query";
-import { ProfileImg } from "../../styles/User/ProfileStyle";
+import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
 
 function Posting() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
   const [editPostImg, setEditPostImg] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
+  const [imgUrl, setImgUrl] = useState(
+    "https://team2.cdn.ntruss.com/posts/default.png"
+  );
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -70,11 +72,13 @@ function Posting() {
 
   return (
     <PostingBody>
-      {imgUrl && <ProfileImg src={imgUrl} alt="profileImage" />}
+      <PreviewImg imgUrl={imgUrl}></PreviewImg>
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
-      <FileUpload {...thumbnailImageData} />
+      <PostChangeImgBox>
+        <FileUpload {...thumbnailImageData} />
+      </PostChangeImgBox>
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>

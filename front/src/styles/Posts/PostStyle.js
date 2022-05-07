@@ -217,3 +217,17 @@ export const LikeButton = styled.button`
     color: #adb5bd;
   }
 `;
+
+export const PreviewImg = styled.div`
+  width: 100%;
+  height: 300px;
+  background-image: url(${(props) => props.imgUrl});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+`;
+
+export const PostChangeImgBox = styled.div`
+  width: 10%;
+`;

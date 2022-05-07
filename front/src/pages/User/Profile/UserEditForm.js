@@ -23,6 +23,7 @@ import { uploadFile } from "utils/api";
 
 /**
  * 프로필 수정 컴포넌트입니다.
+ * @param {object} editProfileImgStore 프로필이미지 state
  * @param {object} editStateStore 편집 상태와 편집상태를 수정하는 state
  * @returns {JSX.Element}
  * @constructor

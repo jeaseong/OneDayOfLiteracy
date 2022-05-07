@@ -8,8 +8,8 @@ import { PostingButton, PostingBody } from "../../styles/Posts/PostingStyle";
 import "../../styles/Posts/markdown.css";
 import { put, uploadFile } from "../../utils/api";
 import { useQueryClient } from "react-query";
-import { ProfileImg } from "../../styles/User/ProfileStyle";
 import FileUpload from "../../components/FileUpload";
+import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
 
 function PostingEditForm({ setIsEdit }) {
   const params = useParams();
@@ -83,11 +83,13 @@ function PostingEditForm({ setIsEdit }) {
 
   return (
     <PostingBody>
-      {imgUrl && <ProfileImg src={imgUrl} alt="profileImage" />}
+      <PreviewImg imgUrl={imgUrl} />
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag editTagArray={postInfo.tags} ref={tagRef} />
-      <FileUpload {...thumbnailImageData} />
+      <PostChangeImgBox>
+        <FileUpload {...thumbnailImageData} />
+      </PostChangeImgBox>
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>
