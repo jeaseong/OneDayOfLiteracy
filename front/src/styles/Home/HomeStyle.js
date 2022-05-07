@@ -8,6 +8,13 @@ export const HomeContainer = styled.section`
   &::-webkit-scrollbar {
     display: none;
   }
+  &:nth-child(2) {
+    background-color: black;
+    justify-content: center;
+  }
+  @media only screen and (max-width: 1400px) {
+    overflow-y: scroll;
+  }
 `;
 
 export const FullBanner = styled.div`
@@ -55,24 +62,17 @@ export const Homepage = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
-  @media only screen and (max-width: 1400px) {
+
+  @media only screen and (max-width: 1300px) {
     width: 100%;
   }
-`;
-
-export const ContentsContainer = styled.div`
-  max-width: 100vw;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  // box-shadow: 0 0 8px #dcd0c8;
 `;
 
 export const HomeTitle = styled.h1`
   font-size: 36px;
   margin: 1rem 0 1.4rem 0;
+  @media only screen and (max-width: 1300px) {
+  }
   @media only screen and (max-width: 400px) {
     font-size: 1.6rem;
   }
@@ -99,6 +99,9 @@ export const GraphBox = styled.div`
   @media only screen and (max-width: 1300px) {
     width: 60%;
   }
+  @media only screen and (max-width: 800px) {
+    width: 40%;
+  }
 `;
 
 export const TextContent = styled.div`
@@ -108,13 +111,19 @@ export const TextContent = styled.div`
   background-color: white;
   padding: 2rem;
   border-radius: 2rem;
+  @media only screen and (max-width: 1300px) {
+    width: 60%;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 40%;
+  }
 `;
 
 export const TextEmphasize = styled.span`
   color: #c48f5a;
 `;
 
-export const TextParagraph = styled.p`
+export const TextParagraph = styled.div`
   font-size: 1.2rem;
   line-height: 2rem;
   margin-bottom: 1.4rem;

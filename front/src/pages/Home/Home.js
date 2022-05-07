@@ -33,18 +33,10 @@ const BANNERS = [
 function Home() {
   const fullpageRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);
-  // const [dots, setDots] = useState([]);
+
   const dotsRef = useRef();
   const dotsLength = fullpageRef.current?.childNodes.length;
   const dotsIndex = Array.from({ length: dotsLength - 1 }, (_, i) => i + 1);
-  // const bannerHeight = 239;
-  // let dots = [];
-  // dotsIndex.map((index) =>
-  //   dots.push(
-  //     `<Dot num=${index} scrollIndex=${scrollIndex} key=${index}></Dot>`
-  //   )
-  // );
-  // const data = dots.join("");
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -102,13 +94,16 @@ function Home() {
         scroll(pageHeight * 2);
         setScrollIndex(3);
         console.log(scrollTop);
-      } else if (scrollTop >= pageHeight * 4 && scrollTop < pageHeight * 5) {
+      } else if (
+        scrollTop >= pageHeight * 4 &&
+        scrollTop < pageHeight * 5 - 80
+      ) {
         // 4 -> 3
         scroll(pageHeight * 3);
         setScrollIndex(4);
         console.log(scrollTop);
       } else if (
-        scrollTop >= pageHeight * 5 &&
+        scrollTop >= pageHeight * 5 - 80 &&
         scrollTop < pageHeight * 6 - 80
       ) {
         // 5 -> 4
@@ -132,45 +127,14 @@ function Home() {
     });
   };
 
-  // const dotsRendering = () => {
-  //   // const dots = [];
-  //   for (let i = 1; i < dotsLength - 1; i++) {
-  //     dots.push(<Dot num={i} scrollIndex={scrollIndex}></Dot>);
-  //   }
-  //   return dots;
-  // };
-
-  // const dotsRendering = () => {
-  //   const dotsRefCurrent = dotsRef.current;
-  //   dotsRefCurrent.innerHTML = (
-  //     <div dangerouslySetInnerHTML={{ __html: data }}></div>
-  //   );
-  // };
-
   useEffect(() => {
-    // setDots((prev) => {
-    //   const dotsArray = prev;
-    //   for (let i = 1; i < dotsLength - 1; i++) {
-    //     dotsArray.push(<Dot num={i} scrollIndex={scrollIndex}></Dot>);
-    //   }
-    //   return dotsArray;
-    // });
-    // dotsIndex = Array.from({ length: dotsLength - 2 }, (_, i) => i + 1);
-    // dotsRef.current.children = dotsIndex.map((index) => (
-    //   <Dot num={index} scrollIndex={scrollIndex} key={index}></Dot>
-    // ));
-    // const dotsRefCurrent = dotsRef.current;
-    const fullPageRefCurrent = fullpageRef.current;
-    fullPageRefCurrent?.addEventListener("wheel", wheelHandler);
-    // dotsRefCurrent?.addEventListener("wheel", dotsRendering);
-    // const dotsRefCurrent = dotsRef.current;
-    // dotsRefCurrent.innerHTML = (
-    //   <div dangerouslySetInnerHTML={{ __html: data }}></div>
-    // );
-    return () => {
-      fullPageRefCurrent?.removeEventListener("wheel", wheelHandler);
-      // dotsRefCurrent?.removeEventListener("wheel", dotsRendering);
-    };
+    if (window.innerWidth > 1300) {
+      const fullPageRefCurrent = fullpageRef.current;
+      fullPageRefCurrent?.addEventListener("wheel", wheelHandler);
+      return () => {
+        fullPageRefCurrent?.removeEventListener("wheel", wheelHandler);
+      };
+    }
   }, []);
 
   return (
@@ -203,7 +167,7 @@ function Home() {
             </TextTitle>
 
             <TextParagraph>
-              3년에 한번 95개 국가의 15세 아동을 대상으로 실생활의 문제를
+              3년에 한번씩 95개 국가의 15세 아동을 대상으로 실생활의 문제를
               해결하는 <TextEmphasize>읽기, 수학, 과학</TextEmphasize> 능력을
               측정합니다.
             </TextParagraph>
@@ -240,14 +204,20 @@ function Home() {
               뽑아봤습니다.
             </TextParagraph>
             <TextParagraph>
-              다른 나라들의 PISA 점수가 평균적으로 0.492% 하락한 반면에,
-              <TextEmphasize> 한국</TextEmphasize>은
-              <TextEmphasize> 7.554% 하락</TextEmphasize>하여 다른나라에 비해
-              점수가 현저하게 <TextEmphasize> 떨어졌습니다. </TextEmphasize>
+              다른 나라들의 PISA 점수가 평균적으로{" "}
+              <TextEmphasize>0.492%</TextEmphasize> 하락한 반면에,
+              <TextParagraph>
+                <TextEmphasize> 한국</TextEmphasize>은
+                <TextEmphasize> 7.554% 하락</TextEmphasize>하여 다른나라에 비해
+                점수가 현저하게 <TextEmphasize> 떨어졌습니다. </TextEmphasize>
+              </TextParagraph>
             </TextParagraph>
             <TextParagraph>
-              나라별 PISA 점수를 확인해보세요. 국기를 선택하시면 각 나라의 PISA
-              점수를 연도별로 확인할 수 있어요.
+              나라별 PISA 점수를 확인해보세요.{" "}
+              <TextParagraph>
+                국기를 선택하시면 각 나라의 PISA 점수를 연도별로 확인할 수
+                있어요.
+              </TextParagraph>
             </TextParagraph>
           </TextContent>
           <GraphBox>
