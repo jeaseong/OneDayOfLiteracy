@@ -32,7 +32,7 @@ export const Btn = styled.button`
   font-size: 20px;
   position: absolute;
   top: 50%;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 564px) {
     display: none;
   }
 `;
