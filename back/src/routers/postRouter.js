@@ -16,12 +16,13 @@ postRouter.post('/posts',
   invalidCallback,
   async (req, res, next) => {
     try {
-      const { title, content, subjectId, category } = req.body;
+      const { title, content, subjectId } = req.body;
       
       const userId = req.currentUserId;
       const user = await userAuthService.getUserInfo({ userId });
       const author = user.nickname;
       const tags = req.body.tags ?? null;
+      const category = req.body.category ?? "etc";
       const newPost = await postService.addPost({
         author,
         title,
