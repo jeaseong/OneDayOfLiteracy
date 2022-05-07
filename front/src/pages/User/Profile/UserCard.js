@@ -24,14 +24,17 @@ import ErrorPage from "components/ErrorPage";
  * @returns {JSX.Element}
  * @constructor
  */
-function UserCard({ editStateStore, children }) {
+function UserCard({ editProfileImgStore, editStateStore, children }) {
   const params = useParams();
   const userId = params.userId;
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
+  const { setEditProfileImg } = editProfileImgStore;
   const { isEdit, setIsEdit } = editStateStore;
   const [showAlert, setShowAlert] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
   const userProfile = useGetProfileUser(userId);
+  console.log(userProfile);
 
   if (userProfile.isFetching) return <Loading />;
   if (userProfile.error) return <ErrorPage />;
@@ -53,11 +56,9 @@ function UserCard({ editStateStore, children }) {
 
   // 프로필 이미지 업로드
   const profileImageData = {
-    type: "users",
-    id: userProfile.data._id,
     prevImage: userProfile.data.profileUrl,
-    showAlert,
-    setShowAlert,
+    setEditProfileImg,
+    setImgUrl,
   };
 
   const ModifyUserButton = !isEdit ? (
@@ -73,7 +74,11 @@ function UserCard({ editStateStore, children }) {
       <CardBox>
         <CardHeader>
           <ProfileImgBox>
-            <ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />
+            {/*<ProfileImg src={userProfile.data.profileUrl} alt="profileImage" />*/}
+            <ProfileImg
+              src={imgUrl ? imgUrl : userProfile.data.profileUrl}
+              alt="profileImage"
+            />
           </ProfileImgBox>
           {isProfileOwner && (
             <ProfileChangeBox>{ModifyUserButton}</ProfileChangeBox>
