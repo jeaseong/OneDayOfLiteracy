@@ -8,14 +8,6 @@ const UserSchema = new Schema(
     badge: [{ type: String }],
     level: { type: Number, default: 0 },
     point: { type: Number, default: 0 },
-<<<<<<< HEAD
-  },
-  {
-    timestamps: true,
-  }
-);
-
-=======
     postLikes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     profileUrl: { type: String, required: false, default: "https://team2.cdn.ntruss.com/users/default.png" },
     kakaoId: {type: Number, required: false, default: 0},
@@ -35,7 +27,6 @@ UserSchema.virtual('posts', {
   count: true,
 });
 
->>>>>>> dev-back
 const UserModel = model("User", UserSchema, "users");
 
 export { UserModel };
