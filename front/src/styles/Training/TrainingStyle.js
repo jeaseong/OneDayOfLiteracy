@@ -23,22 +23,28 @@ export const StepContainer = styled.article`
   background: #ffffff;
   border-radius: 12px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
 `;
 
 export const StepImg = styled.img`
   width: 100%;
   height: 200px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 `;
 export const StepTitle = styled.h2`
-  margin-bottom: 5px;
-  font-size: 18px;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
 `;
 export const StepTagContainer = styled.ul`
   width: 100%;
   display: flex;
   list-style: none;
-  margin-bottom: 5px;
+  margin-bottom: 0.75rem;
+  padding-left: 0;
 `;
 
 export const StepTag = styled.li`
@@ -128,22 +134,13 @@ export const Center = styled(FlexBoxCenter)`
 export const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
 `;
 
-export const FetchTranscriptionBtn = styled.button`
-  padding: 8px 20px;
-  border: 1px solid #868e96;
-  border-radius: 20px;
-  background: transparent;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-    color: #ffffff;
-    border: 1px solid #c48f5a;
-    background-color: #c48f5a;
-  }
-`;
+export const FetchTranscriptionBtn = styled.p``;
 
 export const TranscriptionContainer = styled.div`
   width: 100%;
@@ -166,5 +163,25 @@ export const TranscriptionContent = styled.div`
   white-space: pre-wrap;
   @media only screen and (max-width: 768px) {
     flex-direction: column;
+  }
+`;
+export const IndexBtnWrap = styled.div`
+  border-bottom: 1px solid #c48f5a;
+  display: flex;
+  margin-bottom: 0.75rem;
+  padding: 10px;
+  gap: 10px;
+`;
+
+export const IndexBtn = styled.button`
+  padding: 5px 10px;
+  border: 1px solid #c48f5a;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #ffffff;
+    border: 1px solid #c48f5a;
+    background-color: #c48f5a;
   }
 `;

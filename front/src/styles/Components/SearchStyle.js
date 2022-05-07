@@ -7,7 +7,7 @@ export const SearchContainerBox = styled.form`
   display: flex;
   justify-content: center;
   height: 76px;
-  margin: 25px auto 0 auto;
+  margin: 25px auto;
 `;
 
 export const SearchButton = styled(Button)`
@@ -36,6 +36,7 @@ export const SearchSelect = styled.select`
 
 export const InputBox = styled.div`
   margin-top: 16px;
+  position: relative;
 `;
 
 export const DropDownBox = styled.ul`
@@ -50,6 +51,7 @@ export const DropDownBox = styled.ul`
   box-shadow: 0 10px 10px rgb(0, 0, 0, 0.3);
   list-style-type: none;
   z-index: 3;
+  position: absolute;
 `;
 
 export const DropDownItem = styled.li`
