@@ -39,7 +39,7 @@ export default function TestContainer() {
 
   const onSubmit = async () => {
     try {
-      await post("test/result", totalMySelectedAnswer);
+      await post("tests/evaluate", totalMySelectedAnswer);
       queryClient.removeQueries("tests");
       navigate("/test/result");
     } catch (e) {

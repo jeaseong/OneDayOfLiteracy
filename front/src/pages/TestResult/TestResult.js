@@ -27,13 +27,13 @@ export default function TestResult() {
   };
 
   const handleClickNavBtn = (score) => {
-    if (score >= 90) return 3;
+    if (score >= 90) return 2;
     return 1;
   };
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const res = await get("results/", userState._id);
+      const res = await get(`users/${userState._id}/results`);
       setMyScore(res.data.result);
     };
     fetchAPI();

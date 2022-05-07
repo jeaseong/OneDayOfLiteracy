@@ -72,6 +72,14 @@ function Header() {
           <NavList
             onClick={(e) => {
               e.preventDefault();
+              navigate("/test");
+            }}
+          >
+            {LABEL.TEST}
+          </NavList>
+          <NavList
+            onClick={(e) => {
+              e.preventDefault();
               navigate("/posts");
             }}
           >

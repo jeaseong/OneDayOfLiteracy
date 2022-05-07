@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import TrainingGuide from "pages/Training/TrainingGuide";
 import Slide from "components/Slide/Slide";
-import TrainingPost from "pages/Training/TrainingPost/TrainingPost";
+import TrainingTransription from "./TrainingTransription";
 import { TranscriptionDescription } from "./TranscriptionDescription";
 import { TAG_NAME } from "utils/constants";
 import { useTranscriptionQuery } from "queries/transcriptionQuery";
@@ -13,7 +11,6 @@ import {
   TrainingStepTitle,
   ButtonWrap,
   FetchTranscriptionBtn,
-  TranscriptionContainer,
 } from "styles/Training/TrainingStyle";
 import { get } from "utils/api";
 export default function TrainingStepThree() {
@@ -43,20 +40,13 @@ export default function TrainingStepThree() {
           {isOpenTranscription ? "닫기" : "필사 불러오기"}
         </FetchTranscriptionBtn>
       </ButtonWrap>
-      {isOpenTranscription && (
-        <TranscriptionContainer>
-          <ReactMarkdown
-            className="markdown"
-            remarkPlugins={[remarkGfm]}
-          ></ReactMarkdown>
-        </TranscriptionContainer>
-      )}
 
-      <TrainingPost
+      <TrainingTransription
         title="필사"
         tags={TAG_NAME.STEP_THREE}
         subjectId={subject.subjectId}
         category={subject.category}
+        content={subject.content}
       />
     </TrainingGuide>
   );
