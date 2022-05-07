@@ -20,7 +20,7 @@ export const HomeContainer = styled.section`
 export const FullBanner = styled.div`
   height: calc(100vh - 80px);
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #f5efea;
   box-sizing: border-box;
 `;
 export const Dot = styled.div`
