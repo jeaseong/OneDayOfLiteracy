@@ -1,24 +1,85 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { get, post } from "../utils/api";
+import { get, post, put } from "utils/api";
 import { useNavigate } from "react-router-dom";
 
 /**
  * 현재 유저상태를 받아오며, token이 없다면 userState는 false를 기본값으로 가집니다.
- * @returns {{userState: (object|boolean), isLoading: boolean, isLogin: boolean, error: string}}
+ * @returns {UseQueryResult<{isLogin:boolean, userState: object}, unknown>}
  */
-export function useCurrentUser() {
-  const { isLoading, error, data } = useQuery(
+export function useGetCurrentUser() {
+  const queryclient = useQueryClient();
+
+  return useQuery(
     "userState",
-    () => get("user/current").then((res) => res.data),
+    async () => {
+      const res = await get("users/current");
+      return { userState: res.data, isLogin: !!res.data };
+    },
     {
-      initialData: false,
       staleTime: Infinity,
-      onSuccess: () => console.log("로그인 성공!"),
-      onError: () => console.log("로그인 실패"),
+      onError: () =>
+        queryclient.setQueryData("userState", {
+          isLogin: false,
+          userState: { _id: "visitor", postLikes: [] },
+        }),
     }
   );
+}
 
-  return { userState: data, isLoading, isLogin: !!data, error };
+/**
+ * 유저의 프로필을 받아옵니다.
+ * @param id
+ * @returns {UseQueryResult<{userProfile: object}, unknown>}
+ */
+export function useGetProfileUser(id) {
+  const queryClient = useQueryClient();
+  return useQuery(
+    ["user", id],
+    async () => {
+      const res = await get(`users/${id}`);
+      return res.data;
+    },
+    {
+      staleTime: 5000,
+      cacheTime: 1500,
+      onError: () =>
+        queryClient.setQueryData(["user", id], { role: "visitor" }),
+    }
+  );
+}
+
+export function useGetProfileOwner(id) {
+  const queryClient = useQueryClient();
+  return useQuery(
+    ["user", id],
+    async () => {
+      const res = await get(`users/${id}`);
+      return res.data;
+    },
+    {
+      staleTime: Infinity,
+      onError: () =>
+        queryClient.setQueryData(["user", id], { role: "visitor" }),
+    }
+  );
+}
+
+export function useGetUserRank() {
+  const queryClient = useQueryClient();
+  return useQuery(
+    "expRank",
+    async () => {
+      const res = await get(
+        `users?sort[field]=point&sort[type]=desc&page=1&limit=3`
+      );
+      return res.data;
+    },
+    {
+      staleTime: 5000,
+      cacheTime: 1500,
+      onError: () => queryClient.setQueryData("expRank", []),
+    }
+  );
 }
 
 /**
@@ -26,17 +87,41 @@ export function useCurrentUser() {
  * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
  * @returns {function} useMutation 훅을 반환합니다.
  */
-export const useUserLogin = (setShowAlert = () => {}) => {
+export const useUserLoginHandler = (setShowAlert = () => {}) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation(async (loginData) => await post("user/login", loginData), {
-    onSuccess: (res) => {
-      const jwtToken = res.data.token;
-      sessionStorage.setItem("userToken", jwtToken);
-      queryClient.invalidateQueries("userState");
-      navigate("/");
-    },
-    onError: () => setShowAlert(true),
-  });
+  return useMutation(
+    async (loginData) => await post("users/login", loginData),
+    {
+      onSuccess: (res) => {
+        const jwtToken = res.data.token;
+        localStorage.setItem("userToken", jwtToken);
+        queryClient.invalidateQueries("userState");
+        navigate("/main");
+      },
+      onError: () => setShowAlert(true),
+    }
+  );
+};
+
+/**
+ * 유저의 프로필 수정 핸들러입니다.
+ * @param {string} id 프로필을 변경 할 유저의 id 입니다.
+ * @param {function} setShowAlert 요청 실패 시 alert를 활성화 해줄 상태변경 함수입니다.
+ * @returns {function} useMutation 훅을 반환합니다.
+ */
+export const useChangeProfileHandler = (id, setShowAlert = () => {}) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (changeProfileData) => await put(`users/${id}`, changeProfileData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("userState");
+        queryClient.invalidateQueries(["user", id]);
+      },
+      onError: () => setShowAlert(true),
+    }
+  );
 };

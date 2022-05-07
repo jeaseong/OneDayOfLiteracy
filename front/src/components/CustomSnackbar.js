@@ -3,25 +3,15 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 /**
- * 성공 alert을 띄우기 편하게 데이터를 가공합니다.
+ * alert을 띄우기 편하게 데이터를 가공합니다.
  * @param {boolean} state
  * @param {function} setState
  * @param {string} message
+ * @param {string} type
  * @returns {{open:boolean, setOpen:function, message:string, type: string}}
  */
-const successAlert = (state, setState, message) => {
-  return { open: state, setOpen: setState, message, type: "success" };
-};
-
-/**
- * 실패 alert을 띄우기 편하게 데이터를 가공합니다.
- * @param {boolean} state
- * @param {function} setState
- * @param {string} message
- * @returns {{open:boolean, setOpen:function, message:string, type: string}}
- */
-const errorAlert = (state, setState, message) => {
-  return { open: state, setOpen: setState, message, type: "error" };
+const setAlertData = (state, setState, message, type) => {
+  return { open: state, setOpen: setState, message, type };
 };
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -41,9 +31,7 @@ function CustomSnackbar({ open, setOpen, message, type }) {
   const alertPosition = { vertical: "bottom", horizontal: "right" };
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+    if (reason === "clickaway") return;
     setOpen(false);
   };
 
@@ -61,4 +49,4 @@ function CustomSnackbar({ open, setOpen, message, type }) {
   );
 }
 
-export { CustomSnackbar, successAlert, errorAlert };
+export { CustomSnackbar, setAlertData };
