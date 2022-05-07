@@ -11,14 +11,11 @@ export const HomeContainer = styled.section`
 `;
 
 export const FullBanner = styled.div`
-  height: calc(100vh - 100px);
+  height: calc(100vh - 80px);
   overflow: hidden;
   background-color: #ffffff;
   box-sizing: border-box;
 `;
-
-export const HomeWrap = styled.div``;
-
 export const Dot = styled.div`
   width: ${(props) => (props.scrollIndex === props.num ? "12px" : "5px")};
   height: ${(props) => (props.scrollIndex === props.num ? "12px" : "5px")};
@@ -33,6 +30,12 @@ export const DotsBox = styled.div`
   position: fixed;
   top: 50%;
   right: 7vw;
+  @media only screen and (max-width: 1500px) {
+    display: none;
+  }
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
 `;
 
 export const Dots = styled.div`
@@ -51,29 +54,25 @@ export const Homepage = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  @media only screen and (max-width: 1400px) {
+    width: 100%;
+  }
 `;
 
 export const ContentsContainer = styled.div`
-  max-width: 1024px;
-  height: 70vh;
+  max-width: 100vw;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   // box-shadow: 0 0 8px #dcd0c8;
-  @media only screen and (max-width: 400px) {
-    width: 100%;
-    min-height: 60vh;
-    margin-bottom: 30%;
-    padding: 5%;
-  }
 `;
 
 export const HomeTitle = styled.h1`
-  height: 8vh;
   font-size: 36px;
-  margin: 20px 0;
+  margin: 1rem 0 1.4rem 0;
   @media only screen and (max-width: 400px) {
     font-size: 1.6rem;
   }
@@ -82,10 +81,23 @@ export const HomeTitle = styled.h1`
 export const HomeContents = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 1024px;
-  @media only screen and (max-width: 400px) {
-    flex-direction: column;
+  justify-content: space-around;
+  width: 1300px;
+  @media only screen and (max-width: 1400px) {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+`;
+export const GraphBox = styled.div`
+  width: 60%;
+  // height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 1400px) {
+    width: 60%;
   }
 `;
 
@@ -115,19 +127,6 @@ export const TextTitle = styled.h1`
   line-height: 2.5rem;
   margin-bottom: 1.6rem;
   word-break: keep-all;
-`;
-
-export const GraphBox = styled.div`
-  width: 60%;
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  @media only screen and (max-width: 400px) {
-    width: 100%;
-  }
 `;
 
 export const CountryButton = styled.button`
