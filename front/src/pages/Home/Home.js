@@ -82,26 +82,18 @@ function Home() {
       // 스크롤 올릴때
       if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
         // 1 -> 0
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
         scroll(0);
         setScrollIndex(1);
       } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
         // 2 -> 1
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
         scroll(pageHeight);
         setScrollIndex(2);
       } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
         // 3 -> 2
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
         scroll(pageHeight * 2);
         setScrollIndex(3);
       } else if (scrollTop >= pageHeight * 4 && scrollTop < pageHeight * 5) {
         // 4 -> 3
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
         scroll(pageHeight * 3);
         setScrollIndex(4);
       } else if (
@@ -109,18 +101,11 @@ function Home() {
         scrollTop < pageHeight * 6 - 80
       ) {
         // 5 -> 4
-        console.log("5->4");
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
         scroll(pageHeight * 4);
         setScrollIndex(5);
       } else if (scrollTop >= pageHeight * 6 - 80) {
         // 6 -> 5
-        console.log("scrollTop", scrollTop);
-        console.log("pageHeight", pageHeight);
-
         scroll(pageHeight * 5);
-        console.log("scrollTop", scrollTop);
         setScrollIndex(6);
       }
     }

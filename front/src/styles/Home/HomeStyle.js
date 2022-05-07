@@ -133,19 +133,24 @@ export const CountryButton = styled.button`
   width: 28px;
   height: 21px;
   margin: 1rem 0.5rem 0 0;
-  padding: 0;
-  // border-radius: 5px;
   box-shadow: 2px 2px 2px #503d3f;
+`;
+
+export const FlagButton = styled.img`
+  width: 28px;
+  height: 21px;
+  background-size: 28px 21px;
   transition-duration: 0.5s;
   &:hover {
     cursor: pointer;
   }
   &:active {
-    margin-top: 14px;
+    margin-top: 1px;
     margin-left: 1px;
     box-shadow: none;
   }
 `;
+
 export const Buttons = styled.div`
   display: flex;
   justify-content: center;
