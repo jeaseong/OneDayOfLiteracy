@@ -10,9 +10,9 @@ function PopularityPost() {
   const queryClient = useQueryClient();
   const { userState, isLogin } = queryClient.getQueryData("userState");
 
-  const { data, isFetching } = useGetPostList(`posts?${URI.SORT_LIKE}`);
+  const { data, isLoading } = useGetPostList(`posts?${URI.SORT_LIKE}`);
 
-  if (isFetching) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <>

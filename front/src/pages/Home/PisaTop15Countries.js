@@ -9,7 +9,11 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { CountryButton, Buttons } from "../../styles/Home/HomeStyle";
+import {
+  CountryButton,
+  FlagButton,
+  Buttons,
+} from "../../styles/Home/HomeStyle";
 import pisaTop15 from "../../data/pisaTop15.json";
 
 ChartJS.register(
@@ -23,10 +27,17 @@ ChartJS.register(
 
 const graphMaker = (country) => {
   const options = {
-    responsive: true,
+    responsive: false,
+    width: 400,
     scales: {
       y: {
         min: 480,
+        max: 560,
+      },
+      x: {
+        grid: {
+          offset: false,
+        },
       },
     },
     plugins: {
@@ -42,12 +53,15 @@ const graphMaker = (country) => {
       },
     },
   };
-  const labels = pisaTop15.filter((v) => {
-    if (v.Country === country) {
-      return Object.keys(v).slice(0, -1);
-    }
-  });
-  const filteredData = pisaTop15.filter((v) => v.Country === country)[0];
+  const labels = Object.keys(pisaTop15[0]).slice(0, -1);
+  const filteredData = Object.entries(
+    pisaTop15.find((v) => v.Country === country)
+  )
+    .slice(0, -1)
+    .reduce((obj, cur) => {
+      obj[cur[0]] = cur[1];
+      return obj;
+    }, {});
 
   const data = {
     labels,
@@ -55,7 +69,14 @@ const graphMaker = (country) => {
       {
         label: `${country}`,
         data: filteredData,
-        backgroundColor: "#adeacb",
+        backgroundColor: [
+          "#faa2c1",
+          "#e599f7",
+          "#b197fc",
+          "#91a7ff",
+          "#74c0fc",
+        ],
+        barThickness: "24",
       },
     ],
   };
@@ -68,10 +89,15 @@ const options = {
     y: {
       min: 480,
     },
+    x: {
+      grid: {
+        offset: true,
+      },
+    },
   },
   plugins: {
     legend: {
-      position: "bottom",
+      position: "top",
     },
     title: {
       display: true,
@@ -91,35 +117,35 @@ const data = {
     {
       label: "2006",
       data: pisaTop15.map((v) => v["2006"]),
-      backgroundColor: "#ea8685",
+      backgroundColor: "#faa2c1",
       categoryPercentage: 1.0,
       barPercentage: 0.8,
     },
     {
       label: "2009",
       data: pisaTop15.map((v) => v["2009"]),
-      backgroundColor: "#224891",
+      backgroundColor: "#e599f7",
       categoryPercentage: 1.0,
       barPercentage: 0.8,
     },
     {
       label: "2012",
       data: pisaTop15.map((v) => v["2012"]),
-      backgroundColor: "#b69d74",
+      backgroundColor: "#b197fc",
       categoryPercentage: 1.0,
       barPercentage: 0.8,
     },
     {
       label: "2015",
       data: pisaTop15.map((v) => v["2015"]),
-      backgroundColor: "#ffdd94",
+      backgroundColor: "#91a7ff",
       categoryPercentage: 1.0,
       barPercentage: 0.8,
     },
     {
       label: "2018",
       data: pisaTop15.map((v) => v["2018"]),
-      backgroundColor: "#ccabd8",
+      backgroundColor: "#74c0fc",
       categoryPercentage: 1.0,
       barPercentage: 0.8,
     },
@@ -127,159 +153,141 @@ const data = {
 };
 
 const PisaTop15BarCountries = () => {
-  const [button, setButton] = useState("");
   const [countryTitle, setCountryTitle] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
-    const title = e.target.className;
-
-    setButton(!button);
+    const title = e.target.className.split(" ").slice(-1)[0];
+    if (countryTitle === title) return setCountryTitle(null);
     setCountryTitle(title);
   };
 
   return (
     <>
-      {button ? (
+      {countryTitle ? (
         graphMaker(countryTitle)
       ) : (
         <Bar options={options} data={data} />
       )}
       <Buttons>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/kr.png"}
-            width="28"
-            height="21"
             alt="South Korea"
-            className="South Korea"
+            className="대한민국"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/au.png"}
-            width="28"
-            height="21"
             alt="Australia"
-            className="Australia"
+            className="호주"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/be.png"}
-            width="28"
-            height="21"
             alt="Belgium"
-            className="Belgium"
+            className="벨기에"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/ca.png"}
-            // srcset="https://flagcdn.com/w80/ca.png 2x"
-            width="28"
-            height="21"
             alt="Canada"
-            className="Canada"
+            onClick={handleClick}
+            className="캐나다"
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/dk.png"}
-            width="28"
-            height="21"
             alt="Denmark"
-            className="Denmark"
+            className="덴마크"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/ee.png"}
-            width="28"
-            height="21"
             alt="Estonia"
-            className="Estonia"
+            className="에스토니아"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/fi.png"}
-            width="28"
-            height="21"
             alt="Finland"
-            className="Finland"
+            className="핀란드"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/fr.png"}
-            width="28"
-            height="21"
             alt="France"
-            className="France"
+            className="프랑스"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/de.png"}
-            width="28"
-            height="21"
             alt="Germany"
-            className="Germany"
+            className="독일"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/ie.png"}
-            width="28"
-            height="21"
             alt="Ireland"
-            className="Ireland"
+            className="아일랜드"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/jp.png"}
-            width="28"
-            height="21"
             alt="Japan"
-            className="Japan"
+            className="일본"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/nz.png"}
-            width="28"
-            height="21"
             alt="New Zealand"
-            className="New Zealand"
+            className="뉴질랜드"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/pl.png"}
-            width="28"
-            height="21"
             alt="Poland"
-            className="Poland"
+            className="폴란드"
+            onClick={handleClick}
           />
         </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
-            src={"https://flagcdn.com/w40/gb.png"}
-            width="28"
-            height="21"
-            alt="Taiwan"
-            className="Taiwan"
-          />
-        </CountryButton>
-        <CountryButton onClick={handleClick}>
-          <img
+        <CountryButton>
+          <FlagButton
             src={"https://flagcdn.com/w40/tw.png"}
-            width="28"
-            height="21"
+            alt="Taiwan"
+            className="대만"
+            onClick={handleClick}
+          />
+        </CountryButton>
+        <CountryButton>
+          <FlagButton
+            src={"https://flagcdn.com/w40/gb.png"}
             alt="United Kingdom"
-            className="United Kingdom"
+            className="영국"
+            onClick={handleClick}
           />
         </CountryButton>
       </Buttons>

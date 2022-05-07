@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PostingHeader from "./PostingHeader";
 import PostingContents from "./PostingContents";
 import PostingTag from "./PostingTag";
@@ -9,13 +9,11 @@ import "../../styles/Posts/markdown.css";
 import { put } from "../../utils/api";
 import { useQueryClient } from "react-query";
 
-function PostingEditForm() {
+function PostingEditForm({ setIsEdit }) {
   const params = useParams();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const postInfo = queryClient.getQueryData(["post", params.postId]);
   const { userState } = queryClient.getQueryData("userState");
-  console.log(localStorage.getItem("userToken"));
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -59,7 +57,8 @@ function PostingEditForm() {
       };
 
       await put(`posts/${params.postId}`, posting);
-      navigate("/posts");
+      queryClient.invalidateQueries("post");
+      setIsEdit((cur) => !cur);
     } catch (error) {
       throw new Error(error);
     }
