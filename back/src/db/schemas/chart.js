@@ -2,8 +2,7 @@ import { Schema, model } from "mongoose";
 
 const ChartSchema = new Schema(
   {
-    chartName: { type: String, required: true },
-    chartData: { type: Object, required: true },
+    data: [{ type: Object, required: true }]
   },
   {
     timestamps: true,
