@@ -27,7 +27,7 @@ export default function TestResult() {
   };
 
   const handleClickNavBtn = (score) => {
-    if (score >= 90) return 3;
+    if (score >= 90) return 2;
     return 1;
   };
 

@@ -24,31 +24,33 @@ export const WomanBook = styled.img.attrs({
 
 export const TestQuestion = styled.h2`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 1.5rem;
   color: #c48f5a;
-  margin-bottom: 10px;
+  margin-bottom: 0.75rem;
 `;
 export const TestContent = styled.p`
   font-weight: 400;
   line-height: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 1.4rem;
+  font-size: 1.4rem;
 `;
 export const AnswerBtnContainer = styled.section`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 0.75rem;
 `;
 export const AnswerBtn = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #ffffff;
   border: 1px solid #c48f5a;
   box-sizing: border-box;
   box-shadow: 0px 0px 10px rgba(195, 202, 254, 0.6);
   border-radius: 3px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 0.75rem;
   padding: 10px;
+  font-size: 1.2rem;
 `;
 
 export const AnswerText = styled.p`
