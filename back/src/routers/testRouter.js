@@ -10,24 +10,30 @@ const testRouter = Router();
 // 1. 테스트 제출 => 점수 반환
 // 전 : /test/result
 // 후 : /tests/evaluate
-testRouter.post("/tests/evaluate", loginRequired, async (req, res, next) => {
+testRouter.post("/tests/evaluate", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-
-    const currentUserId = req.currentUserId;
+    
+    const userId = req.body.userId ?? null;
     const submission = req.body;
 
     const score = await testService.evaluateTest(submission);
     if (score.errorMessage) {
       console.error("\x1b[35m%s\x1b[0m", score.errorMessage);
       res.status(500).json({success: false, errorMessage: score.errorMessage});
+      return;
     }
 
-    const userResult = await resultService.addResult({ userId: currentUserId, result: score.result });
+    if (!userId) {
+      res.status(200).json(score);
+      return;
+    }
+    
+    const userResult = await resultService.addResult({ userId, result: score.result });
 
     if(userResult.errorMessage){
       console.error("\x1b[35m%s\x1b[0m", userResult.errorMessage);
