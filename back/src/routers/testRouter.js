@@ -18,7 +18,7 @@ testRouter.post("/tests/evaluate", async (req, res, next) => {
       );
     }
     
-    const userId = req.body.userId ?? null;
+    const userId = req.body.userId;
     const submission = req.body.submission;
 
     const score = await testService.evaluateTest(submission);
@@ -28,7 +28,7 @@ testRouter.post("/tests/evaluate", async (req, res, next) => {
       return;
     }
 
-    if (!userId) {
+    if (userId === "visitor") {
       res.status(200).json(score);
       return;
     }
