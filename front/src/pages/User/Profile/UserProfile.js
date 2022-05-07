@@ -15,8 +15,10 @@ import { useQueryClient } from "react-query";
 function UserProfile() {
   const params = useParams();
   const queryClient = useQueryClient();
+  const [editProfileImg, setEditProfileImg] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const editStateStore = { isEdit, setIsEdit };
+  const editProfileImgStore = { editProfileImg, setEditProfileImg };
 
   useEffect(() => {
     queryClient.invalidateQueries(["user", params.userId]);
@@ -24,14 +26,22 @@ function UserProfile() {
   }, [params.userId, queryClient]);
 
   const CardContent = isEdit ? (
-    <UserEditForm editStateStore={editStateStore} />
+    <UserEditForm
+      editProfileImgStore={editProfileImgStore}
+      editStateStore={editStateStore}
+    />
   ) : (
     <UserInfomation />
   );
 
   return (
     <MyPageContainer>
-      <UserCard editStateStore={editStateStore}>{CardContent}</UserCard>
+      <UserCard
+        editProfileImgStore={editProfileImgStore}
+        editStateStore={editStateStore}
+      >
+        {CardContent}
+      </UserCard>
       <UserPostList />
     </MyPageContainer>
   );

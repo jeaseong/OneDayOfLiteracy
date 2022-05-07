@@ -19,6 +19,7 @@ import { validation } from "utils/validation";
 import { useChangeProfileHandler } from "queries/userQuery";
 import { CustomSnackbar, setAlertData } from "components/CustomSnackbar";
 import { useQueryClient } from "react-query";
+import { uploadFile } from "utils/api";
 
 /**
  * 프로필 수정 컴포넌트입니다.
@@ -26,10 +27,11 @@ import { useQueryClient } from "react-query";
  * @returns {JSX.Element}
  * @constructor
  */
-function UserEditForm({ editStateStore }) {
+function UserEditForm({ editProfileImgStore, editStateStore }) {
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
   const { setIsEdit } = editStateStore;
+  const { editProfileImg } = editProfileImgStore;
   const [showAlert, setShowAlert] = useState(false);
   const mutation = useChangeProfileHandler(userState._id, setShowAlert);
   const [editInfo, setEditInfo] = useState({
@@ -67,7 +69,16 @@ function UserEditForm({ editStateStore }) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const profileData = { nickname, password, introduce };
-    mutation.mutate(profileData);
+
+    Promise.all([
+      mutation.mutate(profileData),
+      uploadFile(`users/${userState._id}/uploadImage`, editProfileImg),
+    ])
+      .then(() => {
+        queryClient.invalidateQueries("userState");
+        queryClient.invalidateQueries(["user", userState._id]);
+      })
+      .catch(() => setShowAlert(true));
   };
 
   const handleOnChange = (e) => {

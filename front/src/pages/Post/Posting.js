@@ -6,10 +6,17 @@ import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
 import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
 import "styles/Posts/markdown.css";
-import { post } from "utils/api";
+import { post, uploadFile } from "utils/api";
+import FileUpload from "../../components/FileUpload";
+import { useQueryClient } from "react-query";
+import { ProfileImg } from "../../styles/User/ProfileStyle";
 
 function Posting() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userState } = queryClient.getQueryData("userState");
+  const [editPostImg, setEditPostImg] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -46,17 +53,28 @@ function Posting() {
       };
 
       const res = await post("posts", posting);
-      navigate(`/posts/${res.data.newPost[0]._id}`);
+      const postId = res.data.newPost[0]._id;
+      await uploadFile(`posts/${postId}/uploadImage`, editPostImg);
+      navigate(`/posts/${postId}`);
     } catch (error) {
       throw new Error(error);
     }
   };
 
+  // 썸네일 이미지 업로드
+  const thumbnailImageData = {
+    prevImage: userState.profileUrl,
+    setEditImg: setEditPostImg,
+    setImgUrl,
+  };
+
   return (
     <PostingBody>
+      {imgUrl && <ProfileImg src={imgUrl} alt="profileImage" />}
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag ref={tagRef} />
+      <FileUpload {...thumbnailImageData} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>

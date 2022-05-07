@@ -6,14 +6,18 @@ import PostingTag from "./PostingTag";
 import PostingCategory from "./PostingCategory";
 import { PostingButton, PostingBody } from "../../styles/Posts/PostingStyle";
 import "../../styles/Posts/markdown.css";
-import { put } from "../../utils/api";
+import { put, uploadFile } from "../../utils/api";
 import { useQueryClient } from "react-query";
+import { ProfileImg } from "../../styles/User/ProfileStyle";
+import FileUpload from "../../components/FileUpload";
 
 function PostingEditForm({ setIsEdit }) {
   const params = useParams();
   const queryClient = useQueryClient();
   const postInfo = queryClient.getQueryData(["post", params.postId]);
   const { userState } = queryClient.getQueryData("userState");
+  const [editPostImg, setEditPostImg] = useState("");
+  const [imgUrl, setImgUrl] = useState(postInfo.imageUrl);
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -56,19 +60,34 @@ function PostingEditForm({ setIsEdit }) {
         userId: userState._id,
       };
 
-      await put(`posts/${params.postId}`, posting);
-      queryClient.invalidateQueries("post");
+      Promise.all([
+        put(`posts/${params.postId}`, posting),
+        uploadFile(`posts/${params.postId}/uploadImage`, editPostImg),
+      ]).then(() => {
+        queryClient.invalidateQueries("post");
+        queryClient.invalidateQueries("posts");
+      });
+
       setIsEdit((cur) => !cur);
     } catch (error) {
       throw new Error(error);
     }
   };
 
+  // 썸네일 이미지 업로드
+  const thumbnailImageData = {
+    prevImage: postInfo.imageUrl,
+    setEditImg: setEditPostImg,
+    setImgUrl,
+  };
+
   return (
     <PostingBody>
+      {imgUrl && <ProfileImg src={imgUrl} alt="profileImage" />}
       <PostingHeader ref={titleRef} />
       <PostingCategory ref={categoryRef} />
       <PostingTag editTagArray={postInfo.tags} ref={tagRef} />
+      <FileUpload {...thumbnailImageData} />
       <PostingContents ref={contentRef} />
       <div className="postingButton">
         <PostingButton type="submit" onClick={handleClick}>

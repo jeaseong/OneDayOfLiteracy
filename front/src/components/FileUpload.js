@@ -7,15 +7,12 @@ import { useQueryClient } from "react-query";
 
 /**
  * 파일 업로드 컴포넌트 입니다.
- * @param {string} type user 또는 post
  * @param {string} id 업로드 요청을 보낼 id
  * @param {string} prevImage 이전 이미지 url
- * @param {function} setShowAlert
  * @returns {JSX.Element}
  * @constructor
  */
-function FileUpload({ type, id, prevImage = "", setShowAlert }) {
-  const queryClient = useQueryClient();
+function FileUpload({ prevImage = "", setEditImg, setImgUrl }) {
   const refFileUpload = useRef();
 
   const handleUploadFile = async (e) => {
@@ -24,20 +21,8 @@ function FileUpload({ type, id, prevImage = "", setShowAlert }) {
     formData.append("filename", e.target.files[0]);
     formData.append("prevImage", prevImage);
 
-    try {
-      await uploadFile(`${type}/${id}/uploadImage`, formData);
-      if (type === "users") {
-        queryClient.invalidateQueries("userState");
-        queryClient.invalidateQueries(["user", id]);
-      }
-
-      if (type === "posts") {
-        queryClient.invalidateQueries("post");
-        queryClient.invalidateQueries("posts");
-      }
-    } catch (err) {
-      setShowAlert(true);
-    }
+    setImgUrl(URL.createObjectURL(e.target.files[0]));
+    setEditImg(formData);
   };
 
   return (

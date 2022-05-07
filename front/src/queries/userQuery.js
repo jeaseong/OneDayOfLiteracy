@@ -115,7 +115,7 @@ export const useChangeProfileHandler = (id, setShowAlert = () => {}) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (changeProfileData) => await put(`user/${id}`, changeProfileData),
+    async (changeProfileData) => await put(`users/${id}`, changeProfileData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("userState");
