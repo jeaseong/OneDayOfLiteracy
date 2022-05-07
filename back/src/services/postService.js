@@ -16,7 +16,8 @@ class postService {
   }) {
     // subjectId 에 대한 검증(없는 경우 자유 글쓰기 주제이므로 Id 지정)
     if (!subjectId) {
-      subjectId = "626f9108187d6e5687442e3b";
+      const subjectDefault = "626f9108187d6e5687442e3b"
+      subjectId = subjectDefault;
     }
     const subject = await Subject.findById({ subjectId });
     if (!subject) {
