@@ -32,11 +32,11 @@ function PostCard({ userInfo, isDisabled, post }) {
 
   const postLikeList = isPostLike ? (
     <LikeButton disabled={!isDisabled} onClick={handlePostDisLikeOnClick}>
-      <FavoriteIcon fontSize="sm" />
+      <FavoriteIcon />
     </LikeButton>
   ) : (
     <LikeButton disabled={!isDisabled} onClick={handlePostLikeOnClick}>
-      <FavoriteBorderIcon color="disabled" fontSize="sm" />
+      <FavoriteBorderIcon color="disabled" />
     </LikeButton>
   );
 
@@ -57,20 +57,22 @@ function PostCard({ userInfo, isDisabled, post }) {
         <PostsContentWrap>
           <PostsContent>
             <ReactMarkdown
-              children={post.content.slice(0, 90)}
+              children={post.content.slice(0, 80)}
               remarkPlugins={[remarkGfm]}
             ></ReactMarkdown>
           </PostsContent>
         </PostsContentWrap>
-        {post.tags?.map((tag, index) => (
-          <Link to={`/posts?tag=${tag}`} key={index}>
-            <Tag>#{tag}</Tag>
-          </Link>
-        ))}
+        <PostsContentWrap>
+          {post.tags?.map((tag, index) => (
+            <Link to={`/posts?tag=${tag}`} key={index}>
+              <Tag>#{tag}</Tag>
+            </Link>
+          ))}
+        </PostsContentWrap>
         <PostUserContainer>
           <PostsWriter>
             <Link to={`/user/${post.userId}`}>
-              {!post.author ? "익명 문하생" : post.author}
+              by. {!post.author ? "익명 문하생" : post.author}
             </Link>
           </PostsWriter>
           <PostsLike>

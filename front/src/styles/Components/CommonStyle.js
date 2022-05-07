@@ -13,7 +13,7 @@ export const FlexBoxCenter = styled.div`
 `;
 
 export const HeadingTwo = styled.h2`
-  font-size: 14px;
+  font-size: 1.2rem;
   margin-bottom: 5px;
   color: #c48f5a;
 `;
@@ -56,6 +56,7 @@ export const LinkButton = styled.button`
   background-color: transparent;
   border: none;
   color: #c48f5a;
+  padding: 3px;
   text-decoration: underline;
   &:hover {
     text-decoration: none;

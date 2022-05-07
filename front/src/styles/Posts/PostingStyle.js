@@ -30,7 +30,7 @@ const focusInput = css`
 `;
 
 export const PostingCategoryBox = styled.select`
-  width: 5.2rem;
+  width: 6.2rem;
   padding: 10px 3px;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -71,8 +71,8 @@ export const PostingArea = styled.textarea`
   min-height: 50vh;
   padding: 10px;
   border-radius: 5px;
-  line-height: 1.8;
-  font-size: 1.2rem;
+  line-height: 1.5;
+  font-size: 1.4rem;
   letter-spacing: 1px;
   border: none;
   resize: none;

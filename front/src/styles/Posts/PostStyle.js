@@ -42,6 +42,7 @@ export const PostImgContainer = styled.div`
 
 export const PostsImage = styled.img`
   width: 100%;
+  height: 100%;
   object-fit: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -55,9 +56,8 @@ export const PostsSummary = styled.div`
 export const PostsHeader = styled.div``;
 export const PostsTitle = styled.h2`
   display: inline-block;
-  font-size: 16px;
+  font-size: 1.4rem;
   margin: 15px 0;
-  margin: 0 0 5px 0;
 `;
 export const PostsCategory = styled.p`
   display: inline-block;
@@ -65,7 +65,7 @@ export const PostsCategory = styled.p`
   margin-left: 5px;
 `;
 export const PostsWriter = styled.h4`
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: lighter;
 `;
 
@@ -73,13 +73,14 @@ export const PostsContentWrap = styled.div`
   flex: 1 1 0%;
 `;
 export const PostsContent = styled.span`
-  font-size: 12px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  height: 5rem;
+  margin-bottom: 1rem;
   font-weight: lighter;
   word-break: break-word;
   overflow-wrap: break-word;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  height: 3.9375rem;
+  white-space: pre-wrap;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -121,11 +122,12 @@ export const PostTitle = styled.div`
 export const PostEditContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 5px;
+  gap: 7px;
   margin-bottom: 1.5rem;
 `;
 
 export const PostEditBtn = styled.button`
+  font-size: 1.2rem;
   border: none;
   background: transparent;
 `;
@@ -142,14 +144,16 @@ export const PostHeaderWrap = styled.div``;
 export const PostFooter = styled.div``;
 
 export const PostWriter = styled.div`
-  font-size: 1.2rem;
   display: flex;
   align-items: center;
   font-family: lighter;
+  font-size: 1.5rem;
+  gap: 7px;
+  margin-bottom: 0.75rem;
 `;
 
 export const PostDate = styled.p`
-  font-size: 1rem;
+  font-size: 1.2rem;
 `;
 
 export const PostBody = styled.div`
@@ -160,11 +164,11 @@ export const PostBody = styled.div`
 
 export const PostBodyWrap = styled.div`
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   word-break: keep-all;
   overflow-wrap: break-word;
   white-space: pre-wrap;
-  line-height: 1.8;
+  line-height: 1.5;
 `;
 
 export const PostImageBox = styled.div`
@@ -181,7 +185,8 @@ export const PostContent = styled.div``;
 
 export const PostListcounnt = styled.p`
   margin-left: 3px;
-  font-size: 12px;
+  font-size: 1.2rem;
+  font-weight: lighter;
 `;
 
 export const PostLikeContainer = styled.div`
@@ -194,7 +199,7 @@ export const PostLikeContainer = styled.div`
 `;
 
 export const PostLikeCount = styled.span`
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.2;
 `;
 

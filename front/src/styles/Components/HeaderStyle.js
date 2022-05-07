@@ -25,6 +25,9 @@ export const LogoImg = styled.img`
   flex: 0;
   width: 120px;
   cursor: pointer;
+  @media only screen and (min-width: 768px) {
+    width: 180px;
+  }
 `;
 
 export const Navigation = styled.div`
@@ -43,6 +46,10 @@ export const NavList = styled.span`
   &:last-child {
     margin-right: 0;
   }
+
+  @media only screen and (min-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const LogOutBtn = styled.span`
@@ -50,7 +57,7 @@ export const LogOutBtn = styled.span`
   position: absolute;
   top: 5px;
   right: 20px;
-  font-size: 8px;
+  font-size: 0.8rem;
   color: #868e96;
   transition: all 0.1s linear;
   &:hover {
