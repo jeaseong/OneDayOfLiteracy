@@ -123,3 +123,25 @@ export const URI = {
   SORT_TITLE: `&sort[field]=title&sort[type]=asc&`,
   SORT_AUTHOR: `&sort[field]=author&sort[type]=asc&`,
 };
+
+export const CONSONANT = [
+  "ㄱ",
+  "ㄲ",
+  "ㄴ",
+  "ㄷ",
+  "ㄸ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅃ",
+  "ㅅ",
+  "ㅆ",
+  "ㅇ",
+  "ㅈ",
+  "ㅉ",
+  "ㅊ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+];

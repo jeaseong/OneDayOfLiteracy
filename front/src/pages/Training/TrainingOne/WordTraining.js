@@ -22,6 +22,7 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { post, get } from "utils/api";
+import { CONSONANT } from "utils/constants";
 
 export default function WordTraining({ subject }) {
   const answerRef = useRef();
@@ -54,13 +55,6 @@ export default function WordTraining({ subject }) {
   };
 
   // 유저가 진행한 문제보다 뒤를 풀면 답이 나오게 출력, 아니라면 빈 칸으로 출력
-  const displayAnswer = () => {
-    const curWord = words[curIndex].word;
-    if (curIndex < progress) return curWord;
-    return new Array(curWord.replace(/(\s*)/g, "").length)
-      .fill("O")
-      .map((o, i) => o);
-  };
 
   //input value 업데이트
   const handleChangeAnswer = (e) => {
@@ -75,6 +69,15 @@ export default function WordTraining({ subject }) {
     } else answerRef.current.innerHTML = "틀렸습니다..";
   };
 
+  const makeConsonant = (word) => {
+    const 가 = 44032;
+    const consonant = word.split("").map((w, index) => {
+      const wordUniCode = w.charCodeAt(0) - 가;
+      return parseInt(wordUniCode / 588);
+    });
+    return consonant.map((o, i) => CONSONANT[o]);
+  };
+
   const stopWordTraining = async () => {
     await post("userwords", { word: words[progress - 1].word });
   };
@@ -86,7 +89,9 @@ export default function WordTraining({ subject }) {
           <WordMeaningBox>
             <WordMeaning>의미: {words[curIndex].meaning}</WordMeaning>
           </WordMeaningBox>
-          <WordSuggestion>힌트: {displayAnswer()}</WordSuggestion>
+          <WordSuggestion>
+            힌트: {makeConsonant(words[curIndex].word)}
+          </WordSuggestion>
           <AnswerForm onSubmit={(e) => handleSubmitAnswer(e)}>
             <AnswerInput
               type="text"
