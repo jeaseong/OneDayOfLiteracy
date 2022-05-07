@@ -45,8 +45,8 @@ function Posting() {
         category: categoryRef.current?.value,
       };
 
-      await post("posts", posting);
-      navigate("/posts");
+      const res = await post("posts", posting);
+      navigate(`/posts/${res.data.newPost[0]._id}`);
     } catch (error) {
       throw new Error(error);
     }
