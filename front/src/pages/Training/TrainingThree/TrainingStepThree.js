@@ -3,7 +3,7 @@ import TrainingGuide from "pages/Training/TrainingGuide";
 import Slide from "components/Slide/Slide";
 import TrainingTransription from "./TrainingTransription";
 import { TranscriptionDescription } from "./TranscriptionDescription";
-import { TAG_NAME } from "utils/constants";
+import { TAG_NAME, CATEGORY } from "utils/constants";
 import { useTranscriptionQuery } from "queries/transcriptionQuery";
 import {
   TrainingSubjectContainer,
@@ -11,25 +11,20 @@ import {
   TrainingStepTitle,
   ButtonWrap,
   FetchTranscriptionBtn,
+  IndexBtnWrap,
+  IndexBtn,
 } from "styles/Training/TrainingStyle";
-import { get } from "utils/api";
 export default function TrainingStepThree() {
-  const { isFetching, data } = useTranscriptionQuery();
-  const [subject, setSubject] = useState({});
-  const [isOpenTranscription, setIsOpenTranscription] = useState(false);
-  useEffect(() => {
-    const fetchApi = async () => {
-      const res = await get(`subjects/?level=3`);
-      setSubject(res.data);
-    };
-    fetchApi();
-  }, []);
-  const openTranscription = () => {
-    setIsOpenTranscription((cur) => !cur);
+  const { isFetching, transcription } = useTranscriptionQuery();
+  console.log(transcription);
+  const [curIndex, setCurIndex] = useState(0);
+
+  const fetchData = (index) => {
+    setCurIndex((cur) => index);
   };
   return (
     <>
-      {subject && (
+      {transcription && (
         <TrainingGuide>
           <TrainingSubjectContainer>
             <TrainingSubjectWrap>
@@ -38,17 +33,21 @@ export default function TrainingStepThree() {
             </TrainingSubjectWrap>
           </TrainingSubjectContainer>
           <ButtonWrap>
-            <FetchTranscriptionBtn onClick={openTranscription}>
-              {isOpenTranscription ? "닫기" : "필사 불러오기"}
-            </FetchTranscriptionBtn>
+            <IndexBtnWrap>
+              {transcription?.map((_, i) => (
+                <IndexBtn onClick={() => fetchData(i)} key={i}>
+                  {i + 1}
+                </IndexBtn>
+              ))}
+            </IndexBtnWrap>
+            <FetchTranscriptionBtn>필사 불러오기</FetchTranscriptionBtn>
           </ButtonWrap>
 
           <TrainingTransription
-            title="필사"
             tags={TAG_NAME.STEP_THREE}
-            subjectId={subject.subjectId}
-            category={subject.category}
-            content={subject.subject}
+            subjectId={transcription[curIndex]._id}
+            category={transcription[curIndex].category}
+            subject={transcription[curIndex].subject}
           />
         </TrainingGuide>
       )}

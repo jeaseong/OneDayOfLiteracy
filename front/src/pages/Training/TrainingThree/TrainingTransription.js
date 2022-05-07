@@ -17,9 +17,9 @@ import "styles/Posts/markdown.css";
 import { post } from "utils/api";
 export default function TrainingTransription({
   tags,
-  subjectId,
   category,
-  content,
+  subjectId,
+  subject,
 }) {
   const navigate = useNavigate();
   const [markdown, setMarkdown] = useState("");
@@ -49,9 +49,9 @@ export default function TrainingTransription({
     const curPost = {
       title: title,
       content: markdown,
+      category,
       tags,
       subjectId,
-      category,
     };
     await post("posts", curPost);
     navigate("/posts");
@@ -73,8 +73,9 @@ export default function TrainingTransription({
             <ReactMarkdown
               className="markdown"
               remarkPlugins={[remarkGfm]}
-              children={content}
+              children={subject}
             ></ReactMarkdown>
+            {/* <pre>{subject}</pre> */}
           </TranscriptionContainer>
           <PostingArea
             type="text"
