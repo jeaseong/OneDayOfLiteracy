@@ -22,8 +22,9 @@ RUN rm -rf /etc/nginx/conf.d/default.conf
 # 만약 그냥 conf 라고 경로를 주면 => 현 프로젝트 경로의 conf/conf.d/default.conf 중 conf.d/default.conf 넘어감
 COPY ./conf/conf.d/nginx.conf /etc/nginx/conf.d
 
-# 위에서 생성한 앱의 빌드산출물을 nginx의 실플 앱이 사용하던 폴더로 이동
-COPY --from=builder $HOME/build /usr/share/nginx/html
+# 위에서 생성한 앱의 빌드산출물을 nginx의 실플 앱이 사용하던 폴더로 이동 
+# 참고로 $HOME 같이 환경변수 쓰면 에러남;
+COPY --from=builder /elice/react_docker/build /usr/share/nginx/html
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80
