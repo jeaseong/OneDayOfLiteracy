@@ -23,7 +23,7 @@ RUN rm -rf /etc/nginx/conf.d/default.conf
 COPY ./conf/conf.d/nginx.conf /etc/nginx/conf.d
 
 # 위에서 생성한 앱의 빌드산출물을 nginx의 실플 앱이 사용하던 폴더로 이동
-COPY --from=builder /elice/node_docker/build /usr/share/nginx/html
+COPY --from=builder $HOME/build /usr/share/nginx/html
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80
