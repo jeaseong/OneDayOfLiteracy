@@ -13,9 +13,6 @@ COPY . $HOME
 
 RUN yarn build --silent --progress=false
 
-# linux 서버에 저장된 env 파일(mongoDB Atlas 개인디비 주소, 카카오 redirectURL 등 저장) 복사!
-COPY /home/elice/env $HOME/node_docker/
-
 ### nginx 사용
 FROM nginx
 
