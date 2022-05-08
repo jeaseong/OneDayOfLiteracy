@@ -1,4 +1,4 @@
-FROM node:16.14-alpine
+FROM base_env:0.1
 
 ENV HOME=/elice
 

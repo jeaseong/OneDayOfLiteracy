@@ -1,4 +1,4 @@
-FROM node:16.14-alpine as builder
+FROM base_env:0.1 as builder
 
 ENV HOME=/elice/react_docker
 
