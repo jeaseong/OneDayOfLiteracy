@@ -1,6 +1,6 @@
 # ![문해한 하루](https://user-images.githubusercontent.com/95131477/167049918-2fa0b62b-4b9e-4b2d-a814-f741b7ae419f.png)
 
-[서비스 동작화면 gif]
+![service-preview](https://user-images.githubusercontent.com/95131477/167271369-cc7de973-d897-4285-88bf-27d9c03265f0.gif)
 
 PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 문해력이 점차 낮아지고 있음을 분석하고, 문해력 향상을 위한 트레이닝 및 사용자들간 작성한 글을 공유하는 서비스 입니다.
 
@@ -37,9 +37,9 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 | 프로필 정보 수정 로직 수정 | 예정 |    X     |
 |   코드리뷰 반영 리팩터링   | 예정 |    X     |
 
-### 서비스 구조
+### 아키텍처
 
-![service-structure](https://user-images.githubusercontent.com/95131477/167176146-ef3927bb-030f-4d73-b24c-387cfd7d7ab2.png)
+![unknown](https://user-images.githubusercontent.com/95131477/167271437-4eae9816-f681-438b-b459-5487ae358d0f.png)
 
 ### 와이어프레임
 
@@ -66,6 +66,7 @@ REACT_APP_KAKAO_AUTH_URL={AUTH_URL}
 ```
 
 bash
+
 ```bash
 npm install -g yarn
 
@@ -118,8 +119,8 @@ yarn start
 
 |                  이름                  |    역할    |
 | :------------------------------------: | :--------: |
-|     [유혜선](https://github.com/)      |   백엔드   |
-|     [김영곤](https://github.com/)      |   백엔드   |
-|     [박재성](https://github.com/)      | 프론트엔드 |
+|  [유혜선](https://github.com/Hyes-y)   |   백엔드   |
+| [김영곤](https://github.com/shin3411)  |   백엔드   |
+| [박재성](https://github.com/jeaseong)  | 프론트엔드 |
 | [손정웅](https://github.com/Handwoong) | 프론트엔드 |
 | [손현주](https://github.com/guswn2521) | 프론트엔드 |
