@@ -48,7 +48,7 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 ![wireframe](https://user-images.githubusercontent.com/95131477/167145768-ed83ecfe-a5a8-4eff-be5f-ea5e857c3b07.png)
 
 ## ERD
-![image](uploads/5142ba71b77a3f20cae80f2ac07579d5/image.png)
+![erd](https://velog.velcdn.com/images/handwoong/post/87b2e951-d306-41f4-b274-921b4b99d2e2/image.jpeg)
 
 ## 기술 스택
 
