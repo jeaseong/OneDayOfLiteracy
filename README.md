@@ -47,13 +47,17 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 
 ![wireframe](https://user-images.githubusercontent.com/95131477/167145768-ed83ecfe-a5a8-4eff-be5f-ea5e857c3b07.png)
 
+## ERD
+![image](uploads/5142ba71b77a3f20cae80f2ac07579d5/image.png)
+
 ## 기술 스택
 
 ![tech-stack](https://user-images.githubusercontent.com/95131477/167141077-efa3e55d-f717-4a20-9435-134e37c02f80.png)
 
 ## 실행 방법
 
-[API Docs](http://elice-kdt-ai-4th-team02.elicecoding.com:5001/api-docs)
+- 서비스 내 Swagger => [API Docs in 문해한 하루](http://elice-kdt-ai-4th-team02.elicecoding.com:5001/api-docs)      
+- Swagger Hub => [API Docs in Swagger HUB](https://app.swaggerhub.com/apis/Hyes-y/team2API/0.1.9)
 
 **공통**
 
