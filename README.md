@@ -9,6 +9,8 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 ## Overview
 
 - [서비스 개요](#서비스-개요)
+- [아키텍처](#아키텍처)
+- [와이어프레임](#와이어프레임)
 - [기술 스택](#기술-스택)
 - [실행 방법](#실행-방법)
 - [팀원 소개](#팀원-소개)
@@ -37,11 +39,11 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 | 프로필 정보 수정 로직 수정 | 예정 |    X     |
 |   코드리뷰 반영 리팩터링   | 예정 |    X     |
 
-### 아키텍처
+## 아키텍처
 
 ![unknown](https://user-images.githubusercontent.com/95131477/167271437-4eae9816-f681-438b-b459-5487ae358d0f.png)
 
-### 와이어프레임
+## 와이어프레임
 
 ![wireframe](https://user-images.githubusercontent.com/95131477/167145768-ed83ecfe-a5a8-4eff-be5f-ea5e857c3b07.png)
 
@@ -50,6 +52,8 @@ PISA(국제 학업 성취도 평가) 데이터를 기반으로 한국인들의 �
 ![tech-stack](https://user-images.githubusercontent.com/95131477/167141077-efa3e55d-f717-4a20-9435-134e37c02f80.png)
 
 ## 실행 방법
+
+[API Docs](http://elice-kdt-ai-4th-team02.elicecoding.com:5001/api-docs)
 
 **공통**
 
