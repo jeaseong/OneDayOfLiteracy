@@ -16,8 +16,7 @@ export default function CommentRePly({ childComments }) {
         {childComments.filter((comment) => !comment.isDeleted).length}개 보기
       </ReplyCommentBtn>
       {isOpenReply &&
-        childComments?.map((comment, index) => (
-          // key를 어떻게 할지...
+        childComments?.map((comment) => (
           <React.Fragment key={comment._id}>
             {!comment.isDeleted && (
               <CommentSingle comment={comment} isReComment={true} />

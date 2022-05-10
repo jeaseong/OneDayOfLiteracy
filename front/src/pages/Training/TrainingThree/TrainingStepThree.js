@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TrainingGuide from "pages/Training/TrainingGuide";
 import Slide from "components/Slide/Slide";
 import TrainingTransription from "./TrainingTransription";
 import { TranscriptionDescription } from "./TranscriptionDescription";
-import { TAG_NAME, CATEGORY } from "utils/constants";
+import { TAG_NAME } from "utils/constants";
 import { useTranscriptionQuery } from "queries/transcriptionQuery";
 import {
   TrainingSubjectContainer,
@@ -14,14 +14,16 @@ import {
   IndexBtnWrap,
   IndexBtn,
 } from "styles/Training/TrainingStyle";
+
 export default function TrainingStepThree() {
-  const { isFetching, transcription } = useTranscriptionQuery();
+  const { transcription } = useTranscriptionQuery();
   console.log(transcription);
   const [curIndex, setCurIndex] = useState(0);
 
   const fetchData = (index) => {
-    setCurIndex((cur) => index);
+    setCurIndex(() => index);
   };
+
   return (
     <>
       {transcription && (

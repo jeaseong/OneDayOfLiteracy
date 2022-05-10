@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import PostCard from "./PostCard";
 import { PostsContainer } from "styles/Posts/PostStyle";
@@ -13,7 +13,6 @@ import SearchContent from "../../components/Search/SearchContent";
 
 function Posts() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
 

@@ -13,7 +13,6 @@ const PostingCategory = forwardRef(({}, ref) => {
         isCategoryEmpty={isCategoryEmpty}
         type="option"
         placeholder="카테고리"
-        // onChange={(e) => setIsCategoryEmpty(() => !e.target.value)}
       >
         <option value={LABEL.CATEGORY}>{LABEL.CATEGORY}</option>
         <option value={CATEGORY.NOVEL}>{CATEGORY.NOVEL}</option>

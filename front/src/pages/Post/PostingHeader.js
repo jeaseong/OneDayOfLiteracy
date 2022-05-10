@@ -11,7 +11,6 @@ const PostingHeader = forwardRef(({}, ref) => {
   return (
     <PostingTitleBox>
       <PostingTitle
-        // onChange={(e) => setIsTitleEmpty(() => !e.target.value)}
         isTitleEmpty={isTitleEmpty}
         type="text"
         placeholder="제목을 입력하세요"

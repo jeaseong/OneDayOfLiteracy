@@ -6,7 +6,6 @@ import { useQueryClient } from "react-query";
 import { useGetProfileUser } from "queries/userQuery";
 import PostEditForm from "./PostEditForm";
 import Loading from "components/Loading";
-import FileUpload from "components/FileUpload";
 import Comment from "pages/Comment/Comment";
 import {
   useGetPost,

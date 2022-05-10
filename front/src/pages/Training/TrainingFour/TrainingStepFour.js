@@ -10,8 +10,10 @@ import TrainingPost from "../TrainingPost/TrainingPost";
 import { TAG_NAME, TRAINING_INTRODUNCTION } from "utils/constants";
 import { createMarkup } from "utils/setInnerHTML";
 import { get } from "utils/api";
+
 export default function TrainingStepFour() {
   const [subject, setSubject] = useState({});
+
   useEffect(() => {
     const fetchApi = async () => {
       const res = await get(`subjects/?level=4`);
@@ -19,6 +21,7 @@ export default function TrainingStepFour() {
     };
     fetchApi();
   }, []);
+
   return (
     <TrainingGuide>
       <TrainingSubjectContainer>
