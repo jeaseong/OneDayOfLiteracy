@@ -85,24 +85,23 @@ function Post() {
     ALERT_TYPE.ERROR
   );
 
+  const handleClickLike = (type) => {
+    if (type === "dislike") {
+      postDislike.mutate();
+      likeMutation.mutate("down");
+      return;
+    }
+
+    postAddLike.mutate();
+    likeMutation.mutate("up");
+  };
+
   const postLikeList = isPostLike ? (
-    <LikeButton
-      disabled={!isLogin}
-      onClick={() => {
-        postDislike.mutate();
-        likeMutation.mutate("down");
-      }}
-    >
+    <LikeButton disabled={!isLogin} onClick={() => handleClickLike("dislike")}>
       <FavoriteIcon />
     </LikeButton>
   ) : (
-    <LikeButton
-      disabled={!isLogin}
-      onClick={() => {
-        postAddLike.mutate();
-        likeMutation.mutate("up");
-      }}
-    >
+    <LikeButton disabled={!isLogin} onClick={() => handleClickLike("like")}>
       <FavoriteBorderIcon />
     </LikeButton>
   );
