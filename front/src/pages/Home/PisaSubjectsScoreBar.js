@@ -9,7 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import pisaKScore from "../../data/pisaKScore.json";
+import pisaKScore from "data/pisaKScore.json";
 
 ChartJS.register(
   CategoryScale,

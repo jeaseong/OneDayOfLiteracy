@@ -1,6 +1,6 @@
-import { render, screen } from "../../../../test-utils";
+import { render, screen } from "test-utils";
 import "jest-styled-components";
-import Login from "../../../../pages/User/Auth/Login";
+import Login from "pages/User/Auth/Login";
 import userEvent from "@testing-library/user-event";
 
 const mockNavigate = jest.fn();

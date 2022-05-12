@@ -9,12 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import {
-  CountryButton,
-  FlagButton,
-  Buttons,
-} from "../../styles/Home/HomeStyle";
-import pisaTop15 from "../../data/pisaTop15.json";
+import { CountryButton, FlagButton, Buttons } from "styles/Home/HomeStyle";
+import pisaTop15 from "data/pisaTop15.json";
 
 ChartJS.register(
   CategoryScale,

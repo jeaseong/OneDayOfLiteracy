@@ -8,8 +8,8 @@ import {
   Legend,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
-import literacyEmployeeScatter from "../../data/literacyEmployeeScatter.json";
-import literacyEmployeeReg from "../../data/literacyEmployeeReg.json";
+import literacyEmployeeScatter from "data/literacyEmployeeScatter.json";
+import literacyEmployeeReg from "data/literacyEmployeeReg.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 

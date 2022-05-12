@@ -1,4 +1,4 @@
-import { img } from "../../utils/imgImport";
+import { img } from "utils/imgImport";
 
 export const dumy = [
   {

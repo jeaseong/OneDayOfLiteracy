@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CommentSingle from "./CommentSingle";
+import CommentSingle from "pages/Comment/CommentSingle";
 import { ReCommentBox, ReplyCommentBtn } from "styles/Comment/CommentStyle";
 export default function CommentRePly({ childComments }) {
   const [isOpenReply, setIsOpenReply] = useState(false);

@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PostingHeader from "./PostingHeader";
-import PostingContents from "./PostingContents";
-import PostingTag from "./PostingTag";
-import PostingCategory from "./PostingCategory";
+import PostingHeader from "pages/Post/PostingHeader";
+import PostingContents from "pages/Post/PostingContents";
+import PostingTag from "pages/Post/PostingTag";
+import PostingCategory from "pages/Post/PostingCategory";
 import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
 import "styles/Posts/markdown.css";
 import { post, uploadFile } from "utils/api";
-import FileUpload from "../../components/FileUpload";
+import FileUpload from "components/FileUpload";
 import { useQueryClient } from "react-query";
-import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
+import { PostChangeImgBox, PreviewImg } from "styles/Posts/PostStyle";
 
 function Posting() {
   const navigate = useNavigate();

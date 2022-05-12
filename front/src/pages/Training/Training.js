@@ -1,7 +1,7 @@
 import React from "react";
-import TrainingStep from "./TrainingStep";
+import TrainingStep from "pages/Training/TrainingStep";
 import { TrainingContainer } from "styles/Training/TrainingStyle";
-import { dumy } from "./dumyData";
+import { dumy } from "pages/Training/dumyData";
 
 export default function Training() {
   return (

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "jest-styled-components";
-import Register from "../../../../pages/User/Auth/Register";
+import Register from "pages/User/Auth/Register";
 import userEvent from "@testing-library/user-event";
 
 const mockNavigate = jest.fn();

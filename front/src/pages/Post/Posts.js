@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import PostCard from "./PostCard";
+import PostCard from "pages/Post/PostCard";
 import { PostsContainer } from "styles/Posts/PostStyle";
 import { useGetPostList } from "queries/postQuery";
 import Loading from "components/Loading";
 import ErrorPage from "components/ErrorPage";
 import { useQueryClient } from "react-query";
 import { useGetProfileOwner } from "queries/userQuery";
-import PostFilter from "./PostFilter";
-import SearchContent from "../../components/Search/SearchContent";
+import PostFilter from "pages/Post/PostFilter";
+import SearchContent from "components/Search/SearchContent";
 
 function Posts() {
   const location = useLocation();

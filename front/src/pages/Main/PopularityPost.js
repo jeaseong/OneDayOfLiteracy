@@ -1,9 +1,9 @@
-import { useGetPostList } from "../../queries/postQuery";
-import Loading from "../../components/Loading";
-import PostCard from "../Post/PostCard";
+import { useGetPostList } from "queries/postQuery";
+import Loading from "components/Loading";
+import PostCard from "pages/Post/PostCard";
 import { useQueryClient } from "react-query";
-import { PopularityPostContainer } from "../../styles/Main/MainStyle";
-import { LABEL, URI } from "../../utils/constants";
+import { PopularityPostContainer } from "styles/Main/MainStyle";
+import { LABEL, URI } from "utils/constants";
 import { Link } from "react-router-dom";
 
 function PopularityPost() {

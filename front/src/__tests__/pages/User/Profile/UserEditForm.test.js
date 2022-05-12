@@ -1,9 +1,9 @@
 import "jest-styled-components";
-import { render, screen } from "../../../../test-utils";
-import UserEditForm from "../../../../pages/User/Profile/UserEditForm";
+import { render, screen } from "test-utils";
+import UserEditForm from "pages/User/Profile/UserEditForm";
 import userEvent from "@testing-library/user-event";
-import { useGetCurrentUser } from "../../../../queries/userQuery";
-jest.mock("../../../../queries/userQuery");
+import { useGetCurrentUser } from "queries/userQuery";
+jest.mock("queries/userQuery");
 
 const editStateStore = { setIsEdit: jest.fn() };
 

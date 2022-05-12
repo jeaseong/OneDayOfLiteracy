@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useQueryClient } from "react-query";
 import { useGetProfileUser } from "queries/userQuery";
-import PostEditForm from "./PostEditForm";
+import PostEditForm from "pages/Post/PostEditForm";
 import Loading from "components/Loading";
 import Comment from "pages/Comment/Comment";
 import {

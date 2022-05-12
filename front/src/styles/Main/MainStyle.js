@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexBox, FlexBoxCenter, HeadingTwo } from "../Components/CommonStyle";
+import { FlexBox, FlexBoxCenter, HeadingTwo } from "styles/Components/CommonStyle";
 
 export const MainContainer = styled.section`
   display: flex;

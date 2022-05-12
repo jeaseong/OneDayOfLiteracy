@@ -1,5 +1,5 @@
-import { render, screen } from "../../test-utils";
-import Header from "../../components/Header";
+import { render, screen } from "test-utils";
+import Header from "components/Header";
 
 const mockNavigate = jest.fn();
 
