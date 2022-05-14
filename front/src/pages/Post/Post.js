@@ -48,6 +48,7 @@ function Post() {
   const { data, isFetching } = useGetPost(postId);
   const [showAlert, setShowAlert] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(FAIL_MESSAGE.IMAGE);
 
   // 유저 정보
   const { userState, isLogin } = queryClient.getQueryData("userState");
@@ -73,7 +74,8 @@ function Post() {
       queryClient.invalidateQueries("posts");
       navigate("/posts");
     } catch (err) {
-      console.log("삭제실패", err);
+      setAlertMessage(FAIL_MESSAGE.DELETE_POST);
+      setShowAlert(true);
     }
   };
 
@@ -81,7 +83,7 @@ function Post() {
   const changeFailImage = setAlertData(
     showAlert,
     setShowAlert,
-    FAIL_MESSAGE.IMAGE,
+    alertMessage,
     ALERT_TYPE.ERROR
   );
 
