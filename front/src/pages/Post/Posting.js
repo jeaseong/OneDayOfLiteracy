@@ -39,8 +39,7 @@ function Posting() {
     if (!inputEmpty.current) {
       await handleSubmit();
     } else {
-      const errorMessage = "빈값을 입력해주세요.";
-      throw new Error(errorMessage);
+      throw new Error("빈값을 입력해주세요.");
     }
   };
 
