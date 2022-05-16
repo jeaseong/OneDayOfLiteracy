@@ -1,10 +1,6 @@
 .idea
-.log
-logs
 
 # dependencies
 node_modules
 .env
-
-*.log
-logs
+**/.DS_Store
