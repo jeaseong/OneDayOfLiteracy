@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import PostingHeader from "./PostingHeader";
-import PostingContents from "./PostingContents";
-import PostingTag from "./PostingTag";
-import PostingCategory from "./PostingCategory";
-import { PostingButton, PostingBody } from "../../styles/Posts/PostingStyle";
-import "../../styles/Posts/markdown.css";
-import { put, uploadFile } from "../../utils/api";
+import PostingHeader from "pages/Post/PostingHeader";
+import PostingContents from "pages/Post/PostingContents";
+import PostingTag from "pages/Post/PostingTag";
+import PostingCategory from "pages/Post/PostingCategory";
+import { PostingButton, PostingBody } from "styles/Posts/PostingStyle";
+import "styles/Posts/markdown.css";
+import { put, uploadFile } from "utils/api";
 import { useQueryClient } from "react-query";
-import FileUpload from "../../components/FileUpload";
-import { PostChangeImgBox, PreviewImg } from "../../styles/Posts/PostStyle";
+import FileUpload from "components/FileUpload";
+import { PostChangeImgBox, PreviewImg } from "styles/Posts/PostStyle";
 
 function PostingEditForm({ setIsEdit }) {
   const params = useParams();

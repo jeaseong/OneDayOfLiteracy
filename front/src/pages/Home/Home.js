@@ -22,10 +22,10 @@ import {
 } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
 
-import PisaTop15BarCountries from "./PisaTop15Countries";
-import PisaGdpScatter from "./PisaGdpScatter";
-import PisaEmployee from "./PisaEmployee";
-import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
+import PisaTop15BarCountries from "pages/Home/PisaTop15Countries";
+import PisaGdpScatter from "pages/Home/PisaGdpScatter";
+import PisaEmployee from "pages/Home/PisaEmployee";
+import PisaSubjectScoreBar from "pages/Home/PisaSubjectsScoreBar";
 
 const BANNERS = [
   <Img url={img.bannerImage} alt={"banner5"} />,

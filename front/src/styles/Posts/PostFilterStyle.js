@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexBoxCenter, LinkButton } from "../Components/CommonStyle";
+import { FlexBoxCenter, LinkButton } from "styles/Components/CommonStyle";
 
 export const PostFilterContainer = styled(FlexBoxCenter)``;
 

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { PostingCategoryBox, PostingMessage } from "styles/Posts/PostingStyle";
 import "styles/Posts/markdown.css";
-import { CATEGORY, LABEL } from "../../utils/constants";
+import { CATEGORY, LABEL } from "utils/constants";
 
 const PostingCategory = forwardRef(({}, ref) => {
   const isCategoryEmpty = ref.current?.value.length === 0;
@@ -13,7 +13,6 @@ const PostingCategory = forwardRef(({}, ref) => {
         isCategoryEmpty={isCategoryEmpty}
         type="option"
         placeholder="카테고리"
-        // onChange={(e) => setIsCategoryEmpty(() => !e.target.value)}
       >
         <option value={LABEL.CATEGORY}>{LABEL.CATEGORY}</option>
         <option value={CATEGORY.NOVEL}>{CATEGORY.NOVEL}</option>

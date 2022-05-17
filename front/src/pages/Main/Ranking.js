@@ -4,11 +4,11 @@ import {
   RankingContainer,
   RankNickName,
   RankPoint,
-} from "../../styles/Main/MainStyle";
-import { img } from "../../utils/imgImport";
-import { useGetUserRank } from "../../queries/userQuery";
-import Loading from "../../components/Loading";
-import { LABEL } from "../../utils/constants";
+} from "styles/Main/MainStyle";
+import { img } from "utils/imgImport";
+import { useGetUserRank } from "queries/userQuery";
+import Loading from "components/Loading";
+import { LABEL } from "utils/constants";
 import { Link } from "react-router-dom";
 
 function Ranking() {

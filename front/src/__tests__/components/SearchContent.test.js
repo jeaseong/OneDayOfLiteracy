@@ -1,8 +1,8 @@
-import { render, screen } from "../../test-utils";
-import SearchContent from "../../components/Search/SearchContent";
+import { render, screen } from "test-utils";
+import SearchContent from "components/Search/SearchContent";
 import userEvent from "@testing-library/user-event";
-import { useGetPostList } from "../../queries/postQuery";
-jest.mock("../../queries/postQuery");
+import { useGetPostList } from "queries/postQuery";
+jest.mock("queries/postQuery");
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),

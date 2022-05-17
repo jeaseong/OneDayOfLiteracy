@@ -8,8 +8,8 @@ import {
   Legend,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
-import pisaGdp from "../../data/pisaGdp.json";
-import ransac from "../../data/ransac.json";
+import pisaGdp from "data/pisaGdp.json";
+import ransac from "data/ransac.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 

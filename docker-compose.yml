@@ -1,0 +1,36 @@
+version: '3.8' # 버전을 정의, 옵션이라 없어도 무방 #적어도 2이상 https://docs.docker.com/compose/compose-file/compose-file-v3/
+services: #컨테이너들 정의
+  frontend: #컨테이너 정의(이름 디폴트)
+    container_name: react_writing #컨테이너 이름 재지정
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    ports:
+      - 80:80
+    volumes:
+      # 데이터 저장위해 연결될 host OS 디렉토리:연결할 볼륨 컨테이너 내의 디렉토리
+      - ./frontend:/elice/react_docker
+    restart: "on-failure"
+    networks:
+      - writing-service
+
+  backend: #컨테이너 정의(이름 디폴트)
+    container_name: node_writing #컨테이너 이름 재지정
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    expose:
+      - 5001
+    ports:
+      - 5001:5001
+    volumes:
+      # 데이터 저장위해 연결될 host OS 디렉토리:연결할 볼륨 컨테이너 내의 디렉토리
+      - ./frontend:/elice/node_docker
+    restart: "on-failure"
+    networks:
+      - writing-service
+
+networks: # 같은 networks 정의
+  writing-service:

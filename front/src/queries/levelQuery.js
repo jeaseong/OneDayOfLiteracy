@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { post } from "../utils/api";
+import { post } from "utils/api";
 
 export const useUserLevelUp = (userId, maxExp) => {
   const queryClient = useQueryClient();

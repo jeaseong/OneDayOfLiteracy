@@ -1,9 +1,9 @@
 import {
   FilterButton,
   PostFilterContainer,
-} from "../../styles/Posts/PostFilterStyle";
+} from "styles/Posts/PostFilterStyle";
 import { useNavigate } from "react-router-dom";
-import { URI } from "../../utils/constants";
+import { URI } from "utils/constants";
 
 function PostFilter() {
   const navigate = useNavigate();

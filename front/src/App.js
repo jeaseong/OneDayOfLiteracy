@@ -19,7 +19,7 @@ import Posts from "pages/Post/Posts";
 import Post from "pages/Post/Post";
 import Posting from "pages/Post/Posting";
 import { useGetCurrentUser } from "queries/userQuery";
-import ScrollToTop from "hooks/ScrollToTop";
+import ScrollToTop from "utils/ScrollToTop";
 
 function App() {
   const { isFetching } = useGetCurrentUser();

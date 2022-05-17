@@ -4,9 +4,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useQueryClient } from "react-query";
 import { useGetProfileUser } from "queries/userQuery";
-import PostEditForm from "./PostEditForm";
+import PostEditForm from "pages/Post/PostEditForm";
 import Loading from "components/Loading";
-import FileUpload from "components/FileUpload";
 import Comment from "pages/Comment/Comment";
 import {
   useGetPost,
@@ -49,6 +48,7 @@ function Post() {
   const { data, isFetching } = useGetPost(postId);
   const [showAlert, setShowAlert] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(FAIL_MESSAGE.IMAGE);
 
   // 유저 정보
   const { userState, isLogin } = queryClient.getQueryData("userState");
@@ -74,7 +74,8 @@ function Post() {
       queryClient.invalidateQueries("posts");
       navigate("/posts");
     } catch (err) {
-      console.log("삭제실패", err);
+      setAlertMessage(FAIL_MESSAGE.DELETE_POST);
+      setShowAlert(true);
     }
   };
 
@@ -82,28 +83,27 @@ function Post() {
   const changeFailImage = setAlertData(
     showAlert,
     setShowAlert,
-    FAIL_MESSAGE.IMAGE,
+    alertMessage,
     ALERT_TYPE.ERROR
   );
 
+  const handleClickLike = (type) => {
+    if (type === "dislike") {
+      postDislike.mutate();
+      likeMutation.mutate("down");
+      return;
+    }
+
+    postAddLike.mutate();
+    likeMutation.mutate("up");
+  };
+
   const postLikeList = isPostLike ? (
-    <LikeButton
-      disabled={!isLogin}
-      onClick={() => {
-        postDislike.mutate();
-        likeMutation.mutate("down");
-      }}
-    >
+    <LikeButton disabled={!isLogin} onClick={() => handleClickLike("dislike")}>
       <FavoriteIcon />
     </LikeButton>
   ) : (
-    <LikeButton
-      disabled={!isLogin}
-      onClick={() => {
-        postAddLike.mutate();
-        likeMutation.mutate("up");
-      }}
-    >
+    <LikeButton disabled={!isLogin} onClick={() => handleClickLike("like")}>
       <FavoriteBorderIcon />
     </LikeButton>
   );
@@ -140,11 +140,12 @@ function Post() {
               </PostLikeContainer>
             </PostHeader>
             <PostFooter>
-              {data.tags?.map((tag, index) => (
-                <Link to={`/posts?tag=${tag}`} key={index}>
-                  <Tag>#{tag}</Tag>
-                </Link>
-              ))}
+              {data.tags[0].length !== 0 &&
+                data.tags?.map((tag, index) => (
+                  <Link to={`/posts?tag=${tag}`} key={index}>
+                    <Tag>#{tag}</Tag>
+                  </Link>
+                ))}
             </PostFooter>
             <PostBody>
               <PostBodyWrap>
