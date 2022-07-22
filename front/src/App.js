@@ -9,7 +9,7 @@ import KakaoLoginHandler from "pages/User/Auth/KakaoLoginHandler";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Loading from "components/Loading";
-import TestHome from "pages/TestSheet/TestHome";
+import TestHome from "pages/TestSheet/TestLayout";
 import TestResult from "pages/TestResult/TestResult";
 import TrainingStepOne from "pages/Training/TrainingOne/TrainingStepOne";
 import TrainingStepTwo from "pages/Training/TrainingTwo/TrainingStepTwo";

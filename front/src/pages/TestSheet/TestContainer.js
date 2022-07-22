@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import TestPresentation from "pages/TestSheet/TestPresentation";
-import TestProcessBtn from "pages/TestSheet/TestProcessBtn";
-import { NextBtn } from "styles/Test/TestStyle";
+import { NextBtn, ProcessContainer } from "styles/Test/TestStyle";
 import { useTestQuery } from "queries/testQuery";
 import { post } from "utils/api";
 
@@ -70,13 +69,22 @@ export default function TestContainer() {
         </NextBtn>
       )}
       {isProceedingTest && tests && (
-        <TestProcessBtn
-          step={step + 1}
-          totalQuestion={tests.length}
-          selectedAnswer={selectedAnswer}
-          onSubmit={onSubmit}
-          setNextQuestion={setNextQuestion}
-        />
+        <ProcessContainer>
+          {tests.length !== (step+1) ? (
+            <NextBtn
+              disabled={!selectedAnswer}
+              onClick={() => {
+              setNextQuestion();
+          }}
+        >
+            next
+          </NextBtn>
+        ) : (
+          <NextBtn disabled={false} onClick={onSubmit}>
+            결과보기!
+          </NextBtn>
+        )}
+        </ProcessContainer>
       )}
     </div>
   );
